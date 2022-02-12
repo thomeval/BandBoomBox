@@ -1,0 +1,185 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7961288735448498622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2980465978204444987}
+  - component: {fileID: 9095834114669746516}
+  - component: {fileID: 7961288735448498592}
+  - component: {fileID: 7961288735448498593}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2980465978204444987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961288735448498622}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9095834114669746516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961288735448498622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94bed52c6c0fe494fae4d9f8714a4edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HudManager: {fileID: 0}
+  _perfPoints: 0
+  _maxPerfPoints: 0
+  _scrollSpeed: 500
+  Slot: 1
+  _combo: 0
+  _maxCombo: 0
+  Name: Guest
+  _ranking: 0
+  _difficulty: 0
+  Exp: 0
+  _energy: 0
+  _turboActive: 0
+  _profileId: 
+  TimingDisplayType: 2
+  NoteSkin: Default
+  LabelSkin: None
+  _beatLineType: 1
+  SongsPlayed: 0
+  ChartGroup: Main
+--- !u!114 &7961288735448498592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961288735448498622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487345c30a5e65c4ab7eaed965799996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7961288735448498593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961288735448498622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: a0cb64addd8b2a64c892cc04e0b134b0, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 98644854-7fd7-434d-b438-d004f495244e
+    m_ActionName: Gameplay/Left[/XInputControllerWindows/dpad/left,/Keyboard/numpad4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 803cb216-cf97-4d9d-9aa1-9d202d946ecc
+    m_ActionName: Gameplay/Up[/XInputControllerWindows/dpad/up,/Keyboard/numpad8]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 752f00ac-1de0-4222-9bad-350b0d3b7af3
+    m_ActionName: Gameplay/Down[/XInputControllerWindows/dpad/down,/Keyboard/numpad2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 61c96047-e17d-4c4f-aef3-20aeca616274
+    m_ActionName: Gameplay/Right[/XInputControllerWindows/dpad/right,/Keyboard/numpad6]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f6aa15b3-82a3-45b9-bebd-695051ac997f
+    m_ActionName: Gameplay/A[/XInputControllerWindows/buttonSouth,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ee61fdd2-8ba2-4b45-91fb-a0705c007cbc
+    m_ActionName: Gameplay/B[/XInputControllerWindows/buttonEast,/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19053bd8-212b-48df-bfa7-447d12ffe586
+    m_ActionName: Gameplay/X[/XInputControllerWindows/buttonWest,/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 22cf99d9-5eb5-4d1b-a4af-ffd07c9c39d0
+    m_ActionName: Gameplay/Y[/XInputControllerWindows/buttonNorth,/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: db4c8244-8ac4-4883-8043-c3c574f17403
+    m_ActionName: Gameplay/LB[/XInputControllerWindows/leftShoulder,/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ae5137ce-9260-4fa2-a21d-6cb425aaa22c
+    m_ActionName: Gameplay/LT[/XInputControllerWindows/leftTrigger,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: da1ad24d-a7bf-4888-be92-a9b528c66d75
+    m_ActionName: Gameplay/RB[/XInputControllerWindows/rightShoulder,/Keyboard/numpad7]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e6ed159-b802-4da6-93a6-2000e4da6939
+    m_ActionName: Gameplay/RT[/XInputControllerWindows/rightTrigger,/Keyboard/numpad9]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a15dcc38-bc01-47de-aab5-47b2ca51d087
+    m_ActionName: Menu/Left[/XInputControllerWindows/dpad/left,/Keyboard/leftArrow,/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8fb5e834-8f12-4723-be68-bc618a589674
+    m_ActionName: Menu/Up[/XInputControllerWindows/dpad/up,/Keyboard/upArrow,/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7d1a89b2-c55f-4971-92c3-464fdc6bceac
+    m_ActionName: Menu/Right[/XInputControllerWindows/dpad/right,/Keyboard/rightArrow,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9af71f9d-b049-401d-b940-026a8835be00
+    m_ActionName: Menu/Down[/XInputControllerWindows/dpad/down,/Keyboard/downArrow,/Keyboard/s]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Controller
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

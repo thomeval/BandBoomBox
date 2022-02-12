@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Main Background
+    uniqueID: 3791124277
+    locked: 0
+  - name: Highway Background
+    uniqueID: 542395751
+    locked: 0
+  - name: Highway Under Notes 1
+    uniqueID: 3071633411
+    locked: 0
+  - name: Highway Under Notes 2
+    uniqueID: 2150187479
+    locked: 0
+  - name: Note Tails
+    uniqueID: 3748242173
+    locked: 0
+  - name: Notes
+    uniqueID: 1129690225
+    locked: 0
+  - name: Highway Above Notes 1
+    uniqueID: 1443845655
+    locked: 0
+  - name: Highway Above Notes 2
+    uniqueID: 2601262303
+    locked: 0
+  - name: HUD Background
+    uniqueID: 1091715425
+    locked: 0
+  - name: HUD Foreground
+    uniqueID: 2788910805
+    locked: 0
+  - name: HUD Text
+    uniqueID: 81716237
+    locked: 0
+  - name: Popup Background
+    uniqueID: 522514031
+    locked: 0
+  - name: Popup Foreground
+    uniqueID: 1505279245
+    locked: 0
+  - name: Popup Text
+    uniqueID: 1450976147
+    locked: 0
+  - name: Transition Background
+    uniqueID: 2407097497
+    locked: 0
+  - name: Transition Foreground
+    uniqueID: 2183740813
+    locked: 0
