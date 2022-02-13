@@ -32,13 +32,39 @@ public class HighScoreManager : MonoBehaviour
         {
             var json = CompressedFileHelper.DecompressFromFile(path);
             var temp = JsonConvert.DeserializeObject<List<TeamScore>>(json);
-            TeamScores = temp.ToList();
+            TeamScores = temp;
             Debug.Log($"Team high scores successfully loaded from {path}");
+
+            // TODO: Find out why duplicates occur, and fix the root cause. Then remove this method.
+            FixDuplicates();
         }
         catch (Exception e)
         {
             Debug.LogWarning($"Failed to load team high scores: {e}");
         }
+    }
+
+    public void FixDuplicates()
+    {
+        var dups = TeamScores.GroupBy(e => $"{e.SongVersion} {e.SongId} {e.Category}").Where(g => g.Count() > 1);
+        int count = 0;
+        List<TeamScore> scoresToRemove = new List<TeamScore>();
+
+        foreach (var dupGroup in dups)
+        {
+            var duds = dupGroup.OrderByDescending(e => e.Score).Skip(1).ToList();
+            scoresToRemove.AddRange(duds);
+            count += duds.Count;
+        }
+
+        foreach (var score in scoresToRemove)
+        {
+            TeamScores.Remove(score);
+        }
+
+        Save();
+
+        Debug.Log($"Removed {count} duplicate team scores.");
     }
 
     public void Save()
@@ -63,18 +89,31 @@ public class HighScoreManager : MonoBehaviour
     {
         var category = GetCategory(playerCount);
 
-        var result = TeamScores.SingleOrDefault(e => e.Category == category && e.SongId == songId && e.SongVersion == songVersion);
-        return result;
+        try
+        {
+            var result = TeamScores.SingleOrDefault(e => e.Category == category && e.SongId == songId && e.SongVersion == songVersion);
+            return result;
+        }
+        catch (InvalidOperationException ex)
+        { 
+            Debug.LogError($"Failed to retrieve team high score for song {songId}, version {songVersion}, category {category}. {ex}");
+            return null;
+        }
+  
     }
 
     public bool AddTeamScore(TeamScore teamScore)
     {
-        var existing = GetTeamScore(teamScore.SongId, teamScore.NumPlayers, teamScore.SongVersion);
+        Debug.Log($"Saving Team High Score: {teamScore.SongId}, {teamScore.Category}, v{teamScore.SongVersion} : {teamScore.Score}");
+
+        var existing = GetTeamScore(teamScore.SongId, teamScore.SongVersion, teamScore.NumPlayers);
 
         if (existing == null)
         {
             TeamScores.Add(teamScore);
             Save();
+
+            Debug.Assert(GetTeamScoreCount(teamScore.SongId, teamScore.Category, teamScore.SongVersion) == 1);
             return true;
         }
         if (existing.Score >= teamScore.Score)
@@ -85,7 +124,14 @@ public class HighScoreManager : MonoBehaviour
         TeamScores.Remove(existing);
         TeamScores.Add(teamScore);
         Save();
+
+        Debug.Assert(GetTeamScoreCount(teamScore.SongId, teamScore.Category, teamScore.SongVersion) == 1);
         return true;
+    }
+
+    private int GetTeamScoreCount(string songId, TeamScoreCategory category, int songVersion)
+    {
+        return TeamScores.Count(e => e.SongId == songId && e.Category == category && e.SongVersion == songVersion);
     }
 
     public static TeamScoreCategory GetCategory(int playerCount)

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 
 [Serializable]
+[DebuggerDisplay("{SongId} (v{SongVersion} {Category}) - {Score}")]
 public class TeamScore
 {
     public string SongId { get; set; }
