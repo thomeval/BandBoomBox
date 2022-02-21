@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2232976094325357003}
   m_RootOrder: 3
@@ -156,6 +157,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 806329157485359591}
   - {fileID: 1923562750085487377}
@@ -182,7 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MenuItemsContainer: {fileID: 1923562750085481710}
   SelectionHighlight: {fileID: 806329157485359585}
-  SelectionHighlightPadding: {x: 0, y: 0}
+  SelectionHighlightPadding: {x: 20, y: 0}
   TxtExplanation: {fileID: 0}
   YScrollOffset: 0
   SfxSelectionShifted: {fileID: 3998125392918876296}
@@ -191,7 +193,7 @@ MonoBehaviour:
   SfxSelectionCancelled: {fileID: 6260391227484214349}
   WrapSelection: 1
   _selectedIndex: 0
-  CancelMenuAction: Back
+  CancelMenuAction: Leave
   Player: 0
 --- !u!223 &1923562749500750278
 Canvas:
@@ -255,6 +257,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1923562749500750276}
   m_RootOrder: 1
@@ -317,6 +320,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2232976094325357003}
   m_RootOrder: 1
@@ -444,6 +448,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2232976094325357003}
   m_RootOrder: 0
@@ -570,6 +575,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2233635522841570140}
   - {fileID: 3048631113943408244}
@@ -605,6 +611,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2232976094325357003}
   m_RootOrder: 2
@@ -806,11 +813,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 954291014dd5f6841ab1b7c3edef75a0, type: 3}
---- !u!224 &806329157485359591 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8580008319100350438, guid: 954291014dd5f6841ab1b7c3edef75a0, type: 3}
-  m_PrefabInstance: {fileID: 8944984505004531201}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &806329157485359585 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8580008319100350432, guid: 954291014dd5f6841ab1b7c3edef75a0, type: 3}
@@ -822,3 +824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df3031b40e229547acb7f0d9a5ee22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &806329157485359591 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8580008319100350438, guid: 954291014dd5f6841ab1b7c3edef75a0, type: 3}
+  m_PrefabInstance: {fileID: 8944984505004531201}
+  m_PrefabAsset: {fileID: 0}

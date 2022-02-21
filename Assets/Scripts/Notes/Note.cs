@@ -17,6 +17,8 @@ public class Note : MonoBehaviour
 
     public int Lane;
 
+    public float MxValue = 0;
+
     private SpriteResolver _spriteResolver;
     private SpriteResolver _holdSpriteResolver;
     private SpriteResolver _labelSpriteResolver;
@@ -38,7 +40,7 @@ public class Note : MonoBehaviour
         width /= this.transform.localScale.x;
 
         HoldTailSprite.size = new Vector2(width, HoldSpriteHeight);
-        HoldTailSprite.transform.localPosition = new Vector3(width / 2,0,0);
+        HoldTailSprite.transform.localPosition = new Vector3(width / 2, 0, 0);
     }
     public void SetPosition(float newXPos)
     {
@@ -54,6 +56,11 @@ public class Note : MonoBehaviour
 
     public void SetSpriteCategories(string noteSkinCat, string labelSkinCat)
     {
+        if (_spriteResolver == null)
+        {
+            Awake();
+        }
+
         if (HoldTailSprite != null && _holdSpriteResolver == null)
         {
             _holdSpriteResolver = HoldTailSprite.GetComponent<SpriteResolver>();
@@ -69,9 +76,9 @@ public class Note : MonoBehaviour
             noteSkinCat = "Notes_" + noteSkinCat;
             LabelObject.SetActive(true);
         }
-        
-        _spriteResolver.SetCategoryAndLabel( noteSkinCat, NoteType.ToString());
-        _labelSpriteResolver.SetCategoryAndLabel("Labels_" +labelSkinCat, NoteType.ToString());
+
+        _spriteResolver.SetCategoryAndLabel(noteSkinCat, NoteType.ToString());
+        _labelSpriteResolver.SetCategoryAndLabel("Labels_" + labelSkinCat, NoteType.ToString());
         _holdSpriteResolver?.SetCategoryAndLabel("HoldTails", NoteType.ToString());
     }
 }

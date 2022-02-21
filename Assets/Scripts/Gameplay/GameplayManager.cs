@@ -12,6 +12,7 @@ public class GameplayManager : ScreenManager
     public NoteGenerator NoteGenerator;
     public HudManager HudManager;
     public PauseMenu PauseMenu;
+    public SongStarScoreValues SongStarScoreValues;
 
     public float SongPosition
     {
@@ -78,6 +79,7 @@ public class GameplayManager : ScreenManager
 
     private PlayerManager _playerManager;
     private SongManager _songManager;
+    private SongStarValueCalculator _songStarValueCalculator;
 
     private HitJudge _hitJudge;
     DateTime _lastUpdate = DateTime.Now;
@@ -94,6 +96,7 @@ public class GameplayManager : ScreenManager
         _hitJudge = new HitJudge();
         _playerManager = CoreManager.PlayerManager;
         _songManager = FindObjectOfType<SongManager>();
+        _songStarValueCalculator = FindObjectOfType<SongStarValueCalculator>();
     }
 
 
@@ -153,6 +156,7 @@ public class GameplayManager : ScreenManager
         var selectedSongData = CoreManager.CurrentSongData;
         ApplySelectedSong(selectedSongData);
         SetupNoteHighways();
+        CalculateStarScores();
 
         // Temporary value. This will get set properly once the song goes past its playable state.
         _outroTime = DateTime.Now.AddDays(1);
@@ -169,6 +173,13 @@ public class GameplayManager : ScreenManager
 
         // TODO: Move to settings loading / saving
         _songManager.UserAudioLatency = CoreManager.Settings.AudioLatency;
+    }
+
+    private void CalculateStarScores()
+    {
+        var currentSong = _songManager.CurrentSong;
+        var charts = NoteManagers.Where(e => e.gameObject.activeInHierarchy).Select(e => e.Chart).ToList();
+        SongStarScoreValues = _songStarValueCalculator.CalculateSuggestedScores(charts, currentSong.LengthInBeats, currentSong.Bpm);
     }
 
     void FixedUpdate()
@@ -581,7 +592,10 @@ public class GameplayManager : ScreenManager
 
     public double GetStarFraction(long score)
     {
-        var category = _playerManager.GetScoreCategory();
-        return _songManager.GetStarFraction(category, score);
+        if (SongStarScoreValues == null)
+        {
+            return 0;
+        }
+        return SongStarScoreValues.GetStarFraction(score);
     }
 }

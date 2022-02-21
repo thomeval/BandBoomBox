@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class EditorChartListPage : EditorPageManager
 {
     public EditorDifficultyListItem ListItemPrefab;
-    public EditorScoreRequirementsDisplay EditorScoreRequirementsDisplay;
 
 
     public Button BtnBack;
@@ -47,7 +46,6 @@ public class EditorChartListPage : EditorPageManager
     private void OnEnable()
     {
         PopulateList();
-        PopulateScoreRequirementsTable();
     }
 
     #region Event Handlers
@@ -66,27 +64,11 @@ public class EditorChartListPage : EditorPageManager
         {
             return;
         }
-
-        if (!ValidateScoreRequirements())
-        {
-            return;
-        }
-
         var newCharts = DisplayedCharts.Select(e => e.DisplayedChart).ToList();
         Parent.CurrentSong.SongCharts = newCharts;
 
-        var newScoreValues = EditorScoreRequirementsDisplay.GetSongStarScoreValues();
-        Parent.CurrentSong.SongStarScoreValues = newScoreValues;
         Parent.SaveCurrentSong(false);
         Parent.CurrentPage = EditorPage.MainMenu;
-    }
-
-    private bool ValidateScoreRequirements()
-    {
-        var result = EditorScoreRequirementsDisplay.Validate();
-        TxtErrorScoreRequirements.text = result;
-
-        return string.IsNullOrEmpty(result);
     }
 
     private bool ValidateCharts()
@@ -153,10 +135,6 @@ public class EditorChartListPage : EditorPageManager
             ListItemContainer.AddChild(obj.gameObject);
             DisplayedCharts.Add(obj);
         }
-    }
-    private void PopulateScoreRequirementsTable()
-    {
-        EditorScoreRequirementsDisplay.Display(Parent.CurrentSong);
     }
 }
 

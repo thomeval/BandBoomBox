@@ -28,12 +28,13 @@ public class InputManager : MonoBehaviour
 
     void Awake()
     {
-        _playerInput = GetComponent <PlayerInput>();
-     
+        _playerInput = GetComponent<PlayerInput>();
+
         _coreManager = GameObject.Find("CoreManager");
         _player = this.GetComponentInParent<Player>();
-
+        var _manager = this.GetComponent<PlayerInputManager>();
     }
+
     void Start()
     {
         OnControlsChanged(_playerInput);
@@ -44,12 +45,12 @@ public class InputManager : MonoBehaviour
 
     void RegisterInput(InputValue value, string action)
     {
-        var inputEvent = new InputEvent {Player = _player.Slot, Action = action, IsPressed = value.isPressed};
+        var inputEvent = new InputEvent { Player = _player.Slot, Action = action, IsPressed = value.isPressed };
         _coreManager.SendMessage("OnPlayerInput", inputEvent);
     }
     void OnA(InputValue value)
     {
-        RegisterInput(value,"A");
+        RegisterInput(value, "A");
     }
     void OnB(InputValue value)
     {
@@ -112,7 +113,7 @@ public class InputManager : MonoBehaviour
     {
         RegisterInput(value, "Back");
     }
-        
+
     void OnControlsChanged(PlayerInput input)
     {
         if (_player == null)
@@ -121,12 +122,12 @@ public class InputManager : MonoBehaviour
         }
         var preferredController = GetPreferredControllerType();
         _coreManager.SendMessage("OnPlayerControlsChanged",
-                new ControlsChangedArgs {Player = _player.Slot, ControllerType = preferredController});
+                new ControlsChangedArgs { Player = _player.Slot, ControllerType = preferredController });
     }
 
     void OnDeviceLost(PlayerInput input)
     {
-        _coreManager.SendMessage("OnDeviceLost", new DeviceLostArgs {Player = _player.Slot});
+        _coreManager.SendMessage("OnDeviceLost", new DeviceLostArgs { Player = _player.Slot });
     }
 
     public string GetPreferredControllerType()

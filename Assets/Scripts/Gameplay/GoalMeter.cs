@@ -110,11 +110,27 @@ public class GoalMeter : MonoBehaviour
         {
             FailSprite.SetActive(true);
         }
-        else if (Meter.Value < DangerPercent)
+        else
         {
-            DangerSprite.SetActive(true);
+            var meterPercent = GetMeterPercent();
+
+            if  (meterPercent < DangerPercent)
+            {
+                DangerSprite.SetActive(true);
+            }
         }
 
+
+    }
+
+    private float GetMeterPercent()
+    {
+        var tempMax = Max - Min;
+        var tempValue = Value - Min;
+        tempValue = Math.Max(0, tempValue);
+        var result = 1.0f * tempValue / tempMax;
+
+        return result;
     }
 
     private void UpdateMeter()
@@ -128,8 +144,7 @@ public class GoalMeter : MonoBehaviour
         var tempValue = Value - Min;
         tempValue = Math.Max(0, tempValue);
 
-        var percent =
-            Meter.Value = 1.0f * tempValue / tempMax;
+        var percent = GetMeterPercent();
 
         var beat = _songManager.GetSongPositionInBeats();
         beat -= Mathf.Floor(beat);

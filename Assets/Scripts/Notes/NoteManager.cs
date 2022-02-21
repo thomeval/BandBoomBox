@@ -7,6 +7,7 @@ public class NoteManager : MonoBehaviour
 {
     public List<Note> Notes;
     public List<BeatLine> BeatLines;
+    public SongChart Chart;
 
     public int ImpactZoneCenter = -540;
 
@@ -33,6 +34,7 @@ public class NoteManager : MonoBehaviour
     private readonly List<BeatLine> _beatLinesToRemove = new List<BeatLine>();
 
     private GameplayManager _gameplayManager;
+
 
     private readonly Note[] _pendingReleases = new Note [4];
 

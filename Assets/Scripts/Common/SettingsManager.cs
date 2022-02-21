@@ -20,10 +20,10 @@ public class SettingsManager : MonoBehaviour
     [Header("Audio Settings")]
     public float MasterVolume = 0.5f;
     public float GameplaySfxVolume = 1.0f;
-    public float GameplayMusicVolume = 1.0f;
+    public float GameplayMusicVolume = 0.8f;
     public float MistakeVolume = 1.0f;
     public float MenuSfxVolume = 1.0f;
-    public float MenuMusicVolume = 1.0f;
+    public float MenuMusicVolume = 0.8f;
     public float AudioLatency;
 
     [Header("Graphics Settings")]

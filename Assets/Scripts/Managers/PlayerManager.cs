@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
 
     public Player PlayerPrefab;
 
-    public bool AllowPlayerJoining 
+    public bool AllowPlayerJoining
     {
         get { return _playerInputManager.joiningEnabled; }
         set
@@ -92,6 +92,11 @@ public class PlayerManager : MonoBehaviour
         player.MaxPerfPoints = maxPerfPoints;
     }
 
+    public void SortPlayers()
+    {
+        Players = Players.OrderBy(e => e.Slot).ToList();
+    }
+
     public void SetActionMap(ActionMapType actionMap)
     {
         foreach (var player in Players)
@@ -108,7 +113,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetPlayerCount(int players)
     {
-        players = Helpers.Clamp(players, 1,4);
+        players = Helpers.Clamp(players, 1, 4);
         while (players < Players.Count)
         {
             var playerToRemove = Players[Players.Count - 1];
@@ -139,6 +144,14 @@ public class PlayerManager : MonoBehaviour
         player.ApplyInputActions(_controlsManager.InputActionAsset.ToJson());
 
         _coreManager.OnPlayerJoined(player);
+    }
+
+    public void AutoSetNoteSkin()
+    {
+        foreach (var player in GetLocalPlayers())
+        {
+            player.AutoSetLabelSkin();
+        }
     }
 
     public void RemovePlayer(int slot)

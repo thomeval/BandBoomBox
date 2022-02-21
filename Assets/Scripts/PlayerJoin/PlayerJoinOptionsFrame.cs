@@ -13,7 +13,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public Text TxtLabelSkin;
     public Text TxtGoal;
 
-    public Grade?[] Goals = {null, Grade.D, Grade.C, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus};
+    public Grade?[] Goals = { null, Grade.D, Grade.C, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus };
 
     public List<Note> NotePreviews;
 
@@ -38,9 +38,9 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         switch (args.SelectedItem)
         {
             case "Scroll Speed":
-               Parent.Player.ChangeScrollSpeed(amount);
-               break;
-            case "Timing Display": 
+                Parent.Player.ChangeScrollSpeed(amount);
+                break;
+            case "Timing Display":
                 Parent.Player.ChangeTimingDisplayType(amount);
                 break;
             case "Note Labels":
@@ -88,6 +88,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
 
         TxtScrollSpeed.text = "" + player.ScrollSpeed;
         TxtLabelSkin.text = player.LabelSkin;
+        // UpdateNotePreviews();
         TxtTimingDisplay.text = player.TimingDisplayType.ToString();
 
         var goalGrade = player.GetGoalGrade();

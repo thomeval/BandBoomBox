@@ -30,6 +30,8 @@ public class Menu : MonoBehaviour
 
     [SerializeField]
     private int _selectedIndex;
+    private bool _firstDraw;
+
     public int SelectedIndex
     {
         get { return _selectedIndex; }
@@ -47,11 +49,11 @@ public class Menu : MonoBehaviour
         {
             if (!_menuItems.Any())
             {
-                return new Vector2(0,0);
+                return new Vector2(0, 0);
             }
 
             var rt = _menuItems.Last().GetComponent<RectTransform>();
-            return ((Vector2) rt.localPosition) - rt.sizeDelta;
+            return ((Vector2)rt.localPosition) - rt.sizeDelta;
         }
     }
     public void UpdateExplanationText()
@@ -227,7 +229,7 @@ public class Menu : MonoBehaviour
 
         ForceLayoutUpdate();
         SelectedIndex = 0;
-        
+
     }
 
     public void AddItem(GameObject newObject)
@@ -239,13 +241,13 @@ public class Menu : MonoBehaviour
             throw new ArgumentException("Only GameObjects that include a MenuItem component can be added to Menus.");
         }
 
-        
+
         newObject.transform.SetParent(MenuItemsContainer.transform);
         var rt = newObject.GetComponent<RectTransform>();
         if (rt != null)
         {
             var posY = MenuItemsBottom.y - (rt.sizeDelta.y / 2);
-            newObject.transform.localPosition = new Vector3(0,posY,0);
+            newObject.transform.localPosition = new Vector3(0, posY, 0);
         }
 
         _menuItems.Add(menuItem);
@@ -301,10 +303,10 @@ public class Menu : MonoBehaviour
             case "Back":
                 RaiseItemSelected(true);
                 break;
-            
+
         }
 
-//        MoveHighlight();
+        //        MoveHighlight();
     }
 
     private void RaiseItemShifted(int delta)

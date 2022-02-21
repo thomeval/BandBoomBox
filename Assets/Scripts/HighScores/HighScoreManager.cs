@@ -35,7 +35,6 @@ public class HighScoreManager : MonoBehaviour
             TeamScores = temp;
             Debug.Log($"Team high scores successfully loaded from {path}");
 
-            // TODO: Find out why duplicates occur, and fix the root cause. Then remove this method.
             FixDuplicates();
         }
         catch (Exception e)
@@ -47,24 +46,30 @@ public class HighScoreManager : MonoBehaviour
     public void FixDuplicates()
     {
         var dups = TeamScores.GroupBy(e => $"{e.SongVersion} {e.SongId} {e.Category}").Where(g => g.Count() > 1);
-        int count = 0;
         List<TeamScore> scoresToRemove = new List<TeamScore>();
 
         foreach (var dupGroup in dups)
         {
             var duds = dupGroup.OrderByDescending(e => e.Score).Skip(1).ToList();
             scoresToRemove.AddRange(duds);
-            count += duds.Count;
         }
+
+        scoresToRemove.AddRange(TeamScores.Where(e => e.Category == TeamScoreCategory.NoPlayers).ToList());
+        int count = scoresToRemove.Count;
 
         foreach (var score in scoresToRemove)
         {
             TeamScores.Remove(score);
         }
 
+        if (count == 0)
+        {
+            return;
+        }
+
+        Debug.Log($"Removed {count} invalid/duplicate team scores.");
         Save();
 
-        Debug.Log($"Removed {count} duplicate team scores.");
     }
 
     public void Save()
@@ -104,12 +109,17 @@ public class HighScoreManager : MonoBehaviour
 
     public bool AddTeamScore(TeamScore teamScore)
     {
-        Debug.Log($"Saving Team High Score: {teamScore.SongId}, {teamScore.Category}, v{teamScore.SongVersion} : {teamScore.Score}");
+        if (teamScore.Category == TeamScoreCategory.NoPlayers)
+        {
+            return false;
+        }
+
 
         var existing = GetTeamScore(teamScore.SongId, teamScore.SongVersion, teamScore.NumPlayers);
 
         if (existing == null)
         {
+            Debug.Log($"Inserting Team High Score: {teamScore.SongId}, {teamScore.Category}, v{teamScore.SongVersion} : {teamScore.Score}");
             TeamScores.Add(teamScore);
             Save();
 
@@ -121,6 +131,7 @@ public class HighScoreManager : MonoBehaviour
             return false;
         }
 
+        Debug.Log($"Updating Team High Score: {teamScore.SongId}, {teamScore.Category}, v{teamScore.SongVersion} : {teamScore.Score}");
         TeamScores.Remove(existing);
         TeamScores.Add(teamScore);
         Save();

@@ -12,10 +12,11 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
     public Text TxtEnteredText;
     public Text TxtCurrentLetter;
     public Text TxtMessage;
+    public MenuItem MitUpperLowerCase;
 
     public int MaxLength = 12;
 
-    private readonly string _letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_?!";
+    private string _letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-";
     private ProfileManager _profileManager;
 
     public char CurrentLetter
@@ -70,12 +71,12 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
             case "B":
                 if (Menu.SelectedIndex == 0)
                 {
-                    MenuItemSelected(new MenuEventArgs {SelectedItem = "Backspace"});
+                    MenuItemSelected(new MenuEventArgs { SelectedItem = "Backspace" });
                     Menu.PlaySound("SelectionCancelled");
                 }
                 return;
             case "Back":
-                MenuItemSelected(new MenuEventArgs {SelectedItem = "Cancel"});
+                MenuItemSelected(new MenuEventArgs { SelectedItem = "Cancel" });
 
                 break;
         }
@@ -113,6 +114,19 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
                     Refresh();
                 }
                 break;
+            case "Lowercase":
+                _letters = _letters.ToLowerInvariant();
+                MitUpperLowerCase.SetText("Uppercase");
+                ChangeSelectedLetter(0);
+                break;
+            case "Uppercase":
+                _letters = _letters.ToUpperInvariant();
+                MitUpperLowerCase.SetText("Lowercase");
+                ChangeSelectedLetter(0);
+                break;
+            case "Space":
+                AddLetter(' ');
+                break;
             case "Cancel":
                 Parent.SfxSelectionCancelled.PlayUnlessNull();
                 Parent.State = PlayerJoinState.ProfileSelect;
@@ -128,9 +142,17 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
 
     private void AddLetter(MenuEventArgs args)
     {
-        if (args.SelectedIndex == 0 && EnteredText.Length < MaxLength)
+        if (args.SelectedIndex == 0)
         {
-            EnteredText += CurrentLetter;
+            AddLetter(CurrentLetter);
+        }
+    }
+
+    private void AddLetter(char letter)
+    {
+        if (EnteredText.Length < MaxLength)
+        {
+            EnteredText += letter;
             Refresh();
         }
     }

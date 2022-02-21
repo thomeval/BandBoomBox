@@ -39,7 +39,6 @@ public class NoteGenerator : MonoBehaviour
         var notes = new List<Note>();
 
         var chart = songData.GetChart(group, difficulty);
-
         if (chart == null || chart.Notes.Length == 0)
         {
             GenerateNotes(difficulty, (int) songData.LengthInBeats, notes);
@@ -49,6 +48,7 @@ public class NoteGenerator : MonoBehaviour
             LoadNoteArray(chart.Notes, ref notes);
         }
 
+        destination.Chart = chart;
         destination.Notes = notes;
         destination.AttachNotes();
         destination.ApplyNoteSkin();
@@ -241,17 +241,18 @@ public class NoteGenerator : MonoBehaviour
         float currentBeatFraction = 0.0f;
         foreach (var slice in slices)
         {
-            LoadNoteSlice(slice, beat + currentBeatFraction, ref destination);
+            LoadNoteSlice(slice, beat + currentBeatFraction,  ref destination);
             currentBeatFraction += beatFraction;
         }
     }
 
-    private void LoadNoteSlice(string slice, float beat, ref List<Note> destination)
+    private void LoadNoteSlice(string slice, float beat,  ref List<Note> destination)
     {
         for (int x = 0; x < BLOCK_SIZE; x++)
         {
             var noteType = SjsonUtils.ResolveNoteType(slice[x], x);
             var noteClass = SjsonUtils.ResolveNoteClass(slice[x]);
+            
             if (noteType != null)
             {
                 InstantiateNote(beat, noteType.Value, noteClass.Value, ref destination);

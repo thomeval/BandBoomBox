@@ -35,8 +35,6 @@ public class SongData
     [Header("Charts")]
     public List<SongChart> SongCharts;
 
-    public List<SongStarScoreValues> SongStarScoreValues = new List<SongStarScoreValues>();
-
     [JsonIgnore]
     public float LengthInBeats
     {
@@ -53,18 +51,6 @@ public class SongData
         return SongCharts.SingleOrDefault(e => e.Group == group && e.Difficulty == difficulty);
     }
 
-    public double GetStarFraction(TeamScoreCategory scoreCategory, long score)
-    {
-        var scoreValues = SongStarScoreValues.SingleOrDefault(e => e.ScoreCategory == scoreCategory);
-
-        if (scoreValues == null)
-        {
-            return 0.0;
-        }
-
-        return scoreValues.GetStarFraction(score);
-
-    }
 
     public (int min, int max) GetDifficultyRange(Difficulty diff)
     {

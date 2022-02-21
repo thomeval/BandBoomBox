@@ -14,6 +14,7 @@ public class MainMenuManager : ScreenManager
     public ErrorMessage ErrorMessage;
     public Text TxtVersion;
 
+    public Animator LogoAnimator;
     public float StartAnimationDelay = 1.0f;
 
     [Header("Sounds")]
@@ -33,6 +34,7 @@ public class MainMenuManager : ScreenManager
 
         if (CoreManager.TitleScreenShown)
         {
+            LogoAnimator.Play("MainMenuFastShown");
             DisplayMenu();
         }
         else
@@ -60,6 +62,7 @@ public class MainMenuManager : ScreenManager
 
     private IEnumerator DisplayMenuAfterDelay()
     {
+        LogoAnimator.SetTrigger("ShowMainMenu");
         yield return new WaitForSeconds(StartAnimationDelay);
         DisplayMenu();
     }
@@ -92,7 +95,7 @@ public class MainMenuManager : ScreenManager
 
                     SfxMistake.PlayUnlessNull();
                     this.ErrorMessage.Error = "No playable songs were found in any of the configured song folders. At least one song is required for the game to be playable. Check the log files for details.";
-                    var songFolders = CoreManager.Settings.GetResolvedSongFolders().Aggregate((cur, next) => cur +" \r\n" + next);
+                    var songFolders = CoreManager.Settings.GetResolvedSongFolders().Aggregate((cur, next) => cur + " \r\n" + next);
                     Debug.LogError("No playable songs were found in any of the configured song folders. At least one song is required for the game to be playable. Current song folders: \r\n" + songFolders + "\r\n" +
                                    "Song files must be located in one of the above folders (or a subfolder), be in the .sjson format, and have a .mp3 or .ogg file for audio. ");
                     return;
@@ -100,10 +103,11 @@ public class MainMenuManager : ScreenManager
 
                 this.ErrorMessage.Error = null;
 
+                CoreManager.PlayerManager.AutoSetNoteSkin();
                 SceneTransition(GameScene.PlayerJoin);
                 break;
             case "Options":
-               SceneTransition(GameScene.Options);
+                SceneTransition(GameScene.Options);
                 break;
             case "How To Play":
                 SceneTransition(GameScene.HowToPlay);

@@ -34,7 +34,7 @@ public class PlayerJoinManager : ScreenManager
 
     private void HandlePlayerLeft(object sender, EventArgs e)
     {
-        var player = ((PlayerJoinFrame) sender).Player;
+        var player = ((PlayerJoinFrame)sender).Player;
 
         if (CoreManager.PlayerManager.GetLocalPlayers().Count > 1)
         {
@@ -44,7 +44,7 @@ public class PlayerJoinManager : ScreenManager
 
     // Start is called before the first frame update
     void Start()
-    { 
+    {
         CoreManager.PlayerManager.AllowPlayerJoining = true;
         SetupInitialFrameStates();
     }
@@ -58,7 +58,7 @@ public class PlayerJoinManager : ScreenManager
             var frame = PlayerJoinFrames[x - 1];
             if (player != null)
             {
-                AssignFrameToPlayer(frame, player,false);
+                AssignFrameToPlayer(frame, player, false);
             }
             else
             {
@@ -74,12 +74,13 @@ public class PlayerJoinManager : ScreenManager
     }
     public override void OnPlayerInput(InputEvent inputEvent)
     {
-        PlayerJoinFrames[inputEvent.Player-1].HandleInput(inputEvent);
+        PlayerJoinFrames[inputEvent.Player - 1].HandleInput(inputEvent);
 
         if (ReadyPlayerCount > 0 && JoinedPlayerCount == ReadyPlayerCount)
         {
             CoreManager.PlayerManager.AllowPlayerJoining = false;
             CoreManager.SaveAllActiveProfiles();
+            CoreManager.PlayerManager.SortPlayers();
             SceneTransition(GameScene.SongSelect);
         }
         else if (ReadyPlayerCount == 0 && JoinedPlayerCount == 0)
@@ -91,8 +92,9 @@ public class PlayerJoinManager : ScreenManager
 
     public override void OnPlayerJoined(Player player)
     {
+        player.AutoSetLabelSkin();
         var frame = PlayerJoinFrames[player.Slot - 1];
-        AssignFrameToPlayer(frame,player,true);
+        AssignFrameToPlayer(frame, player, true);
     }
 
 }

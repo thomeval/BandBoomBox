@@ -32,7 +32,7 @@ public class PlayerJoinFrame : MonoBehaviour
                 page.SetActive(false);
             }
 
-            Pages[(int) value].SetActive(true);
+            Pages[(int)value].SetActive(true);
 
         }
     }
@@ -54,7 +54,7 @@ public class PlayerJoinFrame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     public void Refresh()
@@ -127,7 +127,6 @@ public class PlayerJoinFrame : MonoBehaviour
         this.ProfileSelectFrame.PopulateProfileList();
         this.State = string.IsNullOrEmpty(player.ProfileId) ? PlayerJoinState.ProfileSelect : PlayerJoinState.Options;
 
-        player.AutoSetLabelSkin();
 
         if (withSfx)
         {

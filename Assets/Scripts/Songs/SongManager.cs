@@ -6,6 +6,7 @@ using UnityEngine;
 public class SongManager : MonoBehaviour
 {
     public SongData CurrentSong { get; set; }
+    public SongStarScoreValues CurrentStarValues { get; set; }
 
     public bool IsSongPlaying
     {
@@ -39,16 +40,6 @@ public class SongManager : MonoBehaviour
         // return _audioSource.time - CurrentSong.Offset + EngineOffset + UserAudioLatency;
     }
 
-    public double GetStarFraction(TeamScoreCategory scoreCategory, long score)
-    {
-        if (CurrentSong == null)
-        {
-            return 0.0;
-        }
-
-        return CurrentSong.GetStarFraction(scoreCategory, score);
-
-    }
     /// <summary>
     /// Returns the current position of the audio, in seconds. This is determined from the AudioSource, rather than the SongManager's internal timekeeping, and ignores the song's Offset and AudioStart.
     /// This also ignores EngineOffset, UserAudioLatency and TimingDeviationOffset
