@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class CreditsManager : ScreenManager
 {
-
     public float ScrollSpeed = 2.0f;
 
     public RectTransform CreditsContainer;

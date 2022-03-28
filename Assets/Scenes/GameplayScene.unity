@@ -1880,6 +1880,9 @@ MonoBehaviour:
     - m_Name: Inactive
       m_Hash: 0
       m_Sprite: {fileID: 21300000, guid: 11a43b2a5d488aa46a784018283fc034, type: 3}
+    - m_Name: Full
+      m_Hash: 0
+      m_Sprite: {fileID: 21300000, guid: 7e6a95e04790b924793ee6e6c53c9ba9, type: 3}
   m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: a22fb749a19f73842bdbac7e0fe3fd1b, type: 3}
 --- !u!1 &972191619
 GameObject:

@@ -31,14 +31,11 @@ public class EnergyMeter : MonoBehaviour
         set
         {
             _turboActive = value;
-            var spriteLabel = _turboActive ? "Active" : "Inactive";
+            
+            var spriteLabel = (Energy == MaxEnergy) ? "Full" :
+                              _turboActive ? "Active" : "Inactive";
             SpriteResolver.SetCategoryAndLabel("EnergyMeter", spriteLabel);
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
 }
