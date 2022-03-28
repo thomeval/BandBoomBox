@@ -45,7 +45,6 @@ public class SongData
         }
     }
 
-
     public SongChart GetChart(string group, Difficulty difficulty)
     {
         return SongCharts.SingleOrDefault(e => e.Group == group && e.Difficulty == difficulty);
@@ -63,6 +62,11 @@ public class SongData
 
         return (charts.Min(e => e.DifficultyLevel), charts.Max(e => e.DifficultyLevel));
 
+    }
+
+    public override string ToString()
+    {
+        return $"{Artist} - {Title} {Subtitle}";
     }
 }
 

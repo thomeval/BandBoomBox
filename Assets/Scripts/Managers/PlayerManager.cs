@@ -63,9 +63,10 @@ public class PlayerManager : MonoBehaviour
         foreach (var player in GetLocalPlayers())
         {
             Debug.Log(_controlsManager.InputActionAsset.GetInstanceID());
-            player.ApplyInputActions(json);
+            player.ApplyInputActions(json);          
         }
     }
+    
     public Player GetPlayer(int slot)
     {
         return Players.FirstOrDefault(e => e.Slot == slot);
@@ -104,7 +105,6 @@ public class PlayerManager : MonoBehaviour
             player.SetActionMap(actionMap);
         }
     }
-
 
     public List<Player> GetLocalPlayers()
     {

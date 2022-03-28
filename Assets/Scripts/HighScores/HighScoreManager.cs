@@ -71,7 +71,7 @@ public class HighScoreManager : MonoBehaviour
         Save();
 
     }
-
+    
     public void Save()
     {
         try
@@ -89,6 +89,7 @@ public class HighScoreManager : MonoBehaviour
             Debug.LogWarning($"Failed to save team high scores: {e}");
         }
     }
+    
 
     public TeamScore GetTeamScore(string songId, int songVersion, int playerCount)
     {

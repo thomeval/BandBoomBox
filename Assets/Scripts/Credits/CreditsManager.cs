@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CreditsManager : ScreenManager
 {
@@ -6,6 +7,8 @@ public class CreditsManager : ScreenManager
     public float ScrollSpeed = 2.0f;
 
     public RectTransform CreditsContainer;
+    public GameObject RhythmistContainer;
+    public Text LeadRhythmistName;
 
     [Header("Sounds")] 
     public AudioSource SfxBack;
@@ -18,6 +21,21 @@ public class CreditsManager : ScreenManager
         var pos = CreditsContainer.localPosition;
         _containerHeight = CreditsContainer.sizeDelta.y;
         CreditsContainer.localPosition = new Vector3(pos.x, _containerHeight * -0.5f, pos.z);
+    }
+
+    private void Start()
+    {
+        var leadRhythmist = CoreManager.ProfileManager.GetLeadRhythmist();
+        
+        if (leadRhythmist == null)
+        {
+            RhythmistContainer.SetActive(false);
+            return;
+        }
+
+        RhythmistContainer.SetActive(true);
+        LeadRhythmistName.text = leadRhythmist.Name;
+
     }
 
     void FixedUpdate()

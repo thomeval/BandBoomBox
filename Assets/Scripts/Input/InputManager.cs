@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
     {
         {"Keyboard", "WASD"},
         {"XInputController", "ABXY"},
-        {"SwitchProControllerHID", "BAYX" }
+        {"SwitchProControllerHID", "BAYX" }      
     };
 
     private const string DEFAULT_DEVICE = "Generic";

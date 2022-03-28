@@ -84,7 +84,7 @@ public class GameplayManager : ScreenManager
     private HitJudge _hitJudge;
     DateTime _lastUpdate = DateTime.Now;
     private DateTime _outroTime;
-    private readonly float[] _turborMxGainRates = {0.0f, 1.0f, 2.5f, 4.5f, 7.0f, 10.0f, 11.0f, 13.0f, 16f};
+    private readonly float[] _turborMxGainRates = { 0.0f, 1.0f, 2.5f, 4.5f, 7.0f, 10.0f, 11.0f, 13.0f, 16f };
 
     void Awake()
     {
@@ -113,7 +113,7 @@ public class GameplayManager : ScreenManager
             _playerManager.SetMaxPerfPoints(noteManager.MaxPerfPoints, player.Slot);
         }
     }
-    
+
     private void AssignManagers()
     {
         int num = 0;
@@ -136,7 +136,7 @@ public class GameplayManager : ScreenManager
             player.HudManager = HudManager.PlayerHudManagers[num];
             NoteManagers[num].Slot = player.Slot;
             NoteManagers[num].ParentEnabled = true;
-           
+
             num++;
         }
 
@@ -149,7 +149,7 @@ public class GameplayManager : ScreenManager
 
         var fourPlayers = _playerManager.GetLocalPlayers().Count == 4;
         var highwayScale = fourPlayers ? FOUR_PLAYER_HUD_SCALE : 1.0f;
-        NoteHighways.transform.localScale = new Vector3(highwayScale,highwayScale,highwayScale);
+        NoteHighways.transform.localScale = new Vector3(highwayScale, highwayScale, highwayScale);
         NoteHighways.GetComponent<VerticalLayoutGroup>().spacing = fourPlayers ? FOUR_PLAYER_HUD_SPACING : 0;
         AssignManagers();
 
@@ -204,11 +204,16 @@ public class GameplayManager : ScreenManager
 
     private void UpdatePlayerEnergy(double timeDiff)
     {
+        if (this.GameplayState == GameplayState.Paused)
+        {
+            return;
+        }
+
         if (!_playerManager.AnyTurboActive())
         {
             return;
         }
-        var amount = (float) (timeDiff * ENERGY_DRAIN_RATE);
+        var amount = (float)(timeDiff * ENERGY_DRAIN_RATE);
         var playersUsingTurbo = _playerManager.Players.Count(e => e.TurboActive);
         amount *= playersUsingTurbo;
 
@@ -277,11 +282,6 @@ public class GameplayManager : ScreenManager
     // Update is called once per frame
     void Update()
     {
-
-        if (!_songManager.IsSongPlaying)
-        {
-            return;
-        }
 
         foreach (var noteManager in NoteManagers)
         {
@@ -430,7 +430,7 @@ public class GameplayManager : ScreenManager
     private void PauseGame(int player, bool pause)
     {
         if (pause)
-        { 
+        {
             if (GameplayState == GameplayState.Outro)
             {
                 return;
@@ -484,9 +484,11 @@ public class GameplayManager : ScreenManager
 
     private void ApplyHitResult(HitResult hitResult)
     {
-        hitResult.ScorePoints = (int) (this.Multiplier * hitResult.ScorePoints);
+        var appliedMxGainRate = hitResult.DeviationResult == DeviationResult.NotHit ? 1.0f : MxGainRate;
+
+        hitResult.ScorePoints = (int)(this.Multiplier * hitResult.ScorePoints);
         this.Score += hitResult.ScorePoints;
-        this.Multiplier += hitResult.MxPoints * MxGainRate;
+        this.Multiplier += hitResult.MxPoints * appliedMxGainRate;
         this.Multiplier = Math.Max(MX_MINIMUM, this.Multiplier);
         this.MaxMultiplier = Math.Max(this.Multiplier, this.MaxMultiplier);
 
@@ -525,7 +527,7 @@ public class GameplayManager : ScreenManager
     {
         var newGainRate = 1.0f;
 
-        var comboGainBonus = ((int) (TeamCombo / MX_COMBO_FOR_GAIN_BONUS)) * 0.1f;
+        var comboGainBonus = ((int)(TeamCombo / MX_COMBO_FOR_GAIN_BONUS)) * 0.1f;
         comboGainBonus = Math.Min(comboGainBonus, 2.0f);
         newGainRate += comboGainBonus;
 
@@ -562,7 +564,7 @@ public class GameplayManager : ScreenManager
         {
             noteManager.Offset = selectedSongData.Offset;
         }
-        
+
         HudManager.SongTitleText = selectedSongData.Title + " " + selectedSongData.Subtitle;
     }
     public void OnNoteMissed(Note note, int player)

@@ -18,7 +18,9 @@ public class SongManager : MonoBehaviour
 
     public float UserAudioLatency = 0.0f;
     public float TimingDeviationOffset = 0.0f;
-    private DateTime _startTime;
+    private float? _pausedPosition;
+
+    private DateTime? _startTime;
     public event EventHandler SongLoaded;
 
     public float TotalOffsetAdjust
@@ -27,14 +29,19 @@ public class SongManager : MonoBehaviour
     }
 
     [SerializeField] private float _audioTimingDeviation;
-    public float GetSongPosition()
+    public float GetSongPosition(bool ignorePause = false)
     {
-        if (!IsSongPlaying)
+        if (_startTime == null || CurrentSong == null)
         {
             return 0.0f;
         }
 
-        var audioTime = (float)(DateTime.Now - _startTime).TotalSeconds;
+        if (!ignorePause && _pausedPosition.HasValue)
+        {
+            return _pausedPosition.Value;
+        }
+
+        var audioTime = (float)(DateTime.Now - _startTime.Value).TotalSeconds;
         audioTime += CurrentSong.AudioStart;
         return audioTime - CurrentSong.Offset + TotalOffsetAdjust;
         // return _audioSource.time - CurrentSong.Offset + EngineOffset + UserAudioLatency;
@@ -53,7 +60,7 @@ public class SongManager : MonoBehaviour
     public void SetAudioPosition(float position)
     {
         var length = _audioSource.clip.length;
-        _audioSource.time = Mathf.Clamp(position,0.0f, length);
+        _audioSource.time = Mathf.Clamp(position, 0.0f, length);
         ForceAudioResync();
     }
 
@@ -65,7 +72,7 @@ public class SongManager : MonoBehaviour
     public float GetSongPositionInBeats()
     {
         var msTime = GetSongPosition();
-        return msTime  * CurrentSong.Bpm / 60;
+        return msTime * CurrentSong.Bpm / 60;
     }
     public float GetSongEndInBeats()
     {
@@ -85,14 +92,21 @@ public class SongManager : MonoBehaviour
 
     private void GetAudioTimingDeviation()
     {
-        var audioTime = (float)(DateTime.Now - _startTime).TotalSeconds;
+        if (!IsSongPlaying || _startTime == null || CurrentSong == null)
+        {
+            _audioTimingDeviation = 0.0f;
+            return;
+        }
+
+        var audioTime = (float)(DateTime.Now - _startTime.Value).TotalSeconds;
         audioTime += CurrentSong.AudioStart;
-        _audioTimingDeviation = (_audioSource.time - audioTime );
+        _audioTimingDeviation = (_audioSource.time - audioTime);
     }
 
     public void LoadSong(SongData song)
     {
         CurrentSong = song;
+        _startTime = null;
         Debug.Assert(CurrentSong.Bpm != 0.0f, "Song Bpm is 0!");
 
         Debug.Log($"Loading audio file located at {song.AudioPath}");
@@ -108,7 +122,7 @@ public class SongManager : MonoBehaviour
 
         if (www.error != null)
         {
-            Debug.LogError("Error occurred while loading audio: " +www.error);
+            Debug.LogError("Error occurred while loading audio: " + www.error);
             yield break;
         }
         var clip = www.GetAudioClip(false, false);
@@ -120,12 +134,13 @@ public class SongManager : MonoBehaviour
 
     public void StartSong()
     {
-        
+
         if (CurrentSong == null || _audioSource.clip == null)
         {
             throw new InvalidOperationException("StartSong() called but audio has not been loaded yet.");
         }
 
+        _pausedPosition = null;
         _audioSource.time = CurrentSong.AudioStart;
         _audioSource.Play();
         _startTime = DateTime.Now;
@@ -147,7 +162,7 @@ public class SongManager : MonoBehaviour
 
         if (Mathf.Abs(_audioTimingDeviation) > 0.01f)
         {
-       //     TimingDeviationOffset -= (_audioTimingDeviation / 2);
+            //     TimingDeviationOffset -= (_audioTimingDeviation / 2);
         }
     }
 
@@ -155,10 +170,12 @@ public class SongManager : MonoBehaviour
     {
         if (isPaused)
         {
+            _pausedPosition = this.GetSongPosition(true);
             _audioSource.Pause();
         }
         else
         {
+            _pausedPosition = null;
             _audioSource.Play();
             ForceAudioResync();
         }

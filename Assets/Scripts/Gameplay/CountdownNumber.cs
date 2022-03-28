@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
@@ -13,7 +14,7 @@ public class CountdownNumber : MonoBehaviour
     }
 
     public void DisplayBeat(float songTimeInBeats)
-    {
+    {    
         if (songTimeInBeats > 0.0f || songTimeInBeats < -4.0f)
         {
             this.gameObject.SetActive(false);
@@ -26,6 +27,7 @@ public class CountdownNumber : MonoBehaviour
         var fraction = songTimeInBeats - beat;
 
         Debug.Assert(beat >= 0 && beat <= 3);
+              
         _spriteResolver.SetCategoryAndLabel("Countdowns", "" + (beat+1));
         _spriteRenderer.color = new Color(1.0f,1.0f,1.0f,fraction);
     }

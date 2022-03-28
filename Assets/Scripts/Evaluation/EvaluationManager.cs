@@ -60,7 +60,6 @@ public class EvaluationManager : ScreenManager
         }
     }
 
-
     public override void OnPlayerInput(InputEvent inputEvent)
     {
         switch (inputEvent.Action)
@@ -84,4 +83,5 @@ public class EvaluationManager : ScreenManager
     {
         PlayerResultFrames[player - 1].DisplayedPage += amount;
     }
+
 }

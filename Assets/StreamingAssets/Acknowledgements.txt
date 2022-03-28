@@ -2,15 +2,24 @@
 https://assetstore.unity.com/packages/audio/sound-fx/free-casual-game-sfx-pack-54116
 
 Fonts
-
+--------------
 "Exo 2.0" by Natanael Gama
 https://www.ndiscover.com/exo-2-0/
 
 "Fast Money" by James Vipond
 https://fontstruct.com/fontstructions/show/66200/fast_money
 
+Graphics
+--------------
 "Blank Extended Keyboard" by Cy21
 https://commons.wikimedia.org/wiki/File:Blank-extended-keyboard.svg
 
+"Speaker PNG Icon" by tonyk
+https://www.iconspng.com/image/2246/speaker
+
+Unity Scripts
+--------------
 "Runtime File Browser" by yasirkula
 https://assetstore.unity.com/packages/tools/gui/runtime-file-browser-113006
+
+

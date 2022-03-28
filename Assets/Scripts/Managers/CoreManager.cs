@@ -59,7 +59,7 @@ public class CoreManager : MonoBehaviour
         PlayerManager.SetPlayerCount(1);
     }
 
-    public void LoadSettings()
+        public void LoadSettings()
     {
         Settings.Load();
         ControlsManager.LoadInputActions();

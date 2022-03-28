@@ -70,14 +70,18 @@ namespace Assets
         }
         public SongData LoadSong(string path)
         {
+            
             if (string.IsNullOrEmpty(path))
             {
                 throw new ArgumentNullException(nameof(path));
             }
 
+
+
             var folder = Path.GetDirectoryName(path);
             var json = File.ReadAllText(path);
             var song = JsonUtility.FromJson<SongData>(json);
+
             song.SjsonFilePath = path;
             song.AudioPath = Path.Combine(folder, song.AudioFile);
 

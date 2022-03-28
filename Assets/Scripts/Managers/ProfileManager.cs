@@ -74,6 +74,18 @@ public class ProfileManager : MonoBehaviour
         return Profiles.SingleOrDefault(e => String.Equals(e.Name, profileName, StringComparison.InvariantCultureIgnoreCase));
     }
 
+    public ProfileData GetLeadRhythmist()
+    {
+        var result = Profiles.OrderByDescending(e => e.Exp).FirstOrDefault();
+
+        if (result.Name == "Guest" || result.Exp == 0)
+        {
+            return null;
+        }
+        
+        return result;
+    }
+
     public void Load()
     {
         var path = Helpers.ResolvePath(ProfilesPath);

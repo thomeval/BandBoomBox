@@ -83,11 +83,10 @@ public static class NoteUtils
         switch (lane)
         {
             case 0: return NoteType.AnyT;
-            case 1: return NoteType.AnyD;
+            case 1: return NoteType.AnyD;             
             case 2: return NoteType.AnyB;
-
             default:
-                throw new ArgumentException("Unrecognised lane: " + lane);
+                throw new ArgumentException("Invalid lane number: " + lane);
         }
     }
 
@@ -165,14 +164,15 @@ public enum NoteType
     LT,
     RB,
     RT,
-    AnyT
+    AnyT  
 }
 
 public enum NoteClass
 {
     Tap,
     Hold,
-    Release
+    Release,  
+    None, 
 }
 
 public enum BeatLineType

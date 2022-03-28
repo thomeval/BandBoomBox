@@ -92,6 +92,11 @@ public class Player : MonoBehaviour
 
     public string Name;
 
+    public string NameOrPlayerNumber
+    {
+        get { return this.Name == "Guest" ? "Player " + this.Slot : this.Name; }
+    }
+    
     [SerializeField]
     private int _ranking;
 

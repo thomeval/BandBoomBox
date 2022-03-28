@@ -8,6 +8,7 @@ public class SongChart
     public string Group;
     public Difficulty Difficulty;
     public int DifficultyLevel;
+    
 
     [HideInInspector]
     public string[] Notes;

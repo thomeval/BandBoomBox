@@ -52,6 +52,10 @@ public class MainMenuManager : ScreenManager
                 {
                     OnStartPressed();
                 }
+                else
+                {
+                    SfxMistake.PlayUnlessNull();
+                }
                 break;
             case MainMenuState.MainMenu:
                 Menu.HandleInput(inputEvent);

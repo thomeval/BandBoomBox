@@ -12,13 +12,15 @@ public class NoteManager : MonoBehaviour
     public int ImpactZoneCenter = -540;
 
     public int LaneHeight = 100;
-    public int TopLanePos  = 100;
+    public int TopLanePos = 100;
 
     public float EarlyHitCutoff = -0.5f;
     public float LateHitCutoff = 0.3f;
     public float EarlyWrongCutoff = -2.0f;
     public float LateWrongCutoff = 1.0f;
     public float SongPosition = -999.0f;
+
+    public float _lastSeenPosition = -999.0f;
 
     public float Offset;
     public float DEFAULT_VISIBILITY_RANGE = 8.0f;
@@ -36,7 +38,7 @@ public class NoteManager : MonoBehaviour
     private GameplayManager _gameplayManager;
 
 
-    private readonly Note[] _pendingReleases = new Note [4];
+    private readonly Note[] _pendingReleases = new Note[4];
 
     public float MaxVisiblePosition
     {
@@ -57,7 +59,7 @@ public class NoteManager : MonoBehaviour
         get { return Notes.Count * HitJudge.JudgePerfPointValues[JudgeResult.Perfect]; }
     }
 
-    public bool ParentEnabled 
+    public bool ParentEnabled
     {
         get { return this.transform.parent.gameObject.activeSelf; }
         set
@@ -90,6 +92,13 @@ public class NoteManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (_lastSeenPosition > SongPosition)
+        {
+            HideAllNotes();
+        }
+
+        _lastSeenPosition = SongPosition;
+
         bool speedChanged = UpdateScrollSpeed();
 
         if (!speedChanged)
@@ -100,6 +109,31 @@ public class NoteManager : MonoBehaviour
         foreach (var holdNote in Notes.Where(e => e.NoteClass == NoteClass.Hold))
         {
             holdNote.CalculateTailWidth();
+        }
+    }
+
+
+    public void HideAllNotes()
+    {
+        foreach (var note in Notes)
+        {
+            note.SetPosition(10000.0f);
+        }
+        foreach (var beatline in BeatLines)
+        {
+            beatline.SetPosition(10000.0f);
+        }
+    }
+
+    public void ShowAllNotes()
+    {
+        foreach (var note in Notes)
+        {
+            note.SetPosition(CalculateRenderPosition(note.AbsoluteTime));
+        }
+        foreach (var beatline in BeatLines)
+        {
+            beatline.SetPosition(CalculateRenderPosition(beatline.AbsoluteTime));
         }
     }
 
@@ -263,7 +297,7 @@ public class NoteManager : MonoBehaviour
         {
             var earlyCutoff = SongPosition + EarlyWrongCutoff;
             var lateCutoff = SongPosition + LateWrongCutoff;
-            notes = EnforceCutoffs(notes, earlyCutoff,lateCutoff);
+            notes = EnforceCutoffs(notes, earlyCutoff, lateCutoff);
         }
 
         notes = notes.ToList();
@@ -308,7 +342,7 @@ public class NoteManager : MonoBehaviour
 
         _gameplayManager?.OnNoteMissed(note, this.Slot);
         RemoveNote(note);
-        
+
     }
     public void RemoveNote(Note note)
     {

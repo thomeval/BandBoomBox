@@ -22,5 +22,15 @@ public class PlayerScore
 
     public DateTime DateTime { get; set; }
 
+    public override string ToString()
+    {
+        return string.Format("{0} (v{1}) {2}, {3} {4}/{5}",
+            this.SongId,
+            this.SongVersion,
+            this.Difficulty,
+            this.ChartGroup,
+            this.PerfPoints,
+            this.MaxPerfPoints);
+    }
 
 }

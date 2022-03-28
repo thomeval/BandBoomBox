@@ -21,4 +21,9 @@ public class TeamScore
 
     public TeamScoreCategory Category { get; set; }
     public double Stars { get; set; }
+
+    public override string ToString()
+    {
+        return $"{SongId} (v{SongVersion} {Category}) - {Score}";
+    }
 }

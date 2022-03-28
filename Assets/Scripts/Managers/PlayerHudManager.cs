@@ -42,6 +42,7 @@ public class PlayerHudManager : MonoBehaviour
         TxtPerfPercent.text = string.Format(CultureInfo.InvariantCulture, "{0:P1}", player.PerfPercent).Replace(" ","");
         TxtCombo.text = string.Format(CultureInfo.InvariantCulture, "{0:000}", player.Combo);
         TxtRanking.enabled = ShowRankings;
+        CountdownDisplay.PlayerName = player.NameOrPlayerNumber;
 
         string suffix;
 

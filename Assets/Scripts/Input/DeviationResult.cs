@@ -13,6 +13,6 @@
     /// <summary>
     /// Indicates that no note was hit by the player.
     /// </summary>
-    NotHit
+    NotHit  
 }
 
