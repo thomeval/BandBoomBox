@@ -1567,7 +1567,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1223415359}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &752433663
 SpriteRenderer:
@@ -1834,7 +1834,7 @@ RectTransform:
   - {fileID: 313099789}
   - {fileID: 704814857}
   m_Father: {fileID: 1223415359}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2287,7 +2287,7 @@ Transform:
   - {fileID: 1709824063}
   - {fileID: 1386738872}
   m_Father: {fileID: 1223415359}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1208776469
 MonoBehaviour:
@@ -2311,6 +2311,86 @@ MonoBehaviour:
   MeterWidth: 260
   _multiplier: 0
   BeatFraction: 0
+--- !u!1 &1213205981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1213205982}
+  - component: {fileID: 1213205984}
+  - component: {fileID: 1213205983}
+  m_Layer: 0
+  m_Name: TxtSongCurrentSection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1213205982
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213205981}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1223415359}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 556.5, y: 70}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1213205983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213205981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 5f11aeaafe80331429f90cce368c9efd, type: 3}
+    m_FontSize: 24
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 93
+    m_Alignment: 5
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: Section
+--- !u!222 &1213205984
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213205981}
+  m_CullTransparentMesh: 1
 --- !u!1 &1223415357
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,6 +2427,7 @@ MonoBehaviour:
   TxtTeamCombo: {fileID: 2122248237}
   TxtSongTime: {fileID: 1013539528}
   TxtSongCurrentBeat: {fileID: 1576485749}
+  TxtSongCurrentSection: {fileID: 1213205983}
   TxtSongTitle: {fileID: 236470126}
   TxtMxGainRate: {fileID: 1774312256}
   MxMeter: {fileID: 1208776469}
@@ -2375,6 +2456,7 @@ RectTransform:
   - {fileID: 236470125}
   - {fileID: 1013539527}
   - {fileID: 1576485748}
+  - {fileID: 1213205982}
   - {fileID: 871678095}
   - {fileID: 1208776468}
   - {fileID: 752433662}
@@ -2546,9 +2628,6 @@ MonoBehaviour:
   NoteGenerator: {fileID: 1847403176}
   HudManager: {fileID: 1223415358}
   PauseMenu: {fileID: 186211379}
-  SongStarScoreValues:
-    ScoreCategory: 0
-    Scores: 0000000000000000
   Score: 0
   TeamCombo: 0
   MaxTeamCombo: 0
@@ -3897,7 +3976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3741837746334578591, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3741837746334578591, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
       propertyPath: m_AnchorMax.x

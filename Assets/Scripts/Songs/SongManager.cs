@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Assets;
 using UnityEngine;
 
@@ -82,6 +84,18 @@ public class SongManager : MonoBehaviour
     public float GetPlayableLength()
     {
         return CurrentSong.Length - CurrentSong.Offset;
+    }
+    
+    public string GetCurrentSection()
+    {
+        var position = GetSongPositionInBeats();
+        if (CurrentSong == null || !CurrentSong.Sections.Any(e => e.Key < position))
+        {
+            return "";
+        }
+      
+        var currentSection = CurrentSong.Sections.Last(e => e.Key < position);
+        return currentSection.Value;        
     }
 
     public void ForceAudioResync()

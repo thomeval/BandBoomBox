@@ -15,6 +15,7 @@ public class HudManager : MonoBehaviour
     public Text TxtTeamCombo;
     public Text TxtSongTime;
     public Text TxtSongCurrentBeat;
+    public Text TxtSongCurrentSection;
     public Text TxtSongTitle;
     public Text TxtMxGainRate;
     public MxMeter MxMeter;
@@ -70,7 +71,8 @@ public class HudManager : MonoBehaviour
         var songLength = (int) (_songManager.GetPlayableLength() - _songManager.GetSongPosition());
         songLength = Math.Max(songLength, 0);
         TxtSongTime.text = string.Format("{0}:{1:00}", songLength / 60, songLength % 60);
-
+        TxtSongCurrentSection.text = _songManager.GetCurrentSection();
+        
         DisplayBeat(_songManager.GetSongPositionInBeats());
 
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -80,11 +81,12 @@ namespace Assets
 
             var folder = Path.GetDirectoryName(path);
             var json = File.ReadAllText(path);
-            var song = JsonUtility.FromJson<SongData>(json);
-
+            //  var song = JsonUtility.FromJson<SongData>(json);
+            var song = JsonConvert.DeserializeObject<SongData>(json);
             song.SjsonFilePath = path;
             song.AudioPath = Path.Combine(folder, song.AudioFile);
-
+            song.Sections = song.Sections.OrderBy(e => e.Key).ToDictionary(e => e.Key, e => e.Value);
+            
             this[song.ID] = song;
             return song;
         }

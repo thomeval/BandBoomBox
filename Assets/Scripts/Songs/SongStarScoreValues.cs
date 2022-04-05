@@ -1,7 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-[Serializable]
 public class SongStarScoreValues
 {
     public TeamScoreCategory ScoreCategory;

@@ -50,7 +50,6 @@ public class SongData
         return SongCharts.SingleOrDefault(e => e.Group == group && e.Difficulty == difficulty);
     }
 
-
     public (int min, int max) GetDifficultyRange(Difficulty diff)
     {
         var charts = SongCharts.Where(e => e.Difficulty == diff).ToList();
