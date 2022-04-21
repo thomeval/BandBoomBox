@@ -1,1 +1,3 @@
-﻿Place custom songs in this directory (or in any subfolder).
+﻿Place custom songs in this directory (or in any subfolder). The official standard is to use one folder per song artist, but you are welcome to organize song files in any way you like.
+
+You can also place custom songs in the Save Data folder (usually located in Documents\My Games\Band BoomBox). The game will load songs found in either location. To add a custom songs folder, edit the settings.json file in the Sava Data folder.
