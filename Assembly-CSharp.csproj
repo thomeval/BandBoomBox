@@ -56,111 +56,133 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Options\OptionsManager.cs" />
     <Compile Include="Assets\Scripts\Managers\PlayerHudManager.cs" />
-    <Compile Include="Assets\Scripts\PlayerJoin\ProfileListItem.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplay.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\Scripts\Input\ControlsChangedArgs.cs" />
-    <Compile Include="Assets\Scripts\Notes\NoteGenerator.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
-    <Compile Include="Assets\Scripts\Evaluation\EvaluationManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorDifficultyListItem.cs" />
     <Compile Include="Assets\Scripts\Input\InputEvent.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\GameplayUtils.cs" />
-    <Compile Include="Assets\Scripts\Input\DeviationResult.cs" />
     <Compile Include="Assets\Scripts\Input\ActionMapType.cs" />
     <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureBpmPage.cs" />
-    <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />
-    <Compile Include="Assets\Scripts\Managers\ProfileManager.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\Managers\HudManager.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
-    <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
     <Compile Include="Assets\Scripts\Managers\CoreManager.cs" />
     <Compile Include="Assets\Scripts\Gameplay\LaneFlasher.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GoalMeter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\GameplayState.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\HeldNoteDisplay.cs" />
     <Compile Include="Assets\Scripts\Common\Difficulty.cs" />
     <Compile Include="Assets\EnergyMeter.cs" />
-    <Compile Include="Assets\Scripts\SongSelect\SongListItem.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorBasicsPage.cs" />
-    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileSelectFrame.cs" />
-    <Compile Include="Assets\Scripts\Common\PlayerSongSelectFrame.cs" />
     <Compile Include="Assets\Scripts\Common\ExpLevelUtils.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
-    <Compile Include="Assets\StarMeter.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenuManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
-    <Compile Include="Assets\Scripts\Common\ExpMeter.cs" />
     <Compile Include="Assets\Scripts\Misc\UIExtensions.cs" />
-    <Compile Include="Assets\Scripts\Managers\ControlsManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Scripts\Songs\SongLibrary.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongPreviewManager.cs" />
-    <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
-    <Compile Include="Assets\Scripts\Common\SettingsManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorStarScoresColumn.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\NoteHitFlasher.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorFineTunePage.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectFrame.cs" />
     <Compile Include="Assets\Scripts\Notes\Note.cs" />
-    <Compile Include="Assets\Scripts\Common\ErrorMessage.cs" />
-    <Compile Include="Assets\Scripts\HowToPlay\HowToPlayManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Common\MenuEventArgs.cs" />
-    <Compile Include="Assets\Scripts\Misc\CompressedFileHelper.cs" />
-    <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicEntry.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\Scripts\Managers\PlayerManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorPageManager.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\PlayerHighScoreDisplay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\TimingDisplay.cs" />
-    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinOptionsFrame.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\Scripts\Common\MenuSelectionHighlight.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
-    <Compile Include="Assets\Scripts\Notes\NoteManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMainMenuPage.cs" />
     <Compile Include="Assets\Scripts\Notes\FinishMarker.cs" />
     <Compile Include="Assets\Scripts\HighScores\HighScoreManager.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorDetailsPage.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinManager.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-    <Compile Include="Assets\Scripts\Common\GameScene.cs" />
-    <Compile Include="Assets\Scripts\Credits\CreditsManager.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
-    <Compile Include="Assets\Scripts\SongSelect\SongList.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\Gameplay\MxMeter.cs" />
     <Compile Include="Assets\Scripts\Misc\SceneTransitionState.cs" />
     <Compile Include="Assets\Scripts\Input\InputManager.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileCreateFrame.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteUtils.cs" />
-    <Compile Include="Assets\Scripts\InitialLoad\InitialLoadManager.cs" />
     <Compile Include="Assets\Scripts\Common\TextPulser.cs" />
-    <Compile Include="Assets\Scripts\Songs\SongChart.cs" />
-    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinFrame.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayManager.cs" />
     <Compile Include="Assets\Scripts\Common\SpriteMeter.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
-    <Compile Include="Assets\Scripts\Input\HitJudge.cs" />
-    <Compile Include="Assets\Scripts\Input\JudgeResult.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
-    <Compile Include="Assets\Scripts\MainMenu\MainMenuState.cs" />
     <Compile Include="Assets\Scripts\Util\SpriteFader.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectState.cs" />
     <Compile Include="Assets\Scripts\Gameplay\TimingDisplayType.cs" />
+    <Compile Include="Assets\Scripts\HighScores\PlayerScore.cs" />
+    <Compile Include="Assets\Scripts\Notes\BeatLine.cs" />
+    <Compile Include="Assets\Scripts\Songs\SongData.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\Scripts\Evaluation\PlayerResultFrame.cs" />
+    <Compile Include="Assets\Scripts\Songs\SongManager.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\EditorPage.cs" />
+    <Compile Include="Assets\Scripts\Common\HighScoreDisplay.cs" />
+    <Compile Include="Assets\Scripts\HighScores\TeamScoreCategory.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\SelectedSongFrame.cs" />
+    <Compile Include="Assets\Scripts\Common\Menu.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\EditorManager.cs" />
+    <Compile Include="Assets\Scripts\Evaluation\Grade.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
+    <Compile Include="Assets\Scripts\Common\Player.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
+    <Compile Include="Assets\Scripts\Misc\AudioCrossFader.cs" />
+    <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+    <Compile Include="Assets\Scripts\Options\OptionsManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerJoin\ProfileListItem.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
+    <Compile Include="Assets\Scripts\Notes\NoteGenerator.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+    <Compile Include="Assets\Scripts\Evaluation\EvaluationManager.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameplayUtils.cs" />
+    <Compile Include="Assets\Scripts\Input\DeviationResult.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />
+    <Compile Include="Assets\Scripts\Managers\ProfileManager.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
+    <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameplayState.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\HeldNoteDisplay.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\SongListItem.cs" />
+    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileSelectFrame.cs" />
+    <Compile Include="Assets\Scripts\Common\PlayerSongSelectFrame.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+    <Compile Include="Assets\StarMeter.cs" />
+    <Compile Include="Assets\Scripts\Common\ExpMeter.cs" />
+    <Compile Include="Assets\Scripts\Managers\ControlsManager.cs" />
+    <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicManager.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\Common\SettingsManager.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\NoteHitFlasher.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorFineTunePage.cs" />
+    <Compile Include="Assets\Scripts\Common\ErrorMessage.cs" />
+    <Compile Include="Assets\Scripts\HowToPlay\HowToPlayManager.cs" />
+    <Compile Include="Assets\Scripts\Common\MenuEventArgs.cs" />
+    <Compile Include="Assets\Scripts\Misc\CompressedFileHelper.cs" />
+    <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicEntry.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorPageManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinOptionsFrame.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\TimingDisplay.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\Scripts\Notes\NoteManager.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorDetailsPage.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+    <Compile Include="Assets\Scripts\Common\GameScene.cs" />
+    <Compile Include="Assets\Scripts\Credits\CreditsManager.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\SongList.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\Scripts\InitialLoad\InitialLoadManager.cs" />
+    <Compile Include="Assets\Scripts\Songs\SongChart.cs" />
+    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinFrame.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\Input\HitJudge.cs" />
+    <Compile Include="Assets\Scripts\Input\JudgeResult.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\MainMenuState.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectManager.cs" />
     <Compile Include="Assets\Scripts\Input\HitResult.cs" />
     <Compile Include="Assets\Scripts\Misc\ObjectEventArgs.cs" />
@@ -168,45 +190,24 @@
     <Compile Include="Assets\Scripts\Input\DeviceLostArgs.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorChartListPage.cs" />
     <Compile Include="Assets\Scripts\Notes\SjsonUtils.cs" />
-    <Compile Include="Assets\Scripts\HighScores\PlayerScore.cs" />
-    <Compile Include="Assets\Scripts\Notes\BeatLine.cs" />
-    <Compile Include="Assets\Scripts\Songs\SongData.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\HighScores\TeamScore.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownNumber.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Common\ProfileData.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PauseMenu.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
-    <Compile Include="Assets\Scripts\Evaluation\PlayerResultFrame.cs" />
-    <Compile Include="Assets\Scripts\Songs\SongManager.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\EditorPage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
-    <Compile Include="Assets\Scripts\Common\HighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongSelectManager.cs" />
     <Compile Include="Assets\Scripts\Songs\SongStarScoreValues.cs" />
-    <Compile Include="Assets\Scripts\HighScores\TeamScoreCategory.cs" />
     <Compile Include="Assets\Scripts\Managers\SceneTransitionManager.cs" />
-    <Compile Include="Assets\Scripts\SongSelect\SelectedSongFrame.cs" />
-    <Compile Include="Assets\Scripts\Common\Menu.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorFileSelectPage.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\EditorManager.cs" />
+    <Compile Include="Assets\Scripts\Common\FullComboType.cs" />
     <Compile Include="Assets\Scripts\Common\MenuItem.cs" />
-    <Compile Include="Assets\Scripts\Evaluation\Grade.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\Scripts\Managers\ScreenManager.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
-    <Compile Include="Assets\Scripts\Common\Player.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-    <Compile Include="Assets\Scripts\Misc\AudioCrossFader.cs" />
     <Compile Include="Assets\AnimatedSprite.cs" />
     <Compile Include="Assets\Scripts\Misc\SongStarValueCalculator.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureTimePage.cs" />
-    <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\StreamingAssets\Songs\Readme.txt" />
@@ -869,15 +870,6 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Flow.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Extras">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Animation.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.InternalAPIEngineBridge.001">
       <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
     </Reference>
@@ -887,17 +879,77 @@
     <Reference Include="Unity.2D.PixelPerfect">
       <HintPath>Library\ScriptAssemblies\Unity.2D.PixelPerfect.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.State.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Searcher.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.IK.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Path.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Path.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.InputSystem">
+      <HintPath>Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.IK.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ShaderGraph.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Toolchain.Win-x86_64-Linux-x86_64">
+      <HintPath>Library\ScriptAssemblies\Unity.Toolchain.Win-x86_64-Linux-x86_64.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Config.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Config.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Common.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Flow.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Extras">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Animation.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Sysroot.Linux_x86_64">
       <HintPath>Library\ScriptAssemblies\Unity.Sysroot.Linux_x86_64.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
@@ -908,50 +960,35 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.State.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Burst.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.IK.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Path.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Path.Editor.dll</HintPath>
+    <Reference Include="Unity.InternalAPIEditorBridge.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InputSystem">
-      <HintPath>Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.Tilemap.Extras.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.InternalAPIEditorBridge.001">
-      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Core">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
       <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.IK.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst">
       <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
@@ -965,14 +1002,11 @@
     <Reference Include="Unity.2D.PixelPerfect.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.PixelPerfect.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Toolchain.Win-x86_64-Linux-x86_64">
-      <HintPath>Library\ScriptAssemblies\Unity.Toolchain.Win-x86_64-Linux-x86_64.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Mathematics.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Common.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
@@ -980,8 +1014,8 @@
     <Reference Include="Unity.2D.SpriteShape.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Common.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.SpriteShape.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>

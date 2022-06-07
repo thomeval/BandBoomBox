@@ -25,7 +25,7 @@ public class OptionsManager : ScreenManager
     public Text TxtTargetFrameRate;
 
     private readonly int[] _targetFrameRateChoices = {30, 60, 90, 120, 240, -1};
-    private readonly string[] _resolutionChoices = {"1280x720", "1600x900", "1920x1080", "2560x1440", "3840x2160"};
+    private readonly string[] _resolutionChoices = {"1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440", "3840x2160"};
 
     private readonly FullScreenMode[] _fullScreenModeChoices =
         {FullScreenMode.Windowed, FullScreenMode.FullScreenWindow, FullScreenMode.ExclusiveFullScreen};

@@ -242,7 +242,6 @@ public class Player : MonoBehaviour
         HudManager.DisplayHitResult(result);
     }
 
-
     private void UpdatePerfPoints(HitResult result)
     {
         this.PerfPoints += result.PerfPoints;
@@ -254,13 +253,14 @@ public class Player : MonoBehaviour
         {
             Mistakes[result.JudgeResult]++;
         }
-        else if (result.DeviationResult == DeviationResult.Early)
+        else switch (result.DeviationResult)
         {
-            EarlyHits[result.JudgeResult]++;
-        }
-        else if (result.DeviationResult == DeviationResult.Late)
-        {
-            LateHits[result.JudgeResult]++;
+            case DeviationResult.Early:
+                EarlyHits[result.JudgeResult]++;
+                break;
+            case DeviationResult.Late:
+                LateHits[result.JudgeResult]++;
+                break;
         }
     }
 
@@ -301,12 +301,14 @@ public class Player : MonoBehaviour
     public void Reset()
     {
         EarlyHits = new Dictionary<JudgeResult, int>();
+        EarlyHits.Add(JudgeResult.Crit, 0);
         EarlyHits.Add(JudgeResult.Perfect, 0);
         EarlyHits.Add(JudgeResult.Cool, 0);
         EarlyHits.Add(JudgeResult.Ok, 0);
         EarlyHits.Add(JudgeResult.Bad, 0);
 
         LateHits = new Dictionary<JudgeResult, int>();
+        LateHits.Add(JudgeResult.Crit, 0);
         LateHits.Add(JudgeResult.Perfect, 0);
         LateHits.Add(JudgeResult.Cool, 0);
         LateHits.Add(JudgeResult.Ok, 0);
@@ -458,5 +460,9 @@ public class Player : MonoBehaviour
             SongsPlayed = this.SongsPlayed
         };
     }
-}
 
+    public FullComboType GetFullComboType()
+    {
+        return FullComboType.None;
+    }
+}

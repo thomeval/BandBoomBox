@@ -206,7 +206,7 @@ public static class Helpers
     {
         get
         {
-            var appSubfolder = "DefaultCompany\\RGPR_2021";
+            var appSubfolder = "thomeval\\Band BoomBox";
             
             string result;
             switch (Application.platform)

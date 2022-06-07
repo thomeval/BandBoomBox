@@ -5,7 +5,7 @@ using System.Linq;
 
 public class NoteManager : MonoBehaviour
 {
-    public List<Note> Notes;
+    public List<Note> Notes = new List<Note>();
     public List<BeatLine> BeatLines;
     public SongChart Chart;
 
@@ -20,8 +20,6 @@ public class NoteManager : MonoBehaviour
     public float LateWrongCutoff = 1.0f;
     public float SongPosition = -999.0f;
 
-    public float _lastSeenPosition = -999.0f;
-
     public float Offset;
     public float DEFAULT_VISIBILITY_RANGE = 8.0f;
 
@@ -34,7 +32,8 @@ public class NoteManager : MonoBehaviour
     private float _displayedScrollSpeed = 500;
     private readonly List<Note> _notesToRemove = new List<Note>();
     private readonly List<BeatLine> _beatLinesToRemove = new List<BeatLine>();
-
+    private float _lastSeenPosition = -999.0f;
+    
     private GameplayManager _gameplayManager;
 
 
@@ -77,17 +76,26 @@ public class NoteManager : MonoBehaviour
         this.BeatLines = this.BeatLines.OrderBy(e => e.AbsoluteTime).ToList();
     }
 
+    public void SetNoteMxValue()
+    {
+        if (this.Chart == null)
+        {
+            return;
+        }
+        
+        var mxFromHit = HitJudge.JudgeMxValues[JudgeResult.Perfect] * HitJudge.DifficultyMxValues[this.Chart.Difficulty];
+
+        foreach (var note in this.Notes)
+        {
+            note.MxValue = mxFromHit;
+        }
+    }
+    
     // Start is called before the first frame update
 
     void Start()
     {
         _gameplayManager = GameObject.FindObjectOfType<GameplayManager>();
-
-        if (Notes == null)
-        {
-            Notes = new List<Note>();
-        }
-
     }
 
     void FixedUpdate()
@@ -412,6 +420,8 @@ public class NoteManager : MonoBehaviour
             note.transform.SetParent(this.transform, false);
             note.transform.localPosition = new Vector3(9999.0f, note.transform.localPosition.y);
         }
+
+        SetNoteMxValue();
     }
     public void AttachBeatLines()
     {

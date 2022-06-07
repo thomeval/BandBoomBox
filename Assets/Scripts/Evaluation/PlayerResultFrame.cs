@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Diagnostics;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
@@ -16,8 +19,12 @@ public class PlayerResultFrame : MonoBehaviour
     public Text TxtIsNewPb;
     public Text LblIsGoalMet;
     public Text TxtIsGoalMet;
-   
+    public Text LblIsFullCombo;
+    public Text TxtIsFullCombo;
+
     [Header("Page 2")]
+    public Text TxtCrit;
+    public Text TxtCritPerc;
     public Text TxtPerfect;
     public Text TxtPerfectPerc;
     public Text TxtCool;
@@ -87,7 +94,9 @@ public class PlayerResultFrame : MonoBehaviour
         ExpMeter.Exp = player.Exp + player.GetExpGain();
         DisplayHitCount(player);
         DisplayGoalResult(player);
+        DisplayFullComboResult(player);
         DisplayGradeAnimation();
+
     }
 
     private void DisplayGradeAnimation()
@@ -97,6 +106,7 @@ public class PlayerResultFrame : MonoBehaviour
 
     private void DisplayHitCount(Player player)
     {
+        TxtCrit.text = FormatHits(player, JudgeResult.Crit);
         TxtPerfect.text = FormatHits(player, JudgeResult.Perfect);
         TxtCool.text = FormatHits(player, JudgeResult.Cool);
         TxtOk.text = FormatHits(player, JudgeResult.Ok);
@@ -104,6 +114,7 @@ public class PlayerResultFrame : MonoBehaviour
         TxtMiss.text = FormatHits(player, JudgeResult.Miss);
         TxtWrong.text = FormatHits(player, JudgeResult.Wrong);
 
+        TxtCritPerc.text = $"{player.HitPercentage(JudgeResult.Crit):P0}";
         TxtPerfectPerc.text = $"{player.HitPercentage(JudgeResult.Perfect):P0}";
         TxtCoolPerc.text = $"{player.HitPercentage(JudgeResult.Cool):P0}";
         TxtOkPerc.text = $"{player.HitPercentage(JudgeResult.Ok):P0}";
@@ -130,32 +141,64 @@ public class PlayerResultFrame : MonoBehaviour
 
         LblIsGoalMet.text = goalMet ? "Goal Passed!" : "Goal Failed!";
 
+        var goalExpValue = goalMet ? HitJudge.GoalExpValues[player.GetGoalGrade().GetValueOrDefault()] : 0.5f;
+        TxtIsGoalMet.text = ToExpModifier(goalExpValue);
 
-        if (!goalMet)
+    }
+
+    private void DisplayFullComboResult(Player player)
+    {
+        var fullComboType = player.GetFullComboType();
+        if (fullComboType == FullComboType.None)
         {
-            TxtIsGoalMet.text = "-50% EXP";
+            LblIsFullCombo.Hide();
+            TxtIsFullCombo.Hide();
+            return;
         }
-        else
+
+        LblIsFullCombo.Show();
+        TxtIsFullCombo.Show();
+
+        var fcExpValue = HitJudge.FullComboExpValues[fullComboType];
+        LblIsFullCombo.text = GetFullComboLabel(fullComboType);
+        TxtIsFullCombo.text = ToExpModifier(fcExpValue);
+    }
+
+    private string GetFullComboLabel(FullComboType fullComboType)
+    {
+        switch (fullComboType)
         {
-            var goalExpAmount = HitJudge.GoalExpValues[player.GetGoalGrade().GetValueOrDefault()];
-            goalExpAmount--;
-            TxtIsGoalMet.text = $"+{goalExpAmount:P0} EXP".Replace(" %", "");
+            case FullComboType.FullCombo:
+                return "Full Combo!";
+            case FullComboType.PerfectFullCombo:
+                return "Perfect FC!";
+            default:
+                return "";
         }
     }
+
+    private string ToExpModifier(float amount)
+    {
+        amount--;
+        var prefix = amount < 0 ? "" : "+";
+        var result = $"{prefix}{amount:P0} EXP".Replace(" %", "");
+        return result;
+    }
+
     private string FormatHits(Player player, JudgeResult judgeResult)
     {
 
         if (judgeResult == JudgeResult.Miss || judgeResult == JudgeResult.Wrong)
         {
-            return string.Format("{0:000}", player.Mistakes[judgeResult]);
+            return string.Format("{0:0000}", player.Mistakes[judgeResult]);
         }
 
-        if (judgeResult == JudgeResult.Perfect)
+        if (judgeResult == JudgeResult.Perfect || judgeResult == JudgeResult.Crit)
         {
-            return string.Format("{0:000}",player.EarlyHits[judgeResult] + player.LateHits[judgeResult]);
+            return string.Format("{0:0000}",player.EarlyHits[judgeResult] + player.LateHits[judgeResult]);
         }
 
-        return string.Format("{0:000}|{1:000}", player.EarlyHits[judgeResult], player.LateHits[judgeResult]);
+        return string.Format("{0:0000}|{1:0000}", player.EarlyHits[judgeResult], player.LateHits[judgeResult]);
 
     }
 

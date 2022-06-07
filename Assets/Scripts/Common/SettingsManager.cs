@@ -27,7 +27,7 @@ public class SettingsManager : MonoBehaviour
     public float AudioLatency;
 
     [Header("Graphics Settings")]
-    public int TargetFrameRate = 120;
+    public int TargetFrameRate = -1;
     public string ScreenResolution;
     public bool VSyncEnabled = false;
     public FullScreenMode FullScreenMode = FullScreenMode.FullScreenWindow;

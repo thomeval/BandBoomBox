@@ -6,6 +6,7 @@ public class HitJudge
 {
     public static readonly Dictionary<JudgeResult, int> JudgePerfPointValues = new Dictionary<JudgeResult, int>()
     {
+        {JudgeResult.Crit, 3},
         {JudgeResult.Perfect, 3},
         {JudgeResult.Cool, 2},
         {JudgeResult.Ok, 1},
@@ -17,6 +18,7 @@ public class HitJudge
 
     public static readonly Dictionary<JudgeResult, float> JudgeTimings = new Dictionary<JudgeResult, float>()
     {
+        {JudgeResult.Crit, 0.020f},
         {JudgeResult.Perfect, 0.030f},
         {JudgeResult.Cool, 0.060f},
         {JudgeResult.Ok, 0.12f},
@@ -26,6 +28,7 @@ public class HitJudge
 
     public static readonly Dictionary<JudgeResult, float> JudgeReleaseTimings = new Dictionary<JudgeResult, float>()
     {
+        {JudgeResult.Crit, 0.030f},
         {JudgeResult.Perfect, 0.045f},
         {JudgeResult.Cool, 0.090f},
         {JudgeResult.Ok, 0.18f},
@@ -33,9 +36,9 @@ public class HitJudge
         {JudgeResult.Miss, 10000.0f},
     };
 
-
     public static Dictionary<JudgeResult, int> JudgeScoreValues = new Dictionary<JudgeResult, int>()
     {
+        { JudgeResult.Crit, 55 },
         { JudgeResult.Perfect, 50},
         { JudgeResult.Cool, 30 },
         { JudgeResult.Ok, 15 },
@@ -44,9 +47,9 @@ public class HitJudge
         { JudgeResult.Miss, 0 }
     };
 
-
     public static Dictionary<JudgeResult, float> JudgeMxValues = new Dictionary<JudgeResult, float>()
     {
+        { JudgeResult.Crit, 0.075f},
         { JudgeResult.Perfect, 0.05f},
         { JudgeResult.Cool, 0.03f },
         { JudgeResult.Ok, 0.01f },
@@ -84,18 +87,24 @@ public class HitJudge
 
     public static Dictionary<Grade, float> GoalExpValues = new Dictionary<Grade, float>()
     {
-        {Grade.D, 1.0f}, // D
-        {Grade.C, 1.05f}, // C
-        {Grade.B, 1.1f}, // B
-        {Grade.BPlus, 1.15f}, // B+
-        {Grade.A, 1.2f}, // A
-        {Grade.APlus, 1.3f}, // A+
-        {Grade.S, 1.4f}, // S
-        {Grade.SPlus, 1.45f}, // S+
+        {Grade.D, 1.0f},        // D
+        {Grade.C, 1.05f},       // C
+        {Grade.B, 1.1f},        // B
+        {Grade.BPlus, 1.15f},   // B+
+        {Grade.A, 1.2f},        // A
+        {Grade.APlus, 1.3f},    // A+
+        {Grade.S, 1.4f},        // S
+        {Grade.SPlus, 1.45f},   // S+
     };
 
+    public static Dictionary<FullComboType, float> FullComboExpValues = new Dictionary<FullComboType, float>()
+    {
+        { FullComboType.None , 1.0f},
+        { FullComboType.FullCombo , 1.25f},
+        { FullComboType.PerfectFullCombo , 1.5f},
+    };
 
-    public HitResult GetHitResult(float deviation, int player, Difficulty difficulty, int lane, NoteType noteType, NoteClass noteClass)
+    public HitResult GetHitResult(float deviation, int player, Difficulty difficulty, int lane, NoteType noteType, NoteClass noteClass, bool allowCrit)
     {
         var result = new HitResult();
         var value = NoteUtils.GetNoteValue(noteType, noteClass);
@@ -104,6 +113,10 @@ public class HitJudge
         var absDeviation = Mathf.Abs(deviation);
         var judgeResult = GetBestTiming(absDeviation, noteClass);
 
+        if (!allowCrit && judgeResult == JudgeResult.Crit)
+        {
+            judgeResult = JudgeResult.Perfect;
+        }
         result.JudgeResult = judgeResult;
         if (judgeResult == JudgeResult.Wrong || judgeResult == JudgeResult.Miss)
         {
@@ -150,8 +163,8 @@ public class HitJudge
         return result;
     }
 
-    private static readonly JudgeResult[] _comboBreakResults = new[] {JudgeResult.Miss, JudgeResult.Wrong, JudgeResult.Bad};
-    private static readonly JudgeResult[] _comboAddResults = new[] {JudgeResult.Perfect, JudgeResult.Cool, JudgeResult.Ok};
+    private static readonly JudgeResult[] _comboBreakResults = {JudgeResult.Miss, JudgeResult.Wrong, JudgeResult.Bad};
+    private static readonly JudgeResult[] _comboAddResults = {JudgeResult.Crit, JudgeResult.Perfect, JudgeResult.Cool, JudgeResult.Ok};
     public static bool? IsComboBreak(JudgeResult result)
     {
        

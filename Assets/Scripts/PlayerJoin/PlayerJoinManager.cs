@@ -6,6 +6,7 @@ public class PlayerJoinManager : ScreenManager
 {
     public PlayerJoinFrame[] PlayerJoinFrames = new PlayerJoinFrame[4];
 
+    public const int MAX_ALLOWED_PLAYERS = 4;
     public int ReadyPlayerCount
     {
         get { return PlayerJoinFrames.Count(e => e.State == PlayerJoinState.Ready); }
@@ -40,6 +41,8 @@ public class PlayerJoinManager : ScreenManager
         {
             CoreManager.PlayerManager.RemovePlayer(player.Slot);
         }
+
+        CoreManager.PlayerManager.AllowPlayerJoining = CoreManager.PlayerManager.GetLocalPlayers().Count < MAX_ALLOWED_PLAYERS;
     }
 
     // Start is called before the first frame update
@@ -95,6 +98,7 @@ public class PlayerJoinManager : ScreenManager
         player.AutoSetLabelSkin();
         var frame = PlayerJoinFrames[player.Slot - 1];
         AssignFrameToPlayer(frame, player, true);
+        CoreManager.PlayerManager.AllowPlayerJoining = CoreManager.PlayerManager.GetLocalPlayers().Count < MAX_ALLOWED_PLAYERS;
     }
 
 }

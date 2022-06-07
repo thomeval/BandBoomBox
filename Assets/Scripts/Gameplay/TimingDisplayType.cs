@@ -2,5 +2,6 @@
 {
     Off,
     Icons,
-    Words
+    Words,
+    EarlyLate
 }

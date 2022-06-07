@@ -1,15 +1,28 @@
+using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
 public class EvaluationManager : ScreenManager
 {
-
+    public float DelayBeforeContinueAllowed = 2f;
     public PlayerResultFrame[] PlayerResultFrames = new PlayerResultFrame[4];
     public SongResultFrame SongResultFrame;
-
+    public GameObject PbContinue;
+    
     public AudioSource SfxGradeNormal;
     public AudioSource SfxGradeHigh;
 
+    private DateTime _screenStartTime;
+
+    public bool AllowContinue
+    {
+        get
+        {
+            return DateTime.Now.Subtract(_screenStartTime).TotalSeconds > DelayBeforeContinueAllowed;
+        }
+    }
+    
     void Awake()
     {
         FindCoreManager();
@@ -18,6 +31,7 @@ public class EvaluationManager : ScreenManager
     // Start is called before the first frame update
     void Start()
     {
+        _screenStartTime = DateTime.Now;
         foreach (var frame in PlayerResultFrames)
         {
             frame.Hide();
@@ -40,7 +54,15 @@ public class EvaluationManager : ScreenManager
 
         SongResultFrame.DisplayResult(CoreManager.LastTeamScore, isTeamBest);
         CoreManager.SaveAllActiveProfiles();
+        StartCoroutine(DisplayContinueAfterDelay());
         PlayGradeSfx();
+    }
+
+    private IEnumerator DisplayContinueAfterDelay()
+    {
+        PbContinue.SetActive(false);
+        yield return new WaitForSeconds(DelayBeforeContinueAllowed);
+        PbContinue.SetActive(true);
     }
 
     private void PlayGradeSfx()
@@ -74,7 +96,10 @@ public class EvaluationManager : ScreenManager
             case "B":
             case "Pause":
             case "Back":
-                SceneTransition(GameScene.SongSelect);
+                if (AllowContinue)
+                {
+                    SceneTransition(GameScene.SongSelect);
+                }
                 break;
         }
     }

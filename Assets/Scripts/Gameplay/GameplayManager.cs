@@ -178,8 +178,8 @@ public class GameplayManager : ScreenManager
     private void CalculateStarScores()
     {
         var currentSong = _songManager.CurrentSong;
-        var charts = NoteManagers.Where(e => e.gameObject.activeInHierarchy).Select(e => e.Chart).ToList();
-        SongStarScoreValues = _songStarValueCalculator.CalculateSuggestedScores(charts, currentSong.LengthInBeats, currentSong.Bpm);
+        var activeManagers = NoteManagers.Where(e => e.gameObject.activeInHierarchy).ToList();
+        SongStarScoreValues = _songStarValueCalculator.CalculateSuggestedScores(activeManagers);
     }
 
     void FixedUpdate()
@@ -327,9 +327,11 @@ public class GameplayManager : ScreenManager
 
                 if (note != null)
                 {
+                    var allowCrit = _playerManager.GetPlayer(inputEvent.Player).TurboActive;
+                    
                     // Note was hit. Apply a hit result.
                     var deviation = SongPosition - note.AbsoluteTime;
-                    var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass);
+                    var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass, allowCrit);
                     ApplyHitResult(hitResult);
                     if (note.NoteClass == NoteClass.Hold)
                     {
@@ -409,8 +411,9 @@ public class GameplayManager : ScreenManager
 
         if (releaseNote != null)
         {
+            var allowCrit = _playerManager.GetPlayer(inputEvent.Player).TurboActive;
             var deviation = SongPosition - releaseNote.AbsoluteTime;
-            var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, releaseNote.NoteType, releaseNote.NoteClass);
+            var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, releaseNote.NoteType, releaseNote.NoteClass, allowCrit);
             ApplyHitResult(hitResult);
 
             if (hitResult.JudgeResult < JudgeResult.Bad)
@@ -493,7 +496,7 @@ public class GameplayManager : ScreenManager
         this.MaxMultiplier = Math.Max(this.Multiplier, this.MaxMultiplier);
 
         const float ENERGY_GAIN_RATE = 0.01f;
-        if (hitResult.JudgeResult == JudgeResult.Perfect)
+        if (hitResult.JudgeResult <= JudgeResult.Perfect)
         {
             this.Energy += ENERGY_GAIN_RATE;
         }

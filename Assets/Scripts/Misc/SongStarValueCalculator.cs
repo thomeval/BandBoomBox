@@ -19,15 +19,16 @@ public class SongStarValueCalculator : MonoBehaviour
     public int StarCount = 5;
     public int NoteBaseValue = 50;
 
-    public SongStarScoreValues CalculateSuggestedScores(List<SongChart> charts, float songEndBeat, float songBpm)
+    public SongStarScoreValues CalculateSuggestedScores(List<NoteManager> managers)
     {
-        var category = HighScoreManager.GetCategory(charts.Count);
+        managers = managers.Where(e => e.gameObject.activeInHierarchy).ToList();
+        var category = HighScoreManager.GetCategory(managers.Count);
 
         var values = new List<long>();
         for (int x = 0; x < StarCount; x++)
         {
 
-            var maxScore = CalculateMaxScore(charts, songEndBeat, songBpm);
+            var maxScore = CalculateMaxScore(managers);
             var percent = Percentages[category][x];
 
             // Target Score = Maximum theoretical score * Percent
@@ -44,33 +45,17 @@ public class SongStarValueCalculator : MonoBehaviour
         };
     }
 
-    public long CalculateMaxScore(List<SongChart> charts, float songEndBeat, float songBpm)
+    public long CalculateMaxScore(List<NoteManager> noteManagers)
     {
+
         double mx = 1.0;
         double maxMx = 1.0;
         long result = 0;
         double lastNoteTime = 0.0;
-        
-        List<Note> notes = new List<Note>();
+
+        var notes = noteManagers.SelectMany(e => e.Notes).ToList();
         int noteCount = 0;
-
-        foreach (var chart in charts)
-        {
-            float mxFromHit = HitJudge.JudgeMxValues[JudgeResult.Perfect] * HitJudge.DifficultyMxValues[chart.Difficulty];
-
-            if (chart.Notes.Any())
-            {
-                NoteGenerator.LoadNoteArray(chart.Notes, ref notes);
-            }
-            else
-            {
-                NoteGenerator.GenerateNotes(chart.Difficulty, (int)songEndBeat, notes);
-            }
-         
-            SetNoteMxValue(notes, mxFromHit);
-        }
-        NoteUtils.CalculateAbsoluteTimes(notes, songBpm);
-
+        
         foreach (var note in notes.OrderBy(e => e.AbsoluteTime))
         {
             double value = (this.NoteBaseValue * NoteUtils.GetNoteValue(note.NoteType, note.NoteClass));
@@ -89,15 +74,8 @@ public class SongStarValueCalculator : MonoBehaviour
             noteCount++;
         }
 
-        Debug.Log($"CalculateMaxScore result: Charts:{charts.Count}, Notes: {noteCount}, Score: {result}, Ending Mx: {mx:F3}, Max Mx: {maxMx:F3}");
+        Debug.Log($"CalculateMaxScore result: Charts:{noteManagers.Count()}, Notes: {noteCount}, Score: {result}, Ending Mx: {mx:F3}, Max Mx: {maxMx:F3}");
         return result;
     }
 
-    private void SetNoteMxValue(List<Note> notes, float mxFromHit)
-    {
-        foreach (var note in notes.Where(e => e.MxValue == 0).ToList())
-        {
-            note.MxValue = mxFromHit;
-        }
-    }
 }
