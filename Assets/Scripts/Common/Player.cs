@@ -463,6 +463,28 @@ public class Player : MonoBehaviour
 
     public FullComboType GetFullComboType()
     {
+        var totalNotes = this.EarlyHits.Sum(e => e.Value) 
+                         + this.LateHits.Sum(e => e.Value)
+                         + this.Mistakes[JudgeResult.Miss];     // Include misses, but not wrongs.
+
+        var perfectHits = this.EarlyHits[JudgeResult.Perfect] + this.LateHits[JudgeResult.Perfect]
+                                                              + this.EarlyHits[JudgeResult.Crit] +
+                                                              this.LateHits[JudgeResult.Crit];
+
+        Debug.Log($"Total Notes: {totalNotes}\r\n" +
+                  $"Perfect Hits: {perfectHits}\r\n" +
+                  $"Max Combo: {this.MaxCombo}");
+        
+        if (perfectHits == totalNotes)
+        {
+            return FullComboType.PerfectFullCombo;
+        }
+        
+        if (this.MaxCombo == totalNotes)
+        {
+            return FullComboType.FullCombo;
+        }
+
         return FullComboType.None;
     }
 }

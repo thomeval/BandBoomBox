@@ -19,7 +19,8 @@ public class InputManager : MonoBehaviour
     {
         {"Keyboard", "WASD"},
         {"XInputController", "ABXY"},
-        {"SwitchProControllerHID", "BAYX" }      
+        {"SwitchProControllerHID", "BAYX" },
+        {"PS4", "Symbols" }
     };
 
     private const string DEFAULT_DEVICE = "Generic";
@@ -32,7 +33,6 @@ public class InputManager : MonoBehaviour
 
         _coreManager = GameObject.Find("CoreManager");
         _player = this.GetComponentInParent<Player>();
-        var _manager = this.GetComponent<PlayerInputManager>();
     }
 
     void Start()
