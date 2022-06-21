@@ -11,7 +11,8 @@
                     "id": "98644854-7fd7-434d-b438-d004f495244e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Up",
@@ -19,7 +20,8 @@
                     "id": "803cb216-cf97-4d9d-9aa1-9d202d946ecc",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Down",
@@ -27,7 +29,8 @@
                     "id": "752f00ac-1de0-4222-9bad-350b0d3b7af3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Right",
@@ -35,7 +38,8 @@
                     "id": "61c96047-e17d-4c4f-aef3-20aeca616274",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "A",
@@ -43,7 +47,8 @@
                     "id": "f6aa15b3-82a3-45b9-bebd-695051ac997f",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "B",
@@ -51,7 +56,8 @@
                     "id": "ee61fdd2-8ba2-4b45-91fb-a0705c007cbc",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "X",
@@ -59,7 +65,8 @@
                     "id": "19053bd8-212b-48df-bfa7-447d12ffe586",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Y",
@@ -67,7 +74,8 @@
                     "id": "22cf99d9-5eb5-4d1b-a4af-ffd07c9c39d0",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "LB",
@@ -75,7 +83,8 @@
                     "id": "db4c8244-8ac4-4883-8043-c3c574f17403",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "LT",
@@ -83,7 +92,8 @@
                     "id": "ae5137ce-9260-4fa2-a21d-6cb425aaa22c",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "RB",
@@ -91,7 +101,8 @@
                     "id": "da1ad24d-a7bf-4888-be92-a9b528c66d75",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "RT",
@@ -99,7 +110,8 @@
                     "id": "1e6ed159-b802-4da6-93a6-2000e4da6939",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Pause",
@@ -107,7 +119,8 @@
                     "id": "8fd1748e-8d8a-4b57-9e3b-419e66875099",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Turbo",
@@ -115,7 +128,8 @@
                     "id": "0a54fef6-81d8-4e7c-8cb0-29bb772ac0c4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Back",
@@ -123,7 +137,8 @@
                     "id": "6b67822b-e653-4530-99ac-5f8e66d78cb0",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -453,6 +468,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b6f4b59-31c3-435f-b6d1-86d167edab99",
+                    "path": "<Keyboard>/pause",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false

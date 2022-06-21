@@ -10,13 +10,12 @@ public class SongStarValueCalculator : MonoBehaviour
 
     public Dictionary<TeamScoreCategory, double[]> Percentages = new Dictionary<TeamScoreCategory, double[]>
     {
-        {TeamScoreCategory.Solo, new double[] {0.05, 0.2, 0.35, 0.55, 0.75}},
-        {TeamScoreCategory.Duet, new double[] {0.05, 0.2, 0.35, 0.55, 0.70}},
-        {TeamScoreCategory.Crowd, new double[] {0.05, 0.2, 0.35, 0.50, 0.65}},
-        {TeamScoreCategory.Legion, new double[] {0.05, 0.2, 0.35, 0.50, 0.65}}
+        {TeamScoreCategory.Solo, new[]   {0.05, 0.2, 0.35, 0.55, 0.75, 1.00}},
+        {TeamScoreCategory.Duet, new[]   {0.05, 0.2, 0.35, 0.55, 0.70, 0.95, 1.20}},
+        {TeamScoreCategory.Crowd, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.90, 1.15, 1.35}},
+        {TeamScoreCategory.Legion, new[] {0.05, 0.2, 0.35, 0.50, 0.65, 0.90, 1.15, 1.35, 1.60, 1.80}}
     };
-
-    public int StarCount = 5;
+    
     public int NoteBaseValue = 50;
 
     public SongStarScoreValues CalculateSuggestedScores(List<NoteManager> managers)
@@ -25,7 +24,8 @@ public class SongStarValueCalculator : MonoBehaviour
         var category = HighScoreManager.GetCategory(managers.Count);
 
         var values = new List<long>();
-        for (int x = 0; x < StarCount; x++)
+        var starCount = Percentages[category].Length;
+        for (int x = 0; x < starCount; x++)
         {
 
             var maxScore = CalculateMaxScore(managers);

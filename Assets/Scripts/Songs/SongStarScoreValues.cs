@@ -55,23 +55,5 @@ public class SongStarScoreValues
         }
         return 1.0 * target / right;
     }
-    public string Validate()
-    {
-        double last = -1.0;
-        foreach (var score in Scores)
-        {
-
-            if (score <= 0)
-            {
-                return "Star score values must be greater than zero.";
-            }
-            if (score <= last)
-            {
-                return "Star score values must be in ascending order, and cannot contain duplicates.";
-            }
-        }
-
-        return null;
-    }
 }
 

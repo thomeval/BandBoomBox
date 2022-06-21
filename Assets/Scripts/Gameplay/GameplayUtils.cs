@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 public static class GameplayUtils
 {
@@ -13,13 +8,12 @@ public static class GameplayUtils
     public static double DecayMultiplier(double multiplier, double timeDiff)
     {
         var effectiveMx = (int)multiplier;
-        effectiveMx += (int)Math.Max(0, multiplier - 2);
-        effectiveMx += (int)Math.Max(0, multiplier - 4);
-        effectiveMx += (int)Math.Max(0, multiplier - 6);
-        effectiveMx += (int)Math.Max(0, multiplier - 8);
-        effectiveMx += (int)Math.Max(0, multiplier - 10);
-        effectiveMx += (int)Math.Max(0, multiplier - 12);
 
+        for (int x = 2; x < multiplier; x += 2)
+        {
+            effectiveMx += (int)Math.Max(0, multiplier - x);
+        }
+        
         var decayRate = MX_BASE_DECAY_RATE * effectiveMx;
 
         multiplier -= decayRate * timeDiff;

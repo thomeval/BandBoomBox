@@ -62,7 +62,7 @@ namespace Assets.Scripts.Editor.Pages
         public void BtnNext_OnClick()
         {
             try
-            { ;
+            { 
                 var err = ValidateInputs();
                 TxtErrorMessage.text = err;
 
