@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets;
@@ -80,6 +80,7 @@ public class GameplayManager : ScreenManager
     private PlayerManager _playerManager;
     private SongManager _songManager;
     private SongStarValueCalculator _songStarValueCalculator;
+    private BackgroundManager _backgroundManager;
 
     private HitJudge _hitJudge;
     DateTime _lastUpdate = DateTime.Now;
@@ -97,8 +98,8 @@ public class GameplayManager : ScreenManager
         _playerManager = CoreManager.PlayerManager;
         _songManager = FindObjectOfType<SongManager>();
         _songStarValueCalculator = FindObjectOfType<SongStarValueCalculator>();
+        _backgroundManager = FindObjectOfType<BackgroundManager>();
     }
-
 
     private void SetupNoteHighways()
     {
@@ -198,8 +199,17 @@ public class GameplayManager : ScreenManager
         UpdateMxGainRate();
         UpdateGameplayState();
         CheckOutroState();
+        UpdateBackground();
         _lastUpdate = DateTime.Now;
 
+    }
+
+    private void UpdateBackground()
+    {
+        var backgroundSpeed = Math.Min(1.0, this.Multiplier);
+
+        _backgroundManager.SetSpeedMultiplier((float) backgroundSpeed);
+        _backgroundManager.SetBeatNumber(_songManager.GetSongPositionInBeats());
     }
 
     private void UpdatePlayerEnergy(double timeDiff)

@@ -9,8 +9,6 @@ public class MenuMusicEntry : MonoBehaviour
 
     public string Group;
 
-    void Awake()
-    {
-
-    }
+    // TODO: Should be nullable, but this breaks Unity's inspector.
+    public float Bpm;
 }

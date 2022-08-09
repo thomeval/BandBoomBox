@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.IO;
 using UnityEngine;
@@ -25,9 +25,15 @@ public class SongPreviewManager : MonoBehaviour
         get { return PreviewEnd + Offset; }
     }
 
+    public SongData PreviewedSongData;
+
+    private BackgroundManager _backgroundManager;
+    
     void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
+        _backgroundManager = FindObjectOfType<BackgroundManager>();
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -69,6 +75,8 @@ public class SongPreviewManager : MonoBehaviour
         var url = Helpers.PathToUri(songData.AudioPath);
 
         _previewLength = 60.0f / songData.Bpm * 4 * 8;          // 8 Measures
+        PreviewedSongData = songData;
+
         StartCoroutine(LoadSongCoroutine(url, songData.Offset, songData.Offset + _previewLength));
     }
 
@@ -104,5 +112,11 @@ public class SongPreviewManager : MonoBehaviour
         AudioSource.clip = clip;
         AudioSource.time = _actualPreviewStart;
         AudioSource.Play();
+
+        if (clip != null)
+        {
+            _backgroundManager.SetBpm(PreviewedSongData.Bpm, true);
+            _backgroundManager.SetSpeedMultiplier(1.0f);
+        }
     }
 }

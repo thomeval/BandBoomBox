@@ -11,5 +11,6 @@
     Credits,
     HowToPlay,
     DifficultySelect,
-    Editor
+    Editor,
+    All
 }
