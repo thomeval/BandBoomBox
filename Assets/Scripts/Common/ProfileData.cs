@@ -14,8 +14,9 @@ public class ProfileData
     public Difficulty Difficulty { get; set; }
 
     public int SongsPlayed { get; set; }
+    public bool MistakeSfxEnabled { get; set; } = true;
 
-    public List<PlayerScore> PlayerScores { get; set; } = new List<PlayerScore>();
+    public List<PlayerScore> PlayerScores { get; set; } = new();
 
     public PlayerScore GetPlayerHighScore(string songId, int songVersion, Difficulty difficulty, string chartGroup)
     {
@@ -53,6 +54,7 @@ public class ProfileData
         player.Goal = this.Goal;
         player.Difficulty = this.Difficulty;
         player.SongsPlayed = this.SongsPlayed;
+        player.MistakeSfxEnabled = this.MistakeSfxEnabled;
     }
 }
 

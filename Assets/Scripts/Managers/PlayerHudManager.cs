@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
@@ -8,32 +8,19 @@ public class PlayerHudManager : MonoBehaviour
     public int Slot;
 
     public Text TxtCombo;
-
     public Text TxtRanking;
-
     public Text TxtPerfPercent;
-
     public Text TxtDifficulty;
-
     public TimingDisplay TimingDisplay;
-
     public LaneFlasher LaneFlasher;
-
     public NoteHitFlasher NoteHitFlasher;
-
     public GameObject PlayerIdentifier;
-
     public CountdownDisplay CountdownDisplay;
-
     public GoalMeter GoalMeter;
-
     public AudioSource AudMistake;
-
     public HeldNoteDisplay HeldNoteDisplay;
-
-
     private SpriteResolver _playerIdentifierResolver;
-
+    private bool _mistakeSfxEnabled;
 
     public void UpdateHud(Player player)
     {
@@ -68,6 +55,7 @@ public class PlayerHudManager : MonoBehaviour
         TimingDisplay.SpriteCategory = "Timing" + player.TimingDisplayType;
 
         UpdateGoalMeter(player);
+        _mistakeSfxEnabled = player.MistakeSfxEnabled;
     }
 
     [SerializeField]
@@ -85,7 +73,7 @@ public class PlayerHudManager : MonoBehaviour
     {
         this.TimingDisplay.ShowHit(result);
 
-        if (result.JudgeResult == JudgeResult.Wrong)
+        if (result.JudgeResult == JudgeResult.Wrong && _mistakeSfxEnabled)
         {
             this.AudMistake.Play();
         }

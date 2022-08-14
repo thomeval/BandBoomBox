@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +12,8 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public Text TxtTimingDisplay;
     public Text TxtLabelSkin;
     public Text TxtGoal;
-
+    public Text TxtMistakeSfxEnabled;
+    
     public Grade?[] Goals = { null, Grade.D, Grade.C, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus };
 
     public List<Note> NotePreviews;
@@ -50,6 +51,9 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
             case "Goal":
                 var newGrade = Helpers.GetNextValue(Goals, Parent.Player.GetGoalGrade(), amount, false);
                 Parent.Player.Goal = Helpers.GradeToPercent(newGrade);
+                break;
+            case "Mistake Sfx":
+                Parent.Player.MistakeSfxEnabled = !Parent.Player.MistakeSfxEnabled;
                 break;
         }
     }
@@ -91,6 +95,17 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         // UpdateNotePreviews();
         TxtTimingDisplay.text = player.TimingDisplayType.ToString();
 
+        UpdateGoalText(player);
+        TxtMistakeSfxEnabled.text = BoolToOnOff(player.MistakeSfxEnabled);
+    }
+
+    private string BoolToOnOff(bool value)
+    {
+        return value ? "On" : "Off";
+    }
+
+    private void UpdateGoalText(Player player)
+    {
         var goalGrade = player.GetGoalGrade();
         string goalText;
         if (goalGrade == null)
@@ -104,7 +119,6 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         }
 
         TxtGoal.text = goalText;
-
     }
 
     private void UpdateNotePreviews()

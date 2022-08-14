@@ -1,4 +1,4 @@
-
+﻿
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -106,12 +106,24 @@ public class OptionsManager : ScreenManager
                 AddToOption(ref settings.AudioLatency, AUDIO_LATENCY_CHANGE_TICK * delta, -0.3f, 0.3f);
                 break;
             case "VSync":
-                settings.VSyncEnabled = !CoreManager.Settings.VSyncEnabled;
+                settings.VSyncEnabled = !settings.VSyncEnabled;
+
+                // Prevent both Target Frame Rate and Vsync from being enabled at the same time.
+                if (settings.VSyncEnabled)
+                {
+                    CoreManager.Settings.TargetFrameRate = -1;
+                }
                 break;
             case "Target Frame Rate":
                 var newTfr =
                     Helpers.GetNextValue(_targetFrameRateChoices, CoreManager.Settings.TargetFrameRate, delta, false);
                 CoreManager.Settings.TargetFrameRate = newTfr;
+
+                // Prevent both Target Frame Rate and Vsync from being enabled at the same time.
+                if (newTfr != -1)
+                {
+                    CoreManager.Settings.VSyncEnabled = false;
+                }
                 break;
             case "Screen Resolution":
                 if (Array.IndexOf(_resolutionChoices, settings.ScreenResolution) == -1)

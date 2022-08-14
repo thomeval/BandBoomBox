@@ -56,22 +56,22 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\FileBrowserCursorHandler.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\FileBrowserDeleteConfirmationPanel.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\FileBrowserQuickLink.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\FileBrowserItem.cs" />
+    <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\FileBrowserMovement.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\FileBrowser.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\SimpleRecycledListView\IListViewAdapter.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\FileBrowserContextMenu.cs" />
-    <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\SimpleRecycledListView\ListItem.cs" />
-    <Compile Include="Assets\Plugins\SimpleFileBrowser\Android\FBPermissionCallbackAndroid.cs" />
-    <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\NonDrawingGraphic.cs" />
-    <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\FileBrowserCursorHandler.cs" />
-    <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\FileBrowserMovement.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Android\FBDirectoryReceiveCallbackAndroid.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\FileBrowserRenamedItem.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\SimpleRecycledListView\RecycledListView.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\FileBrowserHelpers.cs" />
+    <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\SimpleRecycledListView\ListItem.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Android\FBCallbackHelper.cs" />
+    <Compile Include="Assets\Plugins\SimpleFileBrowser\Android\FBPermissionCallbackAndroid.cs" />
+    <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\NonDrawingGraphic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SimpleFileBrowser\README.txt" />

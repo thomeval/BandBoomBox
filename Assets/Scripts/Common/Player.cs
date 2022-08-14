@@ -28,8 +28,8 @@ public class Player : MonoBehaviour
     }
 
     #region Properties
+    
     [SerializeField]
-
     private int _perfPoints;
     public int PerfPoints
     {
@@ -150,6 +150,20 @@ public class Player : MonoBehaviour
         set
         {
             _profileId = value;
+        }
+    }
+
+    [SerializeField]
+    private bool _mistakeSfxEnabled = true;
+    public bool MistakeSfxEnabled
+    {
+        get
+        {
+            return _mistakeSfxEnabled;
+        }
+        set
+        {
+            _mistakeSfxEnabled = value;
         }
     }
 
@@ -457,7 +471,8 @@ public class Player : MonoBehaviour
             TimingDisplayType = this.TimingDisplayType,
             Goal = this.Goal,
             Difficulty = this.Difficulty,
-            SongsPlayed = this.SongsPlayed
+            SongsPlayed = this.SongsPlayed,
+            MistakeSfxEnabled = this.MistakeSfxEnabled
         };
     }
 
