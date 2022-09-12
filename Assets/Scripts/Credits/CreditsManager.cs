@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CreditsManager : ScreenManager
@@ -53,8 +53,8 @@ public class CreditsManager : ScreenManager
     {
         switch (inputEvent.Action)
         {
-            case "B":
-            case "Back":
+            case InputAction.B:
+            case InputAction.Back:
                 SfxBack.PlayUnlessNull();
                 SceneTransition(GameScene.Options);
                 break;

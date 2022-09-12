@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Editor.Pages
@@ -35,7 +36,7 @@ namespace Assets.Scripts.Editor.Pages
 
         public void BtnBackToMainMenu_OnClick()
         {
-            Parent.SceneTransition(GameScene.MainMenu);
+            Parent.RaiseSceneTransition(GameScene.MainMenu);
         }
 
         public void BtnOpenMainSongsFolder_OnClick()
@@ -47,8 +48,8 @@ namespace Assets.Scripts.Editor.Pages
         {
             switch (inputEvent.Action)
             {
-                case "B":
-                case "Back":
+                case InputAction.B:
+                case InputAction.Back:
                     BtnBackToMainMenu_OnClick();
                     break;
             }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Assets;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,7 +87,7 @@ public class PlayerJoinFrame : MonoBehaviour
         switch (State)
         {
             case PlayerJoinState.Ready:
-                if (inputEvent.Action == "B" || inputEvent.Action == "Back")
+                if (inputEvent.Action == InputAction.B || inputEvent.Action == InputAction.Back)
                 {
                     State = PlayerJoinState.Options;
                     SfxSelectionCancelled.PlayUnlessNull();

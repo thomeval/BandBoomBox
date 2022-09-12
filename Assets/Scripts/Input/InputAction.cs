@@ -1,0 +1,52 @@
+﻿// ReSharper disable InconsistentNaming
+
+public enum InputAction
+{
+    A,
+    B,
+    X,
+    Y,
+    Down,
+    Right,
+    Left,
+    Up,
+    LB,
+    RB,
+    LT,
+    RT,
+    Back,
+    Pause,
+    Turbo,
+
+    Editor_NoteA,
+    Editor_NoteB,
+    Editor_NoteX,
+    Editor_NoteY,
+    Editor_NoteDown,
+    Editor_NoteRight,
+    Editor_NoteLeft,
+    Editor_NoteUp,
+    Editor_NoteLB,
+    Editor_NoteRB,
+    Editor_NoteLT,
+    Editor_NoteRT,
+    Editor_NoteReleaseAnyB,
+    Editor_NoteReleaseAnyD,
+    Editor_NoteReleaseAnyT,
+    Editor_Confirm,
+    Editor_PlayPause,
+    Editor_StepLeft,
+    Editor_StepRight,
+    Editor_MeasureLeft,
+    Editor_MeasureRight,
+    Editor_SectionLeft,
+    Editor_SectionRight,
+    Editor_StepSizeUp,
+    Editor_StepSizeDown,
+    Editor_ZoomIn,
+    Editor_ZoomOut,
+
+    Editor_JumpToStart,
+    Editor_JumpToEnd
+}
+

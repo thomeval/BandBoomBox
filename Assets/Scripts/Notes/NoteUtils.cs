@@ -122,7 +122,33 @@ public static class NoteUtils
         }
     }
 
+    public static NoteType[] GetValidNoteTypesForDifficulty(Difficulty difficulty)
+    {
+        switch (difficulty)
+        {
+            case Difficulty.Beginner:
+                return new[] { NoteType.AnyB, NoteType.AnyD };
+            case Difficulty.Medium:
+                return new[] { NoteType.A, NoteType.B, NoteType.Left, NoteType.Down };
+            case Difficulty.Hard:
+                return  new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right };
+            case Difficulty.Expert:
+                return  new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB };
+            case Difficulty.Master:
+                return  new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB, NoteType.LT, NoteType.RT };
+            default:
+                return Array.Empty<NoteType>();
+        }
+
+    }
+
+    public static NoteType? GetNoteType(InputAction inputAction)
+    {
+        return GetNoteType(inputAction.ToString());
+    }
+
     public static NoteType? GetNoteType(string noteType)
+
     {
         if (Enum.TryParse(noteType, true, out NoteType result))
         {

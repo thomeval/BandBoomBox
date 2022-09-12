@@ -1,5 +1,4 @@
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
 
 using UnityEngine;
@@ -30,7 +29,7 @@ public class MainMenuManager : ScreenManager
 
     void Start()
     {
-        TxtVersion.text = UnityEngine.Application.version;
+        TxtVersion.text = Application.version;
 
         if (CoreManager.TitleScreenShown)
         {
@@ -48,7 +47,7 @@ public class MainMenuManager : ScreenManager
         switch (State)
         {
             case MainMenuState.PressStart:
-                if (inputEvent.Action == "Pause")
+                if (inputEvent.Action == InputAction.Pause)
                 {
                     OnStartPressed();
                 }

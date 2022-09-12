@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
@@ -18,9 +18,12 @@ public class NoteManager : MonoBehaviour
     public float LateHitCutoff = 0.3f;
     public float EarlyWrongCutoff = -2.0f;
     public float LateWrongCutoff = 1.0f;
+
+    /// <summary>
+    /// Gets or sets the current position of the highway, in seconds, relative to the song's offset point. 
+    /// </summary>
     public float SongPosition = -999.0f;
 
-    public float Offset;
     public float DEFAULT_VISIBILITY_RANGE = 8.0f;
 
     public string NoteSkin;
@@ -28,6 +31,7 @@ public class NoteManager : MonoBehaviour
 
     public float ScrollSpeed = 500;
     public int Slot = 1;
+    public bool TrimNotesEnabled = true;
 
     private float _displayedScrollSpeed = 500;
     private readonly List<Note> _notesToRemove = new List<Note>();
@@ -120,7 +124,6 @@ public class NoteManager : MonoBehaviour
         }
     }
 
-
     public void HideAllNotes()
     {
         foreach (var note in Notes)
@@ -202,6 +205,10 @@ public class NoteManager : MonoBehaviour
 
     public void TrimNotes()
     {
+        if (!TrimNotesEnabled)
+        {
+            return;
+        }
 
         GetNotesToRemove();
         foreach (var note in _notesToRemove)
@@ -413,12 +420,18 @@ public class NoteManager : MonoBehaviour
         this.Notes.Clear();
     }
 
+    public void AttachNote(Note note)
+    {
+        note.transform.SetParent(this.transform, false); 
+        note.transform.localPosition = new Vector3(9999.0f, note.transform.localPosition.y);
+        note.SetSpriteCategories(this.NoteSkin, this.LabelSkin);
+    }
+
     public void AttachNotes()
     {
         foreach (var note in this.Notes)
         {
-            note.transform.SetParent(this.transform, false);
-            note.transform.localPosition = new Vector3(9999.0f, note.transform.localPosition.y);
+            AttachNote(note);
         }
 
         SetNoteMxValue();
@@ -430,5 +443,22 @@ public class NoteManager : MonoBehaviour
             beatLine.transform.SetParent(this.transform, false);
             beatLine.transform.localPosition = new Vector3(9999.0f, beatLine.transform.localPosition.y);
         }
+    }
+
+    public Note GetNoteAtPosition(double position, int lane)
+    {
+        // ReSharper disable once CompareOfFloatsByEqualityOperator
+        var result = Notes.SingleOrDefault(e => (double) e.Position == position && e.Lane == lane);
+        return result;
+    }
+
+    public Note FindReleaseNoteStart(Note releaseNote)
+    {
+        if (releaseNote.NoteClass != NoteClass.Release)
+        {
+            throw new ArgumentException("FindReleaseNoteStart can only be called for Release notes.");
+        }
+
+        return Notes.SingleOrDefault(e => e.EndNote == releaseNote);
     }
 }

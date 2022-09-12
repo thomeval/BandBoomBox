@@ -1,4 +1,5 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerJoinProfileCreateFrame : MonoBehaviour
@@ -68,14 +69,14 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
     {
         switch (inputEvent.Action)
         {
-            case "B":
+            case InputAction.B:
                 if (Menu.SelectedIndex == 0)
                 {
                     MenuItemSelected(new MenuEventArgs { SelectedItem = "Backspace" });
                     Menu.PlaySound("SelectionCancelled");
                 }
                 return;
-            case "Back":
+            case InputAction.Back:
                 MenuItemSelected(new MenuEventArgs { SelectedItem = "Cancel" });
 
                 break;

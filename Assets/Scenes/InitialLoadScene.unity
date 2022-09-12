@@ -701,7 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89fdc84710dffa419dbe31ae7c6e557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameScene: 12
+  GameScene: 13
   AudioClip: {fileID: 0}
   Group: Z
   Bpm: -1
@@ -1236,6 +1236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoreManager: {fileID: 0}
   IgnoreReleaseInputs: 0
+  DefaultActionMapType: 0
   TxtLoading: {fileID: 1653870872}
   TxtSongCount: {fileID: 837115082}
   LoadingComplete: 0
@@ -1471,6 +1472,7 @@ MonoBehaviour:
   AudioMixer: {fileID: 24100000, guid: 6dfb45b200e18cb40ac79e7a256945a7, type: 2}
   Settings: {fileID: 0}
   ControlsManager: {fileID: 1357955990}
+  InputManager: {fileID: 0}
   TitleScreenShown: 0
 --- !u!1 &1910463115700770860
 GameObject:

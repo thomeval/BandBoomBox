@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -66,6 +67,22 @@ public class SongData
     public override string ToString()
     {
         return $"{Artist} - {Title} {Subtitle}";
+    }
+
+    public KeyValuePair<double, string> GetSection(double position)
+    {
+        if (!this.Sections.Any(e => e.Key < position))
+        {
+            return default;
+        }
+
+        var currentSection = this.Sections.Last(e => e.Key < position);
+        return currentSection;   
+    }
+
+    public string GetSectionName(double position)
+    {
+        return GetSection(position).Value;
     }
 }
 

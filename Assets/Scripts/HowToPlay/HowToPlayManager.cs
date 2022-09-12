@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HowToPlayManager : ScreenManager
 {
@@ -35,8 +36,8 @@ public class HowToPlayManager : ScreenManager
 
         switch (inputEvent.Action)
         {
-            case "B":
-            case "Back":
+            case InputAction.B:
+            case InputAction.Back:
                 SceneTransition(GameScene.MainMenu);
                 break;
         }

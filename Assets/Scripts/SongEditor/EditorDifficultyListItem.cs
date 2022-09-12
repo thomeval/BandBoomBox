@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class EditorDifficultyListItem : MonoBehaviour
     public InputField TxtDifficultyLevel;
     public Dropdown CmbDifficulty;
     public Button BtnRemove;
+    public Button BtnEdit;
 
     [SerializeField]
     private SongChart _displayedChart;
@@ -33,6 +35,7 @@ public class EditorDifficultyListItem : MonoBehaviour
     void Awake()
     {
         BtnRemove.onClick.AddListener(BtnRemove_OnClick);
+        BtnEdit.onClick.AddListener(BtnEdit_OnClick);
      //   TxtGroup.onValueChanged.AddListener(arg0 => ApplyChartData());
      //   TxtDifficultyLevel.onValueChanged.AddListener(arg0 => ApplyChartData());
      //   CmbDifficulty.onValueChanged.AddListener(arg0 => ApplyChartData());
@@ -43,6 +46,10 @@ public class EditorDifficultyListItem : MonoBehaviour
         SendMessageUpwards("ChartListItemRemoved", this);
     }
 
+    private void BtnEdit_OnClick()
+    {
+        SendMessageUpwards("ChartListItemEdited", this);
+    }
     // Start is called before the first frame update
     void Start()
     {

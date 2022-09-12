@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Assets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,9 @@ public class ScreenManager : MonoBehaviour
     public CoreManager CoreManager;
     public bool IgnoreReleaseInputs = false;
     public const GameScene STARTING_SCENE = GameScene.InitialLoad;
+    public ActionMapType DefaultActionMapType = ActionMapType.Gameplay;
 
+    private readonly Dictionary<string, object> _defaultSceneLoadArgs = new();
     public bool FindCoreManager()
     {
         if (CoreManager == null)
@@ -19,6 +22,7 @@ public class ScreenManager : MonoBehaviour
         if (CoreManager != null)
         {
             CoreManager.ActiveMainManager = this;
+            CoreManager.ControlsManager.SetActionMap(DefaultActionMapType);
             return true;
         }
 
@@ -27,6 +31,7 @@ public class ScreenManager : MonoBehaviour
         return false;
 
     }
+
     public virtual void OnPlayerInput(InputEvent inputEvent)
     {
     }
@@ -37,7 +42,6 @@ public class ScreenManager : MonoBehaviour
 
     }
 
-
     public virtual void OnPlayerJoined(Player player)
     {
     }
@@ -46,18 +50,17 @@ public class ScreenManager : MonoBehaviour
     {
     }
 
-    protected void SetActionMap(ActionMapType actionMap)
-    {
-        CoreManager.PlayerManager.SetActionMap(actionMap);
-    }
-
     protected Player GetPlayer(int slot)
     {
         return CoreManager.PlayerManager.GetPlayer(slot);
     }
 
-    protected void SceneTransition(GameScene gameScene, bool withTransition = true)
+    protected void SceneTransition(GameScene gameScene, Dictionary<string, object> sceneLoadArgs = null, bool withTransition = true)
     {
+        if (CoreManager != null)
+        {
+            CoreManager.SceneLoadArgs = sceneLoadArgs ?? _defaultSceneLoadArgs;
+        }
 
         StartCoroutine(DoSceneTransition(gameScene, withTransition));
     }

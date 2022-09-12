@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
@@ -51,7 +51,7 @@ public class PlayerResultFrame : MonoBehaviour
         get { return _displayedPage; }
         set
         {
-            _displayedPage = Helpers.Clamp(value, 0, Pages.Length-1);
+            _displayedPage = Helpers.Wrap(value, Pages.Length-1);
             DisplayPage(_displayedPage);
         }
     }

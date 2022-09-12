@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -86,16 +86,16 @@ public class EvaluationManager : ScreenManager
     {
         switch (inputEvent.Action)
         {
-            case "Left":
+            case InputAction.Left:
                 ChangeResultPage(inputEvent.Player, -1);
                 break;
-            case "Right":
+            case InputAction.Right:
                 ChangeResultPage(inputEvent.Player, 1);
                 break;
-            case "A":
-            case "B":
-            case "Pause":
-            case "Back":
+            case InputAction.A:
+            case InputAction.B:
+            case InputAction.Pause:
+            case InputAction.Back:
                 if (AllowContinue)
                 {
                     SceneTransition(GameScene.SongSelect);

@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Gameplay\GameplayUtils.cs" />
     <Compile Include="Assets\Scripts\Input\DeviationResult.cs" />
     <Compile Include="Assets\Scripts\Input\ActionMapType.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteItem.cs" />
     <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureBpmPage.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />
@@ -93,12 +94,14 @@
     <Compile Include="Assets\Scripts\SongSelect\SongListItem.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorBasicsPage.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileSelectFrame.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorManager.cs" />
     <Compile Include="Assets\Scripts\Common\PlayerSongSelectFrame.cs" />
     <Compile Include="Assets\Scripts\Common\ExpLevelUtils.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\StarMeter.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenuManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\Scripts\Misc\LogicalNotProcessor.cs" />
     <Compile Include="Assets\Scripts\Common\ExpMeter.cs" />
     <Compile Include="Assets\Scripts\Misc\UIExtensions.cs" />
     <Compile Include="Assets\Scripts\Managers\ControlsManager.cs" />
@@ -129,6 +132,7 @@
     <Compile Include="Assets\Scripts\Gameplay\TimingDisplay.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinOptionsFrame.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNotePlacer.cs" />
     <Compile Include="Assets\Scripts\Common\MenuSelectionHighlight.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteManager.cs" />
@@ -172,11 +176,13 @@
     <Compile Include="Assets\Scripts\Notes\SjsonUtils.cs" />
     <Compile Include="Assets\Scripts\HighScores\PlayerScore.cs" />
     <Compile Include="Assets\Scripts\Notes\BeatLine.cs" />
+    <Compile Include="Assets\Scripts\Input\InputAction.cs" />
     <Compile Include="Assets\Scripts\Songs\SongData.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\HighScores\TeamScore.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownNumber.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorMenuManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Common\ProfileData.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PauseMenu.cs" />
@@ -184,8 +190,10 @@
     <Compile Include="Assets\Scripts\Evaluation\PlayerResultFrame.cs" />
     <Compile Include="Assets\Scripts\Songs\SongManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorPage.cs" />
+    <Compile Include="Assets\Scripts\Notes\NoteSjsonEntry.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Common\HighScoreDisplay.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteSet.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongSelectManager.cs" />
     <Compile Include="Assets\Scripts\Songs\SongStarScoreValues.cs" />
     <Compile Include="Assets\Scripts\HighScores\TeamScoreCategory.cs" />
@@ -205,10 +213,12 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\Misc\AudioCrossFader.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorState.cs" />
     <Compile Include="Assets\AnimatedSprite.cs" />
     <Compile Include="Assets\Scripts\Misc\SongStarValueCalculator.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureTimePage.cs" />
     <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\EditorNotePalette.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
   </ItemGroup>
   <ItemGroup>

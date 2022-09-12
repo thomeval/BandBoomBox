@@ -297,11 +297,6 @@ public class Player : MonoBehaviour
 
     }
 
-    public void SetActionMap(ActionMapType actionMap)
-    {
-        _inputManager.SetActionMap(actionMap);
-    }
-
     public void AutoSetLabelSkin()
     {
         _inputManager ??= this.GetComponent<InputManager>();

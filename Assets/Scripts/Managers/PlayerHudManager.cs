@@ -82,6 +82,11 @@ public class PlayerHudManager : MonoBehaviour
 
     private void UpdateGoalMeter(Player player)
     {
+        if (GoalMeter == null)
+        {
+            return;
+        }
+
         GoalMeter.GoalGrade = player.GetGoalGrade();
         GoalMeter.Min = player.GoalPerfPoints.GetValueOrDefault();
         GoalMeter.Max = player.MaxPerfPoints;

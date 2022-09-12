@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,51 +15,63 @@ public class NoteGenerator : MonoBehaviour
 
     private readonly Random _rnd = new Random();
 
-    private readonly Dictionary<Difficulty, NoteType[]> _availableNotes = new Dictionary<Difficulty, NoteType[]>
-    {
-        {Difficulty.Beginner, new [] {NoteType.AnyD, NoteType.AnyB}},
-        {Difficulty.Medium, new [] {NoteType.A, NoteType.B, NoteType.Left, NoteType.Down}},
-        {Difficulty.Hard, new [] {NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right}},
-        {Difficulty.Expert, new [] {NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB}},
-        {Difficulty.Master, new [] {NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.LT, NoteType.RB, NoteType.RT}}
-    };
 
     private NoteType GetNoteType(Difficulty playDifficulty, bool[] filledLanes)
     {
 
-        var available = _availableNotes[playDifficulty];
+        var available = NoteUtils.GetValidNoteTypesForDifficulty(playDifficulty);
         available = available.Intersect(GetPossibleNoteTypes(filledLanes)).ToArray();
         var result = _rnd.Next(available.Length);
 
         return available[result];
     }
 
-    public void LoadSongNotes(SongData songData, string group, Difficulty difficulty, NoteManager destination)
+    public void LoadOrGenerateSongNotes(SongData songData, string group, Difficulty difficulty, NoteManager destination)
     {
-        var notes = new List<Note>();
-
         var chart = songData.GetChart(group, difficulty);
-        if (chart == null || chart.Notes.Length == 0)
+       LoadOrGenerateSongNotes(chart, songData.LengthInBeats, destination );
+    }
+
+    public void LoadOrGenerateSongNotes(SongChart chart, float lengthInBeats, NoteManager destination)
+    {
+
+        if (chart.Notes == null || chart.Notes.Length == 0)
         {
-            GenerateNotes(difficulty, (int) songData.LengthInBeats, notes);
+            var notes = GenerateNotes(chart.Difficulty, (int) lengthInBeats);
+            ApplyToDestination(chart, destination, notes);
         }
         else
         {
-            LoadNoteArray(chart.Notes, ref notes);
+            LoadSongNotes(chart, destination);
         }
 
+    }
+
+    public void LoadSongNotes(SongChart chart, NoteManager destination)
+    {
+        var notes = new List<Note>();
+        LoadNoteArray(chart.Notes, ref notes);
+        ApplyToDestination(chart, destination, notes);
+    }
+
+    private static void ApplyToDestination(SongChart chart, NoteManager destination, List<Note> notes)
+    {
         destination.Chart = chart;
         destination.Notes = notes;
         destination.AttachNotes();
         destination.ApplyNoteSkin();
     }
 
-    public void GenerateNotes(Difficulty difficulty, int endBeat, List<Note> destination)
+    public List<Note> GenerateNotes(Difficulty difficulty, int endBeat)
     {
+        var result = new List<Note>();
         for (int x = 0; x <= endBeat; x++)
         {
-           GenerateNotesAtBeat(difficulty, x, ref destination);
+           GenerateNotesAtBeat(difficulty, x, ref result);
         }
+
+        return result;
+
     }
 
     public void GenerateTestNotes(int endBeat, ref List<Note> destination)
@@ -104,7 +116,7 @@ public class NoteGenerator : MonoBehaviour
         InstantiateNote(beat, NoteType.AnyB, NoteClass.Tap, ref destination);
     }
 
-    private void InstantiateNote(float beat, NoteType noteType, NoteClass noteClass, ref List<Note> destination)
+    public Note InstantiateNote(float beat, NoteType noteType, NoteClass noteClass, ref List<Note> destination)
     {
         var prefab = noteClass == NoteClass.Hold ? HoldNotePrefab : TapNotePrefab;
         var note = Instantiate(prefab);
@@ -115,6 +127,7 @@ public class NoteGenerator : MonoBehaviour
         note.Lane = NoteUtils.GetNoteLane(note.NoteType);
         ResolveHoldsWithReleases(note);
         destination.Add(note);
+        return note;
     }
 
     private void ResolveHoldsWithReleases(Note note)

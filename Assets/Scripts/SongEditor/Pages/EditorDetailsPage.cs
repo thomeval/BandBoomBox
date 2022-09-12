@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using UnityEngine.UI;
 // ReSharper disable CompareOfFloatsByEqualityOperator
@@ -238,7 +238,7 @@ public class EditorDetailsPage : EditorPageManager
     {
         switch (inputEvent.Action)
         {
-            case "Back":
+            case InputAction.Back:
                 BtnBack_OnClick();
                 break;
         }

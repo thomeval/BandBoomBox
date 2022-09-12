@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 public static class Helpers
 {
-    private static Dictionary<string, string> _specialPaths = new Dictionary<string, string>()
+    private static readonly Dictionary<string, string> _specialPaths = new()
     {
         {"%AppInstallFolder%", AppInstallFolder},
         {"%AppSaveFolder%", AppSaveFolder},
@@ -44,12 +44,11 @@ public static class Helpers
     }
 
     /// <summary>
-    /// Wraps the provided value to be between the given [min] and [max] values (inclusive).
+    /// Wraps the provided value to be between 0 and [max] value (inclusive).
     /// </summary>
     /// <param name="value">The value to wrap.</param>
-    /// <param name="min">The minimum value to wrap to (inclusive).</param>
     /// <param name="max">The maximum value to wrap to (inclusive).</param>
-    /// <returns>If [value] is between [min] and [max], then [value] will be returned. Otherwise it will be wrapped first, then returned.</returns>
+    /// <returns>If [value] is between 0 and [max], then [value] will be returned. Otherwise it will be wrapped first, then returned.</returns>
     public static int Wrap(int value, int max)
     {
         if (max == 0)
@@ -265,6 +264,20 @@ public static class Helpers
         }
     }
 
+    /// <summary>
+    /// Finds the index of the given <c>value</c> in the given array, adds <c>delta</c> to the result, then returns the element located at that index.
+    /// For example, if delta is -1, then this method will return the element before the matching element.
+    /// If multiple elements match the provided value, then the first match is used.
+    /// If the index of the matching element + <c>delta</c> exceeds the array bounds, the index will be clamped to be within the array's bounds, unless <c>wrap</c> is set to true.
+    /// Throws ArgumentException if <c>value</c> does not exist in <c>array</c>.
+    /// </summary>
+    /// <typeparam name="T">The type of the items in the array, and the value to search for.</typeparam>
+    /// <param name="array">The array within which to search for <c>value</c>.</param>
+    /// <param name="value">The value to search for in the provided array.</param>
+    /// <param name="delta">The delta to add to the index of the matching element. Negative numbers are allowed.</param>
+    /// <param name="wrap">Whether the resulting index should wrap around if it exceeds the array bounds. If set to false, the resulting index is clamped instead.</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
     public static T GetNextValue<T>(T[] array, T value, int delta, bool wrap)
     {
         var idx = Array.IndexOf(array, value);
@@ -328,7 +341,6 @@ public static class Helpers
         behaviour.gameObject.SetActive(true);
     }
 
-
     public static string AsPercent(this float value, int decimals = 0)
     {
         var formatString = "{0:P" + decimals + "}";
@@ -342,7 +354,25 @@ public static class Helpers
             source.Play();
         }
     }
+
+    public static void AutoAssign<T>(ref T component)
+        where T : MonoBehaviour
+    {
+        if (component == null)
+        {
+            component = Object.FindObjectOfType<T>();
+        }
+    }
 #endregion
 
+    public static T TryGetArg<T>(Dictionary<string, object> args, string key)
+    {
+        if (!args.ContainsKey(key) || args[key] is not T)
+        {
+            return default(T);
+        }
+
+        return (T)args[key];
+    }
 }
 

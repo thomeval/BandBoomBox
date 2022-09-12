@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -74,7 +74,7 @@ public class MxMeter : MonoBehaviour
     private void UpdateGlow()
     {
         var badFraction = 1.0f - Multiplier;
-        var goodFraction = Math.Min(1.0f, (Multiplier - 1) / 10);
+        var goodFraction = Math.Min(1.0f, (Multiplier - 1) / 20);
         goodFraction *= (1-BeatFraction);
         var color = Multiplier < 1.0f
             ? new Color(1.0f, 0.0f, 0.0f, badFraction)

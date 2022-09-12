@@ -106,7 +106,7 @@ public class GameplayManager : ScreenManager
         foreach (var noteManager in NoteManagers.Where(e => e.ParentEnabled))
         {
             var player = _playerManager.Players.Single(e => e.Slot == noteManager.Slot);
-            NoteGenerator.LoadSongNotes(_songManager.CurrentSong, player.ChartGroup, player.Difficulty, noteManager);
+            NoteGenerator.LoadOrGenerateSongNotes(_songManager.CurrentSong, player.ChartGroup, player.Difficulty, noteManager);
             NoteGenerator.GenerateBeatLines(player.BeatLineType, _songManager.GetSongEndInBeats(), _songManager.CurrentSong.BeatsPerMeasure, noteManager);
             noteManager.ApplyNoteSkin(player.NoteSkin, player.LabelSkin);
             noteManager.CalculateAbsoluteTimes(_songManager.CurrentSong.Bpm);
@@ -311,13 +311,13 @@ public class GameplayManager : ScreenManager
         if (inputEvent.IsPressed)
         {
             var player = _playerManager.GetPlayer(inputEvent.Player);
-            if (inputEvent.Action == "Pause" || inputEvent.Action == "Back")
+            if (inputEvent.Action == InputAction.Pause || inputEvent.Action == InputAction.Back)
             {
                 PauseGame(inputEvent.Player, true);
                 return;
             }
 
-            if (inputEvent.Action == "Turbo")
+            if (inputEvent.Action == InputAction.Turbo)
             {
                 ToggleTurbo(player);
                 return;
@@ -405,15 +405,16 @@ public class GameplayManager : ScreenManager
 
     private void HandlePlayerReleaseInput(InputEvent inputEvent)
     {
+        var noteType = NoteUtils.GetNoteType(inputEvent.Action);
 
-        if (!Enum.TryParse(inputEvent.Action, out NoteType noteType))
+        if (noteType == null)
         {
             return;
         }
 
         var player = _playerManager.GetPlayer(inputEvent.Player);
         var playerHudManager = HudManager.GetPlayerHudManager(inputEvent.Player);
-        var lane = NoteUtils.GetNoteLane(noteType);
+        var lane = NoteUtils.GetNoteLane(noteType.Value);
 
         var noteManager = GetNoteManager(inputEvent.Player);
 
@@ -572,11 +573,6 @@ public class GameplayManager : ScreenManager
     private void ApplySelectedSong(SongData selectedSongData)
     {
         _songManager.LoadSong(selectedSongData);
-
-        foreach (var noteManager in NoteManagers)
-        {
-            noteManager.Offset = selectedSongData.Offset;
-        }
 
         HudManager.SongTitleText = selectedSongData.Title + " " + selectedSongData.Subtitle;
     }

@@ -1,5 +1,5 @@
 ﻿public enum ActionMapType
 {
-    Menu,
-    Gameplay
+    Gameplay,
+    Editor
 }

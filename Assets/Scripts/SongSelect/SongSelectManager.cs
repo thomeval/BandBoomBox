@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Assets;
 using UnityEditor;
@@ -151,24 +151,24 @@ public class SongSelectManager : ScreenManager
 
         switch (inputEvent.Action)
         {
-            case "Up":
+            case InputAction.Up:
                 MoveSelection(-1);
                 break;
-            case "Down":
+            case InputAction.Down:
                 MoveSelection(1);
                 break;
-            case "Pause":
+            case InputAction.Pause:
                 OnSongDecided();
                 break;
-            case "A":
+            case InputAction.A:
                 OnSongDecided();
                 break;
-            case "B":
-            case "Back":
+            case InputAction.B:
+            case InputAction.Back:
                 CoreManager.SongPreviewManager.StopPreviews();
                 SceneTransition(GameScene.PlayerJoin);
                 break;
-            case "Y":
+            case InputAction.Y:
                 SongSortMode = Helpers.GetNextValue(_availableSortModes, SongSortMode, 1, true);
                 break;
         }

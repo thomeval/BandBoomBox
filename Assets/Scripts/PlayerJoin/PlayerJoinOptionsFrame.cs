@@ -14,7 +14,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public Text TxtGoal;
     public Text TxtMistakeSfxEnabled;
     
-    public Grade?[] Goals = { null, Grade.D, Grade.C, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus };
+    public Grade?[] Goals = { null, Grade.D, Grade.DPlus, Grade.C, Grade.CPlus, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus };
 
     public List<Note> NotePreviews;
 

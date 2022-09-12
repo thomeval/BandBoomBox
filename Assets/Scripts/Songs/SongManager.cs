@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,6 @@ using UnityEngine;
 public class SongManager : MonoBehaviour
 {
     public SongData CurrentSong { get; set; }
-    public SongStarScoreValues CurrentStarValues { get; set; }
 
     public bool IsSongPlaying
     {
@@ -89,13 +88,12 @@ public class SongManager : MonoBehaviour
     public string GetCurrentSection()
     {
         var position = GetSongPositionInBeats();
-        if (CurrentSong == null || !CurrentSong.Sections.Any(e => e.Key < position))
+        if (CurrentSong == null)
         {
             return "";
         }
-      
-        var currentSection = CurrentSong.Sections.Last(e => e.Key < position);
-        return currentSection.Value;        
+
+        return CurrentSong.GetSectionName(position);
     }
 
     public void ForceAudioResync()
@@ -141,7 +139,6 @@ public class SongManager : MonoBehaviour
         }
         var clip = www.GetAudioClip(false, false);
         _audioSource.clip = clip;
-
         Debug.Log("Song Load complete. ");
         SongLoaded?.Invoke(this, null);
     }
@@ -154,12 +151,23 @@ public class SongManager : MonoBehaviour
             throw new InvalidOperationException("StartSong() called but audio has not been loaded yet.");
         }
 
+        PlayFromPosition(CurrentSong.AudioStart);
+    }
+
+    public void PlayFromPosition(float position)
+    {
+        if (CurrentSong == null || _audioSource.clip == null)
+        {
+            throw new InvalidOperationException("PlayFromPosition() called but audio has not been loaded yet.");
+        }
+
         _pausedPosition = null;
-        _audioSource.time = CurrentSong.AudioStart;
+        _audioSource.time = position;
         _audioSource.Play();
         _startTime = DateTime.Now;
         ForceAudioResync();
     }
+
     void Awake()
     {
         _audioSource = GetComponent<AudioSource>();

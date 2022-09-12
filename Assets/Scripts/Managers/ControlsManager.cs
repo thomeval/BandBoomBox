@@ -45,5 +45,15 @@ public class ControlsManager : MonoBehaviour
             Debug.LogWarning(e);
         }
     }
+
+    public void SetActionMap(ActionMapType actionMap)
+    {
+        var playerInputs = FindObjectsOfType<PlayerInput>();
+
+        foreach (var input in playerInputs)
+        {
+            input.SwitchCurrentActionMap(actionMap.ToString());
+        }
+    }
 }
 

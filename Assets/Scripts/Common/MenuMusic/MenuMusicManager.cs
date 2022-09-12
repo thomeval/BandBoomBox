@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
 
 public class MenuMusicManager : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class MenuMusicManager : MonoBehaviour
 
     public void PlaySceneMusic(GameScene gameScene)
     {
+        var ip = new InvertProcessor();
         var entry = _menuMusicItems.FirstOrDefault(e => e.GameScene == gameScene);
 
         if (entry == null)

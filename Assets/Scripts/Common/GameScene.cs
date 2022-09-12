@@ -12,5 +12,6 @@
     HowToPlay,
     DifficultySelect,
     Editor,
+    ChartEditor,
     All
 }

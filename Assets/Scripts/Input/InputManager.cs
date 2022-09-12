@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Misc;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,12 +11,16 @@ public class InputManager : MonoBehaviour
         get { return !_playerInput.hasMissingRequiredDevices; }
     }
 
+    public bool ModifierShift;
+    public bool ModifierCtrl;
+    public bool ModifierAlt;
+
     private GameObject _coreManager;
 
     private Player _player;
     // Start is called before the first frame update
 
-    private readonly Dictionary<string, string> _devices = new Dictionary<string, string>()
+    private readonly Dictionary<string, string> _devices = new()
     {
         {"Keyboard", "WASD"},
         {"XInputController", "ABXY"},
@@ -40,78 +45,217 @@ public class InputManager : MonoBehaviour
         OnControlsChanged(_playerInput);
     }
 
-
     #region Gameplay Input
 
-    void RegisterInput(InputValue value, string action)
-    {
-        var inputEvent = new InputEvent { Player = _player.Slot, Action = action, IsPressed = value.isPressed };
-        _coreManager.SendMessage("OnPlayerInput", inputEvent);
-    }
     void OnA(InputValue value)
     {
-        RegisterInput(value, "A");
+        RegisterInput(value, InputAction.A);
     }
     void OnB(InputValue value)
     {
-        RegisterInput(value, "B");
+        RegisterInput(value, InputAction.B);
     }
     void OnX(InputValue value)
     {
-        RegisterInput(value, "X");
+        RegisterInput(value, InputAction.X);
     }
     void OnY(InputValue value)
     {
-        RegisterInput(value, "Y");
+        RegisterInput(value, InputAction.Y);
     }
 
     void OnLeft(InputValue value)
     {
-        RegisterInput(value, "Left");
+        RegisterInput(value, InputAction.Left);
     }
     void OnUp(InputValue value)
     {
-        RegisterInput(value, "Up");
+        RegisterInput(value, InputAction.Up);
     }
     void OnRight(InputValue value)
     {
-        RegisterInput(value, "Right");
+        RegisterInput(value, InputAction.Right);
     }
     void OnDown(InputValue value)
     {
-        RegisterInput(value, "Down");
+        RegisterInput(value, InputAction.Down);
     }
 
     void OnLB(InputValue value)
     {
-        RegisterInput(value, "LB");
+        RegisterInput(value, InputAction.LB);
     }
     void OnLT(InputValue value)
     {
-        RegisterInput(value, "LT");
+        RegisterInput(value, InputAction.LT);
     }
     void OnRB(InputValue value)
     {
-        RegisterInput(value, "RB");
+        RegisterInput(value, InputAction.RB);
     }
     void OnRT(InputValue value)
     {
-        RegisterInput(value, "RT");
+        RegisterInput(value, InputAction.RT);
     }
     void OnPause(InputValue value)
     {
-        RegisterInput(value, "Pause");
+        RegisterInput(value, InputAction.Pause);
     }
 
     void OnTurbo(InputValue value)
     {
-        RegisterInput(value, "Turbo");
+        RegisterInput(value, InputAction.Turbo);
     }
+    #endregion
+
+    #region Editor Inputs
+
+    void OnEditor_NoteA(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteA, InputAction.Editor_NoteReleaseAnyB);
+    }
+    void OnEditor_NoteB(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteB, InputAction.Editor_NoteReleaseAnyB);
+    }
+    void OnEditor_NoteX(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteX, InputAction.Editor_NoteReleaseAnyB);
+    }
+    void OnEditor_NoteY(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteY, InputAction.Editor_NoteReleaseAnyB);
+    }
+
+    void OnEditor_NoteDown(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteDown, InputAction.Editor_NoteReleaseAnyD);
+    }
+    void OnEditor_NoteRight(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteRight, InputAction.Editor_NoteReleaseAnyD);
+    }
+    void OnEditor_NoteLeft(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteLeft, InputAction.Editor_NoteReleaseAnyD);
+    }
+    void OnEditor_NoteUp(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteUp, InputAction.Editor_NoteReleaseAnyD);
+    }
+
+    void OnEditor_NoteLB(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteLB, InputAction.Editor_NoteReleaseAnyT);
+    }
+    void OnEditor_NoteRB(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteRB, InputAction.Editor_NoteReleaseAnyT);
+    }
+    void OnEditor_NoteLT(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteLT, InputAction.Editor_NoteReleaseAnyT);
+    }
+    void OnEditor_NoteRT(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteRT, InputAction.Editor_NoteReleaseAnyT);
+    }
+
+    void OnEditor_Confirm(InputValue value)
+    {
+        RegisterInput(value, InputAction.Editor_Confirm);
+    }
+    void OnEditor_PlayPause(InputValue value)
+    {
+        RegisterInput(value, InputAction.Editor_PlayPause);
+    }
+
+    void OnEditor_StepLeft(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_StepLeft, InputAction.Editor_MeasureLeft, InputAction.Editor_SectionLeft);
+    }
+    void OnEditor_StepRight(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_StepRight, InputAction.Editor_MeasureRight, InputAction.Editor_SectionRight);
+    }
+
+    void OnEditor_StepSizeUp(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_StepSizeUp, InputAction.Editor_ZoomIn);
+    }
+
+    void OnEditor_StepSizeDown(InputValue value)
+    {
+        ChooseAndRegisterInput(value, InputAction.Editor_StepSizeDown, InputAction.Editor_ZoomOut);
+    }
+
+    void OnEditor_JumpToStart(InputValue value)
+    {
+        RegisterInput(value, InputAction.Editor_JumpToStart);
+    }
+    void OnEditor_JumpToEnd(InputValue value)
+    {
+        RegisterInput(value, InputAction.Editor_JumpToEnd);
+    }
+
+    void OnEditor_ModifierShift(InputValue value)
+    {
+        ModifierShift = value.isPressed;
+    }
+
+    void OnEditor_ModifierCtrl(InputValue value)
+    {
+        ModifierCtrl = value.isPressed;
+    }
+
+    void OnEditor_ModifierAlt(InputValue value)
+    {
+        ModifierAlt = value.isPressed;
+    }
+    #endregion
+
+    #region Input Processing
+
+    private void ChooseAndRegisterInput(InputValue value, InputAction? unmodifiedAction, InputAction? shiftAction = null, InputAction? ctrlAction = null, InputAction? altAction = null, InputAction? ctrlShiftAction = null)
+    {
+        var resultAction = unmodifiedAction;
+
+        if (ModifierCtrl && ModifierShift)
+        {
+            resultAction = ctrlShiftAction;
+        }
+        else if (ModifierShift)
+        {
+            resultAction = shiftAction;
+        }
+        else if (ModifierCtrl)
+        {
+            resultAction = ctrlAction;
+        }
+        else if (ModifierAlt)
+        {
+            resultAction = altAction;
+        }
+
+        if (resultAction == null)
+        {
+            return;
+        }
+
+        RegisterInput(value, resultAction.Value);
+    }
+
+    void RegisterInput(InputValue value, InputAction action)
+    {
+        var inputEvent = new InputEvent { Player = _player.Slot, Action = action, IsPressed = value.isPressed };
+        _coreManager.SendMessage("OnPlayerInput", inputEvent);
+    }
+
     #endregion
 
     void OnBack(InputValue value)
     {
-        RegisterInput(value, "Back");
+        RegisterInput(value, InputAction.Back);
     }
 
     void OnControlsChanged(PlayerInput input)
@@ -154,10 +298,5 @@ public class InputManager : MonoBehaviour
         }
 
         return result;
-    }
-
-    public void SetActionMap(ActionMapType actionMap)
-    {
-        _playerInput.SwitchCurrentActionMap(actionMap.ToString());
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -283,30 +283,29 @@ public class Menu : MonoBehaviour
 
         switch (inputEvent.Action)
         {
-            case "Up":
+            case InputAction.Up:
                 ChangeSelection(-1);
                 break;
-            case "Down":
+            case InputAction.Down:
                 ChangeSelection(1);
                 break;
-            case "Left":
+            case InputAction.Left:
                 RaiseItemShifted(-1);
                 break;
-            case "Right":
+            case InputAction.Right:
                 RaiseItemShifted(1);
                 break;
-            case "Pause":
-            case "A":
+            case InputAction.Pause:
+            case InputAction.A:
                 RaiseItemSelected(false);
                 break;
-            case "B":
-            case "Back":
+            case InputAction.B:
+            case InputAction.Back:
                 RaiseItemSelected(true);
                 break;
 
         }
 
-        //        MoveHighlight();
     }
 
     private void RaiseItemShifted(int delta)

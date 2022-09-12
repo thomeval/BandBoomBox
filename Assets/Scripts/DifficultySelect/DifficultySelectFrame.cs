@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -137,16 +137,16 @@ public class DifficultySelectFrame : MonoBehaviour
 
         switch (inputEvent.Action)
         {
-            case "Left":
+            case InputAction.Left:
                 ChangeChartGroup(-1);
                 break;
-            case "Right":
+            case InputAction.Right:
                 ChangeChartGroup(1);
                 break;
-            case "LB":
+            case InputAction.LB:
                 ChangeScrollSpeed(-1);
                 break;
-            case "RB":
+            case InputAction.RB:
                 ChangeScrollSpeed(1);
                 break;
             default:
@@ -160,8 +160,8 @@ public class DifficultySelectFrame : MonoBehaviour
     {
         switch (inputEvent.Action)
         {
-            case "B":
-            case "Back":
+            case InputAction.B:
+            case InputAction.Back:
                 SfxSelectionCancelled.PlayUnlessNull();
                 DifficultyMenu.HandleInput(inputEvent);
                 break;

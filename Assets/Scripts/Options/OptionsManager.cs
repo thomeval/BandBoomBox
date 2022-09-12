@@ -66,11 +66,11 @@ public class OptionsManager : ScreenManager
             DisplayMenuPage();
         }
 
-        if (inputEvent.Action == "Left")
+        if (inputEvent.Action == InputAction.Left)
         {
             ChangeMenuItemValue(-1);
         }
-        else if (inputEvent.Action == "Right")
+        else if (inputEvent.Action == InputAction.Right)
         {
             ChangeMenuItemValue(1);
         }

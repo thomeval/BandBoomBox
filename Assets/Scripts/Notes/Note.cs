@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 public class Note : MonoBehaviour
@@ -80,6 +80,23 @@ public class Note : MonoBehaviour
         _spriteResolver.SetCategoryAndLabel(noteSkinCat, NoteType.ToString());
         _labelSpriteResolver.SetCategoryAndLabel("Labels_" + labelSkinCat, NoteType.ToString());
         _holdSpriteResolver?.SetCategoryAndLabel("HoldTails", NoteType.ToString());
+    }
+
+    public void RefreshSprites()
+    {
+        if (_spriteResolver == null)
+        {
+            Awake();
+        }
+
+        if (HoldTailSprite != null && _holdSpriteResolver == null)
+        {
+            _holdSpriteResolver = HoldTailSprite.GetComponent<SpriteResolver>();
+        }
+
+        _spriteResolver.SetCategoryAndLabel(_spriteResolver.GetCategory(), NoteType.ToString());
+        _labelSpriteResolver.SetCategoryAndLabel(_labelSpriteResolver.GetCategory(), NoteType.ToString());
+        _holdSpriteResolver?.SetCategoryAndLabel(_holdSpriteResolver.GetCategory(), NoteType.ToString());
     }
 }
 

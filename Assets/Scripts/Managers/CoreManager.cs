@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets;
@@ -34,8 +34,11 @@ public class CoreManager : MonoBehaviour
     [HideInInspector]
     public SettingsManager Settings;
     public ControlsManager ControlsManager;
+    public InputManager InputManager;
 
     public bool TitleScreenShown;
+
+    public Dictionary<string, object> SceneLoadArgs = new();
 
     void Awake()
     {
@@ -148,4 +151,5 @@ public class CoreManager : MonoBehaviour
             ProfileManager.Save(data);
         }
     }
+
 }

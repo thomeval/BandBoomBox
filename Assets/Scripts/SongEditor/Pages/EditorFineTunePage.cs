@@ -133,9 +133,9 @@ public class EditorFineTunePage : EditorPageManager
     {
         switch (inputEvent.Action)
         {
-            case "B":
-            case "X":
-            case "Y":
+            case InputAction.B:
+            case InputAction.X:
+            case InputAction.Y:
                 PlayerHudManager.ReleaseLane(2);
                 break;
         }
@@ -146,25 +146,25 @@ public class EditorFineTunePage : EditorPageManager
         switch (inputEvent.Action)
         {
 
-            case "B":
-            case "X":
-            case "Y":
+            case InputAction.B:
+            case InputAction.X:
+            case InputAction.Y:
                 HitNotes();
                 PlayerHudManager.FlashLane(2);
                 break;
-            case "LB":
+            case InputAction.LB:
                 AdjustOffset(-0.01f);
                 break;
-            case "RB":
+            case InputAction.RB:
                 AdjustOffset(0.01f);
                 break;
-            case "LT":
+            case InputAction.LT:
                 AdjustScrollSpeed(-100);
                 break;
-            case "RT":
+            case InputAction.RT:
                 AdjustScrollSpeed(100);
                 break;
-            case "Turbo":
+            case InputAction.Turbo:
                 RestartSong();
                 break;
         }

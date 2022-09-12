@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using UnityEngine.UIElements;
 
 public static class SjsonUtils
 {
@@ -70,6 +73,119 @@ public static class SjsonUtils
         {'G', NoteClass.Release}
     };
 
+    public static string[] ToSjson(List<Note> notes)
+    {
+        List<string> result = new();
+        var blocks = notes.Select(e => new NoteSjsonEntry(e)).OrderBy(e => e.Position).ToList();
+        blocks = MergeSjsonEntries(blocks);
+
+        var blocksByBeat = blocks.ToLookup(e => (int)e.Position);
+        var lastBeat = blocks.Select(e => (int)e.Position).Max();
+
+        for (int x = 0; x <= lastBeat; x++)
+        {
+
+            if (!blocksByBeat.Contains(x))
+            {
+                result.Add("0000");
+            }
+            else
+            {
+                var block = ParseNoteBlockToSjson(blocksByBeat[x].ToList());
+                result.Add(block);
+            }
+
+        }
+
+        return result.ToArray();
+    }
+
+    private static string ParseNoteBlockToSjson(List<NoteSjsonEntry> notes)
+    {
+
+        if (!notes.Any())
+        {
+            return "0000";
+        }
+
+        var stepCount = GetNormalizedStepSize(notes);
+        float stepSize = 1.0f / stepCount;
+
+        var result = "";
+
+        float pos = 0.0f;
+
+        while (pos < 1.0)
+        {
+            var note = notes.SingleOrDefault(e => e.PositionFraction == pos);
+
+            if (note == null)
+            {
+                result += "0000 ";
+            }
+            else
+            {
+                result += note.Sjson + " ";
+            }
+
+            pos += stepSize;
+        }
+        return result.Trim();
+
+    }
+
+    private static readonly int[] _validBlockCounts = { 1, 2, 3, 4, 6, 8, 12, 24 };
+    private static int GetNormalizedStepSize(List<NoteSjsonEntry> notes)
+    {
+        const float TOLERANCE = 0.001f;
+        foreach (var attempt in _validBlockCounts)
+        {
+            var temp = notes.Select(e => e.PositionFraction * attempt);
+            temp = temp.Select(e => e - (int)e).ToArray();
+
+            if (temp.All(e => Math.Abs(e) < TOLERANCE))
+            {
+                return attempt;
+            }
+        }
+
+        var errStr = notes.Select(e => e.Position.ToString("F3",CultureInfo.InvariantCulture)).Aggregate((cur, next) => $"{cur}, {next}" );
+        throw new ArgumentException("Unable to determine suitable step size to note block. Note positions: " + errStr);
+    }
+
+    private static List<NoteSjsonEntry> MergeSjsonEntries(List<NoteSjsonEntry> entries)
+    {
+
+        var result = new List<NoteSjsonEntry>();
+        if (!entries.Any())
+        {
+            return result;
+        }
+
+        entries = entries.OrderBy(e => e.Position).ToList();
+
+        const float TOLERANCE = 0.001f;
+        var lastEntry = entries.First();
+
+        foreach (var entry in entries)
+        {
+            if (Math.Abs(entry.Position - lastEntry.Position) < TOLERANCE)
+            {
+                lastEntry = lastEntry.Merge(entry);
+            }
+            else
+            {
+                result.Add(lastEntry);
+                lastEntry = entry;
+            }
+        }
+
+        result.Add(lastEntry);
+
+        return result;
+
+    }
+
     public static string ToSjson(this Note note)
     {
         var result = "0000".ToArray();
@@ -79,7 +195,8 @@ public static class SjsonUtils
         var c = ResolveCharCode(note.NoteClass, note.NoteType);
 
         result[lane] = c;
-        return result.ToString();
+
+        return result.Aggregate("", (current, c2) => current + c2);
     }
 
     private static char ResolveCharCode(NoteClass noteClass, NoteType noteType)
@@ -93,20 +210,6 @@ public static class SjsonUtils
         return result;
     }
 
-    public static string[] ToSjson(Note[] notes)
-    {
-        var length = (int) notes.Max(e => e.Position);
-
-        var result = new string[length];
-
-        for (int x = 0; x < length; x++)
-        {
-            var block = notes.Where(e => (int) e.Position == x).Select(e => e.ToSjson()).ToArray();
-            result[x] = CombineSjson(block);
-        }
-
-        return result;
-    }
 
     public static string CombineSjson(string[] sjsonNotes)
     {

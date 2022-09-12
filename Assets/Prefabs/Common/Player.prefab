@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -56,9 +57,9 @@ MonoBehaviour:
   _ranking: 0
   _difficulty: 0
   Exp: 0
-  _energy: 0
   _turboActive: 0
   _profileId: 
+  _mistakeSfxEnabled: 0
   TimingDisplayType: 2
   NoteSkin: Default
   LabelSkin: None
@@ -164,20 +165,120 @@ MonoBehaviour:
     m_ActionName: Gameplay/RT[/XInputControllerWindows/rightTrigger,/Keyboard/numpad9]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: a15dcc38-bc01-47de-aab5-47b2ca51d087
-    m_ActionName: Menu/Left[/XInputControllerWindows/dpad/left,/Keyboard/leftArrow,/Keyboard/a]
+    m_ActionId: 8fd1748e-8d8a-4b57-9e3b-419e66875099
+    m_ActionName: Gameplay/Pause[/XInputControllerWindows/start,/Keyboard/enter,/Keyboard/pause]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 8fb5e834-8f12-4723-be68-bc618a589674
-    m_ActionName: Menu/Up[/XInputControllerWindows/dpad/up,/Keyboard/upArrow,/Keyboard/w]
+    m_ActionId: 0a54fef6-81d8-4e7c-8cb0-29bb772ac0c4
+    m_ActionName: Gameplay/Turbo[/Keyboard/space,/XInputControllerWindows/select,/Keyboard/numpad0]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 7d1a89b2-c55f-4971-92c3-464fdc6bceac
-    m_ActionName: Menu/Right[/XInputControllerWindows/dpad/right,/Keyboard/rightArrow,/Keyboard/d]
+    m_ActionId: 6b67822b-e653-4530-99ac-5f8e66d78cb0
+    m_ActionName: Gameplay/Back[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 9af71f9d-b049-401d-b940-026a8835be00
-    m_ActionName: Menu/Down[/XInputControllerWindows/dpad/down,/Keyboard/downArrow,/Keyboard/s]
+    m_ActionId: c5ec04f8-2b19-4528-8af2-15921e9eeb05
+    m_ActionName: Editor/Editor_NoteA[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6247e152-57d0-4074-8fc4-80c57eaac6e2
+    m_ActionName: Editor/Editor_NoteB[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 926ff280-9636-4c73-9362-d2738f6fbb1f
+    m_ActionName: Editor/Editor_NoteX[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: aea46764-650e-4c89-9c00-8c4ad14fd76d
+    m_ActionName: Editor/Editor_NoteY[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 44134bf8-8b49-4680-95cf-6ecf27599d85
+    m_ActionName: Editor/Editor_NoteDown[/Keyboard/5]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: da70a21d-c44c-4b42-a061-17df8898e294
+    m_ActionName: Editor/Editor_NoteRight[/Keyboard/6]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 30df95d6-6118-46e9-8c34-542867228d39
+    m_ActionName: Editor/Editor_NoteLeft[/Keyboard/7]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 59b2aaf6-2664-40d0-a036-478244389027
+    m_ActionName: Editor/Editor_NoteUp[/Keyboard/8]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 77686acd-7d65-4967-b6d5-d277a7e27778
+    m_ActionName: Editor/Editor_NoteLB[/Keyboard/9]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 518ffe71-0d84-479a-bdbe-602d82094c2f
+    m_ActionName: Editor/Editor_NoteRB[/Keyboard/0]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1362b1d4-68e8-40da-b4e9-4d059e18de06
+    m_ActionName: Editor/Editor_NoteLT[/Keyboard/minus]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 30457838-9eea-4847-88ea-a7f1de0c0154
+    m_ActionName: Editor/Editor_NoteRT[/Keyboard/equals]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7256afdb-f770-4bd0-88a0-bc2dc65b20c5
+    m_ActionName: Editor/Editor_NoteReleaseB[/Keyboard/shift,/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e865e9a8-b69f-40ab-a64a-d5ca0a516c8f
+    m_ActionName: Editor/Editor_NoteReleaseD[/Keyboard/shift,/Keyboard/5,/Keyboard/6,/Keyboard/7,/Keyboard/8]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 487fab7b-f24d-4ed7-ac7e-ddb135b82321
+    m_ActionName: Editor/Editor_NoteReleaseT[/Keyboard/shift,/Keyboard/9,/Keyboard/0,/Keyboard/minus,/Keyboard/equals]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bbe02bd1-afaa-4a89-a304-f819c9153a85
+    m_ActionName: Editor/Back[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19058651-6300-4f5a-9ee5-67797ea6eb1d
+    m_ActionName: Editor/Editor_Confirm[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2ed77429-5c25-49e6-a6c2-1fa8e51b8f51
+    m_ActionName: Editor/Editor_PlayPause[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 083a8d6f-daa5-45f5-8190-7d6b557b39ad
+    m_ActionName: Editor/Editor_StepLeft[/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c40b5af0-8d19-487a-bd4c-fad1d41319d4
+    m_ActionName: Editor/Editor_StepRight[/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 23d0bd4a-4cd9-425e-8871-068a368fcd1c
+    m_ActionName: Editor/Editor_ZoomIn[/Keyboard/shift,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 860dfc43-50d2-4a6c-a9c8-5f316e78b69e
+    m_ActionName: Editor/Editor_ZoomOut[/Keyboard/shift,/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9aa879c8-80bd-4c99-bca0-6d786779c2dd
+    m_ActionName: Editor/Editor_StepSizeUp[/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 80a6f586-9786-4915-a2c8-fc5518897079
+    m_ActionName: Editor/Editor_StepSizeDown[/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: be8f095d-b7ad-48e4-b0c5-4256146cd0d7
+    m_ActionName: Editor/Editor_MeasureLeft[/Keyboard/shift,/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2c62a8e9-7b9a-4cad-b306-26309b8ee908
+    m_ActionName: Editor/Editor_MeasureRight[/Keyboard/shift,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Controller
   m_DefaultActionMap: Gameplay

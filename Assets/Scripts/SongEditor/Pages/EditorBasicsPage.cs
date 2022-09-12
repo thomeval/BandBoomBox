@@ -48,7 +48,7 @@ namespace Assets.Scripts.Editor.Pages
         {
             switch (inputEvent.Action)
             {
-                case "Back":
+                case InputAction.Back:
                     BtnBack_OnClick();
                     break;
             }

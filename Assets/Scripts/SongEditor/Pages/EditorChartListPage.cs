@@ -7,12 +7,10 @@ public class EditorChartListPage : EditorPageManager
 {
     public EditorDifficultyListItem ListItemPrefab;
 
-
     public Button BtnBack;
     public Button BtnNext;
     public Button BtnAdd;
     public Text TxtErrorCharts;
-    public Text TxtErrorScoreRequirements;
 
     public List<EditorDifficultyListItem> DisplayedCharts = new List<EditorDifficultyListItem>();
 
@@ -55,20 +53,31 @@ public class EditorChartListPage : EditorPageManager
     }
     private void BtnNext_OnClick()
     {
+        if (!ApplyAndValidate())
+        {
+            return;
+        }
+
+        SaveCharts();
+        Parent.CurrentPage = EditorPage.MainMenu;
+    }
+
+    private void SaveCharts()
+    {
+        var newCharts = DisplayedCharts.Select(e => e.DisplayedChart).ToList();
+        Parent.CurrentSong.SongCharts = newCharts;
+
+        Parent.SaveCurrentSong(false);
+    }
+
+    private bool ApplyAndValidate()
+    {
         foreach (var item in DisplayedCharts)
         {
             item.ApplyChartData();
         }
 
-        if (!ValidateCharts())
-        {
-            return;
-        }
-        var newCharts = DisplayedCharts.Select(e => e.DisplayedChart).ToList();
-        Parent.CurrentSong.SongCharts = newCharts;
-
-        Parent.SaveCurrentSong(false);
-        Parent.CurrentPage = EditorPage.MainMenu;
+        return ValidateCharts();
     }
 
     private bool ValidateCharts()
@@ -119,6 +128,22 @@ public class EditorChartListPage : EditorPageManager
         DisplayedCharts.Remove(item);
         Parent.CurrentSong.SongCharts.Remove(item.DisplayedChart);
         Destroy(item.gameObject);
+    }
+
+    void ChartListItemEdited(EditorDifficultyListItem item)
+    {
+        if (!ApplyAndValidate())
+        {
+            return;
+        }
+
+        SaveCharts();
+
+        var args = new Dictionary<string, object>()
+        {
+            { "SelectedSongData", Parent.CurrentSong }, { "SelectedSongChart", item.DisplayedChart }
+        };
+        Parent.RaiseSceneTransition(GameScene.ChartEditor, args);
     }
 
     #endregion

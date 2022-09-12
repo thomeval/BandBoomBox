@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,14 +96,6 @@ public class PlayerManager : MonoBehaviour
     public void SortPlayers()
     {
         Players = Players.OrderBy(e => e.Slot).ToList();
-    }
-
-    public void SetActionMap(ActionMapType actionMap)
-    {
-        foreach (var player in Players)
-        {
-            player.SetActionMap(actionMap);
-        }
     }
 
     public List<Player> GetLocalPlayers()
@@ -211,5 +203,11 @@ public class PlayerManager : MonoBehaviour
     public TeamScoreCategory GetScoreCategory()
     {
         return HighScoreManager.GetCategory(this.Players.Count);
+    }
+
+    public void SetControlsActionMap(ActionMapType actionMap)
+    {
+        var x = GameObject.FindObjectOfType<PlayerInput>();
+        x.SwitchCurrentActionMap("aaa");
     }
 }

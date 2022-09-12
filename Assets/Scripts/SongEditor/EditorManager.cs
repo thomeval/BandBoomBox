@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -72,10 +72,6 @@ public class EditorManager : ScreenManager
     {
         DisplayCurrentPage();
     }
-    public void SceneTransition(GameScene gameScene)
-    {
-        this.SceneTransition(gameScene, true);
-    }
 
     private void PopulatePages()
     {
@@ -142,7 +138,6 @@ public class EditorManager : ScreenManager
                 CoreManager.SongLibrary.Add(CurrentSong);
             }
         }
-
     }
 
     public void RequestBrowseFile(string filePattern, Action<string> callback)
@@ -166,5 +161,9 @@ public class EditorManager : ScreenManager
 
     }
 
-
+    public void RaiseSceneTransition(GameScene gameScene, Dictionary<string, object> args = null)
+    {
+        args ??= new();
+        this.SceneTransition(gameScene, args);
+    }
 }

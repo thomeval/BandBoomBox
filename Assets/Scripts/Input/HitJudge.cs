@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -14,7 +14,6 @@ public class HitJudge
         {JudgeResult.Wrong, 0},
         {JudgeResult.Miss, 0}
     };
-
 
     public static readonly Dictionary<JudgeResult, float> JudgeTimings = new Dictionary<JudgeResult, float>()
     {
@@ -38,7 +37,7 @@ public class HitJudge
 
     public static Dictionary<JudgeResult, int> JudgeScoreValues = new Dictionary<JudgeResult, int>()
     {
-        { JudgeResult.Crit, 55 },
+        { JudgeResult.Crit, 50 },
         { JudgeResult.Perfect, 50},
         { JudgeResult.Cool, 30 },
         { JudgeResult.Ok, 15 },
@@ -49,7 +48,7 @@ public class HitJudge
 
     public static Dictionary<JudgeResult, float> JudgeMxValues = new Dictionary<JudgeResult, float>()
     {
-        { JudgeResult.Crit, 0.075f},
+        { JudgeResult.Crit, 0.065f},
         { JudgeResult.Perfect, 0.05f},
         { JudgeResult.Cool, 0.03f },
         { JudgeResult.Ok, 0.01f },
@@ -60,11 +59,11 @@ public class HitJudge
 
     public static Dictionary<Difficulty, float> DifficultyMxValues = new Dictionary<Difficulty, float>()
     {
-        {Difficulty.Beginner, 0.6f},
-        {Difficulty.Medium, 0.8f},
+        {Difficulty.Beginner, 0.8f},
+        {Difficulty.Medium, 0.9f},
         {Difficulty.Hard, 1.0f},
-        {Difficulty.Expert, 1.1f},
-        {Difficulty.Master, 1.2f}
+        {Difficulty.Expert, 1.05f},
+        {Difficulty.Master, 1.1f}
     };
 
     public static Dictionary<Difficulty, float> DifficultyMissMxValues = new Dictionary<Difficulty, float>()
@@ -88,7 +87,9 @@ public class HitJudge
     public static Dictionary<Grade, float> GoalExpValues = new Dictionary<Grade, float>()
     {
         {Grade.D, 1.0f},        // D
+        {Grade.DPlus, 1.02f},   // D+
         {Grade.C, 1.05f},       // C
+        {Grade.CPlus, 1.07f},   // C+
         {Grade.B, 1.1f},        // B
         {Grade.BPlus, 1.15f},   // B+
         {Grade.A, 1.2f},        // A
