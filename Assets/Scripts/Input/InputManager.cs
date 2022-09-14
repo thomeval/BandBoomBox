@@ -198,6 +198,28 @@ public class InputManager : MonoBehaviour
         RegisterInput(value, InputAction.Editor_JumpToEnd);
     }
 
+    void OnEditor_DeleteNote(InputValue value)
+    {
+        RegisterInput(value, InputAction.Editor_DeleteNote);
+    }
+    void OnEditor_SelectRegion(InputValue value)
+    {
+        RegisterInput(value, InputAction.Editor_SelectRegion);
+    }
+
+    void OnEditor_Copy(InputValue value)
+    {
+        ChooseAndRegisterInput(value, null, null, InputAction.Editor_Copy);
+    }
+    void OnEditor_Cut(InputValue value)
+    {
+        ChooseAndRegisterInput(value, null, null, InputAction.Editor_Cut);
+    }
+    void OnEditor_Paste(InputValue value)
+    {
+        ChooseAndRegisterInput(value, null, null, InputAction.Editor_Paste, null, InputAction.Editor_PasteInverted);
+    }
+
     void OnEditor_ModifierShift(InputValue value)
     {
         ModifierShift = value.isPressed;

@@ -4,5 +4,7 @@
     Playback,
     MainMenu,
     ModifyMenu,
-    ExitConfirm
+    ExitConfirm,
+    Controls,
+    Options
 }

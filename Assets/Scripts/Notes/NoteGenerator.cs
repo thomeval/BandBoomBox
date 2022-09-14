@@ -100,7 +100,7 @@ public class NoteGenerator : MonoBehaviour
     {
         var noteCount = GetNoteCount(beat, difficulty);
 
-        bool[] filledLanes = new bool[3];
+        var filledLanes = new bool[3];
 
         for (int x = 0; x < noteCount; x++)
         {
@@ -125,6 +125,8 @@ public class NoteGenerator : MonoBehaviour
         note.NoteType = noteType;
         note.NoteClass = noteClass;
         note.Lane = NoteUtils.GetNoteLane(note.NoteType);
+        note.name = note.Description;
+
         ResolveHoldsWithReleases(note);
         destination.Add(note);
         return note;

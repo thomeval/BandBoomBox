@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Assets;
-using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,17 +9,32 @@ public class ChartEditorManager : ScreenManager
 {
     public string NoteLabels = "WASD";
 
+    [Header("Text Controls")]
     public Text TxtCursorPosition;
     public Text TxtChartDifficulty;
     public Text TxtStepSize;
     public Text TxtScrollSpeed;
+    public Text TxtSelectedRegion;
 
+    public double? SelectedRegionStart;
+    public double? SelectedRegionEnd;
+
+    public Color MessageColorNormal = Color.white;
+    public Color MessageColorError = new Color(1.0f,0.5f,0.5f);
+    public Color MessageColorWarning = new Color(1.0f,1.0f,0.5f);
+
+    public Text TxtMessage;
+
+    [Header("Components")]
     public SongChart CurrentChart;
     public SongData CurrentSongData;
     public NoteManager NoteManager;
     public ChartEditorMenuManager MenuManager;
     public EditorNotePaletteSet EditorNotePaletteSet;
     public ChartEditorNotePlacer ChartEditorNotePlacer;
+    public ChartEditorNoteTransformer NoteTransformer;
+    public SoundEventHandler SoundHandler;
+    public ChartEditorClipboard Clipboard;
 
     private SongManager _songManager;
 
@@ -97,20 +109,33 @@ public class ChartEditorManager : ScreenManager
         }
     }
 
+    public bool RegionSelected
+    {
+        get { return SelectedRegionStart != null && SelectedRegionEnd != null; }
+    }
+
     #endregion
-
-    [Header("Sounds")]
-    public AudioSource SfxMistake;
-    public AudioSource SfxSelectionConfirmed;
-    public AudioSource SfxSelectionCancelled;
-    public AudioSource SfxSaveComplete;
-
 
     private void UpdateHud()
     {
         TxtCursorPosition.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", CursorPosition);
         TxtStepSize.text = $"Step: 1/{CursorStepSize} beats";
         TxtScrollSpeed.text = $"Speed: {NoteManager.ScrollSpeed}";
+
+        var selectedRegionText = "Selected: ";
+
+        if (SelectedRegionStart == null && SelectedRegionEnd == null)
+        {
+            selectedRegionText += "None";
+        }
+        else
+        {
+            var startText = SelectedRegionStart == null ? "..." : SelectedRegionStart.Value.ToString("F2", CultureInfo.InvariantCulture);
+            var endText = SelectedRegionEnd == null ? "..." : SelectedRegionEnd.Value.ToString("F2", CultureInfo.InvariantCulture);
+            selectedRegionText += $"{startText} to {endText}";
+        }
+
+        TxtSelectedRegion.text = selectedRegionText;
     }
 
     /// <summary>
@@ -139,6 +164,7 @@ public class ChartEditorManager : ScreenManager
 
         LoadChart();
         SetupSongManager();
+        DisplayMessage("To see the full list of controls, press Esc and select 'Controls'.", false);
     }
 
     private void LoadChart()
@@ -170,6 +196,11 @@ public class ChartEditorManager : ScreenManager
             CursorPosition = _songManager.GetSongPositionInBeats();
         }
         UpdateNoteHighway();
+    }
+
+    public void PlaySfx(SoundEvent eventType)
+    {
+        SoundHandler.PlaySfx(eventType);
     }
 
     private void UpdateNoteHighway()
@@ -211,9 +242,22 @@ public class ChartEditorManager : ScreenManager
             case ChartEditorState.Playback:
                 OnPlayerInputPlayback(inputEvent);
                 break;
+            case ChartEditorState.Controls:
+                OnPlayerInputControls(inputEvent);
+                break;
         }
        
         base.OnPlayerInput(inputEvent);
+    }
+
+    private void OnPlayerInputControls(InputEvent inputEvent)
+    {
+        if (inputEvent.Action == InputAction.Editor_Confirm
+            || inputEvent.Action == InputAction.Editor_PlayPause
+            || inputEvent.Action == InputAction.Back)
+        {
+            ChartEditorState = ChartEditorState.MainMenu;
+        }
     }
 
     private void OnPlayerInputPlayback(InputEvent inputEvent)
@@ -226,6 +270,7 @@ public class ChartEditorManager : ScreenManager
                 break;
             case InputAction.Editor_PlayPause:
                 StopPlayback();
+                CursorPosition = Math.Min(CursorPosition, CurrentSongData.LengthInBeats);
                 SnapCursorToStep();
                 break;
         }
@@ -238,6 +283,12 @@ public class ChartEditorManager : ScreenManager
             ChartEditorNotePlacer.OnPlayerInput(inputEvent);
             return;
         }
+
+        if (Clipboard.ShouldHandleInput(inputEvent))
+        {
+            Clipboard.OnPlayerInput(inputEvent);
+        }
+
         switch (inputEvent.Action)
         {
             case InputAction.Back:
@@ -283,8 +334,37 @@ public class ChartEditorManager : ScreenManager
             case InputAction.Editor_PlayPause:
                 BeginPlayback();
                 break;
+            case InputAction.Editor_SelectRegion:
+                SetSelectedRegion();
+                break;
         }
 
+    }
+
+    private void SetSelectedRegion()
+    {
+        if (SelectedRegionStart == null ^ SelectedRegionEnd == null)
+        {
+            SelectedRegionEnd = CursorPosition;
+        }
+        else
+        {
+            SelectedRegionStart = CursorPosition;
+            SelectedRegionEnd = null;
+        }
+
+        if (SelectedRegionEnd != null && SelectedRegionStart != null &&
+            SelectedRegionStart.Value > SelectedRegionEnd.Value)
+        {
+            (SelectedRegionStart, SelectedRegionEnd) = (SelectedRegionEnd, SelectedRegionStart);
+        }
+
+        if (SelectedRegionEnd == SelectedRegionStart)
+        {
+            SelectedRegionStart = null;
+            SelectedRegionEnd = null;
+        }
+        UpdateHud();
     }
 
     private void MoveCursorSections(int delta)
@@ -305,7 +385,7 @@ public class ChartEditorManager : ScreenManager
         // Compare its keys and values manually instead to determine if the above returned the default result (meaning no match found).
         if (targetSection.Key == default && targetSection.Value == default)
         {
-            PlaySfx("Mistake");
+            PlaySfx(SoundEvent.Mistake);
             return;
         }
         
@@ -334,13 +414,13 @@ public class ChartEditorManager : ScreenManager
     {
         if (CursorPosition + delta > CurrentSongData.LengthInBeats)
         {
-            PlaySfx("Mistake");
+            PlaySfx(SoundEvent.Mistake);
             return;
         }
 
         if (CursorPosition <= 0.00 && delta < 0)
         {
-            PlaySfx("Mistake");
+            PlaySfx(SoundEvent.Mistake);
             return;
         }
 
@@ -353,25 +433,6 @@ public class ChartEditorManager : ScreenManager
     public void CloseEditor()
     {
         SceneTransition(GameScene.MainMenu);
-    }
-
-    public void PlaySfx(string sfxType)
-    {
-        switch (sfxType)
-        {
-            case "Mistake":
-                SfxMistake.PlayUnlessNull();
-                break;
-            case "SelectionConfirmed":
-                SfxSelectionConfirmed.PlayUnlessNull();
-                break;
-            case "SelectionCancelled":
-                SfxSelectionCancelled.PlayUnlessNull();
-                break;
-            case "SaveComplete":
-                SfxSaveComplete.PlayUnlessNull();
-                break;
-        }
     }
 
     public void PlayFromBeginning()
@@ -400,13 +461,26 @@ public class ChartEditorManager : ScreenManager
             var sjson = SjsonUtils.ToSjson(NoteManager.Notes);
             CurrentChart.Notes = sjson;
             CoreManager.SongLibrary.SaveSongToDisk(CurrentSongData);
-            PlaySfx("SaveComplete");
+            PlaySfx(SoundEvent.Editor_SaveComplete);
+            DisplayMessage($"Successfully saved SJSON file to {CurrentSongData.SjsonFilePath} ", false);
         }
         catch (Exception e)
         {
             Debug.LogError(e);
-            PlaySfx("Mistake");
+            DisplayMessage(e.Message, true);
+            PlaySfx(SoundEvent.Mistake);
         }
 
+    }
+
+    public void DisplayMessage(string message, bool isError = false)
+    {
+        TxtMessage.color = isError ? MessageColorError : MessageColorNormal;
+        TxtMessage.text = message;
+    }
+
+    public bool IsInPlayableArea(double position)
+    {
+        return position > 0 && position < CurrentSongData.LengthInBeats;
     }
 }

@@ -201,12 +201,21 @@ public static class SjsonUtils
 
     private static char ResolveCharCode(NoteClass noteClass, NoteType noteType)
     {
+        if (noteClass == NoteClass.Release)
+        {
+            noteType = NoteUtils.GetLaneAnyNote(noteType);
+        }
+
         var lane = NoteUtils.GetNoteLane(noteType);
         var matchingClasses = NoteClasses.Where(e => e.Value == noteClass).Select(e => e.Key).ToList();
         var matchingTypes = NoteTypes[lane].Where(e => e.Value == noteType).Select(e => e.Key).ToList();
 
         var result = matchingTypes.Intersect(matchingClasses).SingleOrDefault();
 
+        if (result == default)
+        {
+            throw new Exception($"Unable to Resolve SJSON Char Code for NoteClass {noteClass}, NoteType {noteType}.");
+        }
         return result;
     }
 

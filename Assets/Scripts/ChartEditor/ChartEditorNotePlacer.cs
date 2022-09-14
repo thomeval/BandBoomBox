@@ -25,8 +25,11 @@ public class ChartEditorNotePlacer : MonoBehaviour
         InputAction.Editor_NoteRT,
         InputAction.Editor_NoteReleaseAnyB,
         InputAction.Editor_NoteReleaseAnyD,
-        InputAction.Editor_NoteReleaseAnyT
+        InputAction.Editor_NoteReleaseAnyT,
+        InputAction.Editor_DeleteNote
     };
+
+    private const float FLOAT_TOLERANCE = 0.01f;
 
     void Awake()
     {
@@ -44,7 +47,7 @@ public class ChartEditorNotePlacer : MonoBehaviour
         return _inputsToHandle.Contains(inputEvent.Action);
     }
 
-    public void PlaceOrRemoveNote(NoteType noteType, NoteClass noteClass, double position)
+    public void PlaceOrRemoveNote(NoteType noteType, NoteClass noteClass, float position)
     {
         if (_parent.CurrentDifficulty == Difficulty.Beginner)
         {
@@ -52,7 +55,8 @@ public class ChartEditorNotePlacer : MonoBehaviour
         }
         if (!NoteIsValidForDifficulty(noteType, noteClass))
         {
-            _parent.PlaySfx("Mistake");
+            _parent.PlaySfx(SoundEvent.Mistake);
+            _parent.DisplayMessage($"The selected note type ({noteType}), does not belong in a {_parent.CurrentDifficulty} chart.",true);
             return;
         }
 
@@ -88,12 +92,48 @@ public class ChartEditorNotePlacer : MonoBehaviour
         return NoteUtils.GetValidNoteTypesForDifficulty(diff).Contains(noteType);
     }
 
-    private void PlaceNewNote(NoteType noteType, NoteClass noteClass, double position)
+    private void PlaceNewNote(NoteType noteType, NoteClass noteClass, float position)
     {
-        var note = _parent.NoteGenerator.InstantiateNote((float) position, noteType, noteClass, ref _noteManager.Notes);
+        if (noteClass == NoteClass.Release)
+        {
+            PlaceNewReleaseNote(noteType, position);
+            return;
+        }
+        if (noteClass == NoteClass.Tap)
+        {
+            PlaceNewNoteCommon(noteType, NoteClass.Tap, position);
+        }
+    }
+
+
+    private void PlaceNewReleaseNote(NoteType noteType, float position)
+    {
+        var lane = NoteUtils.GetNoteLane(noteType);
+        var prevNote = _noteManager.FindNoteBefore(position, lane);
+
+        if (prevNote == null || prevNote.NoteClass != NoteClass.Tap)
+        {
+            _parent.PlaySfx(SoundEvent.Mistake);
+            _parent.DisplayMessage("Cannot place a Hold Release here. First mark the beginning of the Hold note by placing a Tap note on the same lane.", true);
+            return;
+        }
+
+        // Replace the previous Tap note with a Hold one, and add a Release Note at the desired position.
+        var holdPosition = prevNote.Position;
+        var holdType = prevNote.NoteType;
+
+        RemoveExistingNote(prevNote);
+        PlaceNewNoteCommon(holdType, NoteClass.Hold, holdPosition);
+        PlaceNewNoteCommon(noteType, NoteClass.Release, position );
+    }
+
+    private void PlaceNewNoteCommon(NoteType noteType, NoteClass noteClass, float position)
+    {
+        var note = _parent.NoteGenerator.InstantiateNote(position, noteType, noteClass, ref _noteManager.Notes);
         _noteManager.AttachNote(note);
         _noteManager.CalculateAbsoluteTimes(_parent.CurrentSongData.Bpm);
         note.RefreshSprites();
+        _parent.PlaySfx(SoundEvent.Editor_NotePlaced);
     }
 
     private void RemoveExistingNote(Note existing)
@@ -101,7 +141,11 @@ public class ChartEditorNotePlacer : MonoBehaviour
         if (existing.NoteClass == NoteClass.Release)
         {
             var noteStart = _noteManager.FindReleaseNoteStart(existing);
-            RemoveExistingNote(noteStart);
+            if (noteStart != null)
+            {
+                RemoveExistingNote(noteStart);
+            }
+
             return;
         }
         if (existing.EndNote != null)
@@ -109,6 +153,7 @@ public class ChartEditorNotePlacer : MonoBehaviour
             _noteManager.RemoveNote(existing.EndNote);
         }
         _noteManager.RemoveNote(existing);
+        _parent.PlaySfx(SoundEvent.Editor_NoteRemoved);
     }
 
     private void ChangeExistingNote(Note existing, NoteType noteType, NoteClass noteClass)
@@ -116,7 +161,7 @@ public class ChartEditorNotePlacer : MonoBehaviour
         // Don't try to modify Release notes.
         if (existing.NoteClass == NoteClass.Release)
         {
-            _parent.PlaySfx("Mistake");
+            _parent.PlaySfx(SoundEvent.Mistake);
             return;
         }
 
@@ -133,7 +178,14 @@ public class ChartEditorNotePlacer : MonoBehaviour
 
     public void OnPlayerInput(InputEvent inputEvent)
     {
-        var position = _parent.CursorPosition;
+        var position = (float) _parent.CursorPosition;
+
+        if (inputEvent.Action == InputAction.Editor_DeleteNote)
+        {
+            RemoveNotesAt(position);
+            return;
+        }
+
         var actionStr = inputEvent.Action.ToString();
         var noteClass = actionStr.Contains("Release") ? NoteClass.Release : NoteClass.Tap;
         var noteTypeStr = actionStr.Replace("Editor_NoteRelease", "");
@@ -142,6 +194,17 @@ public class ChartEditorNotePlacer : MonoBehaviour
 
         PlaceOrRemoveNote(noteType, noteClass, position);
 
+    }
+
+    private void RemoveNotesAt(float position)
+    {
+        var notesToRemove = _noteManager.Notes.Where(e => Math.Abs(e.Position - position) < FLOAT_TOLERANCE).ToList();
+        foreach (var note in notesToRemove)
+        {
+            RemoveExistingNote(note);
+        }
+
+        _parent.PlaySfx(SoundEvent.Editor_NoteRemoved);
     }
 }
 

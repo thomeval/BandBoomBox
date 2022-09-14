@@ -1973,7 +1973,7 @@ MonoBehaviour:
   _turboActive: 0
   _profileId: 
   _mistakeSfxEnabled: 1
-  TimingDisplayType: 1
+  TimingDisplayType: 3
   NoteSkin: Default
   LabelSkin: None
   _beatLineType: 0
@@ -20441,8 +20441,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -425, y: 50}
-  m_SizeDelta: {x: 900, y: 500}
+  m_AnchoredPosition: {x: -350, y: 50}
+  m_SizeDelta: {x: 1050, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1926521309
 MonoBehaviour:
@@ -22039,8 +22039,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 450, y: -600}
-  m_SizeDelta: {x: 900, y: 50}
+  m_AnchoredPosition: {x: 525, y: -600}
+  m_SizeDelta: {x: 1050, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2061792917
 GameObject:
@@ -24286,21 +24286,9 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.6650944
       objectReference: {fileID: 0}
-    - target: {fileID: 4659577527221589702, guid: 7a030cb895c09b44e94b055f742f3dd2, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -200
-      objectReference: {fileID: 0}
     - target: {fileID: 4916658006846797361, guid: 7a030cb895c09b44e94b055f742f3dd2, type: 3}
       propertyPath: m_Name
       value: EditorDifficultyListItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 7916656105524680240, guid: 7a030cb895c09b44e94b055f742f3dd2, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 7916656105524680240, guid: 7a030cb895c09b44e94b055f742f3dd2, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 8913110330214976878, guid: 7a030cb895c09b44e94b055f742f3dd2, type: 3}
       propertyPath: m_Pivot.x

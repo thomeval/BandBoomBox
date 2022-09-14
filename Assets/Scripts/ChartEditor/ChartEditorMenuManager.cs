@@ -13,6 +13,9 @@ public class ChartEditorMenuManager : MonoBehaviour
     public GameObject MnuExitConfirmContainer;
     public Menu MnuModify;
     public GameObject MnuModifyContainer;
+    public Menu MnuOptions;
+    public GameObject MnuOptionsContainer;
+    public GameObject MnuControlsContainer;
     public GameObject RootMenuContainer;
 
     [SerializeField]
@@ -23,9 +26,9 @@ public class ChartEditorMenuManager : MonoBehaviour
         private set {  _activeMenu = value; }
     }
 
-    private ChartEditorState[] _handledStates = new[]
+    private readonly ChartEditorState[] _handledStates = new[]
     {
-        ChartEditorState.MainMenu, ChartEditorState.ModifyMenu, ChartEditorState.ExitConfirm
+        ChartEditorState.MainMenu, ChartEditorState.ModifyMenu, ChartEditorState.Controls, ChartEditorState.Options, ChartEditorState.ExitConfirm
     };
 
     public bool ShouldHandleState(ChartEditorState state)
@@ -53,6 +56,14 @@ public class ChartEditorMenuManager : MonoBehaviour
             case ChartEditorState.ModifyMenu:
                 MnuModifyContainer.SetActive(true);
                 ActiveMenu = MnuModify;
+                break;
+            case ChartEditorState.Controls:
+                MnuControlsContainer.SetActive(true);
+                ActiveMenu = null;
+                break;
+            case ChartEditorState.Options:
+                MnuOptionsContainer.SetActive(true);
+                ActiveMenu = MnuOptions;
                 break;
             case ChartEditorState.ExitConfirm:
                 MnuExitConfirmContainer.SetActive(true);
@@ -111,6 +122,12 @@ public class ChartEditorMenuManager : MonoBehaviour
                 _parent.PlayFromBeginning();
                 break;
             case "Modify selected region":
+                if (!_parent.RegionSelected)
+                {
+                    _parent.DisplayMessage("Select a region first, by marking the start and end points with the 'Set Region' key.", true);
+                    _parent.PlaySfx(SoundEvent.Mistake);
+                    return;
+                }
                 _parent.ChartEditorState = ChartEditorState.ModifyMenu;
                 break;
             case "Save":
@@ -132,6 +149,18 @@ public class ChartEditorMenuManager : MonoBehaviour
             case "Back":
                 _parent.ChartEditorState = ChartEditorState.MainMenu;
                 break;
+            case "Swap Hands":
+                _parent.NoteTransformer.SwapHands();
+                _parent.ChartEditorState = ChartEditorState.Edit;
+                break;
+            case "Invert":
+                _parent.NoteTransformer.Invert();
+                _parent.ChartEditorState = ChartEditorState.Edit;
+                break;
+            case "Clear Selected Region":
+                _parent.NoteTransformer.ClearRegion();
+                _parent.ChartEditorState = ChartEditorState.Edit;
+                break;
         }
     }
 
@@ -139,10 +168,10 @@ public class ChartEditorMenuManager : MonoBehaviour
     {
         if (selectedItem == cancelItem)
         {
-            _parent.PlaySfx("SelectionCancelled");
+            _parent.PlaySfx(SoundEvent.SelectionCancelled);
             return;
         }
-        _parent.PlaySfx("SelectionConfirmed");
+        _parent.PlaySfx(SoundEvent.SelectionConfirmed);
     }
 
     void MenuItemSelectedExitConfirm(MenuEventArgs args)

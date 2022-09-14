@@ -47,6 +47,12 @@ public enum InputAction
     Editor_ZoomOut,
 
     Editor_JumpToStart,
-    Editor_JumpToEnd
+    Editor_JumpToEnd,
+    Editor_DeleteNote,
+    Editor_SelectRegion,
+    Editor_Copy,
+    Editor_Cut,
+    Editor_Paste,
+    Editor_PasteInverted
 }
 

@@ -5,7 +5,7 @@ using System.Linq;
 
 public class NoteManager : MonoBehaviour
 {
-    public List<Note> Notes = new List<Note>();
+    public List<Note> Notes = new();
     public List<BeatLine> BeatLines;
     public SongChart Chart;
 
@@ -128,7 +128,7 @@ public class NoteManager : MonoBehaviour
     {
         foreach (var note in Notes)
         {
-            note.SetPosition(10000.0f);
+            note.SetXPosition(10000.0f);
         }
         foreach (var beatline in BeatLines)
         {
@@ -140,7 +140,7 @@ public class NoteManager : MonoBehaviour
     {
         foreach (var note in Notes)
         {
-            note.SetPosition(CalculateRenderPosition(note.AbsoluteTime));
+            note.SetXPosition(CalculateRenderPosition(note.AbsoluteTime));
         }
         foreach (var beatline in BeatLines)
         {
@@ -337,6 +337,12 @@ public class NoteManager : MonoBehaviour
         return temp;
     }
 
+    public Note FindNoteBefore(float position, int lane)
+    {
+        var result = Notes.LastOrDefault(e => e.Position < position && e.Lane == lane);
+        return result;
+    }
+
     public Note FindNextRelease(int lane)
     {
         var result = Notes.FirstOrDefault(e => e.NoteClass == NoteClass.Release && e.Lane == lane);
@@ -425,6 +431,7 @@ public class NoteManager : MonoBehaviour
         note.transform.SetParent(this.transform, false); 
         note.transform.localPosition = new Vector3(9999.0f, note.transform.localPosition.y);
         note.SetSpriteCategories(this.NoteSkin, this.LabelSkin);
+        note.RefreshLane();
     }
 
     public void AttachNotes()
@@ -460,5 +467,11 @@ public class NoteManager : MonoBehaviour
         }
 
         return Notes.SingleOrDefault(e => e.EndNote == releaseNote);
+    }
+
+    public List<Note> GetNotesInRegion(double regionStart, double regionEnd)
+    {
+        var result = Notes.Where(e => e.Position >= regionStart && e.Position <= regionEnd).ToList();
+        return result;
     }
 }

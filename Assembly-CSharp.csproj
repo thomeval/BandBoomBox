@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Input\InputEvent.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayUtils.cs" />
     <Compile Include="Assets\Scripts\Input\DeviationResult.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNoteTransformer.cs" />
     <Compile Include="Assets\Scripts\Input\ActionMapType.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteItem.cs" />
     <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\Scripts\Managers\ProfileManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\Scripts\Common\SoundEventHandler.cs" />
     <Compile Include="Assets\Scripts\Managers\HudManager.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
     <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
@@ -105,6 +107,7 @@
     <Compile Include="Assets\Scripts\Common\ExpMeter.cs" />
     <Compile Include="Assets\Scripts\Misc\UIExtensions.cs" />
     <Compile Include="Assets\Scripts\Managers\ControlsManager.cs" />
+    <Compile Include="Assets\Scripts\Common\SoundEvent.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Scripts\Songs\SongLibrary.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongPreviewManager.cs" />
@@ -154,6 +157,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteUtils.cs" />
     <Compile Include="Assets\Scripts\InitialLoad\InitialLoadManager.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorClipboard.cs" />
     <Compile Include="Assets\Scripts\Common\TextPulser.cs" />
     <Compile Include="Assets\Scripts\Songs\SongChart.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinFrame.cs" />

@@ -146,13 +146,20 @@ public class EditorChartListPage : EditorPageManager
         Parent.RaiseSceneTransition(GameScene.ChartEditor, args);
     }
 
+    void ChartListItemCloned(EditorDifficultyListItem item)
+    {
+        var chart = item.DisplayedChart.Clone();
+        Parent.CurrentSong.SongCharts.Add(chart);
+        PopulateList();
+    }
+
     #endregion
     public void PopulateList()
     {
         ListItemContainer.gameObject.ClearChildren();
         DisplayedCharts.Clear();
 
-        foreach (var chart in Parent.CurrentSong.SongCharts)
+        foreach (var chart in Parent.CurrentSong.SongCharts.OrderBy(e => e.Group).ThenBy(e => e.DifficultyLevel))
         {
             var obj = Instantiate(ListItemPrefab);
             obj.DisplayedChart = chart;

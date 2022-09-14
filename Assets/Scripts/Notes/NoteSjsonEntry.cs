@@ -54,7 +54,7 @@ public class NoteSjsonEntry
 
             newSjson[x] = Max(this.Sjson[x], other.Sjson[x]);
         }
-        return new NoteSjsonEntry { Position = this.Position, Sjson = this.Sjson };
+        return new NoteSjsonEntry { Position = this.Position, Sjson = newSjson.ToString() };
     }
 
     private char Max(char c1, char c2)

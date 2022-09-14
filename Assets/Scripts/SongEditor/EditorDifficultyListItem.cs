@@ -9,8 +9,10 @@ public class EditorDifficultyListItem : MonoBehaviour
     public InputField TxtGroup;
     public InputField TxtDifficultyLevel;
     public Dropdown CmbDifficulty;
+    public Text TxtIsBlank;
     public Button BtnRemove;
     public Button BtnEdit;
+    public Button BtnClone;
 
     [SerializeField]
     private SongChart _displayedChart;
@@ -30,15 +32,17 @@ public class EditorDifficultyListItem : MonoBehaviour
         TxtDifficultyLevel.text = "" + DisplayedChart.DifficultyLevel;
         TxtGroup.text = DisplayedChart.Group;
         CmbDifficulty.SetSelectedText(DisplayedChart.Difficulty.ToString());
+        TxtIsBlank.text = DisplayedChart.IsBlank ? "B" : "";
     }
 
     void Awake()
     {
         BtnRemove.onClick.AddListener(BtnRemove_OnClick);
         BtnEdit.onClick.AddListener(BtnEdit_OnClick);
-     //   TxtGroup.onValueChanged.AddListener(arg0 => ApplyChartData());
-     //   TxtDifficultyLevel.onValueChanged.AddListener(arg0 => ApplyChartData());
-     //   CmbDifficulty.onValueChanged.AddListener(arg0 => ApplyChartData());
+        BtnClone.onClick.AddListener(BtnClone_OnClick);
+        //   TxtGroup.onValueChanged.AddListener(arg0 => ApplyChartData());
+        //   TxtDifficultyLevel.onValueChanged.AddListener(arg0 => ApplyChartData());
+        //   CmbDifficulty.onValueChanged.AddListener(arg0 => ApplyChartData());
     }
 
     private void BtnRemove_OnClick()
@@ -50,10 +54,10 @@ public class EditorDifficultyListItem : MonoBehaviour
     {
         SendMessageUpwards("ChartListItemEdited", this);
     }
-    // Start is called before the first frame update
-    void Start()
+
+    private void BtnClone_OnClick()
     {
-        
+        SendMessageUpwards("ChartListItemCloned", this);
     }
 
     public void ApplyChartData()
