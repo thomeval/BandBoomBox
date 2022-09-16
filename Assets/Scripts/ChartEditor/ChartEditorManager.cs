@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class ChartEditorManager : ScreenManager
 {
-    public string NoteLabels = "WASD";
 
     [Header("Text Controls")]
     public Text TxtCursorPosition;
@@ -35,6 +34,7 @@ public class ChartEditorManager : ScreenManager
     public ChartEditorNoteTransformer NoteTransformer;
     public SoundEventHandler SoundHandler;
     public ChartEditorClipboard Clipboard;
+    public ChartEditorOptions Options;
 
     private SongManager _songManager;
 
@@ -171,7 +171,6 @@ public class ChartEditorManager : ScreenManager
     {
         var args = CoreManager.SceneLoadArgs;
 
-        // TODO: Temp:
         CurrentSongData = Helpers.TryGetArg<SongData>(args, "SelectedSongData") ?? CoreManager.SongLibrary.Songs[0];
         CurrentChart =  Helpers.TryGetArg<SongChart>(args, "SelectedSongChart") ?? CurrentSongData.GetChart("Main", Difficulty.Hard);
         TxtChartDifficulty.text = CurrentChart.Difficulty.ToString();
@@ -180,8 +179,13 @@ public class ChartEditorManager : ScreenManager
         NoteManager.CalculateAbsoluteTimes(CurrentSongData.Bpm);
         EditorNotePaletteSet.DisplayedPalette = CurrentChart.Difficulty;
 
-        NoteManager.ApplyNoteSkin("Default", NoteLabels);
-        EditorNotePaletteSet.SetNoteSkin("Default", NoteLabels);
+        ApplyNoteSkin();
+    }
+
+    private void ApplyNoteSkin()
+    {
+        NoteManager.ApplyNoteSkin(Options.NoteSkin, Options.LabelSkin);
+        EditorNotePaletteSet.SetNoteSkin(Options.NoteSkin, Options.LabelSkin);
     }
 
     private void SetupSongManager()
@@ -242,23 +246,11 @@ public class ChartEditorManager : ScreenManager
             case ChartEditorState.Playback:
                 OnPlayerInputPlayback(inputEvent);
                 break;
-            case ChartEditorState.Controls:
-                OnPlayerInputControls(inputEvent);
-                break;
         }
        
         base.OnPlayerInput(inputEvent);
     }
 
-    private void OnPlayerInputControls(InputEvent inputEvent)
-    {
-        if (inputEvent.Action == InputAction.Editor_Confirm
-            || inputEvent.Action == InputAction.Editor_PlayPause
-            || inputEvent.Action == InputAction.Back)
-        {
-            ChartEditorState = ChartEditorState.MainMenu;
-        }
-    }
 
     private void OnPlayerInputPlayback(InputEvent inputEvent)
     {
@@ -346,11 +338,13 @@ public class ChartEditorManager : ScreenManager
         if (SelectedRegionStart == null ^ SelectedRegionEnd == null)
         {
             SelectedRegionEnd = CursorPosition;
+            PlaySfx(SoundEvent.Editor_SelectRegionEnd);
         }
         else
         {
             SelectedRegionStart = CursorPosition;
             SelectedRegionEnd = null;
+            PlaySfx(SoundEvent.Editor_SelectRegionStart);
         }
 
         if (SelectedRegionEnd != null && SelectedRegionStart != null &&
@@ -404,7 +398,7 @@ public class ChartEditorManager : ScreenManager
         var measureAmount = CurrentSongData.BeatsPerMeasure;
         MoveCursor(measures * measureAmount);
     }
-    private void MoveCursorSteps(int steps)
+    public void MoveCursorSteps(int steps)
     {
         var stepAmount = 1.0 / CursorStepSize * steps;
         MoveCursor(stepAmount);

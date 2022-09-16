@@ -146,6 +146,7 @@
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Common\GameScene.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorOptions.cs" />
     <Compile Include="Assets\Scripts\Credits\CreditsManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongList.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePalette.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+    <Compile Include="Assets\EditorSectionListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\StreamingAssets\Songs\Readme.txt" />

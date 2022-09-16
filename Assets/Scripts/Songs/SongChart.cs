@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 
 [Serializable]
@@ -12,6 +13,7 @@ public class SongChart
     [HideInInspector]
     public string[] Notes;
 
+    [JsonIgnore]
     public bool IsBlank
     {
         get

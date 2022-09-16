@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public static class SjsonUtils
 {
     public const int LANE_COUNT = 4;
+    public const float FLOAT_TOLERANCE = 0.001f;
 
     public static readonly Dictionary<char, NoteType>[] NoteTypes =
     {
@@ -109,15 +110,15 @@ public static class SjsonUtils
         }
 
         var stepCount = GetNormalizedStepSize(notes);
-        float stepSize = 1.0f / stepCount;
+        var stepSize = 1.0f / stepCount;
 
         var result = "";
 
-        float pos = 0.0f;
+        var pos = 0.0f;
 
         while (pos < 1.0)
         {
-            var note = notes.SingleOrDefault(e => e.PositionFraction == pos);
+            var note = notes.SingleOrDefault(e => Math.Abs(e.PositionFraction - pos) < FLOAT_TOLERANCE);
 
             if (note == null)
             {
@@ -141,7 +142,7 @@ public static class SjsonUtils
         foreach (var attempt in _validBlockCounts)
         {
             var temp = notes.Select(e => e.PositionFraction * attempt);
-            temp = temp.Select(e => e - (int)e).ToArray();
+            temp = temp.Select(e => e - MathF.Round(e)).ToArray();
 
             if (temp.All(e => Math.Abs(e) < TOLERANCE))
             {

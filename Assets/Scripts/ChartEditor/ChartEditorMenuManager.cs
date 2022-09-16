@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChartEditorMenuManager : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class ChartEditorMenuManager : MonoBehaviour
 
     private readonly ChartEditorState[] _handledStates = new[]
     {
-        ChartEditorState.MainMenu, ChartEditorState.ModifyMenu, ChartEditorState.Controls, ChartEditorState.Options, ChartEditorState.ExitConfirm
+        ChartEditorState.MainMenu, ChartEditorState.ModifyMenu, ChartEditorState.Controls, ChartEditorState.OptionsMenu, ChartEditorState.ExitConfirm
     };
 
     public bool ShouldHandleState(ChartEditorState state)
@@ -41,6 +42,8 @@ public class ChartEditorMenuManager : MonoBehaviour
         MnuMainContainer.SetActive(false);
         MnuExitConfirmContainer.SetActive(false);
         MnuModifyContainer.SetActive(false);
+        MnuOptionsContainer.SetActive(false);
+        MnuControlsContainer.SetActive(false);
         RootMenuContainer.SetActive(true);
         ActiveMenu = null;
         switch (state)
@@ -58,11 +61,13 @@ public class ChartEditorMenuManager : MonoBehaviour
                 ActiveMenu = MnuModify;
                 break;
             case ChartEditorState.Controls:
+                RootMenuContainer.SetActive(false);
                 MnuControlsContainer.SetActive(true);
                 ActiveMenu = null;
                 break;
-            case ChartEditorState.Options:
+            case ChartEditorState.OptionsMenu:
                 MnuOptionsContainer.SetActive(true);
+                _parent.Options.SetOptionsItemText();
                 ActiveMenu = MnuOptions;
                 break;
             case ChartEditorState.ExitConfirm:
@@ -79,6 +84,12 @@ public class ChartEditorMenuManager : MonoBehaviour
 
     public void OnPlayerInputMenus(InputEvent inputEvent, ChartEditorState state)
     {
+        if (state == ChartEditorState.Controls)
+        {
+            HandleInputControls(inputEvent);
+            return;
+        }
+
         // Menus expect gameplay InputEvents, so convert the editor InputEvents to gameplay ones.
         var gameplayEvent = InputEvent.AsGameplayEvent(inputEvent);
 
@@ -87,11 +98,38 @@ public class ChartEditorMenuManager : MonoBehaviour
             return;
         }
 
+
         if (ActiveMenu != null)
         {
             ActiveMenu.HandleInput(gameplayEvent);
         }
 
+    }
+
+    private void HandleInputControls(InputEvent inputEvent)
+    {
+        if (inputEvent.Action == InputAction.Editor_PlayPause
+            || inputEvent.Action == InputAction.Editor_Confirm
+            || inputEvent.Action == InputAction.Back)
+        {
+            _parent.PlaySfx(SoundEvent.SelectionCancelled);
+            _parent.ChartEditorState = ChartEditorState.MainMenu;
+        }
+    }
+
+    void MenuItemShifted(MenuEventArgs args)
+    {
+        switch (_parent.ChartEditorState)
+        {
+            case ChartEditorState.OptionsMenu:
+                MenuItemShiftedOptions(args);
+                break;
+        }
+    }
+
+    private void MenuItemShiftedOptions(MenuEventArgs args)
+    {
+        throw new NotImplementedException();
     }
 
     void MenuItemSelected(MenuEventArgs args)
@@ -101,11 +139,25 @@ public class ChartEditorMenuManager : MonoBehaviour
             case ChartEditorState.MainMenu:
                 MenuItemSelectedMain(args);
                 break;
+            case ChartEditorState.OptionsMenu:
+                MenuItemSelectedOptions(args);
+                break;
             case ChartEditorState.ModifyMenu:
                 MenuItemSelectedModify(args);
                 break;
             case ChartEditorState.ExitConfirm:
                 MenuItemSelectedExitConfirm(args);
+                break;
+        }
+    }
+
+    private void MenuItemSelectedOptions(MenuEventArgs args)
+    {
+        PlayConfirmOrCancelSfx(args.SelectedItem, "Back");
+        switch (args.SelectedItem)
+        {
+            case "Back":
+                _parent.ChartEditorState = ChartEditorState.MainMenu;
                 break;
         }
     }
@@ -120,6 +172,12 @@ public class ChartEditorMenuManager : MonoBehaviour
                 break;
             case "Play from beginning":
                 _parent.PlayFromBeginning();
+                break;
+            case "Options":
+                _parent.ChartEditorState = ChartEditorState.OptionsMenu;
+                break;
+            case "Controls":
+                _parent.ChartEditorState = ChartEditorState.Controls;
                 break;
             case "Modify selected region":
                 if (!_parent.RegionSelected)
@@ -164,16 +222,6 @@ public class ChartEditorMenuManager : MonoBehaviour
         }
     }
 
-    private void PlayConfirmOrCancelSfx(string selectedItem, string cancelItem)
-    {
-        if (selectedItem == cancelItem)
-        {
-            _parent.PlaySfx(SoundEvent.SelectionCancelled);
-            return;
-        }
-        _parent.PlaySfx(SoundEvent.SelectionConfirmed);
-    }
-
     void MenuItemSelectedExitConfirm(MenuEventArgs args)
     {
         PlayConfirmOrCancelSfx(args.SelectedItem, "No");
@@ -188,4 +236,13 @@ public class ChartEditorMenuManager : MonoBehaviour
         }
     }
 
+    private void PlayConfirmOrCancelSfx(string selectedItem, string cancelItem)
+    {
+        if (selectedItem == cancelItem)
+        {
+            _parent.PlaySfx(SoundEvent.SelectionCancelled);
+            return;
+        }
+        _parent.PlaySfx(SoundEvent.SelectionConfirmed);
+    }
 }

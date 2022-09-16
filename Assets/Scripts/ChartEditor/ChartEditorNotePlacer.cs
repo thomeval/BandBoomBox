@@ -80,6 +80,10 @@ public class ChartEditorNotePlacer : MonoBehaviour
 
     private bool NoteIsValidForDifficulty(NoteType noteType, NoteClass noteClass)
     {
+        if (_parent.Options.AllowAllNotes)
+        {
+            return true;
+        }
 
         var diff = _parent.CurrentChart.Difficulty;
         if (noteClass == NoteClass.Release)
@@ -102,9 +106,17 @@ public class ChartEditorNotePlacer : MonoBehaviour
         if (noteClass == NoteClass.Tap)
         {
             PlaceNewNoteCommon(noteType, NoteClass.Tap, position);
+            AutoStep();
         }
     }
 
+    private void AutoStep()
+    {
+        if (_parent.Options.AutoStepForward)
+        {
+            _parent.MoveCursorSteps(1);
+        }
+    }
 
     private void PlaceNewReleaseNote(NoteType noteType, float position)
     {
@@ -125,6 +137,7 @@ public class ChartEditorNotePlacer : MonoBehaviour
         RemoveExistingNote(prevNote);
         PlaceNewNoteCommon(holdType, NoteClass.Hold, holdPosition);
         PlaceNewNoteCommon(noteType, NoteClass.Release, position );
+        AutoStep();
     }
 
     private void PlaceNewNoteCommon(NoteType noteType, NoteClass noteClass, float position)

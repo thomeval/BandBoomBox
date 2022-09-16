@@ -6,5 +6,5 @@
     ModifyMenu,
     ExitConfirm,
     Controls,
-    Options
+    OptionsMenu
 }

@@ -6,6 +6,7 @@ public class SoundEventHandler : MonoBehaviour
     public AudioSource SfxMistake;
     public AudioSource SfxSelectionConfirmed; 
     public AudioSource SfxSelectionCancelled;
+    public AudioSource SfxSelectionShifted;
     public AudioSource SfxEditorSaveComplete;
     public AudioSource SfxEditorNotePlaced;
     public AudioSource SfxEditorNoteRemoved;
@@ -16,6 +17,8 @@ public class SoundEventHandler : MonoBehaviour
     public AudioSource SfxGameplayStar2;
     public AudioSource SfxGameplayStar3;
     public AudioSource SfxTitleScreenStartPressed;
+    public AudioSource SfxEditorSelectRegionStart;
+    public AudioSource SfxEditorSelectRegionEnd;
 
     public void PlaySfx(SoundEvent eventType)
     {
@@ -30,6 +33,9 @@ public class SoundEventHandler : MonoBehaviour
                 break;
             case SoundEvent.SelectionCancelled:
                 SfxSelectionCancelled.PlayUnlessNull();
+                break;
+            case SoundEvent.SelectionShifted:
+                SfxSelectionShifted.PlayUnlessNull();
                 break;
             case SoundEvent.Editor_SaveComplete:
                 SfxEditorSaveComplete.PlayUnlessNull();
@@ -60,6 +66,12 @@ public class SoundEventHandler : MonoBehaviour
                 break;
             case SoundEvent.TitleScreen_StartPressed:
                 SfxTitleScreenStartPressed.PlayUnlessNull();
+                break;
+            case SoundEvent.Editor_SelectRegionStart:
+                SfxEditorSelectRegionStart.PlayUnlessNull();
+                break;
+            case SoundEvent.Editor_SelectRegionEnd:
+                SfxEditorSelectRegionEnd.PlayUnlessNull();
                 break;
             default:
                 Debug.LogWarning("Unrecognised SoundEvent type: " + eventType);

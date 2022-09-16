@@ -14,5 +14,7 @@ public enum SoundEvent
     TitleScreen_StartPressed,
     Editor_Cut,
     Editor_Copy,
-    Editor_Paste
+    Editor_Paste,
+    Editor_SelectRegionStart,
+    Editor_SelectRegionEnd
 }

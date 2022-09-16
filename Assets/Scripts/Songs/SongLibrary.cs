@@ -103,7 +103,7 @@ namespace Assets
                     Directory.CreateDirectory(folder);
                 }
 
-                var json = JsonUtility.ToJson(songData, true);
+                var json = JsonConvert.SerializeObject(songData,Formatting.Indented);
                 File.WriteAllText(filePath, json);
                 Debug.Log($"Successfully saved SJSON file: {filePath}");
 
