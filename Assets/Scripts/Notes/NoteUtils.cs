@@ -142,12 +142,12 @@ public static class NoteUtils
 
     }
 
-    public static NoteType? GetNoteType(InputAction inputAction)
+    public static NoteType? GetNoteTypeForInput(InputAction inputAction)
     {
-        return GetNoteType(inputAction.ToString());
+        return GetNoteTypeForInput(inputAction.ToString());
     }
 
-    public static NoteType? GetNoteType(string noteType)
+    public static NoteType? GetNoteTypeForInput(string noteType)
 
     {
         if (Enum.TryParse(noteType, true, out NoteType result))

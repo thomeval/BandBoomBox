@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 public class Note : MonoBehaviour
@@ -116,6 +117,11 @@ public class Note : MonoBehaviour
     public void RefreshLane()
     {
         this.Lane = NoteUtils.GetNoteLane(this.NoteType);
+    }
+
+    public float DistanceTo(float absoluteTime)
+    {
+        return MathF.Abs(absoluteTime - this.AbsoluteTime);
     }
 }
 

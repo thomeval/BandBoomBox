@@ -7,7 +7,6 @@ public class StarMeter : MonoBehaviour
     public SpriteResolver StarSpriteResolver;
     public SpriteMeter ProgressBar;
 
-
     public bool ProgressBarVisible;
 
     private double _lastValue = 0.0;
@@ -43,7 +42,8 @@ public class StarMeter : MonoBehaviour
 
     [Header("Sounds")]
     public bool SfxEnabled;
-    public AudioSource[] SfxStars = new AudioSource[10];
+
+    public SoundEventHandler SoundEventHandler;
 
     private void PlaySfx()
     {
@@ -56,13 +56,17 @@ public class StarMeter : MonoBehaviour
 
         if (curStar > lastStar)
         {
-            var idx = Math.Min(SfxStars.Length - 1, curStar - 1);
-            SfxStars[idx].PlayUnlessNull();
+            SoundEventHandler.PlayStarAttainedSfx(curStar);
         }
     }
 
     void Awake()
     {
+        if (SoundEventHandler == null)
+        {
+            var core = FindObjectOfType<CoreManager>();
+            SoundEventHandler = core.SoundEventHandler;
+        }
     }
 
     void Start()

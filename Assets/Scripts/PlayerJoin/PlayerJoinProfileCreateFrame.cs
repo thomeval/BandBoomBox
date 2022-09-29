@@ -73,7 +73,7 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
                 if (Menu.SelectedIndex == 0)
                 {
                     MenuItemSelected(new MenuEventArgs { SelectedItem = "Backspace" });
-                    Menu.PlaySound("SelectionCancelled");
+                    Parent.PlaySfx(SoundEvent.SelectionCancelled);
                 }
                 return;
             case InputAction.Back:
@@ -129,7 +129,6 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
                 AddLetter(' ');
                 break;
             case "Cancel":
-                Parent.SfxSelectionCancelled.PlayUnlessNull();
                 Parent.State = PlayerJoinState.ProfileSelect;
                 break;
             case "Confirm":
@@ -163,18 +162,18 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
         if (string.IsNullOrWhiteSpace(EnteredText))
         {
             this.Error = "The profile name cannot be blank.";
-            Parent.SfxMistake.PlayUnlessNull();
+            Parent.PlaySfx(SoundEvent.Mistake);
             return;
         }
         if (_profileManager.ContainsName(EnteredText))
         {
             this.Error = "This profile name is invalid, or already exists.";
-            Parent.SfxMistake.PlayUnlessNull();
+            Parent.PlaySfx(SoundEvent.Mistake);
             return;
         }
 
         this.Error = null;
-        Parent.SfxSelectionConfirmed.PlayUnlessNull();
+        Parent.PlaySfx(SoundEvent.SelectionConfirmed);
         var newProfile = _profileManager.Create(EnteredText);
         _profileManager.Save(newProfile);
         Parent.ProfileSelectFrame.PopulateProfileList();

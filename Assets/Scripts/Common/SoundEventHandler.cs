@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class SoundEventHandler : MonoBehaviour
 {
     [Header("Sounds")]
     public AudioSource SfxMistake;
-    public AudioSource SfxSelectionConfirmed; 
+    public AudioSource SfxSelectionChanged;
+    public AudioSource SfxSelectionConfirmed;
     public AudioSource SfxSelectionCancelled;
     public AudioSource SfxSelectionShifted;
     public AudioSource SfxEditorSaveComplete;
@@ -13,86 +17,77 @@ public class SoundEventHandler : MonoBehaviour
     public AudioSource SfxEditorCut;
     public AudioSource SfxEditorCopy;
     public AudioSource SfxEditorPaste;
-    public AudioSource SfxGameplayStar1;
-    public AudioSource SfxGameplayStar2;
-    public AudioSource SfxGameplayStar3;
-    public AudioSource SfxTitleScreenStartPressed;
     public AudioSource SfxEditorSelectRegionStart;
     public AudioSource SfxEditorSelectRegionEnd;
 
+    public AudioSource SfxGameplayTurboOff;
+    public AudioSource SfxGameplayTurboOn;
+
+    public AudioSource[] SfxGameplayStars = new AudioSource[3];
+    public AudioSource[] SfxEvaluationGrades = new AudioSource[3];
+
+    public AudioSource SfxTitleScreenStartPressed;
+
+    private Dictionary<SoundEvent, AudioSource> _sfxEntries;
+
+    void Awake()
+    {
+        _sfxEntries = new Dictionary<SoundEvent, AudioSource>()
+        {
+            { SoundEvent.Mistake, SfxMistake},
+            { SoundEvent.SelectionChanged, SfxSelectionChanged},
+            { SoundEvent.SelectionConfirmed, SfxSelectionConfirmed},
+            { SoundEvent.SelectionCancelled, SfxSelectionCancelled},
+            { SoundEvent.SelectionShifted, SfxSelectionShifted},
+            { SoundEvent.Editor_SaveComplete, SfxEditorSaveComplete},
+            { SoundEvent.Editor_NotePlaced, SfxEditorNotePlaced},
+            { SoundEvent.Editor_NoteRemoved, SfxEditorNoteRemoved},
+
+            { SoundEvent.Editor_Cut, SfxEditorCut},
+            { SoundEvent.Editor_Copy, SfxEditorCopy},
+            { SoundEvent.Editor_Paste, SfxEditorPaste},
+            { SoundEvent.Editor_SelectRegionStart, SfxEditorSelectRegionStart},
+            { SoundEvent.Editor_SelectRegionEnd, SfxEditorSelectRegionEnd},
+
+            { SoundEvent.Gameplay_TurboOff, SfxGameplayTurboOff},
+            { SoundEvent.Gameplay_TurboOn, SfxGameplayTurboOn},
+
+            { SoundEvent.TitleScreen_StartPressed, SfxTitleScreenStartPressed},
+        };
+
+    }
     public void PlaySfx(SoundEvent eventType)
     {
-
-        switch (eventType)
+        if (!_sfxEntries.ContainsKey(eventType))
         {
-            case SoundEvent.Mistake:
-                SfxMistake.PlayUnlessNull();
-                break;
-            case SoundEvent.SelectionConfirmed:
-                SfxSelectionConfirmed.PlayUnlessNull();
-                break;
-            case SoundEvent.SelectionCancelled:
-                SfxSelectionCancelled.PlayUnlessNull();
-                break;
-            case SoundEvent.SelectionShifted:
-                SfxSelectionShifted.PlayUnlessNull();
-                break;
-            case SoundEvent.Editor_SaveComplete:
-                SfxEditorSaveComplete.PlayUnlessNull();
-                break;
-            case SoundEvent.Editor_NotePlaced:
-                SfxEditorNotePlaced.PlayUnlessNull();
-                break;
-            case SoundEvent.Editor_NoteRemoved:
-                SfxEditorNoteRemoved.PlayUnlessNull();
-                break;
-            case SoundEvent.Gameplay_Star1:
-                SfxGameplayStar1.PlayUnlessNull();
-                break;
-            case SoundEvent.Gameplay_Star2:
-                SfxGameplayStar2.PlayUnlessNull();
-                break;
-            case SoundEvent.Gameplay_Star3:
-                SfxGameplayStar3.PlayUnlessNull();
-                break;
-            case SoundEvent.Editor_Cut:
-                SfxEditorCut.PlayUnlessNull();
-                break;
-            case SoundEvent.Editor_Copy:
-                SfxEditorCopy.PlayUnlessNull();
-                break;
-            case SoundEvent.Editor_Paste:
-                SfxEditorPaste.PlayUnlessNull();
-                break;
-            case SoundEvent.TitleScreen_StartPressed:
-                SfxTitleScreenStartPressed.PlayUnlessNull();
-                break;
-            case SoundEvent.Editor_SelectRegionStart:
-                SfxEditorSelectRegionStart.PlayUnlessNull();
-                break;
-            case SoundEvent.Editor_SelectRegionEnd:
-                SfxEditorSelectRegionEnd.PlayUnlessNull();
-                break;
-            default:
-                Debug.LogWarning("Unrecognised SoundEvent type: " + eventType);
-                break;
+            Debug.LogWarning("Unrecognised SoundEvent type: " + eventType);
+            return;
         }
+        _sfxEntries[eventType].PlayUnlessNull();
     }
 
     public void PlayStarAttainedSfx(int starCount)
     {
+        var id = 0;
+
         if (starCount >= 5)
         {
-            PlaySfx(SoundEvent.Gameplay_Star3);
-            return;
+            id = 2;
         }
-
-        if (starCount >= 3)
+        else if (starCount >= 3)
         {
-            PlaySfx(SoundEvent.Gameplay_Star2);
-            return;
+            id = 1;
         }
 
-        PlaySfx(SoundEvent.Gameplay_Star1);
+        SfxGameplayStars[id].PlayUnlessNull();
+    }
+
+    public void PlayEvaluationGradeSfx(int id)
+    {
+        if (id > SfxEvaluationGrades.Length || id < 0)
+        {
+            throw new ArgumentException("Invalid ID: " + id);
+        }
+        SfxEvaluationGrades[id].PlayUnlessNull();
     }
 }

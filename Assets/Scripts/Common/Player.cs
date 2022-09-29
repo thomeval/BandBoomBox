@@ -7,11 +7,11 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
 
-    private static readonly int[] _scrollSpeeds = { 200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000 };
+    public static readonly int[] ScrollSpeeds = { 200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000 };
 
-    private static readonly string[] _noteSkins = {"Default"};
+    public static readonly string[] NoteSkins = {"Default"};
 
-    private static readonly string[] _labelSkins = {"ABXY","BAYX", "Symbols", "WASD", "None"};
+    public static readonly string[] LabelSkins = {"ABXY","BAYX", "Symbols", "WASD", "None"};
 
     public PlayerHudManager HudManager;
     private InputManager _inputManager;
@@ -389,19 +389,19 @@ public class Player : MonoBehaviour
 
     public void ChangeScrollSpeed(int delta)
     {
-        var newValue = Helpers.GetNextValue(_scrollSpeeds, this.ScrollSpeed, delta, true);
+        var newValue = Helpers.GetNextValue(ScrollSpeeds, this.ScrollSpeed, delta, true);
         this.ScrollSpeed = newValue;
     }
 
     public void ChangeNoteSkin(int delta)
     {
-        var newValue = Helpers.GetNextValue(_noteSkins, this.NoteSkin, delta, true);
+        var newValue = Helpers.GetNextValue(NoteSkins, this.NoteSkin, delta, true);
         this.NoteSkin = newValue;
     }
 
     public void ChangeLabelSkin(int delta)
     {
-        var newValue = Helpers.GetNextValue(_labelSkins, this.LabelSkin, delta, true);
+        var newValue = Helpers.GetNextValue(LabelSkins, this.LabelSkin, delta, true);
         this.LabelSkin = newValue;
     }
 
@@ -493,6 +493,11 @@ public class Player : MonoBehaviour
         if (this.MaxCombo == totalNotes)
         {
             return FullComboType.FullCombo;
+        }
+
+        if (this.MaxCombo >= totalNotes / 2)
+        {
+            return FullComboType.SemiFullCombo;
         }
 
         return FullComboType.None;

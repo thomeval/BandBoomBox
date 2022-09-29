@@ -40,7 +40,7 @@ public class GameplayManager : ScreenManager
             {
                 if (_playerManager.AnyTurboActive())
                 {
-                    SfxTurboOff.PlayUnlessNull();
+                    PlaySfx(SoundEvent.Gameplay_TurboOff);
                 }
                 _playerManager.DisableAllTurbos();
             }
@@ -56,10 +56,6 @@ public class GameplayManager : ScreenManager
     public float MxGainRate = 1.0f;
     public GameplayState GameplayState = GameplayState.Intro;
     public GameObject NoteHighways;
-
-    [Header("Sounds")]
-    public AudioSource SfxTurboOn;
-    public AudioSource SfxTurboOff;
 
     public const float MX_COMBO_FOR_GAIN_BONUS = 50;
     public const double MX_MINIMUM = 0.1;
@@ -323,7 +319,7 @@ public class GameplayManager : ScreenManager
                 return;
             }
 
-            var noteType = NoteUtils.GetNoteType(inputEvent.Action);
+            var noteType = NoteUtils.GetNoteTypeForInput(inputEvent.Action);
 
             var noteManager = GetNoteManager(inputEvent.Player);
 
@@ -390,13 +386,13 @@ public class GameplayManager : ScreenManager
 
         else if (!activating)
         {
-            SfxTurboOff.PlayUnlessNull();
+            PlaySfx(SoundEvent.Gameplay_TurboOff);
             Energy -= MIN_ENERGY_FOR_TURBO;
             player.ToggleTurbo();
         }
         else
         {
-            SfxTurboOn.PlayUnlessNull();
+            PlaySfx(SoundEvent.Gameplay_TurboOn);
             player.ToggleTurbo();
         }
 
@@ -405,7 +401,7 @@ public class GameplayManager : ScreenManager
 
     private void HandlePlayerReleaseInput(InputEvent inputEvent)
     {
-        var noteType = NoteUtils.GetNoteType(inputEvent.Action);
+        var noteType = NoteUtils.GetNoteTypeForInput(inputEvent.Action);
 
         if (noteType == null)
         {

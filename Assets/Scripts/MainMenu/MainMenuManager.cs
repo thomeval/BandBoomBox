@@ -16,11 +16,8 @@ public class MainMenuManager : ScreenManager
     public Animator LogoAnimator;
     public float StartAnimationDelay = 1.0f;
 
-    [Header("Sounds")]
-    public AudioSource SfxStartPressed;
-    public AudioSource SfxMistake;
-
     private TextPulser _pulser;
+
     void Awake()
     {
         FindCoreManager();
@@ -53,7 +50,7 @@ public class MainMenuManager : ScreenManager
                 }
                 else
                 {
-                    SfxMistake.PlayUnlessNull();
+                    PlaySfx(SoundEvent.Mistake);
                 }
                 break;
             case MainMenuState.MainMenu:
@@ -80,7 +77,7 @@ public class MainMenuManager : ScreenManager
 
     private void OnStartPressed()
     {
-        SfxStartPressed.Play();
+        PlaySfx(SoundEvent.TitleScreen_StartPressed);
         CoreManager.MenuMusicManager.StopAll();
         CoreManager.TitleScreenShown = true;
         _pulser.Period = 1 / 10f;
@@ -95,8 +92,7 @@ public class MainMenuManager : ScreenManager
             case "Play":
                 if (!CoreManager.SongLibrary.Songs.Any())
                 {
-
-                    SfxMistake.PlayUnlessNull();
+                    PlaySfx(SoundEvent.Mistake);
                     this.ErrorMessage.Error = "No playable songs were found in any of the configured song folders. At least one song is required for the game to be playable. Check the log files for details.";
                     var songFolders = CoreManager.Settings.GetResolvedSongFolders().Aggregate((cur, next) => cur + " \r\n" + next);
                     Debug.LogError("No playable songs were found in any of the configured song folders. At least one song is required for the game to be playable. Current song folders: \r\n" + songFolders + "\r\n" +

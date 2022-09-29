@@ -14,19 +14,19 @@ public class Menu : MonoBehaviour
     public GameObject MenuItemsContainer;
     public MenuSelectionHighlight SelectionHighlight;
     public Vector2 SelectionHighlightPadding = new Vector2();
-    public Text TxtExplanation;
     public float YScrollOffset = 0;
     private VerticalLayoutGroup _layoutGroup;
     private RectTransform _itemsContainerRectTransform;
 
-    [Header("Sounds")]
-    public AudioSource SfxSelectionShifted;
-    public AudioSource SfxSelectionChanged;
-    public AudioSource SfxSelectionConfirmed;
-    public AudioSource SfxSelectionCancelled;
+    [Header("Sounds")] 
+    public SoundEventHandler SoundEventHandler;
 
     [Header("Behaviour")]
     public bool WrapSelection;
+
+    [Header("ExplanationText")]
+    public Text TxtExplanation;
+    public Color ExplanationTextColor = Color.white;
 
     [SerializeField]
     private int _selectedIndex;
@@ -60,6 +60,7 @@ public class Menu : MonoBehaviour
     {
         if (TxtExplanation != null && SelectedMenuItem != null)
         {
+            TxtExplanation.color = ExplanationTextColor;
             TxtExplanation.text = SelectedMenuItem.Explanation;
         }
     }
@@ -120,6 +121,7 @@ public class Menu : MonoBehaviour
 
     void Awake()
     {
+        Helpers.AutoAssign(ref SoundEventHandler);
         _menuItems.Clear();
 
         foreach (var item in MenuItemsContainer.GetChildren())
@@ -315,13 +317,14 @@ public class Menu : MonoBehaviour
             return;
         }
 
-        SfxSelectionShifted.Play();
+        SoundEventHandler.PlaySfx(SoundEvent.SelectionShifted);
+
         this.SendMessageUpwards("MenuItemShifted", GetEventArgs(SelectedText, delta), SendMessageOptions.DontRequireReceiver);
     }
 
     private void ChangeSelection(int delta)
     {
-        SfxSelectionChanged.Play();
+        SoundEventHandler.PlaySfx(SoundEvent.SelectionChanged);
         if (WrapSelection)
         {
             SelectedIndex = Helpers.Wrap(SelectedIndex + delta, _menuItems.Count - 1);
@@ -350,7 +353,7 @@ public class Menu : MonoBehaviour
             return;
         }
 
-        SfxSelectionConfirmed.PlayUnlessNull();
+        SoundEventHandler.PlaySfx(SoundEvent.SelectionConfirmed);
         this.SendMessageUpwards("MenuItemSelected", GetEventArgs(SelectedText));
     }
 
@@ -363,7 +366,7 @@ public class Menu : MonoBehaviour
             return;
         }
 
-        SfxSelectionCancelled.PlayUnlessNull();
+        SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
         this.SendMessageUpwards("MenuItemSelected", GetEventArgs(CancelMenuAction));
     }
 
@@ -381,24 +384,5 @@ public class Menu : MonoBehaviour
     public void RefreshHighlight()
     {
         MoveHighlight();
-    }
-
-    public void PlaySound(string sfxName)
-    {
-        switch (sfxName)
-        {
-            case "SelectionConfirmed":
-                SfxSelectionConfirmed.PlayUnlessNull();
-                break;
-            case "SelectionCancelled":
-                SfxSelectionCancelled.PlayUnlessNull();
-                break;
-            case "SelectionChanged":
-                SfxSelectionChanged.PlayUnlessNull();
-                break;
-            case "SelectionShifted":
-                SfxSelectionShifted.PlayUnlessNull();
-                break;
-        }
     }
 }

@@ -71,12 +71,12 @@ public class SongData
 
     public KeyValuePair<double, string> GetSection(double position)
     {
-        if (!this.Sections.Any(e => e.Key < position))
+        if (!this.Sections.Any(e => e.Key <= position))
         {
             return default;
         }
 
-        var currentSection = this.Sections.Last(e => e.Key < position);
+        var currentSection = this.Sections.Last(e => e.Key <= position);
         return currentSection;   
     }
 

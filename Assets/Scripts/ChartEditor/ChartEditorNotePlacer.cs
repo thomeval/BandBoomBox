@@ -26,7 +26,8 @@ public class ChartEditorNotePlacer : MonoBehaviour
         InputAction.Editor_NoteReleaseAnyB,
         InputAction.Editor_NoteReleaseAnyD,
         InputAction.Editor_NoteReleaseAnyT,
-        InputAction.Editor_DeleteNote
+        InputAction.Editor_DeleteNote,
+        InputAction.Editor_ClearRegion,
     };
 
     private const float FLOAT_TOLERANCE = 0.01f;
@@ -49,10 +50,8 @@ public class ChartEditorNotePlacer : MonoBehaviour
 
     public void PlaceOrRemoveNote(NoteType noteType, NoteClass noteClass, float position)
     {
-        if (_parent.CurrentDifficulty == Difficulty.Beginner)
-        {
-            noteType = NoteUtils.GetLaneAnyNote(noteType);
-        }
+        noteType = ConvertNoteToBeginner(noteType, !_parent.Options.AllowAllNotes);
+
         if (!NoteIsValidForDifficulty(noteType, noteClass))
         {
             _parent.PlaySfx(SoundEvent.Mistake);
@@ -76,6 +75,17 @@ public class ChartEditorNotePlacer : MonoBehaviour
         }
 
         PlaceNewNote(noteType, noteClass, position);
+    }
+
+    private NoteType ConvertNoteToBeginner(NoteType noteType, bool shouldConvert)
+    {
+        if (!shouldConvert || _parent.CurrentDifficulty != Difficulty.Beginner)
+        {
+            return noteType;
+        }
+
+        return NoteUtils.GetLaneAnyNote(noteType);
+
     }
 
     private bool NoteIsValidForDifficulty(NoteType noteType, NoteClass noteClass)
@@ -157,9 +167,8 @@ public class ChartEditorNotePlacer : MonoBehaviour
             if (noteStart != null)
             {
                 RemoveExistingNote(noteStart);
+                return;
             }
-
-            return;
         }
         if (existing.EndNote != null)
         {
@@ -174,7 +183,13 @@ public class ChartEditorNotePlacer : MonoBehaviour
         // Don't try to modify Release notes.
         if (existing.NoteClass == NoteClass.Release)
         {
-            _parent.PlaySfx(SoundEvent.Mistake);
+            _parent.DisplayMessage("Cannot modify a release note. To change a hold note, modify its beginning note instead.", true);
+            return;
+        }
+
+        if (noteClass == NoteClass.Release)
+        {
+            _parent.DisplayMessage("Cannot place a release note here. Another note is in the way.", true);
             return;
         }
 
@@ -187,6 +202,8 @@ public class ChartEditorNotePlacer : MonoBehaviour
             existing.EndNote.NoteType = noteType;
             existing.EndNote.RefreshSprites();
         }
+
+        _parent.PlaySfx(SoundEvent.Editor_NotePlaced);
     }
 
     public void OnPlayerInput(InputEvent inputEvent)
@@ -196,6 +213,12 @@ public class ChartEditorNotePlacer : MonoBehaviour
         if (inputEvent.Action == InputAction.Editor_DeleteNote)
         {
             RemoveNotesAt(position);
+            return;
+        }
+
+        if (inputEvent.Action == InputAction.Editor_ClearRegion)
+        {
+            _parent.NoteTransformer.ClearRegion();
             return;
         }
 

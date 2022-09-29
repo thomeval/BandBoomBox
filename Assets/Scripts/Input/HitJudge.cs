@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HitJudge
 {
-    public static readonly Dictionary<JudgeResult, int> JudgePerfPointValues = new Dictionary<JudgeResult, int>()
+    public static readonly Dictionary<JudgeResult, int> JudgePerfPointValues = new()
     {
         {JudgeResult.Crit, 3},
         {JudgeResult.Perfect, 3},
@@ -15,7 +15,7 @@ public class HitJudge
         {JudgeResult.Miss, 0}
     };
 
-    public static readonly Dictionary<JudgeResult, float> JudgeTimings = new Dictionary<JudgeResult, float>()
+    public static readonly Dictionary<JudgeResult, float> JudgeTimings = new()
     {
         {JudgeResult.Crit, 0.020f},
         {JudgeResult.Perfect, 0.030f},
@@ -25,7 +25,7 @@ public class HitJudge
         {JudgeResult.Wrong, 1.0f }
     };
 
-    public static readonly Dictionary<JudgeResult, float> JudgeReleaseTimings = new Dictionary<JudgeResult, float>()
+    public static readonly Dictionary<JudgeResult, float> JudgeReleaseTimings = new()
     {
         {JudgeResult.Crit, 0.030f},
         {JudgeResult.Perfect, 0.045f},
@@ -35,7 +35,7 @@ public class HitJudge
         {JudgeResult.Miss, 10000.0f},
     };
 
-    public static Dictionary<JudgeResult, int> JudgeScoreValues = new Dictionary<JudgeResult, int>()
+    public static Dictionary<JudgeResult, int> JudgeScoreValues = new()
     {
         { JudgeResult.Crit, 50 },
         { JudgeResult.Perfect, 50},
@@ -46,7 +46,7 @@ public class HitJudge
         { JudgeResult.Miss, 0 }
     };
 
-    public static Dictionary<JudgeResult, float> JudgeMxValues = new Dictionary<JudgeResult, float>()
+    public static Dictionary<JudgeResult, float> JudgeMxValues = new()
     {
         { JudgeResult.Crit, 0.065f},
         { JudgeResult.Perfect, 0.05f},
@@ -57,7 +57,7 @@ public class HitJudge
         { JudgeResult.Miss, -0.25f }
     };
 
-    public static Dictionary<Difficulty, float> DifficultyMxValues = new Dictionary<Difficulty, float>()
+    public static Dictionary<Difficulty, float> DifficultyMxValues = new()
     {
         {Difficulty.Beginner, 0.8f},
         {Difficulty.Medium, 0.9f},
@@ -66,7 +66,7 @@ public class HitJudge
         {Difficulty.Master, 1.1f}
     };
 
-    public static Dictionary<Difficulty, float> DifficultyMissMxValues = new Dictionary<Difficulty, float>()
+    public static Dictionary<Difficulty, float> DifficultyMissMxValues = new()
     {
         {Difficulty.Beginner, 0.5f},
         {Difficulty.Medium, 0.75f},
@@ -75,7 +75,7 @@ public class HitJudge
         {Difficulty.Master, 1.0f}
     };
 
-    public static Dictionary<Difficulty, float> DifficultyExpValues = new Dictionary<Difficulty, float>()
+    public static Dictionary<Difficulty, float> DifficultyExpValues = new()
     {
         {Difficulty.Beginner, 0.5f},
         {Difficulty.Medium, 0.75f},
@@ -84,7 +84,7 @@ public class HitJudge
         {Difficulty.Master, 1.2f}
     };
 
-    public static Dictionary<Grade, float> GoalExpValues = new Dictionary<Grade, float>()
+    public static Dictionary<Grade, float> GoalExpValues = new()
     {
         {Grade.D, 1.0f},        // D
         {Grade.DPlus, 1.02f},   // D+
@@ -98,9 +98,10 @@ public class HitJudge
         {Grade.SPlus, 1.45f},   // S+
     };
 
-    public static Dictionary<FullComboType, float> FullComboExpValues = new Dictionary<FullComboType, float>()
+    public static Dictionary<FullComboType, float> FullComboExpValues = new()
     {
         { FullComboType.None , 1.0f},
+        { FullComboType.SemiFullCombo , 1.10f},
         { FullComboType.FullCombo , 1.25f},
         { FullComboType.PerfectFullCombo , 1.5f},
     };
@@ -181,6 +182,7 @@ public class HitJudge
 
         return null;
     }
+
     private JudgeResult GetBestTiming(float absDeviation, NoteClass noteClass)
     {
         Dictionary<JudgeResult, float> timings = noteClass == NoteClass.Release ? JudgeReleaseTimings : JudgeTimings;

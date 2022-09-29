@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ChartEditorNoteTransformer : MonoBehaviour
@@ -8,6 +9,7 @@ public class ChartEditorNoteTransformer : MonoBehaviour
     private ChartEditorManager _parent;
     private NoteManager _noteManager;
 
+    #region Lookups
     private readonly Dictionary<NoteType, NoteType> _swapHandsLookup = new()
     {
         {NoteType.A, NoteType.Down},
@@ -62,6 +64,49 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         { NoteType.Down, NoteType.A}
     };
 
+    private readonly Dictionary<NoteType, NoteType> _clampDifficultyBeginnerLookup = new()
+    {
+        { NoteType.A, NoteType.AnyB },
+        { NoteType.B, NoteType.AnyB },
+        { NoteType.X, NoteType.AnyB },
+        { NoteType.Y, NoteType.AnyB },
+        { NoteType.Left, NoteType.AnyD },
+        { NoteType.Down, NoteType.AnyD },
+        { NoteType.Up, NoteType.AnyD },
+        { NoteType.Right, NoteType.AnyD },
+        { NoteType.LB, NoteType.AnyT },
+        { NoteType.LT, NoteType.AnyT },
+        { NoteType.RB, NoteType.AnyT },
+        { NoteType.RT, NoteType.AnyT },
+    };
+
+    private readonly Dictionary<NoteType, NoteType> _clampDifficultyMediumLookup = new()
+    {
+        { NoteType.X, NoteType.A },
+        { NoteType.Y, NoteType.B },
+        { NoteType.Up, NoteType.Down },
+        { NoteType.Right, NoteType.Left },
+        { NoteType.LB, NoteType.Down },
+        { NoteType.LT, NoteType.Left },
+        { NoteType.RB, NoteType.A },
+        { NoteType.RT, NoteType.B },
+    };
+
+    private readonly Dictionary<NoteType, NoteType> _clampDifficultyHardLookup = new()
+    {
+        { NoteType.LB, NoteType.Down },
+        { NoteType.LT, NoteType.Left },
+        { NoteType.RB, NoteType.A },
+        { NoteType.RT, NoteType.B },
+    };
+
+    private readonly Dictionary<NoteType, NoteType> _clampDifficultyExpertLookup = new()
+    {
+        { NoteType.LT, NoteType.LB },
+        { NoteType.RT, NoteType.RB },
+    };
+
+    #endregion
     void Awake()
     {
         Helpers.AutoAssign(ref _parent);
@@ -131,6 +176,36 @@ public class ChartEditorNoteTransformer : MonoBehaviour
 
     }
 
+    public void ClampToDifficulty(Difficulty difficulty)
+    {
+        var lookup = GetClampLookup(difficulty);
+        var notesAffected = GetNotesInCurrentRegion();
+        TransformNotes(notesAffected, lookup);
+    }
+
+    private Dictionary<NoteType, NoteType> GetClampLookup(Difficulty difficulty)
+    {
+        var lookup = new Dictionary<NoteType, NoteType>();
+        switch (difficulty)
+        {
+            case Difficulty.Beginner:
+                lookup = _clampDifficultyBeginnerLookup;
+                break;
+            case Difficulty.Medium:
+                lookup = _clampDifficultyMediumLookup;
+                break;
+            case Difficulty.Hard:
+                lookup = _clampDifficultyHardLookup;
+                break;
+            case Difficulty.Expert:
+                lookup = _clampDifficultyExpertLookup;
+                break;
+
+        }
+
+        return lookup;
+    }
+
     public bool HasValidRegionSet()
     {
         return _parent.SelectedRegionStart != null && _parent.SelectedRegionEnd != null && (_parent.SelectedRegionEnd - _parent.SelectedRegionStart > 0);
@@ -144,7 +219,6 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         }
         var result =  _noteManager.GetNotesInRegion(_parent.SelectedRegionStart!.Value, _parent.SelectedRegionEnd!.Value);
 
-        //TODO: Handle case where Hold note is in this region, but its release is not.
         return result;
     }
 

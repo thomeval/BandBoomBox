@@ -17,7 +17,7 @@ public class CoreManager : MonoBehaviour
     public SongPreviewManager SongPreviewManager;
     public SongManager SongManager;
     public SceneTransitionManager SceneTransitionManager;
-
+    public SoundEventHandler SoundEventHandler;
     public SongLibrary SongLibrary;
 
     public string SelectedSong;

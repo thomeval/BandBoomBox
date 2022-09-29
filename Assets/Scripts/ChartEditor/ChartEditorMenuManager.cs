@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -129,7 +130,25 @@ public class ChartEditorMenuManager : MonoBehaviour
 
     private void MenuItemShiftedOptions(MenuEventArgs args)
     {
-        throw new NotImplementedException();
+        var opt = _parent.Options;
+        switch (args.SelectedItem)
+        {
+            case "Note Labels":
+                opt.ChangeLabelSkin(args.ShiftAmount);
+                _parent.ApplyNoteSkin();
+                break;
+            case "Auto step forward":
+                opt.AutoStepForward = !opt.AutoStepForward;
+
+                break;
+            case "Allow All Note Types":
+                opt.AllowAllNotes = !opt.AllowAllNotes;
+                _parent.ShowNotePalette();
+                break;
+
+        }
+
+        opt.SetOptionsItemText();
     }
 
     void MenuItemSelected(MenuEventArgs args)
@@ -171,7 +190,7 @@ public class ChartEditorMenuManager : MonoBehaviour
                 _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
             case "Play from beginning":
-                _parent.PlayFromBeginning();
+                _parent.PlaybackManager.PlayFromBeginning();
                 break;
             case "Options":
                 _parent.ChartEditorState = ChartEditorState.OptionsMenu;
@@ -217,6 +236,10 @@ public class ChartEditorMenuManager : MonoBehaviour
                 break;
             case "Clear Selected Region":
                 _parent.NoteTransformer.ClearRegion();
+                _parent.ChartEditorState = ChartEditorState.Edit;
+                break;
+            case "Clamp Notes to Current Difficulty":
+                _parent.NoteTransformer.ClampToDifficulty(_parent.CurrentChart.Difficulty);
                 _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
         }

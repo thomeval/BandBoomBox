@@ -168,6 +168,9 @@ public class PlayerResultFrame : MonoBehaviour
     {
         switch (fullComboType)
         {
+            case FullComboType.SemiFullCombo:
+                return "Semi Full Combo!";
+                break;
             case FullComboType.FullCombo:
                 return "Full Combo!";
             case FullComboType.PerfectFullCombo:

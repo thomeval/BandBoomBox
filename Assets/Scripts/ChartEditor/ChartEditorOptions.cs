@@ -15,11 +15,16 @@ public class ChartEditorOptions : MonoBehaviour
 
     public void SetOptionsItemText()
     {
-        // TODO: Complete
-        return;
         TxtLabelSkin.text = LabelSkin;
         TxtAllowAllNotes.text = AllowAllNotes ? "On" : "Off";
         TxtAutoStepForward.text = AutoStepForward ? "On" : "Off";
+    }
+
+    public void ChangeLabelSkin(int delta)
+    {
+        var newValue = Helpers.GetNextValue(Player.LabelSkins, LabelSkin, delta, true);
+        LabelSkin = newValue;
+        SetOptionsItemText();
     }
 }
 

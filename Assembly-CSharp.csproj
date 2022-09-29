@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteItem.cs" />
     <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureBpmPage.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\EditorSectionListItem.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />
     <Compile Include="Assets\Scripts\Managers\ProfileManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Assets\Scripts\InitialLoad\InitialLoadManager.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorClipboard.cs" />
     <Compile Include="Assets\Scripts\Common\TextPulser.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorPlaybackManager.cs" />
     <Compile Include="Assets\Scripts\Songs\SongChart.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinFrame.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayManager.cs" />
@@ -225,7 +227,6 @@
     <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePalette.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\EditorSectionListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\StreamingAssets\Songs\Readme.txt" />

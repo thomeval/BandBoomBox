@@ -22,7 +22,7 @@ public class ScreenManager : MonoBehaviour
         if (CoreManager != null)
         {
             CoreManager.ActiveMainManager = this;
-            CoreManager.ControlsManager.SetActionMap(DefaultActionMapType);
+            SetActionMap(DefaultActionMapType);
             return true;
         }
 
@@ -85,7 +85,15 @@ public class ScreenManager : MonoBehaviour
 
     }
 
+    public void PlaySfx(SoundEvent soundEvent)
+    {
+        CoreManager.SoundEventHandler.PlaySfx(soundEvent);
+    }
 
+    public virtual void SetActionMap(ActionMapType actionMapType)
+    {
+        CoreManager.ControlsManager.SetActionMap(actionMapType);
+    }
 
 }
 

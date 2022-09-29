@@ -41,20 +41,13 @@ public class PlayerJoinFrame : MonoBehaviour
     public Color ErrorMessageColor = new Color(1.0f, 0.5f, 0.5f);
 
     [Header("Sounds")]
-    public AudioSource SfxSelectionConfirmed;
-    public AudioSource SfxSelectionCancelled;
-    public AudioSource SfxMistake;
+    public SoundEventHandler SoundEventHandler;
 
     public event EventHandler PlayerLeft;
 
     void Awake()
     {
         _playerManager = FindObjectOfType<PlayerManager>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
     public void Refresh()
@@ -90,7 +83,7 @@ public class PlayerJoinFrame : MonoBehaviour
                 if (inputEvent.Action == InputAction.B || inputEvent.Action == InputAction.Back)
                 {
                     State = PlayerJoinState.Options;
-                    SfxSelectionCancelled.PlayUnlessNull();
+                    SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
                 }
                 break;
             case PlayerJoinState.Options:
@@ -117,7 +110,7 @@ public class PlayerJoinFrame : MonoBehaviour
 
     public void RemovePlayer()
     {
-        SfxSelectionCancelled.PlayUnlessNull();
+        SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
         PlayerLeft?.Invoke(this, null);
     }
 
@@ -130,7 +123,7 @@ public class PlayerJoinFrame : MonoBehaviour
 
         if (withSfx)
         {
-            this.SfxSelectionConfirmed.PlayUnlessNull();
+            SoundEventHandler.PlaySfx(SoundEvent.SelectionConfirmed);
         }
 
         this.Refresh();
@@ -141,7 +134,7 @@ public class PlayerJoinFrame : MonoBehaviour
 
         if (!_playerManager.ProfileAvailable(profileData.ID, this.Player.Slot))
         {
-            SfxMistake.PlayUnlessNull();
+            SoundEventHandler.PlaySfx(SoundEvent.Mistake);
             ProfileSelectFrame.Error = "The selected profile is in use by another player.";
             return;
         }
@@ -149,7 +142,12 @@ public class PlayerJoinFrame : MonoBehaviour
         ProfileSelectFrame.Error = null;
         profileData.ApplyToPlayer(this.Player);
         State = PlayerJoinState.Options;
-        SfxSelectionConfirmed.PlayUnlessNull();
+        SoundEventHandler.PlaySfx(SoundEvent.SelectionConfirmed);
         Refresh();
+    }
+
+    public void PlaySfx(SoundEvent soundEvent)
+    {
+        SoundEventHandler.PlaySfx(soundEvent);
     }
 }

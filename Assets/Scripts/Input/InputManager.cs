@@ -200,7 +200,7 @@ public class InputManager : MonoBehaviour
 
     void OnEditor_DeleteNote(InputValue value)
     {
-        RegisterInput(value, InputAction.Editor_DeleteNote);
+        ChooseAndRegisterInput(value, InputAction.Editor_DeleteNote, InputAction.Editor_ClearRegion);
     }
     void OnEditor_SelectRegion(InputValue value)
     {

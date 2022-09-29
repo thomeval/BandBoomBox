@@ -64,18 +64,15 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         {
             case "Ready":
                 Parent.State = PlayerJoinState.Ready;
-                Parent.SfxSelectionConfirmed.PlayUnlessNull();
                 break;
             case "Select Profile":
                 Parent.ProfileSelectFrame.PopulateProfileList();
                 Parent.ProfileSelectFrame.Refresh();
                 Parent.State = PlayerJoinState.ProfileSelect;
-                Parent.SfxSelectionConfirmed.PlayUnlessNull();
                 break;
             case "Leave":
                 Parent.State = PlayerJoinState.NotJoined;
                 Parent.RemovePlayer();
-                Parent.SfxSelectionCancelled.PlayUnlessNull();
                 break;
         }
     }

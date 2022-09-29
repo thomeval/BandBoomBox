@@ -10,11 +10,8 @@ public class EvaluationManager : ScreenManager
     public SongResultFrame SongResultFrame;
     public GameObject PbContinue;
     
-    public AudioSource SfxGradeNormal;
-    public AudioSource SfxGradeHigh;
-
     private DateTime _screenStartTime;
-
+    private readonly float[] _percentSfxCutoffs = { 0.8f, 0.9f };
     public bool AllowContinue
     {
         get
@@ -55,6 +52,7 @@ public class EvaluationManager : ScreenManager
         SongResultFrame.DisplayResult(CoreManager.LastTeamScore, isTeamBest);
         CoreManager.SaveAllActiveProfiles();
         StartCoroutine(DisplayContinueAfterDelay());
+        StartCoroutine(PlayGradeSfx());
         PlayGradeSfx();
     }
 
@@ -65,21 +63,13 @@ public class EvaluationManager : ScreenManager
         PbContinue.SetActive(true);
     }
 
-    private void PlayGradeSfx()
+    private IEnumerator PlayGradeSfx()
     {
         var maxPerfPercent = CoreManager.PlayerManager.GetLocalPlayers().Max(e => e.PerfPercent);
+        var sfxId = _percentSfxCutoffs.Count(e => e <= maxPerfPercent);
 
-        const float sfxDelay = 0.5f;
-        const float percentForHighSfx = 0.9f; // S Grade or better
-
-        if (maxPerfPercent >= percentForHighSfx)
-        {
-            SfxGradeHigh.PlayDelayed(sfxDelay);
-        }
-        else
-        {
-            SfxGradeNormal.PlayDelayed(sfxDelay);
-        }
+        yield return new WaitForSeconds(0.5f);
+        CoreManager.SoundEventHandler.PlayEvaluationGradeSfx(sfxId);
     }
 
     public override void OnPlayerInput(InputEvent inputEvent)

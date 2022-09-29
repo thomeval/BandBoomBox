@@ -2,6 +2,7 @@
 using UnityEngine;
 using System;
 using System.Linq;
+using static TreeEditor.TreeEditorHelper;
 
 public class NoteManager : MonoBehaviour
 {
@@ -319,6 +320,38 @@ public class NoteManager : MonoBehaviour
         return notes.FirstOrDefault();
     }
 
+    public Note FindNearestNote(NoteType noteType, bool enforceCutoffs = true)
+    {
+        var noteAnyType = NoteUtils.GetLaneAnyNote(noteType);
+        var result = Notes.OrderBy(e => e.DistanceTo(SongPosition))
+            .FirstOrDefault(e => e.NoteType == noteType && e.NoteClass != NoteClass.Release);
+
+        if (enforceCutoffs)
+        {
+            result = EnforceCutoffs(result);
+        }
+
+        return result;
+    }
+
+    private Note EnforceCutoffs(Note note)
+    {
+        var earlyCutoff = SongPosition + EarlyHitCutoff;
+        var lateCutoff = SongPosition + LateHitCutoff;
+
+        if (note == null)
+        {
+            return null;
+        }
+
+        if (note.AbsoluteTime < earlyCutoff || note.AbsoluteTime > lateCutoff)
+        {
+            return null;
+        }
+
+        return note;
+    }
+
     public void OnNoteHeld(int lane)
     {
         var pending = FindNextRelease(lane);
@@ -340,6 +373,19 @@ public class NoteManager : MonoBehaviour
     public Note FindNoteBefore(float position, int lane)
     {
         var result = Notes.LastOrDefault(e => e.Position < position && e.Lane == lane);
+        return result;
+    }
+
+    public Note FindNearestRelease(int lane, bool enforceCutoffs = true)
+    {
+        var result = Notes.OrderBy(e => e.DistanceTo(SongPosition))
+            .FirstOrDefault(e => e.Lane == lane && e.NoteClass == NoteClass.Release);
+
+        if (enforceCutoffs)
+        {
+            result = EnforceCutoffs(result);
+        }
+
         return result;
     }
 
@@ -472,6 +518,27 @@ public class NoteManager : MonoBehaviour
     public List<Note> GetNotesInRegion(double regionStart, double regionEnd)
     {
         var result = Notes.Where(e => e.Position >= regionStart && e.Position <= regionEnd).ToList();
+
+        // If a hold note starts in the selected region but its release is outside, process the release note as well.
+        foreach (var holdNote in result.Where(e => e.EndNote != null).ToList())
+        {
+            if (!result.Contains(holdNote.EndNote))
+            {
+                result.Add(holdNote.EndNote);
+            }
+   
+        }
+
+        // If a hold note ends in the selected region but its start is outside, don't process it.
+        foreach (var releaseNote in result.Where(e => e.NoteClass == NoteClass.Release).ToList())
+        {
+            var match = result.SingleOrDefault(e => e.EndNote == releaseNote);
+
+            if (match == null)
+            {
+                result.Remove(releaseNote);
+            }
+        }
         return result;
     }
 }

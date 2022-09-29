@@ -18,6 +18,11 @@ public class LaneFlasher : MonoBehaviour
         _buttonsHeld[lane] = Math.Max(0, _buttonsHeld[lane] - 1);
     }
 
+    public void FlashLane(int lane)
+    {
+        LaneSprites[lane].Reset();
+    }
+
     void Update()
     {
         for (int x = 0; x < LANE_COUNT; x++)

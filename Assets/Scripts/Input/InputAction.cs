@@ -53,6 +53,7 @@ public enum InputAction
     Editor_Copy,
     Editor_Cut,
     Editor_Paste,
-    Editor_PasteInverted
+    Editor_PasteInverted,
+    Editor_ClearRegion,
 }
 

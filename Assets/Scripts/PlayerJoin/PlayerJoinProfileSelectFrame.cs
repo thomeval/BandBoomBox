@@ -54,7 +54,6 @@ public class PlayerJoinProfileSelectFrame : MonoBehaviour
         {
             Parent.State = PlayerJoinState.NotJoined;
             Parent.RemovePlayer();
-            Parent.SfxSelectionCancelled.PlayUnlessNull();
             return;
         }
 
@@ -62,7 +61,6 @@ public class PlayerJoinProfileSelectFrame : MonoBehaviour
         {
             Parent.ProfileCreateFrame.EnteredText = "";
             Parent.State = PlayerJoinState.ProfileCreate;
-            Parent.SfxSelectionConfirmed.PlayUnlessNull();
         }
         else
         {

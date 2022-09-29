@@ -2,19 +2,20 @@
 public enum SoundEvent
 {
     Mistake,
+    SelectionChanged,
     SelectionConfirmed,
     SelectionCancelled,
     SelectionShifted,
     Editor_NotePlaced,
     Editor_NoteRemoved,
     Editor_SaveComplete,
-    Gameplay_Star1,
-    Gameplay_Star2,
-    Gameplay_Star3,
+    Gameplay_TurboOff,
+    Gameplay_TurboOn,
     TitleScreen_StartPressed,
     Editor_Cut,
     Editor_Copy,
     Editor_Paste,
     Editor_SelectRegionStart,
-    Editor_SelectRegionEnd
+    Editor_SelectRegionEnd,
+  
 }
