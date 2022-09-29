@@ -2,7 +2,6 @@
 using UnityEngine;
 using System;
 using System.Linq;
-using static TreeEditor.TreeEditorHelper;
 
 public class NoteManager : MonoBehaviour
 {
