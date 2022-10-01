@@ -106,6 +106,7 @@ public class ChartEditorPlaybackManager : MonoBehaviour
         _parent.SongManager.PlayFromPosition(_parent.CursorPositionInSeconds + _parent.CurrentSongData.Offset);
         _parent.ChartEditorState = ChartEditorState.Playback;
         _parent.SetActionMap(ActionMapType.Gameplay);
+        _parent.DisplayMessage("Press Esc to stop playback, or Space to pause.");
     }
     private void StopPlayback()
     {
@@ -113,6 +114,7 @@ public class ChartEditorPlaybackManager : MonoBehaviour
         _parent.SongManager.StopSong();
         LaneFlasher.ReleaseAll();
         _parent.SetActionMap(ActionMapType.Editor);
+        _parent.DisplayMessage("");
     }
 
 }
