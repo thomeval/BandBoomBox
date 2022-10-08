@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -40,10 +41,12 @@ public class CoreManager : MonoBehaviour
 
     public Dictionary<string, object> SceneLoadArgs = new();
 
+    private const double FLOAT_TOLERANCE = 0.000001;
+
     void Awake()
     {
         // One instance of CoreManager is created every time the first scene loads. If a CoreManager already exists, discard this one.
-        CoreManager[] objs = FindObjectsOfType<CoreManager>();
+        var objs = FindObjectsOfType<CoreManager>();
 
         if (objs.Length > 1)
         {
@@ -98,6 +101,8 @@ public class CoreManager : MonoBehaviour
     private void ApplyGraphicsSettings()
     {
         var resolution = Settings.ScreenResolution;
+        const int DEFAULT_HEIGHT = 720;
+        const int DEFAULT_WIDTH = 1280;
 
         if (string.IsNullOrWhiteSpace(resolution))
         {
@@ -108,10 +113,22 @@ public class CoreManager : MonoBehaviour
         var width = Convert.ToInt32(resParts[0]);
         var height = Convert.ToInt32(resParts[1]);
 
+        var aspectRatio = 1.0 * width / height;
+        var expectedAspectRatio = 1.0 * 16 / 9;
+
+        if (Math.Abs(aspectRatio - expectedAspectRatio) > FLOAT_TOLERANCE)
+        {
+            Debug.LogWarning($"Unsupported aspect ratio detected: {width}x{height}. Using default resolution of {DEFAULT_WIDTH}x{DEFAULT_HEIGHT} instead. ");
+            width = DEFAULT_WIDTH;
+            height = DEFAULT_HEIGHT;
+        }
+       
         Screen.SetResolution(width, height, Settings.FullScreenMode);
         Application.targetFrameRate = Settings.TargetFrameRate;
         QualitySettings.vSyncCount = Settings.VSyncEnabled ? 1 : 0;
     }
+
+
 
     void OnPlayerInput(InputEvent inputEvent)
     {
