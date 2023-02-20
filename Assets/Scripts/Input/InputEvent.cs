@@ -18,7 +18,9 @@ public class InputEvent
         { InputAction.Down, InputAction.Down },
         { InputAction.Editor_PlayPause, InputAction.A},
         { InputAction.Editor_Confirm, InputAction.A},
-        { InputAction.Back, InputAction.Back}
+        { InputAction.Editor_NoteA, InputAction.A },
+        { InputAction.Editor_NoteB, InputAction.B },
+        { InputAction.Back, InputAction.Back }
     };
 
     /// <summary>

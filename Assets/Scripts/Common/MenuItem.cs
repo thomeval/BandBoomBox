@@ -17,6 +17,6 @@ public class MenuItem : MonoBehaviour
         textComponent.text = Text;
     }
 
-    [UnityEngine.Multiline]
+    [Multiline]
     public string Explanation;
 }

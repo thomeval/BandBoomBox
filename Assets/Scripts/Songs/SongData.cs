@@ -16,6 +16,7 @@ public class SongData
     public string Subtitle;
     public string Artist;
     public string ChartAuthor;
+    public string Issues;
 
     [JsonIgnore] [NonSerialized]
     public string SjsonFilePath;

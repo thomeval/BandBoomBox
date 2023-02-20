@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Misc;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,9 +13,24 @@ public class InputManager : MonoBehaviour
         get { return !_playerInput.hasMissingRequiredDevices; }
     }
 
+    public InputDevice CurrentInputDevice
+    {
+        get
+        {
+            if (!_playerInput.devices.Any())
+            {
+                return null;
+            }
+
+            return _playerInput.devices[0];
+        }
+    }
     public bool ModifierShift;
     public bool ModifierCtrl;
     public bool ModifierAlt;
+
+    public float RumblePower = 0.4f;
+    public float RumbleDuration = 0.05f;
 
     private GameObject _coreManager;
 
@@ -25,10 +42,11 @@ public class InputManager : MonoBehaviour
         {"Keyboard", "WASD"},
         {"XInputController", "ABXY"},
         {"SwitchProControllerHID", "BAYX" },
-        {"PS4", "Symbols" }
+        {"PS4", "Symbols" },
+        {"Gamepad", "ABXY"}
     };
 
-    private const string DEFAULT_DEVICE = "Generic";
+    private const string DEFAULT_DEVICE = "None";
 
     private PlayerInput _playerInput;
 
@@ -320,5 +338,25 @@ public class InputManager : MonoBehaviour
         }
 
         return result;
+    }
+
+    public void TriggerRumble(float power, float duration)
+    {
+        StartCoroutine(DoRumble(power, duration));
+    }
+
+    private IEnumerator DoRumble(float power, float duration)
+    {
+        var gamepad = CurrentInputDevice as Gamepad;
+
+        if (gamepad == null)
+        {
+            yield break;
+        }
+
+        gamepad.SetMotorSpeeds(power, power);
+        yield return new WaitForSeconds(duration);
+        gamepad.ResetHaptics();
+
     }
 }

@@ -277,6 +277,7 @@ public class ChartEditorManager : ScreenManager
         switch (inputEvent.Action)
         {
             case InputAction.Back:
+            case InputAction.Editor_Confirm:
                 this.ChartEditorState = ChartEditorState.MainMenu;
                 break;
             case InputAction.Editor_StepLeft:

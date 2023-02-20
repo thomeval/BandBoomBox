@@ -22,8 +22,8 @@ public static class CompressedFileHelper
     public static string DecompressText(byte[] bytes)
     {
 
-        MemoryStream input = new MemoryStream(bytes);
-        MemoryStream output = new MemoryStream();
+        var input = new MemoryStream(bytes);
+        var output = new MemoryStream();
 
         using (var gZipStream = new GZipStream(input, CompressionMode.Decompress))
         {

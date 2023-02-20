@@ -23,8 +23,11 @@ public class OptionsManager : ScreenManager
     public Text TxtFullScreenMode;
     public Text TxtVSync;
     public Text TxtTargetFrameRate;
+    public Text TxtSaveDataLocation;
+    public Text TxtLogsFolderLocation;
+  
 
-    private readonly int[] _targetFrameRateChoices = {30, 60, 90, 120, 240, -1};
+    private readonly int[] _targetFrameRateChoices = {30, 60, 90, 120, 180, 240, -1};
     private readonly string[] _resolutionChoices = {"1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440", "3840x2160"};
 
     private readonly FullScreenMode[] _fullScreenModeChoices =
@@ -56,6 +59,9 @@ public class OptionsManager : ScreenManager
         TxtFullScreenMode.text = settings.FullScreenMode.ToString();
         TxtTargetFrameRate.text = settings.TargetFrameRate == -1 ? "Unlimited" : "" + settings.TargetFrameRate;
         TxtVSync.text = settings.VSyncEnabled ? "On" : "Off";
+        TxtSaveDataLocation.text = Helpers.AppSaveFolder;
+        TxtLogsFolderLocation.text = Helpers.AppLogsFolder;
+
     }
 
     public override void OnPlayerInput(InputEvent inputEvent)
@@ -178,14 +184,24 @@ public class OptionsManager : ScreenManager
                 SceneTransition(GameScene.MainMenu);
                 break;
             case "Open Logs Folder":
-                Helpers.OpenFolderWindow(Helpers.AppLogsFolder);
+                TryOpenFolder(Helpers.AppLogsFolder);
                 break;
             case "Open Save Data Folder":
-                Helpers.OpenFolderWindow(Helpers.AppSaveFolder);
+                TryOpenFolder(Helpers.AppSaveFolder);
                 break;
             default:
                 SetActiveMenu(args.SelectedItem);
                 break;
+        }
+    }
+
+    private void TryOpenFolder(string folder)
+    {
+        var result = Helpers.OpenFolderWindow(folder);
+
+        if (!result)
+        {
+            PlaySfx(SoundEvent.Mistake);
         }
     }
 

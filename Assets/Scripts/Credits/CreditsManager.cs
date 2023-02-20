@@ -8,22 +8,21 @@ public class CreditsManager : ScreenManager
     public RectTransform CreditsContainer;
     public GameObject RhythmistContainer;
     public Text LeadRhythmistName;
+    public int ScrollLimit = 2600;
 
     [Header("Sounds")] 
     public AudioSource SfxBack;
 
-    private float _containerHeight;
-
     void Awake()
     {
         FindCoreManager();
-        var pos = CreditsContainer.localPosition;
-        _containerHeight = CreditsContainer.sizeDelta.y;
-        CreditsContainer.localPosition = new Vector3(pos.x, _containerHeight * -0.5f, pos.z);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(CreditsContainer);
     }
 
     private void Start()
     {
+        var pos = CreditsContainer.localPosition;
+
         var leadRhythmist = CoreManager.ProfileManager.GetLeadRhythmist();
         
         if (leadRhythmist == null)
@@ -34,7 +33,6 @@ public class CreditsManager : ScreenManager
 
         RhythmistContainer.SetActive(true);
         LeadRhythmistName.text = leadRhythmist.Name;
-
     }
 
     void FixedUpdate()
@@ -42,10 +40,12 @@ public class CreditsManager : ScreenManager
         var pos = CreditsContainer.localPosition;
         var newY = pos.y + ScrollSpeed;
 
-        if (newY > _containerHeight / 2)
+
+        if (newY > ScrollLimit)
         {
-            newY -= _containerHeight;
+            newY = CreditsContainer.sizeDelta.y * -0.5f;
         }
+
         CreditsContainer.localPosition = new Vector3(pos.x, newY, pos.z);
     }
 

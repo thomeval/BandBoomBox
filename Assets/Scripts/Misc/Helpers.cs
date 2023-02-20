@@ -228,28 +228,18 @@ public static class Helpers
         }
     }
 
-    public static void OpenFolderWindow(string folder)
+    public static bool OpenFolderWindow(string folder)
     {
         folder = CleanPathSeparators(folder);
-
 
         if (!Directory.Exists(folder))
         {
             Debug.LogWarning($"Attempted to open folder at {folder} but it does not exist.");
-            return;
+            return false;
         }
 
-        switch (Application.platform)
-            {
-                case RuntimePlatform.WindowsPlayer:
-                case RuntimePlatform.WindowsEditor:
-                    Process.Start("explorer", folder);
-                    break;
-                case RuntimePlatform.LinuxPlayer:
-                case RuntimePlatform.LinuxEditor: 
-                    Process.Start("mimeopen", folder);
-                break;
-            }
+        Process.Start(new ProcessStartInfo { FileName = folder, UseShellExecute = true, Verb = "open" });
+        return true;
     }
 
     private static string CleanPathSeparators(string folder)

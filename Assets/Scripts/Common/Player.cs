@@ -502,4 +502,14 @@ public class Player : MonoBehaviour
 
         return FullComboType.None;
     }
+
+    public void TriggerRumbleForCritHit()
+    {
+        _inputManager.TriggerRumble(0.25f, 0.4f);
+    }
+
+    public void TriggerRumbleForTitleStart()
+    {
+        _inputManager.TriggerRumble(0.5f, 0.5f);
+    }
 }

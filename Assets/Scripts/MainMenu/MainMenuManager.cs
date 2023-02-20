@@ -82,6 +82,7 @@ public class MainMenuManager : ScreenManager
         CoreManager.TitleScreenShown = true;
         _pulser.Period = 1 / 10f;
         _pulser.Min = 0.1f;
+        CoreManager.PlayerManager.Players[0].TriggerRumbleForTitleStart();
         StartCoroutine(DisplayMenuAfterDelay());
     }
 

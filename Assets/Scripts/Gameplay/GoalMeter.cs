@@ -119,8 +119,6 @@ public class GoalMeter : MonoBehaviour
                 DangerSprite.SetActive(true);
             }
         }
-
-
     }
 
     private float GetMeterPercent()

@@ -6,7 +6,6 @@ using Debug = UnityEngine.Debug;
 
 public class SongStarValueCalculator : MonoBehaviour
 {
-    public NoteGenerator NoteGenerator;
 
     public Dictionary<TeamScoreCategory, double[]> Percentages = new Dictionary<TeamScoreCategory, double[]>
     {
