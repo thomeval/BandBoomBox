@@ -20,6 +20,7 @@ public class EditorDetailsPage : EditorPageManager
     public InputField TxtLength;
     public InputField TxtBeatsInMeasure;
     public InputField TxtIssues;
+    public InputField TxtVersion;
 
     public Text TxtErrorMessage;
 
@@ -47,6 +48,7 @@ public class EditorDetailsPage : EditorPageManager
         TxtArtist.text = CurrentSong.Artist;
         TxtChartAuthor.text = CurrentSong.ChartAuthor;
         TxtIssues.text = CurrentSong.Issues;
+        TxtVersion.text = "" + CurrentSong.Version;
 
         TxtAudioStart.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", CurrentSong.AudioStart);
         TxtBpm.text = string.Format(CultureInfo.InvariantCulture, "{0:F1}", CurrentSong.Bpm);
@@ -74,6 +76,7 @@ public class EditorDetailsPage : EditorPageManager
         Validate(TxtOffset, "Offset", out CurrentSong.Offset);
         Validate(TxtLength, "Length", out CurrentSong.Length);
         Validate(TxtBeatsInMeasure, "Beats In Measure", out CurrentSong.BeatsPerMeasure);
+        Validate(TxtVersion, "Version", out CurrentSong.Version);
 
         return _isValid;
     }

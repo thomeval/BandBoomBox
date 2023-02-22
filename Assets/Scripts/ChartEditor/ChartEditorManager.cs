@@ -34,7 +34,6 @@ public class ChartEditorManager : ScreenManager
     public EditorNotePaletteSet EditorNotePaletteSet;
     public ChartEditorNotePlacer ChartEditorNotePlacer;
     public ChartEditorNoteTransformer NoteTransformer;
-    public SoundEventHandler SoundHandler;
     public ChartEditorClipboard Clipboard;
     public ChartEditorOptions Options;
     public NoteGenerator NoteGenerator;
@@ -420,7 +419,7 @@ public class ChartEditorManager : ScreenManager
 
     public void CloseEditor()
     {
-        SceneTransition(GameScene.MainMenu);
+        SceneTransition(GameScene.Editor);
     }
 
     public void SaveChart()
