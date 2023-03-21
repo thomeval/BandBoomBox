@@ -331,6 +331,16 @@ public static class Helpers
         behaviour.gameObject.SetActive(true);
     }
 
+    public static void ToggleVisibility(this MonoBehaviour behaviour)
+    {
+        if (behaviour.gameObject.activeSelf)
+        {
+            behaviour.gameObject.SetActive(false);
+            return;
+        }
+        behaviour.gameObject.SetActive(true);
+    }
+
     public static string AsPercent(this float value, int decimals = 0)
     {
         var formatString = "{0:P" + decimals + "}";

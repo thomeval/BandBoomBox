@@ -306,7 +306,7 @@ public class InputManager : MonoBehaviour
         }
         var preferredController = GetPreferredControllerType();
         _coreManager.SendMessage("OnPlayerControlsChanged",
-                new ControlsChangedArgs { Player = _player.Slot, ControllerType = preferredController });
+                new ControlsChangedArgs { Player = _player.Slot, ControllerType = preferredController, Device = _playerInput.devices[0]?.name });
     }
 
     void OnDeviceLost(PlayerInput input)

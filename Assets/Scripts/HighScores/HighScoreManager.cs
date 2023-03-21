@@ -10,7 +10,7 @@ public class HighScoreManager : MonoBehaviour
 
     private PlayerManager _playerManager;
 
-    public List<TeamScore> TeamScores = new List<TeamScore>();
+    public List<TeamScore> TeamScores = new();
 
     public string TeamHighScoresPath = "%AppSaveFolder%/TeamScores.bin";
 

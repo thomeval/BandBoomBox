@@ -15,10 +15,12 @@ public class SongSelectManager : ScreenManager
     public PlayerSongSelectFrame[] PlayerOptionsFrames = new PlayerSongSelectFrame[2];
     public DifficultyDisplay DifficultyDisplay;
     public HighScoreDisplay HighScoreDisplay;
+    public PlayerGroupHighScoreDisplay PlayerGroupHighScoreDisplay;
     public Text TxtSongCount;
     public Text TxtSortMode;
 
     public SongList SongList;
+
 
     public List<SongData> OrderedSongs { get; private set; } = new List<SongData>();
 
@@ -59,6 +61,8 @@ public class SongSelectManager : ScreenManager
     // Start is called before the first frame update
     void Start()
     {
+        HighScoreDisplay.Show();
+        PlayerGroupHighScoreDisplay.Hide();
         CoreManager.MenuMusicManager.StopAll();
         CoreManager.SongManager.StopSong();
         SetupPlayerOptionsFrames();
@@ -134,11 +138,17 @@ public class SongSelectManager : ScreenManager
         CoreManager.SongPreviewManager.PlayPreview(selectedSong);
         DifficultyDisplay.SongData = selectedSong;
 
+        ShowHighScores(selectedSong);
+    }
+
+    private void ShowHighScores(SongData selectedSong)
+    {
         var playerCount = CoreManager.PlayerManager.Players.Count;
         var highScore =
             CoreManager.HighScoreManager.GetTeamScore(selectedSong.ID, selectedSong.Version, playerCount);
 
         HighScoreDisplay.Display(highScore, playerCount);
+        PlayerGroupHighScoreDisplay.FetchHighScores(selectedSong.ID, selectedSong.Version);
     }
 
     public override void OnPlayerInput(InputEvent inputEvent)
@@ -171,13 +181,14 @@ public class SongSelectManager : ScreenManager
             case InputAction.Y:
                 SongSortMode = Helpers.GetNextValue(_availableSortModes, SongSortMode, 1, true);
                 break;
+                case InputAction.Turbo:
+                    HighScoreDisplay.ToggleVisibility();
+                    PlayerGroupHighScoreDisplay.ToggleVisibility();
+                    ShowHighScores(OrderedSongs[SelectedSongIndex]);
+                    break;
+
         }
     }
-    private void RefreshPlayerText(int playerSlot)
-    {
-        PlayerOptionsFrames[playerSlot-1].Refresh();
-    }
-
 
     private void MoveSelection(int delta)
     {

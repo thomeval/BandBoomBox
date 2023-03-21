@@ -56,5 +56,14 @@ public class ProfileData
         player.SongsPlayed = this.SongsPlayed;
         player.MistakeSfxEnabled = this.MistakeSfxEnabled;
     }
+
+    public PlayerScore GetBestPlayerHighScore(string songId, int songVersion)
+    {
+        var scores = PlayerScores.Where(e => e.SongId == songId && e.SongVersion == songVersion)
+            .OrderByDescending(e => e.PerfPoints)
+            .ToList();
+
+        return scores.FirstOrDefault();
+    }
 }
 

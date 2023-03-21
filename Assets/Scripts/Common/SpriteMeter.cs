@@ -35,7 +35,7 @@ public class SpriteMeter : MonoBehaviour
     {
         try
         {
-            if (!this.gameObject.activeSelf)
+            if (!this.gameObject.activeInHierarchy)
             {
                 return;
             }

@@ -6,11 +6,20 @@ using Debug = UnityEngine.Debug;
 public class SoundEventHandler : MonoBehaviour
 {
     [Header("Sounds")]
+
+    [Header("Gameplay")]
+    public AudioSource SfxGameplayTurboOff;
+    public AudioSource SfxGameplayTurboOn;
     public AudioSource SfxMistake;
+    public AudioSource[] SfxGameplayStars = new AudioSource[3];
+
+    [Header("Menus")]
     public AudioSource SfxSelectionChanged;
     public AudioSource SfxSelectionConfirmed;
     public AudioSource SfxSelectionCancelled;
     public AudioSource SfxSelectionShifted;
+
+    [Header("Editor")]
     public AudioSource SfxEditorSaveComplete;
     public AudioSource SfxEditorNotePlaced;
     public AudioSource SfxEditorNoteRemoved;
@@ -20,12 +29,8 @@ public class SoundEventHandler : MonoBehaviour
     public AudioSource SfxEditorSelectRegionStart;
     public AudioSource SfxEditorSelectRegionEnd;
 
-    public AudioSource SfxGameplayTurboOff;
-    public AudioSource SfxGameplayTurboOn;
-
-    public AudioSource[] SfxGameplayStars = new AudioSource[3];
+    [Header("Misc")]
     public AudioSource[] SfxEvaluationGrades = new AudioSource[3];
-
     public AudioSource SfxTitleScreenStartPressed;
 
     private Dictionary<SoundEvent, AudioSource> _sfxEntries;

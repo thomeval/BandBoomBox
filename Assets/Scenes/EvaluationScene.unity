@@ -1237,6 +1237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoreManager: {fileID: 0}
   IgnoreReleaseInputs: 1
+  DefaultActionMapType: 0
   DelayBeforeContinueAllowed: 1.5
   PlayerResultFrames:
   - {fileID: 982315818}
@@ -1245,8 +1246,6 @@ MonoBehaviour:
   - {fileID: 560552610}
   SongResultFrame: {fileID: 1011740030}
   PbContinue: {fileID: 189759109}
-  SfxGradeNormal: {fileID: 468107134}
-  SfxGradeHigh: {fileID: 1879205459}
 --- !u!4 &1321224084
 Transform:
   m_ObjectHideFlags: 0
@@ -1794,7 +1793,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3324122589504965565, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3741837745731519750, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1817,12 +1816,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -7166871409661841802, guid: 5d4e11f679c48bf46a1057fb50f5eb1e, type: 3}
     - target: {fileID: 3741837746334578561, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
-      propertyPath: _value
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3741837746334578561, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
       propertyPath: ProgressBarVisible
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3741837746334578590, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
       propertyPath: m_Name
@@ -1898,7 +1893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3741837746334578591, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -90
+      value: -82.5
       objectReference: {fileID: 0}
     - target: {fileID: 3741837746334578591, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

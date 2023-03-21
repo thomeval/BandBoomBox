@@ -242,9 +242,9 @@ public class Player : MonoBehaviour
 
     public string ChartGroup = "Main";
 
-    public Dictionary<JudgeResult, int> EarlyHits = new Dictionary<JudgeResult, int>();
-    public Dictionary<JudgeResult, int> LateHits = new Dictionary<JudgeResult, int>();
-    public Dictionary<JudgeResult, int> Mistakes = new Dictionary<JudgeResult, int>();
+    public Dictionary<JudgeResult, int> EarlyHits = new();
+    public Dictionary<JudgeResult, int> LateHits = new();
+    public Dictionary<JudgeResult, int> Mistakes = new();
 
     #endregion
 

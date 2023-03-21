@@ -146,8 +146,7 @@ public class CoreManager : MonoBehaviour
 
     void OnPlayerControlsChanged(ControlsChangedArgs args)
     {
-        Debug.Log("OnPlayerControlsChanged");
-        Debug.Log($"Applying controls for player {args.Player}. Current scheme: {args.ControllerType}");
+        Debug.Log($"Applying controls for player {args.Player}. Preferred Labels: {args.ControllerType}, Device: {args.Device ?? "[None]"}");
         ActiveMainManager.OnPlayerControlsChanged(args);
     }
 

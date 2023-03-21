@@ -71,8 +71,6 @@ public class StarMeter : MonoBehaviour
 
     void Start()
     {
-        this.Value = 0;
-        ProgressBar.Value = 0;
         ProgressBar.gameObject.SetActive(ProgressBarVisible);
     }
 

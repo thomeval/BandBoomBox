@@ -165,6 +165,18 @@ public class ProfileManager : MonoBehaviour
         return profile.GetPlayerHighScore(songId, songVersion, difficulty, chartGroup);
     }
 
+    public PlayerScore GetBestPlayerHighScore(string profileId, string songId, int songVersion)
+    {
+        var profile = this[profileId];
+
+        if (profile == null)
+        {
+            return null;
+        }
+
+        return profile.GetBestPlayerHighScore(songId, songVersion);
+    }
+
     public bool SavePlayerScore(Player player, string songId, int songVersion)
     {
         if (player.ProfileId == null)

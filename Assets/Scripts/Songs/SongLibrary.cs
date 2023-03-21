@@ -52,7 +52,7 @@ namespace Assets
                 Debug.Log($"Searching for songs in: {temp}");
                 LoadSongs(temp);
             }
-            Debug.Log($"Loaded {Songs.Count} songs.");
+            Debug.Log($"Finished searching for songs. Loaded {Songs.Count} songs.");
             LoadSongsCompleted?.Invoke(this, null);
         }
 
