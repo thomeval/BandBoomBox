@@ -129,6 +129,7 @@ public class HitJudge
         result.PerfPoints = JudgePerfPointValues[judgeResult];
         result.ScorePoints = (int) (JudgeScoreValues[judgeResult] *  value);
         result.MxPoints = JudgeMxValues[judgeResult] * DifficultyMxValues[difficulty];
+        result.Deviation = deviation;
 
         result.Player = player;
         return result;

@@ -31,4 +31,9 @@
     /// Gets or sets which lane the note was hit on.
     /// </summary>
     public int Lane { get; set; }
+
+    /// <summary>
+    /// Gets or sets how far the hit deviated from perfect accuracy, in decimal seconds. Negative numbers indicate an early hit, positive numbers indicate a late hit.
+    /// </summary>
+    public float Deviation { get; set; }
 }

@@ -167,6 +167,20 @@ public class Player : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private bool _rumbleEnabled = true;
+    public bool RumbleEnabled
+    {
+        get
+        {
+            return _rumbleEnabled;
+        }
+        set
+        {
+            _rumbleEnabled = value;
+        }
+    }
+
     public void RefreshHud()
     {
         if (HudManager != null)
@@ -238,6 +252,8 @@ public class Player : MonoBehaviour
         }
     }
 
+
+
     public int SongsPlayed;
 
     public string ChartGroup = "Main";
@@ -246,6 +262,50 @@ public class Player : MonoBehaviour
     public Dictionary<JudgeResult, int> LateHits = new();
     public Dictionary<JudgeResult, int> Mistakes = new();
 
+    public int TotalHits
+    {
+        get
+        {
+            return EarlyHits.Sum(e => e.Value) + LateHits.Sum(e => e.Value);
+        }
+    }
+
+    public int TotalHitsWithMisses
+    {
+        get
+        {
+            return EarlyHits.Sum(e => e.Value) + LateHits.Sum(e => e.Value) + Mistakes[JudgeResult.Miss];
+        }
+    }
+
+    public float HitAccuracyAverage
+    {
+        get
+        {
+            if (TotalHits == 0)
+            {
+                return 0;
+            }
+
+            return HitAccuracyTotal / TotalHits;
+        }
+    }
+
+    public float HitAccuracyTotal { get; set; }
+
+    public float HitDeviationAverage
+    {
+        get
+        {
+            if (TotalHits == 0)
+            {
+                return 0;
+            }
+            return HitDeviationTotal / TotalHits;
+        }
+    }
+    public float HitDeviationTotal { get; set; }
+
     #endregion
 
     public void ApplyHitResult(HitResult result)
@@ -253,7 +313,19 @@ public class Player : MonoBehaviour
         UpdateCombo(result.JudgeResult);
         UpdateHitCounts(result);
         UpdatePerfPoints(result);
+        UpdateAccuracyDeviation(result);
         HudManager.DisplayHitResult(result);
+
+        if (result.JudgeResult == JudgeResult.Wrong && RumbleEnabled)
+        {
+            TriggerRumbleForWrongInput();
+        }
+    }
+
+    private void UpdateAccuracyDeviation(HitResult result)
+    {
+        this.HitAccuracyTotal += Math.Abs(result.Deviation);
+        this.HitDeviationTotal += result.Deviation;
     }
 
     private void UpdatePerfPoints(HitResult result)
@@ -330,30 +402,15 @@ public class Player : MonoBehaviour
         this.PerfPoints = 0;
         this.Combo = 0;
         this.MaxCombo = 0;
+        this.HitAccuracyTotal = 0.0f;
+        this.HitDeviationTotal = 0.0f;
         this.Ranking = 1;
     }
 
-    public int GetExpGain()
+    public int GetBaseExpGain()
     {
         float result = PerfPoints;
-        result *= GetGoalExpMultiplier();
-        result *= HitJudge.DifficultyExpValues[Difficulty];
         return (int) result;
-    }
-
-    private float GetGoalExpMultiplier()
-    {
-        if (!Goal.HasValue)
-        {
-            return 1.0f;
-        }
-
-        if (PerfPercent < Goal)
-        {
-            return 0.5f;
-        }
-
-        return HitJudge.GoalExpValues[Helpers.PercentToGrade(Goal.Value)];
     }
 
     public Grade? GetGoalGrade()
@@ -374,9 +431,9 @@ public class Player : MonoBehaviour
         return Slot > 0 ? "P" + Slot : "None";
     }
 
-    public void ApplyExpGain()
+    public void ApplyExpGain(float modifier)
     {
-        this.Exp += GetExpGain();
+        this.Exp += (int) (GetBaseExpGain() * modifier);
     }
 
     #region Helpers
@@ -419,8 +476,7 @@ public class Player : MonoBehaviour
 
     public float HitPercentage(JudgeResult judgeResult)
     {
-        var totalHits = EarlyHits.Sum(e => e.Value) + LateHits.Sum(e => e.Value) + Mistakes.Sum(e => e.Value) -
-                        Mistakes[JudgeResult.Wrong];
+        var totalHits = TotalHitsWithMisses;
 
         if (Mistakes.ContainsKey(judgeResult))
         {
@@ -511,5 +567,10 @@ public class Player : MonoBehaviour
     public void TriggerRumbleForTitleStart()
     {
         _inputManager.TriggerRumble(0.5f, 0.5f);
+    }
+
+    public void TriggerRumbleForWrongInput()
+    {
+        _inputManager.TriggerRumble(0.65f, 0.2f);
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureBpmPage.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorSectionListItem.cs" />
+    <Compile Include="Assets\Scripts\Evaluation\ExpModifierList.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />
     <Compile Include="Assets\Scripts\Managers\ProfileManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Assets\Scripts\SongEditor\EditorPage.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteSjsonEntry.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
+    <Compile Include="Assets\Scripts\Evaluation\ExpModifierEntry.cs" />
     <Compile Include="Assets\Scripts\Common\HighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteSet.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongSelectManager.cs" />

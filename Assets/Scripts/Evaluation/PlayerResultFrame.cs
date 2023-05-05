@@ -17,10 +17,7 @@ public class PlayerResultFrame : MonoBehaviour
     public Text TxtExpGain;
     public Text TxtIsLevelUp;
     public Text TxtIsNewPb;
-    public Text LblIsGoalMet;
-    public Text TxtIsGoalMet;
-    public Text LblIsFullCombo;
-    public Text TxtIsFullCombo;
+    public ExpModifierList ExpModifierList;
 
     [Header("Page 2")]
     public Text TxtCrit;
@@ -37,12 +34,15 @@ public class PlayerResultFrame : MonoBehaviour
     public Text TxtMissPerc;
     public Text TxtWrong;
 
+    public Text TxtAccuracy;
+    public Text TxtDeviation;
+
     [Header("Common")]
     public ExpMeter ExpMeter;
 
-
     public SpriteResolver PlayerIdentifier;
     public GameObject[] Pages;
+    public bool DisplayAllPages;
 
     [SerializeField]
     private int _displayedPage;
@@ -57,8 +57,14 @@ public class PlayerResultFrame : MonoBehaviour
     }
 
     private Animator _animator;
-    private readonly Color _goalMetColor = new Color(1.0f,1.0f,1.0f,1.0f);
-    private readonly Color _goalFailedColor = new Color(1.0f,0.5f,0.5f, 1.0f);
+
+    private float _totalExpModifier
+    {
+        get
+        {
+            return ExpModifierList.TotalExpModifier;
+        }
+    }
 
     void Awake()
     {
@@ -66,6 +72,15 @@ public class PlayerResultFrame : MonoBehaviour
     }
     private void DisplayPage(int pageNum)
     {
+        if (DisplayAllPages)
+        {
+            foreach (var page in Pages)
+            {
+                page.SetActive(true);
+            }
+            return;
+        }
+
         if (pageNum < 0 || pageNum >= Pages.Length)
         {
             return;
@@ -78,23 +93,30 @@ public class PlayerResultFrame : MonoBehaviour
 
         Pages[pageNum].SetActive(true);
     }
-    public void DisplayResult(Player player, bool isNewPb, bool isLevelUp)
+    public void DisplayResult(Player player, bool isNewPb, double stars, int numPlayers)
     {
         this.gameObject.SetActive(true);
         TxtPlayerName.text = player.Name;
         TxtDifficulty.text = player.Difficulty.ToString();
-        TxtIsLevelUp.gameObject.SetActive(isLevelUp);
+
+
         TxtIsNewPb.gameObject.SetActive(isNewPb);
         var grade = player.GetCurrentGrade().ToString();
         GradeSprite.SetCategoryAndLabel("Grades",grade);
         TxtMaxCombo.text = string.Format("{0:000}", player.MaxCombo);
-        TxtExpGain.text = string.Format("+{0} EXP", player.GetExpGain());
         TxtPercentage.text = string.Format(CultureInfo.InvariantCulture, "{0:P1}", player.PerfPercent);
         PlayerIdentifier.SetCategoryAndLabel("PlayerIdentifiers", player.GetPlayerIdSprite());
-        ExpMeter.Exp = player.Exp + player.GetExpGain();
+     
         DisplayHitCount(player);
-        DisplayGoalResult(player);
-        DisplayFullComboResult(player);
+        DisplayAccuracyDeviation(player);
+        ExpModifierList.DisplayExpModifier(player, stars, numPlayers);
+
+        var totalExpGain = ExpModifierList.GetTotalExpGain(player);
+        ExpMeter.Exp = totalExpGain;
+        TxtExpGain.text = string.Format("+{0} EXP", totalExpGain);
+        var isLevelUp = ExpLevelUtils.IsLevelUp(player.Exp, totalExpGain);
+        TxtIsLevelUp.gameObject.SetActive(isLevelUp);
+
         DisplayGradeAnimation();
 
     }
@@ -122,69 +144,16 @@ public class PlayerResultFrame : MonoBehaviour
         TxtMissPerc.text = $"{player.HitPercentage(JudgeResult.Miss):P0}";
     }
 
-    private void DisplayGoalResult(Player player)
+    private void DisplayAccuracyDeviation(Player player)
     {
-        if (player.Goal == null)
-        {
-            LblIsGoalMet.Hide();
-            TxtIsGoalMet.Hide();
-            return;
-        }
-
-        LblIsGoalMet.Show();
-        TxtIsGoalMet.Show();
-
-        var goalMet = player.PerfPoints  >= player.GoalPerfPoints.GetValueOrDefault();
-        var textColor = goalMet ? _goalMetColor : _goalFailedColor;
-        LblIsGoalMet.color = textColor;
-        TxtIsGoalMet.color = textColor;
-
-        LblIsGoalMet.text = goalMet ? "Goal Passed!" : "Goal Failed!";
-
-        var goalExpValue = goalMet ? HitJudge.GoalExpValues[player.GetGoalGrade().GetValueOrDefault()] : 0.5f;
-        TxtIsGoalMet.text = ToExpModifier(goalExpValue);
-
+      //  TxtAccuracy.text = FormatMilliseconds(player.HitAccuracyAverage);
+        TxtDeviation.text = FormatMilliseconds(player.HitDeviationAverage);
     }
 
-    private void DisplayFullComboResult(Player player)
+    private string FormatMilliseconds(float seconds)
     {
-        var fullComboType = player.GetFullComboType();
-        if (fullComboType == FullComboType.None)
-        {
-            LblIsFullCombo.Hide();
-            TxtIsFullCombo.Hide();
-            return;
-        }
-
-        LblIsFullCombo.Show();
-        TxtIsFullCombo.Show();
-
-        var fcExpValue = HitJudge.FullComboExpValues[fullComboType];
-        LblIsFullCombo.text = GetFullComboLabel(fullComboType);
-        TxtIsFullCombo.text = ToExpModifier(fcExpValue);
-    }
-
-    private string GetFullComboLabel(FullComboType fullComboType)
-    {
-        switch (fullComboType)
-        {
-            case FullComboType.SemiFullCombo:
-                return "Semi Full Combo!";
-            case FullComboType.FullCombo:
-                return "Full Combo!";
-            case FullComboType.PerfectFullCombo:
-                return "Perfect FC!";
-            default:
-                return "";
-        }
-    }
-
-    private string ToExpModifier(float amount)
-    {
-        amount--;
-        var prefix = amount < 0 ? "" : "+";
-        var result = $"{prefix}{amount:P0} EXP".Replace(" %", "");
-        return result;
+        var suffix = seconds > 0.0f ? "Early" : "Late";
+        return $"{(seconds * 1000):f1} ms {suffix}";
     }
 
     private string FormatHits(Player player, JudgeResult judgeResult)

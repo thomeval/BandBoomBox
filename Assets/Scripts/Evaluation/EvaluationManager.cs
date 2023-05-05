@@ -7,9 +7,11 @@ public class EvaluationManager : ScreenManager
 {
     public float DelayBeforeContinueAllowed = 2f;
     public PlayerResultFrame[] PlayerResultFrames = new PlayerResultFrame[4];
+    public PlayerResultFrame[] WidePlayerResultFrames = new PlayerResultFrame[4];
     public SongResultFrame SongResultFrame;
     public GameObject PbContinue;
-    
+    public bool UseWidePlayerResultFrames;
+
     private DateTime _screenStartTime;
     private readonly float[] _percentSfxCutoffs = { 0.8f, 0.9f };
     public bool AllowContinue
@@ -29,21 +31,26 @@ public class EvaluationManager : ScreenManager
     void Start()
     {
         _screenStartTime = DateTime.Now;
+        UseWidePlayerResultFrames = CoreManager.PlayerManager.GetLocalPlayers().Count <= 2;
         foreach (var frame in PlayerResultFrames)
+        {
+            frame.Hide();
+        }
+
+        foreach (var frame in WidePlayerResultFrames)
         {
             frame.Hide();
         }
 
         foreach (var player in CoreManager.PlayerManager.GetLocalPlayers())
         {
-            var isLevelUp = ExpLevelUtils.IsLevelUp(player.Exp, player.GetExpGain());
+
             var isPersonalBest = CoreManager.ProfileManager.SavePlayerScore(player, CoreManager.LastTeamScore.SongId, CoreManager.LastTeamScore.SongVersion);
 
-            PlayerResultFrames[player.Slot - 1].DisplayResult(player, isPersonalBest, isLevelUp);
-            PlayerResultFrames[player.Slot - 1].DisplayedPage = 0;
+            DisplayPlayerResultFrame(player,  isPersonalBest);
             player.SongsPlayed++;
 
-            player.ApplyExpGain();
+         
 
         }
 
@@ -53,7 +60,21 @@ public class EvaluationManager : ScreenManager
         CoreManager.SaveAllActiveProfiles();
         StartCoroutine(DisplayContinueAfterDelay());
         StartCoroutine(PlayGradeSfx());
-        PlayGradeSfx();
+    }
+
+    private void DisplayPlayerResultFrame(Player player, bool isPersonalBest)
+    {
+        var frame = UseWidePlayerResultFrames
+            ? WidePlayerResultFrames[player.Slot - 1]
+            : PlayerResultFrames[player.Slot - 1];
+
+        var stars = CoreManager.LastTeamScore.Stars;
+        var numPlayers = CoreManager.PlayerManager.GetLocalPlayers().Count;
+        frame.DisplayResult(player, isPersonalBest, stars, numPlayers);
+        frame.DisplayedPage = 0;
+
+        var totalModifier = frame.ExpModifierList.TotalExpModifier;
+        player.ApplyExpGain(totalModifier);
     }
 
     private IEnumerator DisplayContinueAfterDelay()
