@@ -65,7 +65,7 @@ public class StarMeter : MonoBehaviour
         if (SoundEventHandler == null)
         {
             var core = FindObjectOfType<CoreManager>();
-            SoundEventHandler = core.SoundEventHandler;
+            SoundEventHandler = core?.SoundEventHandler;
         }
     }
 

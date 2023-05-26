@@ -1216,6 +1216,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ce65113a-0ac2-4d2a-bc8f-44320608ceec",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Editor_ModifierCtrl",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5632398b-68a1-4b97-bd22-2713abc51f19",
                     "path": "<Keyboard>/alt",
                     "interactions": "Press(behavior=2)",

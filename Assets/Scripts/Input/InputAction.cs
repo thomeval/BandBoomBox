@@ -34,6 +34,7 @@ public enum InputAction
     Editor_NoteReleaseAnyD,
     Editor_NoteReleaseAnyT,
     Editor_Confirm,
+    Editor_PlayFromBeginning,
     Editor_PlayPause,
     Editor_StepLeft,
     Editor_StepRight,
@@ -55,5 +56,6 @@ public enum InputAction
     Editor_Paste,
     Editor_PasteInverted,
     Editor_ClearRegion,
+    Editor_SwapNoteHands
 }
 

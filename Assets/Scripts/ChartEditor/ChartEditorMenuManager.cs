@@ -207,6 +207,10 @@ public class ChartEditorMenuManager : MonoBehaviour
                 }
                 _parent.ChartEditorState = ChartEditorState.ModifyMenu;
                 break;
+            case "Paste":
+                _parent.ChartEditorState = ChartEditorState.Edit;
+                _parent.Clipboard.OnPlayerInput(InputAction.Editor_Paste);
+                break;
             case "Save":
                 _parent.ChartEditorState = ChartEditorState.Edit;
                 _parent.SaveChart();
@@ -225,6 +229,14 @@ public class ChartEditorMenuManager : MonoBehaviour
         {
             case "Back":
                 _parent.ChartEditorState = ChartEditorState.MainMenu;
+                break;
+            case "Cut":
+                _parent.ChartEditorState = ChartEditorState.Edit;
+                _parent.Clipboard.OnPlayerInput(InputAction.Editor_Cut);
+                break;
+            case "Copy":
+                _parent.ChartEditorState = ChartEditorState.Edit;
+                _parent.Clipboard.OnPlayerInput(InputAction.Editor_Copy);
                 break;
             case "Swap Hands":
                 _parent.NoteTransformer.SwapHands();

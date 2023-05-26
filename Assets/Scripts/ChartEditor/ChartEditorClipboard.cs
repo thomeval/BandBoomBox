@@ -67,7 +67,7 @@ public class ChartEditorClipboard : MonoBehaviour
 
         var notes = _parent.NoteManager.GetNotesInRegion(regionStart, regionEnd).OrderBy(e => e.Position).ToList();
         AddToClipboard(notes, (float) regionStart);
-        _parent.DisplayMessage($"Cut/Copied {notes.Count} notes.");
+        _parent.DisplayMessage($"Copied {notes.Count} notes.");
         _parent.PlaySfx(SoundEvent.Editor_Copy);
     }
 
@@ -128,7 +128,13 @@ public class ChartEditorClipboard : MonoBehaviour
 
     public void OnPlayerInput(InputEvent inputEvent)
     {
-        switch (inputEvent.Action)
+        OnPlayerInput(inputEvent.Action);
+
+    }
+
+    public void OnPlayerInput(InputAction action)
+    {
+        switch (action)
         {
             case InputAction.Editor_Cut:
                 if (!EnsureValidRegion())

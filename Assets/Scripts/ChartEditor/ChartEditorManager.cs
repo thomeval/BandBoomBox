@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -218,6 +219,7 @@ public class ChartEditorManager : ScreenManager
     private void UpdateNoteHighway()
     {
         NoteManager.SongPosition = CursorPositionInSeconds;
+        NoteManager.SongPositionInBeats = (float) CursorPosition;
         NoteManager.UpdateNotes();
     }
 
@@ -319,8 +321,14 @@ public class ChartEditorManager : ScreenManager
             case InputAction.Editor_PlayPause:
                 PlaybackManager.BeginPlayback();
                 break;
+            case InputAction.Editor_PlayFromBeginning:
+                PlaybackManager.PlayFromBeginning();
+                break;
             case InputAction.Editor_SelectRegion:
                 SetSelectedRegion();
+                break;
+            case InputAction.Editor_SwapNoteHands:
+                NoteTransformer.SwapHandsAtCurrentPosition();
                 break;
         }
 

@@ -144,7 +144,7 @@ public class ExpModifierList : MonoBehaviour
     {
         var newEntry = Instantiate(EntryPrefab);
         newEntry.Display(label, value);
-        newEntry.transform.parent = this.transform;
+        newEntry.transform.SetParent(this.transform);
         this.Entries.Add(newEntry);
     }
 }

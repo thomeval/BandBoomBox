@@ -50,8 +50,6 @@ public class EvaluationManager : ScreenManager
             DisplayPlayerResultFrame(player,  isPersonalBest);
             player.SongsPlayed++;
 
-         
-
         }
 
         var isTeamBest = CoreManager.HighScoreManager.AddTeamScore(CoreManager.LastTeamScore);

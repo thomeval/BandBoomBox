@@ -8,6 +8,7 @@ public class NoteManager : MonoBehaviour
     public List<Note> Notes = new();
     public List<BeatLine> BeatLines;
     public SongChart Chart;
+    public RectTransform ScrollingBackground;
 
     public int ImpactZoneCenter = -540;
 
@@ -24,6 +25,8 @@ public class NoteManager : MonoBehaviour
     /// </summary>
     public float SongPosition = -999.0f;
 
+    public float SongPositionInBeats = 0.0f;
+
     public float DEFAULT_VISIBILITY_RANGE = 8.0f;
 
     public string NoteSkin;
@@ -34,14 +37,17 @@ public class NoteManager : MonoBehaviour
     public bool TrimNotesEnabled = true;
 
     private float _displayedScrollSpeed = 500;
-    private readonly List<Note> _notesToRemove = new List<Note>();
-    private readonly List<BeatLine> _beatLinesToRemove = new List<BeatLine>();
+    private readonly List<Note> _notesToRemove = new();
+    private readonly List<BeatLine> _beatLinesToRemove = new();
     private float _lastSeenPosition = -999.0f;
+    private float _noteAreaWidth;
     
     private GameplayManager _gameplayManager;
 
+    private SpriteRenderer _scrollingBackgroundRenderer;
 
     private readonly Note[] _pendingReleases = new Note[4];
+
 
     public float MaxVisiblePosition
     {
@@ -62,14 +68,35 @@ public class NoteManager : MonoBehaviour
         get { return Notes.Count * HitJudge.JudgePerfPointValues[JudgeResult.Perfect]; }
     }
 
+    /// <summary>
+    /// Gets or sets whether the Note Highway Gameobject is enabled.
+    /// </summary>
     public bool ParentEnabled
     {
-        get { return this.transform.parent.gameObject.activeSelf; }
+        get { return this.transform.parent.parent.gameObject.activeSelf; }
         set
         {
-            this.transform.parent.gameObject.SetActive(value);
+            this.transform.parent.parent.gameObject.SetActive(value);
         }
     }
+
+    [SerializeField]
+    private float _scrollingBackgrounOpacity;
+    public float ScrollingBackgroundOpacity
+    {
+        get
+        {
+            return _scrollingBackgrounOpacity;
+        }
+        set
+        {
+            value = Mathf.Clamp01(value);
+            _scrollingBackgrounOpacity = value;
+        }
+    }
+
+    [field:SerializeField]
+    public bool TurboActive { get; set; }
 
     public void CalculateAbsoluteTimes(float bpm)
     {
@@ -104,12 +131,14 @@ public class NoteManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        
         if (_lastSeenPosition > SongPosition)
         {
             HideAllNotes();
         }
 
         _lastSeenPosition = SongPosition;
+        UpdateBackgroundOpacity();
 
         bool speedChanged = UpdateScrollSpeed();
 
@@ -122,6 +151,56 @@ public class NoteManager : MonoBehaviour
         {
             holdNote.CalculateTailWidth();
         }
+
+
+    }
+
+    private const float SCROLLING_BACKGROUND_SHOW_SPEED = 0.015f;
+    private const float SCROLLING_BACKGROUND_HIDE_SPEED = 0.01f;
+    private const float MIN_BACKGROUND_OPACITY = 0.5f;
+
+    private void UpdateBackgroundOpacity()
+    {
+        if (TurboActive)
+        {
+            ScrollingBackgroundOpacity += SCROLLING_BACKGROUND_SHOW_SPEED;
+        }
+        else
+        {
+            ScrollingBackgroundOpacity -= SCROLLING_BACKGROUND_HIDE_SPEED;
+        }
+
+        _scrollingBackgroundRenderer ??= ScrollingBackground.GetComponent<SpriteRenderer>();
+
+        var opacity = CalculateBackgroundOpacity(ScrollingBackgroundOpacity, SongPositionInBeats);
+        _scrollingBackgroundRenderer.color = new Color(1.0f, 1.0f, 1.0f, opacity);
+    }
+
+    private float CalculateBackgroundOpacity(float scrollingBackgroundOpacity, float songPositionInBeats)
+    {
+        var beatFraction = songPositionInBeats - (int)songPositionInBeats;
+        beatFraction = 1 - beatFraction;
+
+        var result = MIN_BACKGROUND_OPACITY;
+
+        var lerp = (1 - MIN_BACKGROUND_OPACITY)  * beatFraction;
+        result += lerp;
+        result *= scrollingBackgroundOpacity;
+        return result;
+
+    }
+
+    private void UpdateBackground()
+    {
+
+        if (_noteAreaWidth == 0)
+        {
+            _noteAreaWidth = ScrollingBackground.rect.width;
+        }
+
+        var newX = (this.ScrollSpeed * this.SongPosition * -1) % _noteAreaWidth;
+
+        ScrollingBackground.position = new Vector3(newX, ScrollingBackground.position.y);
     }
 
     public void HideAllNotes()
@@ -179,6 +258,8 @@ public class NoteManager : MonoBehaviour
         }
 
         TrimNotes();
+
+        UpdateBackground();
     }
 
     private bool UpdateScrollSpeed()
@@ -501,6 +582,13 @@ public class NoteManager : MonoBehaviour
     {
         // ReSharper disable once CompareOfFloatsByEqualityOperator
         var result = Notes.SingleOrDefault(e => (double) e.Position == position && e.Lane == lane);
+        return result;
+    }
+
+    public List<Note> GetNotesAtPosition(double position)
+    {
+        // ReSharper disable once CompareOfFloatsByEqualityOperator
+        var result = Notes.Where(e => (double) e.Position == position).ToList();
         return result;
     }
 

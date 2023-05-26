@@ -185,7 +185,7 @@ public class InputManager : MonoBehaviour
     }
     void OnEditor_PlayPause(InputValue value)
     {
-        RegisterInput(value, InputAction.Editor_PlayPause);
+        ChooseAndRegisterInput(value, InputAction.Editor_PlayPause, InputAction.Editor_PlayFromBeginning);
     }
 
     void OnEditor_StepLeft(InputValue value)
@@ -222,7 +222,7 @@ public class InputManager : MonoBehaviour
     }
     void OnEditor_SelectRegion(InputValue value)
     {
-        RegisterInput(value, InputAction.Editor_SelectRegion);
+        ChooseAndRegisterInput(value, InputAction.Editor_SelectRegion, InputAction.Editor_SwapNoteHands);
     }
 
     void OnEditor_Copy(InputValue value)

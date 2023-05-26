@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
@@ -122,9 +123,9 @@ public class PlayerHudManager : MonoBehaviour
     {
         CountdownDisplay.DisplayBeat(songTimeInBeats);
     }
+
     void Awake()
     {
         _playerIdentifierResolver = PlayerIdentifier.GetComponent<SpriteResolver>();
     }
-
 }

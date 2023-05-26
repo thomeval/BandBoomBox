@@ -147,6 +147,24 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         TransformNotes(notesAffected, lookup);
     }
 
+    public void SwapHandsAtCurrentPosition()
+    {
+        var notesAffected = GetNotesAtCurrentPosition();
+
+        if (!notesAffected.Any())
+        {
+            _parent.DisplayMessage("There aren't any notes at the current position to swap.", true);
+            return;
+        }
+
+        var lookup = _parent.CurrentChart.Difficulty == Difficulty.Medium ? _swapHandsMediumLookup : _swapHandsLookup;
+        var releases = notesAffected.Select(e => e.EndNote).Where(e => e != null);
+        notesAffected.AddRange(releases);
+
+        TransformNotes(notesAffected, lookup);
+        _parent.PlaySfx(SoundEvent.Editor_NotePlaced);
+    }
+
     public void ClearRegion(double regionStart, double regionEnd)
     {
         if (regionEnd <= regionStart)
@@ -219,6 +237,12 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         }
         var result =  _noteManager.GetNotesInRegion(_parent.SelectedRegionStart!.Value, _parent.SelectedRegionEnd!.Value);
 
+        return result;
+    }
+
+    private List<Note> GetNotesAtCurrentPosition()
+    {
+        var result =  _noteManager.GetNotesAtPosition(_parent.CursorPosition);
         return result;
     }
 

@@ -152,8 +152,9 @@ public class PlayerResultFrame : MonoBehaviour
 
     private string FormatMilliseconds(float seconds)
     {
-        var suffix = seconds > 0.0f ? "Early" : "Late";
-        return $"{(seconds * 1000):f1} ms {suffix}";
+        var suffix = seconds < 0.0f ? "Early" : "Late";
+        var amount = Math.Abs(seconds * 1000);
+        return $"{(amount):f1} ms {suffix}";
     }
 
     private string FormatHits(Player player, JudgeResult judgeResult)

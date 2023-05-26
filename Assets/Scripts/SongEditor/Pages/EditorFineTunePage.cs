@@ -65,6 +65,7 @@ public class EditorFineTunePage : EditorPageManager
     {
         LblCurrentTime.text = string.Format(CultureInfo.InvariantCulture, "{0:F3}", _songManager.GetRawAudioPosition());
         NoteManager.SongPosition = this.SongPosition;
+        NoteManager.SongPositionInBeats = _songManager.GetSongPositionInBeats();
         NoteManager.UpdateNotes();
         PlayerHudManager.UpdateHud(Player);
         PlayerHudManager.DisplayBeat(_songManager.GetSongPositionInBeats());

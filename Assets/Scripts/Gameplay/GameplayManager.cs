@@ -19,6 +19,11 @@ public class GameplayManager : ScreenManager
         get { return _songManager.GetSongPosition(); }
     }
 
+    public float SongPositionInBeats
+    {
+        get { return _songManager.GetSongPositionInBeats(); }
+    }
+
     public long Score;
     public int TeamCombo;
     public int MaxTeamCombo;
@@ -34,19 +39,37 @@ public class GameplayManager : ScreenManager
         get { return _energy; }
         set
         {
-            _energy = Mathf.Clamp(value, 0.0f, MaxEnergy);
+            value = Mathf.Clamp(value, 0.0f, MaxEnergy);
 
+            if (Math.Abs(value - _energy) < 0.0001f)
+            {
+                return;
+            }
+
+            _energy = value;
+            
             if (_energy == 0.0f)
             {
                 if (_playerManager.AnyTurboActive())
                 {
                     PlaySfx(SoundEvent.Gameplay_TurboOff);
                 }
-                _playerManager.DisableAllTurbos();
+                DisableAllTurbos();
             }
 
             HudManager.UpdateEnergy(_energy, _playerManager.AnyTurboActive());
         }
+    }
+
+    private void DisableAllTurbos()
+    {
+        _playerManager.DisableAllTurbos();
+
+        foreach (var note in NoteManagers)
+        {
+            note.TurboActive = false;
+        }
+        HudManager.UpdateEnergy(_energy, _playerManager.AnyTurboActive());
     }
 
     public float MaxEnergy
@@ -108,6 +131,7 @@ public class GameplayManager : ScreenManager
             noteManager.CalculateAbsoluteTimes(_songManager.CurrentSong.Bpm);
             noteManager.ScrollSpeed = player.ScrollSpeed;
             _playerManager.SetMaxPerfPoints(noteManager.MaxPerfPoints, player.Slot);
+            noteManager.ScrollingBackgroundOpacity = 0.0f;
         }
     }
 
@@ -163,6 +187,7 @@ public class GameplayManager : ScreenManager
         UpdateRankings();
 
         _playerManager.Reset();
+        this.DisableAllTurbos();
         this.Energy = 0.0f;
         HudManager.EnergyMeter.MaxEnergy = this.MaxEnergy;
         GameplayState = GameplayState.Intro;
@@ -292,6 +317,7 @@ public class GameplayManager : ScreenManager
         foreach (var noteManager in NoteManagers)
         {
             noteManager.SongPosition = SongPosition;
+            noteManager.SongPositionInBeats = SongPositionInBeats;
             noteManager.UpdateNotes();
         }
 
@@ -396,6 +422,7 @@ public class GameplayManager : ScreenManager
             player.ToggleTurbo();
         }
 
+        GetNoteManager(player.Slot).TurboActive = player.TurboActive;
         HudManager.UpdateEnergy(Energy, _playerManager.AnyTurboActive());
     }
 

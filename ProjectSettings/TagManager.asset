@@ -44,8 +44,11 @@ TagManager:
   - name: Main Background
     uniqueID: 3791124277
     locked: 0
-  - name: Highway Background
+  - name: Highway Static Background
     uniqueID: 542395751
+    locked: 0
+  - name: Highway Scrolling Background
+    uniqueID: 1213070975
     locked: 0
   - name: Highway Under Notes 1
     uniqueID: 3071633411
