@@ -17,8 +17,8 @@ public class EditorChartListPage : EditorPageManager
     public InputField TxtAddSectionBeat;
     public InputField TxtAddSectionName;
 
-    public List<EditorDifficultyListItem> DisplayedCharts = new List<EditorDifficultyListItem>();
-    public List<EditorSectionListItem> DisplayedSections = new List<EditorSectionListItem>();
+    public List<EditorDifficultyListItem> DisplayedCharts = new();
+    public List<EditorSectionListItem> DisplayedSections = new();
 
     public GameObject ListItemContainer;
     public GameObject SectionListItemContainer;

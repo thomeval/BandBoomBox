@@ -1236,8 +1236,6 @@ MonoBehaviour:
   TxtVersion: {fileID: 1965956396}
   LogoAnimator: {fileID: 549172579}
   StartAnimationDelay: 1
-  SfxStartPressed: {fileID: 0}
-  SfxMistake: {fileID: 0}
 --- !u!224 &1842864145
 RectTransform:
   m_ObjectHideFlags: 0

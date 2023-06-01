@@ -170,4 +170,13 @@ public class HighScoreManager : MonoBehaviour
 
         return TeamScoreCategory.NoPlayers;
     }
+
+    public int GetTotalStarsForSongs(List<SongData> songs, int playerCount)
+    {
+        var stars = songs.Select(e => GetTeamScore(e.ID, e.Version, playerCount))
+            .Where(e => e != null)
+            .Select(e => (int) e.Stars)
+            .Sum();
+        return stars;
+    }
 }

@@ -2089,6 +2089,7 @@ MonoBehaviour:
   _turboActive: 0
   _profileId: 
   _mistakeSfxEnabled: 1
+  _rumbleEnabled: 1
   TimingDisplayType: 3
   NoteSkin: Default
   LabelSkin: None
@@ -10750,16 +10751,16 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Try to hit the notes on the above highway as accurately as possible. Adjust
     the offset and BPM as necessary to get rid of early and late hits (indicated
-    with a (-) and (+) on the highway, respectively).
+    on the note highway).
 
-    If your hits are too early
-    (-), decrease the offset. If they are too late (+), increase it.
+    If your hits are consistently too early, decrease
+    the offset. If they are too late, increase it. If your hits start perfect but
+    drift late or early over time, adjust the BPM.
 
-    Hint: To
-    improve your accuracy, use a high note scroll speed.
+    Hint: To improve your accuracy,
+    use a high note scroll speed.
 
-    Click on "Done" when
-    done.'
+    Click on "Done" when done.'
 --- !u!222 &753666736
 CanvasRenderer:
   m_ObjectHideFlags: 0

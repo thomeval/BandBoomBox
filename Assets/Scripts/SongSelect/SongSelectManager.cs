@@ -17,6 +17,7 @@ public class SongSelectManager : ScreenManager
     public HighScoreDisplay HighScoreDisplay;
     public PlayerGroupHighScoreDisplay PlayerGroupHighScoreDisplay;
     public Text TxtSongCount;
+    public Text TxtStarCount;
     public Text TxtSortMode;
 
     public SongList SongList;
@@ -37,7 +38,7 @@ public class SongSelectManager : ScreenManager
         }
     }
 
-    private readonly string[] _availableSortModes = {"TITLE", "ARTIST", "BPM", "LENGTH"};
+    private readonly string[] _availableSortModes = {"TITLE", "ARTIST", "BPM", "LENGTH", "STARS"};
 
     public SongData SelectedSong
     {
@@ -74,7 +75,7 @@ public class SongSelectManager : ScreenManager
 
     private void SortSongs()
     {
-
+        var playerCount = CoreManager.PlayerManager.Players.Count;
         var songs = CoreManager.SongLibrary.Songs;
         var selectedId = SelectedSong?.ID;
 
@@ -92,13 +93,29 @@ public class SongSelectManager : ScreenManager
             case "LENGTH":
                 OrderedSongs = songs.OrderBy(e => e.Length).ToList();
                 break;
+            case "STARS":
+                OrderedSongs = songs.OrderBy(e => GetHighScoreStars(e, playerCount)).ToList();
+                break;
         }
 
         SetSelectedIndex(selectedId);
 
         TxtSongCount.text = "" + OrderedSongs.Count;
+
+        TxtStarCount.text = "" + CoreManager.HighScoreManager.GetTotalStarsForSongs(OrderedSongs, playerCount);
         TxtSortMode.text = SongSortMode;
         CoreManager.Settings.LastSortSongMode = SongSortMode;
+    }
+
+    private int GetHighScoreStars(SongData songData, int playerCount)
+    {
+        var result = CoreManager.HighScoreManager.GetTeamScore(songData.ID, songData.Version, playerCount);
+        if (result == null)
+        {
+            return 0;
+        }
+
+        return (int)result.Stars;
     }
 
     private void SelectLastPlayedSong()
@@ -176,15 +193,18 @@ public class SongSelectManager : ScreenManager
             case InputAction.B:
             case InputAction.Back:
                 CoreManager.SongPreviewManager.StopPreviews();
+                PlaySfx(SoundEvent.SelectionCancelled);
                 SceneTransition(GameScene.PlayerJoin);
                 break;
             case InputAction.Y:
                 SongSortMode = Helpers.GetNextValue(_availableSortModes, SongSortMode, 1, true);
+                PlaySfx(SoundEvent.SelectionShifted);
                 break;
                 case InputAction.Turbo:
                     HighScoreDisplay.ToggleVisibility();
                     PlayerGroupHighScoreDisplay.ToggleVisibility();
                     ShowHighScores(OrderedSongs[SelectedSongIndex]);
+                    PlaySfx(SoundEvent.SelectionShifted);
                     break;
 
         }

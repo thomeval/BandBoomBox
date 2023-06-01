@@ -8,7 +8,7 @@ public class EditorManager : ScreenManager
 {
     public GameObject PageContainer;
 
-    private readonly Dictionary<EditorPage, EditorPageManager> _pages = new Dictionary<EditorPage, EditorPageManager>();
+    private readonly Dictionary<EditorPage, EditorPageManager> _pages = new();
 
     private EditorPage _currentPage = EditorPage.MainMenu;
     public EditorPage CurrentPage

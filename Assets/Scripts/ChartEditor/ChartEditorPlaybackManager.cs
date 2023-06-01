@@ -43,7 +43,7 @@ public class ChartEditorPlaybackManager : MonoBehaviour
         
         switch (inputEvent.Action)
         {
-            
+            case InputAction.Pause:
             case InputAction.Back:
                 StopPlayback();
                 _parent.CursorPosition = _playbackStartPosition;
@@ -91,6 +91,8 @@ public class ChartEditorPlaybackManager : MonoBehaviour
         StopPlayback();
         var newPosition =  Math.Min(_parent.CursorPosition, _parent.CurrentSongData.LengthInBeats);
         _parent.CursorPosition = newPosition;
+
+        _parent.ClampCursorToLimits();
         _parent.SnapCursorToStep();
     }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
@@ -12,12 +11,15 @@ public class SongListItem : MonoBehaviour
     public GameObject StarCountDisplay;
 
     public SpriteResolver FrameSpriteResolver;
+    public SpriteResolver StarIconSpriteResolver;
 
     public void DisplayTeamScore(TeamScore teamScore)
     {
         StarCountDisplay.SetActive(teamScore != null);
-        var stars = teamScore?.Stars ?? 0;
-        TxtStarCount.text = string.Format(CultureInfo.InvariantCulture, "{0:F0}", (int) stars);
+        var stars = (int) (teamScore?.Stars ?? 0);
+
+        TxtStarCount.text = string.Format(CultureInfo.InvariantCulture, "{0:F0}",  stars);
+        StarIconSpriteResolver.SetCategoryAndLabel("StarIcons", "" + stars);
     }
     
     [SerializeField]

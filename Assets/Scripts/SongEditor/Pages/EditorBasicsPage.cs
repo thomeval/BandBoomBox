@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
@@ -84,7 +83,7 @@ namespace Assets.Scripts.Editor.Pages
 
         void BtnBrowseAudioFile_Click()
         {
-            Parent.RequestBrowseFile(".ogg;.mp3", AudioFileSelected);
+            Parent.RequestBrowseFile(".ogg;.mp3;.flac", AudioFileSelected);
         }
 
         private void AudioFileSelected(string result)
@@ -118,28 +117,28 @@ namespace Assets.Scripts.Editor.Pages
                         Difficulty = Difficulty.Beginner,
                         DifficultyLevel = 1,
                         Group = "Main",
-                        Notes = new string[0]
+                        Notes = Array.Empty<string>()
                     },
                     new SongChart
                     {
                         Difficulty = Difficulty.Medium,
-                        DifficultyLevel = 3,
+                        DifficultyLevel = 4,
                         Group = "Main",
-                        Notes = new string[0]
+                        Notes = Array.Empty<string>()
                     },
                     new SongChart
                     {
                         Difficulty = Difficulty.Hard,
-                        DifficultyLevel = 5,
+                        DifficultyLevel = 8,
                         Group = "Main",
-                        Notes = new string[0]
+                        Notes = Array.Empty < string >()
                     },
                     new SongChart
                     {
                         Difficulty = Difficulty.Expert,
-                        DifficultyLevel = 7,
+                        DifficultyLevel = 12,
                         Group = "Main",
-                        Notes = new string[0]
+                        Notes = Array.Empty < string >()
                     }
                 },
             };

@@ -229,6 +229,12 @@ public class ChartEditorManager : ScreenManager
 
         // Round to nearest step that falls within the new step size.
         SnapCursorToStep();
+        PlaySfx(SoundEvent.SelectionShifted);
+    }
+
+    public void ClampCursorToLimits()
+    {
+        CursorPosition = Math.Clamp(CursorPosition, 0.0, CurrentSongData.LengthInBeats);
     }
 
     public void SnapCursorToStep()
@@ -300,6 +306,7 @@ public class ChartEditorManager : ScreenManager
                 MoveCursorSections(1);
                 break;
             case InputAction.Editor_StepSizeUp:
+                
                 ChangeStepSize(1);
                 break;
             case InputAction.Editor_StepSizeDown:
@@ -339,7 +346,16 @@ public class ChartEditorManager : ScreenManager
         if (SelectedRegionStart == null ^ SelectedRegionEnd == null)
         {
             SelectedRegionEnd = CursorPosition;
-            PlaySfx(SoundEvent.Editor_SelectRegionEnd);
+            if (SelectedRegionStart != SelectedRegionEnd)
+            {
+                PlaySfx(SoundEvent.Editor_SelectRegionEnd);
+            }
+            else
+            {
+                SelectedRegionStart = null;
+                SelectedRegionEnd = null;
+                PlaySfx(SoundEvent.SelectionCancelled);
+            }
         }
         else
         {
@@ -354,11 +370,6 @@ public class ChartEditorManager : ScreenManager
             (SelectedRegionStart, SelectedRegionEnd) = (SelectedRegionEnd, SelectedRegionStart);
         }
 
-        if (SelectedRegionEnd == SelectedRegionStart)
-        {
-            SelectedRegionStart = null;
-            SelectedRegionEnd = null;
-        }
         UpdateHud();
     }
 

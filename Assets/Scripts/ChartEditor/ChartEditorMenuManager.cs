@@ -201,7 +201,7 @@ public class ChartEditorMenuManager : MonoBehaviour
             case "Modify selected region":
                 if (!_parent.RegionSelected)
                 {
-                    _parent.DisplayMessage("Select a region first, by marking the start and end points with the 'Set Region' key.", true);
+                    _parent.DisplayMessage("Select a region first, by marking the start and end points with the 'Select Region' key.", true);
                     _parent.PlaySfx(SoundEvent.Mistake);
                     return;
                 }

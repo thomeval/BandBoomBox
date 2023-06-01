@@ -27,7 +27,7 @@ public class OptionsManager : ScreenManager
     public Text TxtLogsFolderLocation;
   
 
-    private readonly int[] _targetFrameRateChoices = {30, 60, 90, 120, 180, 240, -1};
+    private readonly int[] _targetFrameRateChoices = {20, 30, 60, 90, 120, 180, 240, -1};
     private readonly string[] _resolutionChoices = {"1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440", "3840x2160"};
 
     private readonly FullScreenMode[] _fullScreenModeChoices =

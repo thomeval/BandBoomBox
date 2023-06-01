@@ -898,7 +898,7 @@
                 {
                     "name": "",
                     "id": "63bf77ec-439a-49a4-b20b-83477c140b7d",
-                    "path": "<Gamepad>/dpad/down",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1249,11 +1249,33 @@
                 },
                 {
                     "name": "",
+                    "id": "c128a05d-69c8-47dd-ab46-953bafda631f",
+                    "path": "<Gamepad>/rightStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Editor_JumpToStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "80885851-f170-4d6f-b8d9-5bbcd6e5586f",
                     "path": "<Keyboard>/end",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "Editor_JumpToEnd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d006f2f-5786-4c6e-a7fe-06a97e3c5e61",
+                    "path": "<Gamepad>/rightStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Editor_JumpToEnd",
                     "isComposite": false,
                     "isPartOfComposite": false
