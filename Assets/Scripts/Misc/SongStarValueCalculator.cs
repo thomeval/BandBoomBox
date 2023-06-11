@@ -7,12 +7,12 @@ using Debug = UnityEngine.Debug;
 public class SongStarValueCalculator : MonoBehaviour
 {
 
-    public Dictionary<TeamScoreCategory, double[]> Percentages = new Dictionary<TeamScoreCategory, double[]>
+    public Dictionary<TeamScoreCategory, double[]> Percentages = new()
     {
         {TeamScoreCategory.Solo, new[]   {0.05, 0.2, 0.35, 0.55, 0.75, 1.00}},
-        {TeamScoreCategory.Duet, new[]   {0.05, 0.2, 0.35, 0.55, 0.70, 0.95, 1.20}},
-        {TeamScoreCategory.Crowd, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.90, 1.15, 1.35}},
-        {TeamScoreCategory.Legion, new[] {0.05, 0.2, 0.35, 0.50, 0.65, 0.90, 1.15, 1.35, 1.60, 1.80}}
+        {TeamScoreCategory.Duet, new[]   {0.05, 0.2, 0.35, 0.55, 0.70, 0.90, 1.10}},
+        {TeamScoreCategory.Crowd, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.05, 1.25}},
+        {TeamScoreCategory.Legion, new[] {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.05, 1.25, 1.45, 1.65}}
     };
     
     public int NoteBaseValue = 50;
@@ -24,7 +24,7 @@ public class SongStarValueCalculator : MonoBehaviour
 
         var values = new List<long>();
         var starCount = Percentages[category].Length;
-        for (int x = 0; x < starCount; x++)
+        for (var x = 0; x < starCount; x++)
         {
 
             var maxScore = CalculateMaxScore(managers);
@@ -47,13 +47,13 @@ public class SongStarValueCalculator : MonoBehaviour
     public long CalculateMaxScore(List<NoteManager> noteManagers)
     {
 
-        double mx = 1.0;
-        double maxMx = 1.0;
+        var mx = 1.0;
+        var maxMx = 1.0;
         long result = 0;
-        double lastNoteTime = 0.0;
+        var lastNoteTime = 0.0;
 
         var notes = noteManagers.SelectMany(e => e.Notes).ToList();
-        int noteCount = 0;
+        var noteCount = 0;
         
         foreach (var note in notes.OrderBy(e => e.AbsoluteTime))
         {

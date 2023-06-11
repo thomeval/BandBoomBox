@@ -42,9 +42,11 @@ public class ChartEditorClipboard : MonoBehaviour
         foreach (var note in notes)
         {
             note.EndNote = null;
+
             var newObj = Instantiate(note);
             newObj.transform.parent = ItemsContainer.transform;
             newObj.Position -= positionOffset;
+            Debug.Log($"Adding Note {note.NoteClass} {note.NoteType} at position {note.Position} to clipboard.");
         }
     }
 
@@ -99,6 +101,7 @@ public class ChartEditorClipboard : MonoBehaviour
 
             _parent.NoteManager.AttachNote(newNote);
             notesPasted++;
+            Debug.Log($"Pasting Note {newNote.NoteClass} {newNote.NoteType} at position {newNote.Position} from clipboard.");
 
         }
         _parent.NoteManager.CalculateAbsoluteTimes(_parent.CurrentSongData.Bpm);

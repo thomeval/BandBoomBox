@@ -10749,18 +10749,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Try to hit the notes on the above highway as accurately as possible. Adjust
+  m_Text: "Try to hit the notes on the above highway as accurately as possible. Adjust
     the offset and BPM as necessary to get rid of early and late hits (indicated
-    on the note highway).
-
-    If your hits are consistently too early, decrease
-    the offset. If they are too late, increase it. If your hits start perfect but
-    drift late or early over time, adjust the BPM.
-
-    Hint: To improve your accuracy,
-    use a high note scroll speed.
-
-    Click on "Done" when done.'
+    on the note highway).\nIf your hits are consistently too early, decrease the
+    offset. If they are too late, increase it. \nIf your hits start perfect but drift
+    late or early over time, adjust the BPM.\nHint: To improve your accuracy, use
+    a high note scroll speed.\nClick on \"Done\" or hit Esc when done."
 --- !u!222 &753666736
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17894,7 +17888,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EngineOffset: 0.05
-  UserAudioLatency: 0
   TimingDeviationOffset: 0
   _audioTimingDeviation: 0
 --- !u!4 &1354202487

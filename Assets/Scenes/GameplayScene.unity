@@ -4041,9 +4041,5 @@ PrefabInstance:
       propertyPath: m_Library.Array.data[0].m_CategoryList.Array.data[1].m_Sprite
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54825131424afb0458e542290b1f40f0, type: 3}

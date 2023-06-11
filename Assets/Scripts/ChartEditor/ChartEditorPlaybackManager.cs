@@ -82,8 +82,17 @@ public class ChartEditorPlaybackManager : MonoBehaviour
         var lane = NoteUtils.GetNoteLane(noteType);
         LaneFlasher.LaneButtonReleased(lane);
 
-        var note = _parent.NoteManager.FindNearestRelease(lane);
-        ProcessNote(note);
+        var releaseNote = _parent.NoteManager.FindNearestRelease(lane);
+        var pressNote = _parent.NoteManager.FindNearestNote(noteType);
+
+        var currentPosition = _parent.SongManager.GetSongPosition();
+
+        if (pressNote.DistanceTo(currentPosition) < releaseNote.DistanceTo(currentPosition))
+        {
+            return;
+        }
+
+        ProcessNote(releaseNote);
     }
 
     public void PausePlayback()

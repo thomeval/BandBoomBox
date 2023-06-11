@@ -13,6 +13,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public Text TxtLabelSkin;
     public Text TxtGoal;
     public Text TxtMistakeSfxEnabled;
+    public Text TxtControllerRumbleEnabled;
     
     public Grade?[] Goals = { null, Grade.D, Grade.DPlus, Grade.C, Grade.CPlus, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus };
 
@@ -31,6 +32,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     {
         Menu.HandleInput(inputEvent);
         UpdateMenu();
+
     }
 
     void MenuItemShifted(MenuEventArgs args)
@@ -54,6 +56,9 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
                 break;
             case "Mistake Sfx":
                 Parent.Player.MistakeSfxEnabled = !Parent.Player.MistakeSfxEnabled;
+                break;
+            case "Controller Rumble":
+                Parent.Player.RumbleEnabled = !Parent.Player.RumbleEnabled;
                 break;
         }
     }
@@ -94,6 +99,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
 
         UpdateGoalText(player);
         TxtMistakeSfxEnabled.text = BoolToOnOff(player.MistakeSfxEnabled);
+        TxtControllerRumbleEnabled.text = BoolToOnOff(player.RumbleEnabled);
     }
 
     private string BoolToOnOff(bool value)

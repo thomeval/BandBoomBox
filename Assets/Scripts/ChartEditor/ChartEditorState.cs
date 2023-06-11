@@ -5,6 +5,7 @@
     MainMenu,
     ModifyMenu,
     ExitConfirm,
-    Controls,
+    KeyboardControls,
+    ControllerControls,
     OptionsMenu
 }

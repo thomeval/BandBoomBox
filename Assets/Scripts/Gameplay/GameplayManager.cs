@@ -40,12 +40,6 @@ public class GameplayManager : ScreenManager
         set
         {
             value = Mathf.Clamp(value, 0.0f, MaxEnergy);
-
-            if (Math.Abs(value - _energy) < 0.0001f)
-            {
-                return;
-            }
-
             _energy = value;
             
             if (_energy == 0.0f)
@@ -191,15 +185,10 @@ public class GameplayManager : ScreenManager
         this.Energy = 0.0f;
         HudManager.EnergyMeter.MaxEnergy = this.MaxEnergy;
         GameplayState = GameplayState.Intro;
-        _songManager.SongLoaded += SongManager_SongLoaded;
-
-        // TODO: Move to settings loading / saving
-        _songManager.UserAudioLatency = CoreManager.Settings.AudioLatency;
     }
 
     private void CalculateStarScores()
     {
-        var currentSong = _songManager.CurrentSong;
         var activeManagers = NoteManagers.Where(e => e.gameObject.activeInHierarchy).ToList();
         SongStarScoreValues = _songStarValueCalculator.CalculateSuggestedScores(activeManagers);
     }
@@ -305,7 +294,7 @@ public class GameplayManager : ScreenManager
         this.Multiplier = GameplayUtils.DecayMultiplier(this.Multiplier, timeDiff);
     }
 
-    private void SongManager_SongLoaded(object sender, EventArgs e)
+    private void SongManager_SongLoaded()
     {
         _songManager.StartSong();
     }
@@ -595,7 +584,7 @@ public class GameplayManager : ScreenManager
 
     private void ApplySelectedSong(SongData selectedSongData)
     {
-        _songManager.LoadSong(selectedSongData);
+        _songManager.LoadSong(selectedSongData, SongManager_SongLoaded);
 
         HudManager.SongTitleText = selectedSongData.Title + " " + selectedSongData.Subtitle;
     }

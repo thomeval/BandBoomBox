@@ -491,7 +491,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1690, y: 225}
+  m_SizeDelta: {x: 3600, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &2543907861481954216
 SpriteRenderer:
@@ -539,7 +539,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 6760, y: 225}
+  m_Size: {x: 9600, y: 225}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2303,12 +2303,14 @@ MonoBehaviour:
   EarlyWrongCutoff: -2
   LateWrongCutoff: 1
   SongPosition: 0
+  SongPositionInBeats: 0
   DEFAULT_VISIBILITY_RANGE: 8
   NoteSkin: Xbox
   LabelSkin: 
   ScrollSpeed: 500
   Slot: 2
   TrimNotesEnabled: 1
+  _scrollingBackgroundOpacity: 0
   <TurboActive>k__BackingField: 0
 --- !u!114 &4621920213517093067
 MonoBehaviour:

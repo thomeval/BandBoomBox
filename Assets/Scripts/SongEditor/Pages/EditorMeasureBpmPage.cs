@@ -33,20 +33,22 @@ public class EditorMeasureBpmPage : EditorPageManager
         _songManager = FindObjectOfType<SongManager>();
     }
 
-    void Start()
-    {
-
-
-    }
-
     public void BeginMeasure(float startTime)
     {
         EventSystem.current.SetSelectedGameObject(DefaultButton.gameObject);
         _lastHitTime = null;
         _beats.Clear();
         CalculateEstimates();
+        _songManager.LoadSong(Parent.CurrentSong, () => OnSongLoaded(startTime));
+    }
 
-        _songManager.SongLoaded += (sender, args) =>
+    public override void HandleInput(InputEvent inputEvent)
+    {
+        base.HandleInput(inputEvent);
+    }
+
+    private void OnSongLoaded(float startTime)
+    {
         {
             _songManager.StartSong();
             if (startTime < 0.0f)
@@ -56,14 +58,7 @@ public class EditorMeasureBpmPage : EditorPageManager
 
             _songManager.SetAudioPosition(startTime);
         };
-        _songManager.LoadSong(Parent.CurrentSong);
     }
-
-    public override void HandleInput(InputEvent inputEvent)
-    {
-        base.HandleInput(inputEvent);
-    }
-
     private void CalculateEstimates()
     {
 

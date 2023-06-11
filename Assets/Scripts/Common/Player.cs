@@ -511,6 +511,7 @@ public class Player : MonoBehaviour
         */
     }
 
+    //TODO: Convert to association.
     public ProfileData GetProfileData()
     {
         return new ProfileData
@@ -523,7 +524,8 @@ public class Player : MonoBehaviour
             Goal = this.Goal,
             Difficulty = this.Difficulty,
             SongsPlayed = this.SongsPlayed,
-            MistakeSfxEnabled = this.MistakeSfxEnabled
+            MistakeSfxEnabled = this.MistakeSfxEnabled,
+            RumbleEnabled = this.RumbleEnabled
         };
     }
 

@@ -81,17 +81,17 @@ public class NoteManager : MonoBehaviour
     }
 
     [SerializeField]
-    private float _scrollingBackgrounOpacity;
+    private float _scrollingBackgroundOpacity;
     public float ScrollingBackgroundOpacity
     {
         get
         {
-            return _scrollingBackgrounOpacity;
+            return _scrollingBackgroundOpacity;
         }
         set
         {
             value = Mathf.Clamp01(value);
-            _scrollingBackgrounOpacity = value;
+            _scrollingBackgroundOpacity = value;
         }
     }
 
@@ -121,10 +121,8 @@ public class NoteManager : MonoBehaviour
             note.MxValue = mxFromHit;
         }
     }
-    
-    // Start is called before the first frame update
 
-    void Start()
+    void Awake()
     {
         _gameplayManager = GameObject.FindObjectOfType<GameplayManager>();
     }
@@ -199,6 +197,11 @@ public class NoteManager : MonoBehaviour
         }
 
         var newX = (this.ScrollSpeed * this.SongPosition * -1) % _noteAreaWidth;
+
+        if (float.IsNaN(newX))
+        {
+            return;
+        }
 
         ScrollingBackground.position = new Vector3(newX, ScrollingBackground.position.y);
     }

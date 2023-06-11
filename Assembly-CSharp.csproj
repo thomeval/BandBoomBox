@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteItem.cs" />
     <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureBpmPage.cs" />
+    <Compile Include="Assets\Scripts\Songs\ChartValidator.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorSectionListItem.cs" />
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierList.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicEntry.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\Scripts\Managers\PlayerManager.cs" />
+    <Compile Include="Assets\SongProgressMeter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorPageManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
@@ -166,6 +168,7 @@
     <Compile Include="Assets\Scripts\Songs\SongChart.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinFrame.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayManager.cs" />
+    <Compile Include="Assets\SectionProgressMeter.cs" />
     <Compile Include="Assets\Scripts\Common\SpriteMeter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Input\HitJudge.cs" />
@@ -174,6 +177,7 @@
     <Compile Include="Assets\Scripts\MainMenu\MainMenuState.cs" />
     <Compile Include="Assets\Scripts\Util\SpriteFader.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectState.cs" />
+    <Compile Include="Assets\EditorButtonHandler.cs" />
     <Compile Include="Assets\Scripts\Gameplay\TimingDisplayType.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectManager.cs" />
     <Compile Include="Assets\Scripts\Input\HitResult.cs" />
@@ -194,6 +198,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Common\ProfileData.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PauseMenu.cs" />
+    <Compile Include="Assets\Scripts\Songs\HoldRegion.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Evaluation\PlayerResultFrame.cs" />
     <Compile Include="Assets\Scripts\Songs\SongManager.cs" />

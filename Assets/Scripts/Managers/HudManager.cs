@@ -44,8 +44,6 @@ public class HudManager : MonoBehaviour
         _songManager = FindObjectOfType<SongManager>();
     }
 
-    // Update is called once per frame
-
     void FixedUpdate()
     {
         UpdateScore();
@@ -57,10 +55,10 @@ public class HudManager : MonoBehaviour
         MxMeter.BeatFraction = beat - (int) beat;
         MxMeter.Multiplier = (float) GameplayManager.Multiplier;
     
-        TxtTeamCombo.text = string.Format("{0:000}",GameplayManager.TeamCombo);
+        TxtTeamCombo.text = string.Format(CultureInfo.InvariantCulture,"{0:000}",GameplayManager.TeamCombo);
         var mxGainBonus = GameplayManager.MxGainRate - 1.0f;
 
-        TxtMxGainRate.text = string.Format("+{0:P0}", mxGainBonus);
+        TxtMxGainRate.text = string.Format(CultureInfo.InvariantCulture, "+{0:N0}%", mxGainBonus * 100);
         TxtMxGainRate.enabled = mxGainBonus> 0.0f;
         
         if (_songManager.CurrentSong == null)
@@ -70,7 +68,7 @@ public class HudManager : MonoBehaviour
         TxtBpm.text = string.Format(CultureInfo.InvariantCulture, "{0:N1}", _songManager.CurrentSong.Bpm);   
         var songLength = (int) (_songManager.GetPlayableLength() - _songManager.GetSongPosition());
         songLength = Math.Max(songLength, 0);
-        TxtSongTime.text = string.Format("{0}:{1:00}", songLength / 60, songLength % 60);
+        TxtSongTime.text = string.Format(CultureInfo.InvariantCulture, "{0}:{1:00}", songLength / 60, songLength % 60);
         TxtSongCurrentSection.text = _songManager.GetCurrentSection();
         
         DisplayBeat(_songManager.GetSongPositionInBeats());
@@ -98,7 +96,7 @@ public class HudManager : MonoBehaviour
         {
             _displayedScore += diff / 3;
         }
-        TxtScore.text = string.Format("{0:00000000}", _displayedScore);
+        TxtScore.text = string.Format(CultureInfo.InvariantCulture, "{0:00000000}", _displayedScore);
 
         var stars = GameplayManager.GetStarFraction(_displayedScore);
         StarMeter.Value = stars;

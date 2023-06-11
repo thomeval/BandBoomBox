@@ -17,7 +17,8 @@ public class ChartEditorMenuManager : MonoBehaviour
     public GameObject MnuModifyContainer;
     public Menu MnuOptions;
     public GameObject MnuOptionsContainer;
-    public GameObject MnuControlsContainer;
+    public GameObject MnuKeyboardControlsContainer;
+    public GameObject MnuControllerControlsContainer;
     public GameObject RootMenuContainer;
 
     [SerializeField]
@@ -30,7 +31,8 @@ public class ChartEditorMenuManager : MonoBehaviour
 
     private readonly ChartEditorState[] _handledStates = new[]
     {
-        ChartEditorState.MainMenu, ChartEditorState.ModifyMenu, ChartEditorState.Controls, ChartEditorState.OptionsMenu, ChartEditorState.ExitConfirm
+        ChartEditorState.MainMenu, ChartEditorState.ModifyMenu, ChartEditorState.KeyboardControls, ChartEditorState.ControllerControls,
+        ChartEditorState.OptionsMenu, ChartEditorState.ExitConfirm
     };
 
     public bool ShouldHandleState(ChartEditorState state)
@@ -44,7 +46,8 @@ public class ChartEditorMenuManager : MonoBehaviour
         MnuExitConfirmContainer.SetActive(false);
         MnuModifyContainer.SetActive(false);
         MnuOptionsContainer.SetActive(false);
-        MnuControlsContainer.SetActive(false);
+        MnuKeyboardControlsContainer.SetActive(false);
+        MnuControllerControlsContainer.SetActive(false);
         RootMenuContainer.SetActive(true);
         ActiveMenu = null;
         switch (state)
@@ -61,9 +64,14 @@ public class ChartEditorMenuManager : MonoBehaviour
                 MnuModifyContainer.SetActive(true);
                 ActiveMenu = MnuModify;
                 break;
-            case ChartEditorState.Controls:
+            case ChartEditorState.KeyboardControls:
                 RootMenuContainer.SetActive(false);
-                MnuControlsContainer.SetActive(true);
+                MnuKeyboardControlsContainer.SetActive(true);
+                ActiveMenu = null;
+                break;
+            case ChartEditorState.ControllerControls:
+                RootMenuContainer.SetActive(false);
+                MnuControllerControlsContainer.SetActive(true);
                 ActiveMenu = null;
                 break;
             case ChartEditorState.OptionsMenu:
@@ -85,12 +93,6 @@ public class ChartEditorMenuManager : MonoBehaviour
 
     public void OnPlayerInputMenus(InputEvent inputEvent, ChartEditorState state)
     {
-        if (state == ChartEditorState.Controls)
-        {
-            HandleInputControls(inputEvent);
-            return;
-        }
-
         // Menus expect gameplay InputEvents, so convert the editor InputEvents to gameplay ones.
         var gameplayEvent = InputEvent.AsGameplayEvent(inputEvent);
 
@@ -99,6 +101,11 @@ public class ChartEditorMenuManager : MonoBehaviour
             return;
         }
 
+        if (state == ChartEditorState.KeyboardControls || state == ChartEditorState.ControllerControls)
+        {
+            HandleInputControls(gameplayEvent);
+            return;
+        }
 
         if (ActiveMenu != null)
         {
@@ -109,8 +116,9 @@ public class ChartEditorMenuManager : MonoBehaviour
 
     private void HandleInputControls(InputEvent inputEvent)
     {
-        if (inputEvent.Action == InputAction.Editor_PlayPause
-            || inputEvent.Action == InputAction.Editor_Confirm
+        if (inputEvent.Action == InputAction.B
+            || inputEvent.Action == InputAction.A
+            || inputEvent.Action == InputAction.Pause
             || inputEvent.Action == InputAction.Back)
         {
             _parent.PlaySfx(SoundEvent.SelectionCancelled);
@@ -195,8 +203,11 @@ public class ChartEditorMenuManager : MonoBehaviour
             case "Options":
                 _parent.ChartEditorState = ChartEditorState.OptionsMenu;
                 break;
-            case "Controls":
-                _parent.ChartEditorState = ChartEditorState.Controls;
+            case "Keyboard Controls":
+                _parent.ChartEditorState = ChartEditorState.KeyboardControls;
+                break;
+            case "Controller Controls":
+                _parent.ChartEditorState = ChartEditorState.ControllerControls;
                 break;
             case "Modify selected region":
                 if (!_parent.RegionSelected)

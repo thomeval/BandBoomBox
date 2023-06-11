@@ -7,6 +7,8 @@ public class EnergyMeter : MonoBehaviour
     public SpriteMeter SpriteMeter;
     public SpriteResolver SpriteResolver;
 
+    private string _lastSprite = "Inactive";
+
     [SerializeField]
     private float _energy;
 
@@ -17,6 +19,7 @@ public class EnergyMeter : MonoBehaviour
         {
             _energy = Mathf.Clamp(value,0.0f, MaxEnergy);
             SpriteMeter.Value = _energy / MaxEnergy;
+            SetSprite();
         }
     }
 
@@ -31,11 +34,22 @@ public class EnergyMeter : MonoBehaviour
         set
         {
             _turboActive = value;
-            
-            var spriteLabel = (Energy == MaxEnergy) ? "Full" :
-                              _turboActive ? "Active" : "Inactive";
-            SpriteResolver.SetCategoryAndLabel("EnergyMeter", spriteLabel);
+            SetSprite();
         }
     }
 
+    private void SetSprite()
+    {
+        var spriteLabel = (Energy >= MaxEnergy) ? "Full" :
+            _turboActive ? "Active" : "Inactive";
+
+        if (_lastSprite == spriteLabel)
+        {
+            return;
+        }
+
+        SpriteResolver.SetCategoryAndLabel("EnergyMeter", spriteLabel);
+        _lastSprite = spriteLabel;
+    }
 }
+

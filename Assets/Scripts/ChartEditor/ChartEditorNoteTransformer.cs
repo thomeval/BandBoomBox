@@ -157,6 +157,11 @@ public class ChartEditorNoteTransformer : MonoBehaviour
             return;
         }
 
+        if (notesAffected.Any(e => e.NoteClass == NoteClass.Release))
+        {
+            _parent.DisplayMessage("Cannot swap hands for release notes. Try swapping the beginning of the hold note instead.", true);
+            return;
+        }
         var lookup = _parent.CurrentChart.Difficulty == Difficulty.Medium ? _swapHandsMediumLookup : _swapHandsLookup;
         var releases = notesAffected.Select(e => e.EndNote).Where(e => e != null);
         notesAffected.AddRange(releases);

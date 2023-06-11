@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
 public class ChartEditorNotePlacer : MonoBehaviour
 {
     private ChartEditorManager _parent;
@@ -161,21 +160,38 @@ public class ChartEditorNotePlacer : MonoBehaviour
 
     private void RemoveExistingNote(Note existing)
     {
+        _parent.PlaySfx(SoundEvent.Editor_NoteRemoved);
         if (existing.NoteClass == NoteClass.Release)
         {
-            var noteStart = _noteManager.FindReleaseNoteStart(existing);
-            if (noteStart != null)
-            {
-                RemoveExistingNote(noteStart);
-                return;
-            }
+            // Remove a Hold note from its end (release). Convert the note to a tap.
+            RemoveReleaseNote(existing);
+            return;
         }
+
+        // Remove a Hold note from its beginning.
         if (existing.EndNote != null)
         {
             _noteManager.RemoveNote(existing.EndNote);
         }
         _noteManager.RemoveNote(existing);
-        _parent.PlaySfx(SoundEvent.Editor_NoteRemoved);
+    }
+
+    private void RemoveReleaseNote(Note existing)
+    {
+        var noteStart = _noteManager.FindReleaseNoteStart(existing);
+
+        // Should not happen. This is a failsafe in case a Hold Release note ends up separated from its Start note.
+        if (noteStart == null)
+        {
+            _noteManager.RemoveNote(existing);
+            return;
+        }
+
+        // Convert the Hold note associated with this Release note to a Tap Note.
+        var noteType = noteStart.NoteType;
+        var position = noteStart.Position;
+        RemoveExistingNote(noteStart);
+        PlaceNewNoteCommon(noteType, NoteClass.Tap, position);
     }
 
     private void ChangeExistingNote(Note existing, NoteType noteType, NoteClass noteClass)

@@ -16,7 +16,7 @@ public class ChartEditorManager : ScreenManager
     public Text TxtStepSize;
     public Text TxtScrollSpeed;
     public Text TxtSelectedRegion;
-    public Text TxtCurrentSection;
+    public Text TxtMessage;
 
     public double? SelectedRegionStart;
     public double? SelectedRegionEnd;
@@ -24,8 +24,6 @@ public class ChartEditorManager : ScreenManager
     public Color MessageColorNormal = Color.white;
     public Color MessageColorError = new Color(1.0f,0.5f,0.5f);
     public Color MessageColorWarning = new Color(1.0f,1.0f,0.5f);
-
-    public Text TxtMessage;
 
     [Header("Components")]
     public SongChart CurrentChart;
@@ -40,6 +38,8 @@ public class ChartEditorManager : ScreenManager
     public NoteGenerator NoteGenerator;
     public ChartEditorPlaybackManager PlaybackManager;
     public SongManager SongManager;
+    public SongProgressMeter SongProgressMeter;
+    public SectionProgressMeter SectionProgressMeter;
 
     [SerializeField]
     private ChartEditorState _chartEditorState;
@@ -97,7 +97,6 @@ public class ChartEditorManager : ScreenManager
         {
             _cursorPosition = value;
             UpdateHud();
-
         }
     }
 
@@ -121,8 +120,9 @@ public class ChartEditorManager : ScreenManager
         TxtCursorPosition.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", CursorPosition);
         TxtStepSize.text = $"Step: 1/{CursorStepSize} beats";
         TxtScrollSpeed.text = $"Speed: {NoteManager.ScrollSpeed}";
-        TxtCurrentSection.text = CurrentSongData.GetSectionName(CursorPosition);
         UpdateHudSelectedRegion();
+        SongProgressMeter.CurrentPosition = CursorPosition;
+        SectionProgressMeter.CurrentPosition = CursorPosition;
     }
 
     private void UpdateHudSelectedRegion()
@@ -173,6 +173,7 @@ public class ChartEditorManager : ScreenManager
 
         LoadChart();
         SetupSongManager();
+        UpdateHud();
         DisplayMessage("To see the full list of controls, press Esc and select 'Controls'.", false);
     }
 
@@ -186,7 +187,6 @@ public class ChartEditorManager : ScreenManager
         NoteGenerator.GenerateBeatLines(BeatLineType.Phrase, CurrentSongData.LengthInBeats, CurrentSongData.BeatsPerMeasure, this.NoteManager);
         NoteGenerator.LoadSongNotes(CurrentChart, this.NoteManager);
         NoteManager.CalculateAbsoluteTimes(CurrentSongData.Bpm);
-
         ShowNotePalette();
         ApplyNoteSkin();
     }
@@ -204,7 +204,10 @@ public class ChartEditorManager : ScreenManager
 
     private void SetupSongManager()
     {
-        SongManager.LoadSong(CurrentSongData);
+        SongManager.LoadSong(CurrentSongData, null);
+        SongProgressMeter.StartPosition = 0.0;
+        SongProgressMeter.EndPosition = CoreManager.SongManager.GetSongEndInBeats();
+        SectionProgressMeter.DisplayedSong = CurrentSongData;
     }
 
     void Update()
@@ -445,8 +448,16 @@ public class ChartEditorManager : ScreenManager
     {
         try
         {
+            var validationResult = ChartValidator.ValidateNotes(NoteManager.Notes);
+
+            if (!string.IsNullOrEmpty(validationResult))
+            {
+                throw new Exception(validationResult);
+            }
+
             var sjson = SjsonUtils.ToSjson(NoteManager.Notes);
             CurrentChart.Notes = sjson;
+            
             CoreManager.SongLibrary.SaveSongToDisk(CurrentSongData);
             PlaySfx(SoundEvent.Editor_SaveComplete);
             DisplayMessage($"Successfully saved SJSON file to {CurrentSongData.SjsonFilePath} ", false);

@@ -17,12 +17,16 @@ public class SongManager : MonoBehaviour
     public float EngineOffset = 0.05f;
     private AudioSource _audioSource;
 
-    public float UserAudioLatency = 0.0f;
+    public float UserAudioLatency
+    {
+        get { return _settingsManager.AudioLatency; }
+    }
+
     public float TimingDeviationOffset = 0.0f;
     private float? _pausedPosition;
 
     private DateTime? _startTime;
-    public event EventHandler SongLoaded;
+    private SettingsManager _settingsManager;
 
     public float TotalOffsetAdjust
     {
@@ -115,18 +119,19 @@ public class SongManager : MonoBehaviour
         _audioTimingDeviation = (_audioSource.time - audioTime);
     }
 
-    public void LoadSong(SongData song)
+    public void LoadSong(SongData song, Action onCompleted)
     {
+        StopSong();
         CurrentSong = song;
         _startTime = null;
         Debug.Assert(CurrentSong.Bpm != 0.0f, "Song Bpm is 0!");
 
         Debug.Log($"Loading audio file located at {song.AudioPath}");
         var url = Helpers.PathToUri(song.AudioPath);
-        StartCoroutine(LoadSongCoroutine(url));
+        StartCoroutine(LoadSongCoroutine(url, onCompleted));
     }
 
-    IEnumerator LoadSongCoroutine(string url)
+    IEnumerator LoadSongCoroutine(string url, Action onCompleted)
     {
 
         WWW www = new WWW(url);
@@ -140,7 +145,7 @@ public class SongManager : MonoBehaviour
         var clip = www.GetAudioClip(false, false);
         _audioSource.clip = clip;
         Debug.Log("Song Load complete. ");
-        SongLoaded?.Invoke(this, null);
+        onCompleted?.Invoke();
     }
 
     public void StartSong()
@@ -171,6 +176,7 @@ public class SongManager : MonoBehaviour
     void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+        _settingsManager = FindObjectOfType<SettingsManager>();
     }
 
     void FixedUpdate()

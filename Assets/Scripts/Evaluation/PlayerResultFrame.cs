@@ -58,14 +58,6 @@ public class PlayerResultFrame : MonoBehaviour
 
     private Animator _animator;
 
-    private float _totalExpModifier
-    {
-        get
-        {
-            return ExpModifierList.TotalExpModifier;
-        }
-    }
-
     void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -112,7 +104,7 @@ public class PlayerResultFrame : MonoBehaviour
         ExpModifierList.DisplayExpModifier(player, stars, numPlayers);
 
         var totalExpGain = ExpModifierList.GetTotalExpGain(player);
-        ExpMeter.Exp = totalExpGain;
+        ExpMeter.Exp = player.Exp + totalExpGain;
         TxtExpGain.text = string.Format("+{0} EXP", totalExpGain);
         var isLevelUp = ExpLevelUtils.IsLevelUp(player.Exp, totalExpGain);
         TxtIsLevelUp.gameObject.SetActive(isLevelUp);

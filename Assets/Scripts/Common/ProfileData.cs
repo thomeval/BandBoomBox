@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 
 public class ProfileData
 {
@@ -15,6 +14,7 @@ public class ProfileData
 
     public int SongsPlayed { get; set; }
     public bool MistakeSfxEnabled { get; set; } = true;
+    public bool RumbleEnabled { get; set; } = true;
 
     public List<PlayerScore> PlayerScores { get; set; } = new();
 
@@ -55,6 +55,7 @@ public class ProfileData
         player.Difficulty = this.Difficulty;
         player.SongsPlayed = this.SongsPlayed;
         player.MistakeSfxEnabled = this.MistakeSfxEnabled;
+        player.RumbleEnabled = this.RumbleEnabled;
     }
 
     public PlayerScore GetBestPlayerHighScore(string songId, int songVersion)

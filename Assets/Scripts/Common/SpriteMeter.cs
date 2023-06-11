@@ -75,7 +75,7 @@ public class SpriteMeter : MonoBehaviour
 
     }
 
-    public Vector2 MaxSize = new Vector2(1,1);
+    public Vector2 MaxSize = new(1,1);
 
     public SpriteMeterMode SpriteMeterMode = SpriteMeterMode.BottomToTop;
 

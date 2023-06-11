@@ -37,7 +37,7 @@ public class EditorFineTunePage : EditorPageManager
     private HitJudge _hitJudge;
 
     [SerializeField]
-    private readonly List<float> _hits = new List<float>();
+    private readonly List<float> _hits = new();
 
     public float SongPosition
     {
@@ -73,17 +73,17 @@ public class EditorFineTunePage : EditorPageManager
     public void BeginFineTune()
     {
         EventSystem.current.SetSelectedGameObject(DefaultButton.gameObject);
-
-        _songManager.SongLoaded += (sender, args) =>
-        {
-            _songManager.StartSong();
-            _songManager.SetAudioPosition(Parent.CurrentSong.AudioStart);
-        };
-        _songManager.LoadSong(Parent.CurrentSong);
+        _songManager.LoadSong(Parent.CurrentSong, OnSongLoaded);
 
         SetupNoteManager();
         DisplaySong(Parent.CurrentSong);
         ClearHits();
+    }
+
+    private void OnSongLoaded()
+    {
+        _songManager.StartSong();
+        _songManager.SetAudioPosition(Parent.CurrentSong.AudioStart);
     }
 
     private void SetupNoteManager()
@@ -168,6 +168,9 @@ public class EditorFineTunePage : EditorPageManager
             case InputAction.Turbo:
                 RestartSong();
                 break;
+            case InputAction.Back:
+                BtnDone_OnClick();
+                break;
         }
     }
 
@@ -241,12 +244,11 @@ public class EditorFineTunePage : EditorPageManager
         avg = RollingAverage(32);
         TxtLast32.text = string.Format(CultureInfo.InvariantCulture, "{0:F0} ms", avg);
         TxtLast32Timing.text = GetTiming(avg);
-
-
     }
 
     private string GetTiming(float? deviation)
     {
+        var deviationText = deviation > 0 ? "Late" : "Early";
         if (!deviation.HasValue)
         {
             return "";
@@ -259,16 +261,11 @@ public class EditorFineTunePage : EditorPageManager
 
         if (Mathf.Abs(deviation.Value) < GoodTimingCutoff)
         {
-            return "Good";
+            return $"Good ({deviationText[0]})";
         }
 
-        if (deviation > 0)
-        {
-            return "Late";
-        }
+        return deviationText;
 
-        return "Early";
-        
     }
 
 

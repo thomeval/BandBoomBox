@@ -27,7 +27,7 @@ public class PlayerHudManager : MonoBehaviour
     {
         _playerIdentifierResolver.SetCategoryAndLabel("PlayerIdentifiers",player.GetPlayerIdSprite());
         TxtDifficulty.text = player.Difficulty.ToString();
-        TxtPerfPercent.text = string.Format(CultureInfo.InvariantCulture, "{0:P1}", player.PerfPercent).Replace(" ","");
+        TxtPerfPercent.text = string.Format(CultureInfo.InvariantCulture, "{0:N1}%", player.PerfPercent * 100);
         TxtCombo.text = string.Format(CultureInfo.InvariantCulture, "{0:000}", player.Combo);
         TxtRanking.enabled = ShowRankings;
         CountdownDisplay.PlayerName = player.NameOrPlayerNumber;
