@@ -10,10 +10,11 @@ public class NoteGenerator : MonoBehaviour
     public Note HoldNotePrefab;
     public BeatLine BeatLinePrefab;
     public BeatLine FinishMarkerPrefab;
+    public BeatLine SectionLinePrefab;
 
     private readonly Note[] _lastSeenHolds = new Note[4];
 
-    private readonly Random _rnd = new Random();
+    private readonly Random _rnd = new();
 
 
     private NoteType GetNoteType(Difficulty playDifficulty, bool[] filledLanes)
@@ -174,7 +175,12 @@ public class NoteGenerator : MonoBehaviour
         }
     }
 
-    public void GenerateBeatLines(BeatLineType beatLineType, float endBeat, int beatsPerMeasure, NoteManager destination)
+    public void GenerateBeatLines(BeatLineType beatLineType, SongData song, NoteManager destination)
+    {
+        GenerateBeatLines(beatLineType, song.LengthInBeats, song.BeatsPerMeasure, song.Sections, destination);
+    }
+
+    public void GenerateBeatLines(BeatLineType beatLineType, float endBeat, int beatsPerMeasure, Dictionary<double, string> sections, NoteManager destination)
     {
 
         if (beatLineType == BeatLineType.Off || beatsPerMeasure <= 0)
@@ -183,18 +189,10 @@ public class NoteGenerator : MonoBehaviour
         }
 
         var beatLines = new List<BeatLine>();
-        int beatsPerBeatLine = 0;
-        switch (beatLineType)
-        {
-            case BeatLineType.Beat:
-                beatsPerBeatLine = 1;
-                break;
-            case BeatLineType.Phrase:
-                beatsPerBeatLine = beatsPerMeasure;
-                break;
-        }
-
-        GenerateBeatlines(endBeat, beatsPerBeatLine, beatsPerMeasure, ref beatLines);
+        sections ??= new Dictionary<double, string>();
+        var sectionTimes = sections.Keys.ToList();
+        GenerateBeatLines(endBeat, beatsPerMeasure, sectionTimes, ref beatLines);
+        GenerateSectionLines(sectionTimes, ref beatLines);
         destination.BeatLines = beatLines;
 
         var endMarker = Instantiate(FinishMarkerPrefab, destination.transform);
@@ -206,19 +204,47 @@ public class NoteGenerator : MonoBehaviour
         destination.ApplyNoteSkin();
     }
 
-    private void GenerateBeatlines(float endBeat, int beatsPerBeatline, int beatsPerPhrase, ref List<BeatLine> destination)
+    private void GenerateBeatLines(float endBeat, int beatsPerMeasure, List<double> sections, ref List<BeatLine> destination)
     {
 
-        for (int x = 0; x <= endBeat; x += beatsPerBeatline)
+        for (var x = 0; x <= endBeat; x += beatsPerMeasure)
         {
-            var beatLine = Instantiate(BeatLinePrefab);
-            if (beatLine != null)
+            if (sections.Contains(x))
             {
-                beatLine.Position = x;
-                beatLine.BeatLineType = x % beatsPerPhrase == 0 ? BeatLineType.Phrase : BeatLineType.Beat;
-                destination.Add(beatLine);
+                continue;
             }
+
+            var beatLine = Instantiate(BeatLinePrefab);
+            if (beatLine == null)
+            {
+                continue;
+            }
+
+            beatLine.Position = x;
+            beatLine.BeatLineType = BeatLineType.Phrase;
+            destination.Add(beatLine);
         }
+    }
+
+    public void GenerateSectionLines(List<double> sections, ref List<BeatLine> destination)
+    {
+
+        foreach (var section in sections)
+        {
+            var beatLine = InstantiateBeatLine(SectionLinePrefab, (float) section, BeatLineType.Section);
+            destination.Add(beatLine);
+        }
+    }
+
+
+    private BeatLine InstantiateBeatLine(BeatLine prefab, float xPos, BeatLineType beatLineType)
+    {
+        var result = Instantiate(prefab);
+        Debug.Assert(result != null, $"Prefab instantiate failed for beatline of type {beatLineType}");
+        result!.Position = xPos;
+        result.BeatLineType = beatLineType;
+        return result;
+
     }
 
     public void LoadNoteArray(string[] noteArray, ref List<Note> destination)
@@ -230,7 +256,7 @@ public class NoteGenerator : MonoBehaviour
 
     }
 
-    private const int BLOCK_SIZE = 4;
+    private const int LINE_SIZE = 4;
     private void LoadNoteBlock(string notes, int beat, ref List<Note> destination)
     {
         notes = notes.Trim().Replace(" ","");
@@ -245,33 +271,48 @@ public class NoteGenerator : MonoBehaviour
             throw new ArgumentException($"Invalid Note block at beat {beat}: {notes}");
         }
 
-        List<string> slices = new List<string>();
+        var lines = new List<string>();
 
-        for (int x = 0; x < notes.Length; x += BLOCK_SIZE)
+        for (int x = 0; x < notes.Length; x += LINE_SIZE)
         {
-            slices.Add(notes.Substring(x,BLOCK_SIZE));
+            lines.Add(notes.Substring(x,LINE_SIZE));
         }
 
-        float beatFraction = 1.0f / slices.Count;
+        float beatFraction = 1.0f / lines.Count;
         float currentBeatFraction = 0.0f;
-        foreach (var slice in slices)
+        foreach (var line in lines)
         {
-            LoadNoteSlice(slice, beat + currentBeatFraction,  ref destination);
+            LoadNoteLine(line, beat + currentBeatFraction,  ref destination);
             currentBeatFraction += beatFraction;
         }
     }
 
-    private void LoadNoteSlice(string slice, float beat,  ref List<Note> destination)
+    private void LoadNoteLine(string line, float beat,  ref List<Note> destination)
     {
-        for (int x = 0; x < BLOCK_SIZE; x++)
+        if (line.Length != LINE_SIZE)
         {
-            var noteType = SjsonUtils.ResolveNoteType(slice[x], x);
-            var noteClass = SjsonUtils.ResolveNoteClass(slice[x]);
             
-            if (noteType != null)
+            Debug.LogWarning($"Invalid note line length: {line}.");
+            return;
+        }
+
+        for (int x = 0; x < LINE_SIZE; x++)
+        {
+            if (line[x] == '0')
             {
-                InstantiateNote(beat, noteType.Value, noteClass.Value, ref destination);
+                continue;
             }
+
+            var noteType = SjsonUtils.ResolveNoteType(line[x], x);
+            var noteClass = SjsonUtils.ResolveNoteClass(line[x]);
+
+            if (noteType == null || noteClass == null)
+            {
+                Debug.LogWarning($"Invalid note type or class in slice: {line}. Unrecognized value: {line[x]}.");
+                continue;
+            }
+
+            InstantiateNote(beat, noteType.Value, noteClass.Value, ref destination);
         }
     }
 

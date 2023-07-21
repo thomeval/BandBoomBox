@@ -112,19 +112,13 @@ public class DifficultySelectFrame : MonoBehaviour
     {
         DifficultyMenu.ClearItems();
         var charts = DisplayedSongData.SongCharts.Where(e => e.Group == SelectedChartGroup).ToArray();
-        foreach (var chart in charts.OrderBy(e=> e.Difficulty))
+        foreach (var chart in charts.OrderBy(e=> e.DifficultyLevel).ThenBy(e => e.Difficulty))
         {
             var obj = Instantiate(DifficultyMenuItemPrefab);
             
-            obj.GetComponent<DifficultyDisplayItem>().DisplayDifficulty(chart.Difficulty, chart.DifficultyLevel, chart.DifficultyLevel);
+            obj.GetComponent<DifficultyDisplayItem>().DisplayDifficulty(chart.Difficulty, chart.DifficultyLevel);
             DifficultyMenu.AddItem(obj);
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     public void HandleInput(InputEvent inputEvent)

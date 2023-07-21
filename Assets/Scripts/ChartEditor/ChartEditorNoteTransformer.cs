@@ -39,21 +39,21 @@ public class ChartEditorNoteTransformer : MonoBehaviour
 
     private readonly Dictionary<NoteType, NoteType> _invertLookup = new()
     {
-        {NoteType.A, NoteType.Up},
-        {NoteType.B, NoteType.Left},
-        {NoteType.X, NoteType.Right},
-        {NoteType.Y, NoteType.Down},
-        {NoteType.Left, NoteType.B},
-        {NoteType.Down, NoteType.Y},
-        {NoteType.Up, NoteType.A},
-        {NoteType.Right, NoteType.X},
-        {NoteType.LB, NoteType.RB},
-        {NoteType.LT, NoteType.RT},
-        {NoteType.RB, NoteType.LB},
-        {NoteType.RT, NoteType.LT},
-        {NoteType.AnyB, NoteType.AnyD},
-        {NoteType.AnyD, NoteType.AnyB},
-        {NoteType.AnyT, NoteType.AnyT},
+        { NoteType.A, NoteType.Up},
+        { NoteType.B, NoteType.Left},
+        { NoteType.X, NoteType.Right},
+        { NoteType.Y, NoteType.Down},
+        { NoteType.Left, NoteType.B},
+        { NoteType.Down, NoteType.Y},
+        { NoteType.Up, NoteType.A},
+        { NoteType.Right, NoteType.X},
+        { NoteType.LB, NoteType.RB},
+        { NoteType.LT, NoteType.RT},
+        { NoteType.RB, NoteType.LB},
+        { NoteType.RT, NoteType.LT},
+        { NoteType.AnyB, NoteType.AnyD},
+        { NoteType.AnyD, NoteType.AnyB},
+        { NoteType.AnyT, NoteType.AnyT},
     };
 
     private readonly Dictionary<NoteType, NoteType> _invertMediumLookup = new()
@@ -106,6 +106,58 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         { NoteType.RT, NoteType.RB },
     };
 
+    private readonly Dictionary<NoteType, NoteType> _rotate90Lookup = new()
+    {
+        { NoteType.A, NoteType.B },
+        { NoteType.B, NoteType.Y },
+        { NoteType.X, NoteType.A },
+        { NoteType.Y, NoteType.X },
+        { NoteType.Left, NoteType.Down },
+        { NoteType.Down, NoteType.Right },
+        { NoteType.Up, NoteType.Left },
+        { NoteType.Right, NoteType.Up },
+    };
+
+    private readonly Dictionary<NoteType, NoteType> _rotate180Lookup = new()
+    {
+        { NoteType.A, NoteType.Y },
+        { NoteType.B, NoteType.X },
+        { NoteType.X, NoteType.B },
+        { NoteType.Y, NoteType.A },
+        { NoteType.Left, NoteType.Right },
+        { NoteType.Down, NoteType.Up },
+        { NoteType.Up, NoteType.Down },
+        { NoteType.Right, NoteType.Left },
+    };
+
+    private readonly Dictionary<NoteType, NoteType> _rotate180MasterLookup = new()
+    {
+        { NoteType.A, NoteType.Y },
+        { NoteType.B, NoteType.X },
+        { NoteType.X, NoteType.B },
+        { NoteType.Y, NoteType.A },
+        { NoteType.Left, NoteType.Right },
+        { NoteType.Down, NoteType.Up },
+        { NoteType.Up, NoteType.Down },
+        { NoteType.Right, NoteType.Left },
+        { NoteType.LB, NoteType.LT },
+        { NoteType.LT, NoteType.LB },
+        { NoteType.RB, NoteType.RT },
+        { NoteType.RT, NoteType.RB },
+    };
+
+    private NoteType[] _mediumNoteTypes = { NoteType.A, NoteType.B, NoteType.Left, NoteType.Down };
+
+    private Dictionary<NoteType, NoteType> GetRotate90Lookup()
+    {
+        return _rotate90Lookup;
+    }
+
+    private Dictionary<NoteType, NoteType> GetRotate180Lookup()
+    {
+        return _parent.CurrentChart.Difficulty == Difficulty.Master || _parent.CurrentChart.Difficulty == Difficulty.Extra ? _rotate180MasterLookup : _rotate180Lookup;
+    }
+
     #endregion
     void Awake()
     {
@@ -120,7 +172,7 @@ public class ChartEditorNoteTransformer : MonoBehaviour
     }
 
     public void Invert()
-    {   
+    {
         if (!HasValidRegionSet())
         {
             _parent.PlaySfx(SoundEvent.Mistake);
@@ -147,19 +199,82 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         TransformNotes(notesAffected, lookup);
     }
 
+    public void Rotate90()
+    {
+        if (!HasValidRegionSet())
+        {
+            _parent.PlaySfx(SoundEvent.Mistake);
+            return;
+        }
+
+        var notesAffected = GetNotesInCurrentRegion();
+        var lookup = GetRotate90Lookup();
+
+        TransformNotes(notesAffected, lookup);
+    }
+
+    public void Rotate180()
+    {
+        if (!HasValidRegionSet())
+        {
+            _parent.PlaySfx(SoundEvent.Mistake);
+            return;
+        }
+
+        var notesAffected = GetNotesInCurrentRegion();
+        var lookup = GetRotate180Lookup();
+
+        TransformNotes(notesAffected, lookup);
+    }
+
+    public void ExpandMediumToHard()
+    {
+        if (!HasValidRegionSet())
+        {
+            _parent.PlaySfx(SoundEvent.Mistake);
+            return;
+        }
+
+        var notesAffected = GetNotesInCurrentRegion();
+
+
+        if (notesAffected.Any(e => !IsMediumNote(e)))
+        {
+            _parent.DisplayMistake("Cannot expand the selected region to Hard difficulty. There are already notes that are not Medium difficulty.");
+            return;
+        }
+
+        var lookup = GetRotate180Lookup();
+
+        var transformNextNote = true;
+        foreach (var note in notesAffected)
+        {
+            if (transformNextNote)
+            {
+                TransformNote(note, lookup);
+            }
+            transformNextNote = !transformNextNote;
+        }
+    }
+
+    private bool IsMediumNote(Note note)
+    {
+        return _mediumNoteTypes.Contains(note.NoteType);      
+    }
+
     public void SwapHandsAtCurrentPosition()
     {
         var notesAffected = GetNotesAtCurrentPosition();
 
         if (!notesAffected.Any())
         {
-            _parent.DisplayMessage("There aren't any notes at the current position to swap.", true);
+            _parent.DisplayMistake("There aren't any notes at the current position to swap.");
             return;
         }
 
         if (notesAffected.Any(e => e.NoteClass == NoteClass.Release))
         {
-            _parent.DisplayMessage("Cannot swap hands for release notes. Try swapping the beginning of the hold note instead.", true);
+            _parent.DisplayMistake("Cannot swap hands for release notes. Try swapping the beginning of the hold note instead.");
             return;
         }
         var lookup = _parent.CurrentChart.Difficulty == Difficulty.Medium ? _swapHandsMediumLookup : _swapHandsLookup;
@@ -240,14 +355,14 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         {
             return new List<Note>();
         }
-        var result =  _noteManager.GetNotesInRegion(_parent.SelectedRegionStart!.Value, _parent.SelectedRegionEnd!.Value);
+        var result = _noteManager.GetNotesInRegion(_parent.SelectedRegionStart!.Value, _parent.SelectedRegionEnd!.Value);
 
         return result;
     }
 
     private List<Note> GetNotesAtCurrentPosition()
     {
-        var result =  _noteManager.GetNotesAtPosition(_parent.CursorPosition);
+        var result = _noteManager.GetNotesAtPosition(_parent.CursorPosition);
         return result;
     }
 

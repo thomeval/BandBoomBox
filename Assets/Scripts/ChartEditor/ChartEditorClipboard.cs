@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 public class ChartEditorClipboard : MonoBehaviour
@@ -29,7 +27,6 @@ public class ChartEditorClipboard : MonoBehaviour
     {
         if (!_parent.NoteTransformer.HasValidRegionSet())
         {
-            _parent.PlaySfx(SoundEvent.Mistake);
             _parent.DisplayMessage("Select a region to cut or copy using the 'Set Region Start/End' key first.", true);
             return false;
         }
@@ -41,12 +38,11 @@ public class ChartEditorClipboard : MonoBehaviour
     {
         foreach (var note in notes)
         {
-            note.EndNote = null;
+            //note.EndNote = null;
 
             var newObj = Instantiate(note);
             newObj.transform.parent = ItemsContainer.transform;
             newObj.Position -= positionOffset;
-            Debug.Log($"Adding Note {note.NoteClass} {note.NoteType} at position {note.Position} to clipboard.");
         }
     }
 
@@ -77,8 +73,7 @@ public class ChartEditorClipboard : MonoBehaviour
     {
         if (!Items.Any())
         {
-            _parent.PlaySfx(SoundEvent.Mistake);
-            _parent.DisplayMessage("Nothing to paste.", true);
+            _parent.DisplayMistake("Nothing to paste.");
             return;
         }
 
@@ -101,8 +96,6 @@ public class ChartEditorClipboard : MonoBehaviour
 
             _parent.NoteManager.AttachNote(newNote);
             notesPasted++;
-            Debug.Log($"Pasting Note {newNote.NoteClass} {newNote.NoteType} at position {newNote.Position} from clipboard.");
-
         }
         _parent.NoteManager.CalculateAbsoluteTimes(_parent.CurrentSongData.Bpm);
 
@@ -132,7 +125,6 @@ public class ChartEditorClipboard : MonoBehaviour
     public void OnPlayerInput(InputEvent inputEvent)
     {
         OnPlayerInput(inputEvent.Action);
-
     }
 
     public void OnPlayerInput(InputAction action)

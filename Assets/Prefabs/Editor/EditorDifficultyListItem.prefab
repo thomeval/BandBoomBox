@@ -373,6 +373,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Expert
       m_Image: {fileID: 0}
+    - m_Text: Extra
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1984,7 +1986,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350, y: 0}
+  m_SizeDelta: {x: 250, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3112529970335859161
 CanvasRenderer:

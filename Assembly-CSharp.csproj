@@ -106,6 +106,7 @@
     <Compile Include="Assets\StarMeter.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenuManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\Scripts\Songs\DifficultyRange.cs" />
     <Compile Include="Assets\Scripts\Misc\LogicalNotProcessor.cs" />
     <Compile Include="Assets\Scripts\Common\ExpMeter.cs" />
     <Compile Include="Assets\Scripts\Misc\UIExtensions.cs" />

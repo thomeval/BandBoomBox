@@ -52,17 +52,43 @@ public class SongData
         return SongCharts.SingleOrDefault(e => e.Group == group && e.Difficulty == difficulty);
     }
 
-    public (int min, int max) GetDifficultyRange(Difficulty diff)
+    public DifficultyRange GetDifficultyRange(Difficulty diff)
     {
+        var result = new DifficultyRange
+        {
+            Difficulty = diff
+        };
+
         var charts = SongCharts.Where(e => e.Difficulty == diff).ToList();
 
         if (!charts.Any())
         {
-            return (-1, -1);
+            return result;
         }
 
-        return (charts.Min(e => e.DifficultyLevel), charts.Max(e => e.DifficultyLevel));
+        result.Min = charts.Min(e => e.DifficultyLevel);
+        result.Max = charts.Max(e => e.DifficultyLevel);
+        return result;
 
+    }
+
+    public List<DifficultyRange> GetDifficultyRanges()
+    {
+        var result = new List<DifficultyRange>();
+
+        foreach (var diff in Enum.GetValues(typeof(Difficulty)).Cast<Difficulty>())
+        {
+            var range = GetDifficultyRange(diff);
+            if (range.IsEmpty)
+            {
+                continue;
+            }
+
+            result.Add(range);
+        }
+
+        result = result.OrderBy(e => e.Min).ThenBy(e => e.Max).ThenBy(e => e.Difficulty).ToList();
+        return result;
     }
 
     public override string ToString()
@@ -86,4 +112,3 @@ public class SongData
         return GetSection(position).Value;
     }
 }
-

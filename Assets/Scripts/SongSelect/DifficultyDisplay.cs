@@ -1,4 +1,7 @@
 using Assets;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DifficultyDisplay : MonoBehaviour
@@ -28,13 +31,16 @@ public class DifficultyDisplay : MonoBehaviour
     }
     private void ShowDifficulties()
     {
-        for (int x = 0; x < DisplayItems.Length; x++)
+        HideAll();
+
+        var x = 0;
+
+        var ranges = SongData.GetDifficultyRanges();
+        foreach (var range in ranges)
         {
-            var diff = (Difficulty) x;
-            (int min, int max) diffRange = SongData.GetDifficultyRange(diff);
-            DisplayItems[x].DisplayDifficulty(diff, diffRange.min, diffRange.max);
+            DisplayItems[x].DisplayDifficulty(range);
+            x++;
         }
-        
     }
 
 }

@@ -63,7 +63,8 @@ public class HitJudge
         {Difficulty.Medium, 0.9f},
         {Difficulty.Hard, 1.0f},
         {Difficulty.Expert, 1.05f},
-        {Difficulty.Master, 1.1f}
+        {Difficulty.Master, 1.1f},
+        {Difficulty.Extra, 1.0f}
     };
 
     public static Dictionary<Difficulty, float> DifficultyMissMxValues = new()
@@ -72,7 +73,8 @@ public class HitJudge
         {Difficulty.Medium, 0.75f},
         {Difficulty.Hard, 1.0f},
         {Difficulty.Expert, 1.0f},
-        {Difficulty.Master, 1.0f}
+        {Difficulty.Master, 1.0f},
+        {Difficulty.Extra, 1.0f}
     };
 
     public static Dictionary<Difficulty, float> DifficultyExpValues = new()
@@ -80,6 +82,7 @@ public class HitJudge
         {Difficulty.Beginner, 0.5f},
         {Difficulty.Medium, 0.75f},
         {Difficulty.Hard, 1.0f},
+        {Difficulty.Extra, 1.0f},
         {Difficulty.Expert, 1.1f},
         {Difficulty.Master, 1.2f}
     };

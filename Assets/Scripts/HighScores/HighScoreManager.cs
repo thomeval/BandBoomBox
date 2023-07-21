@@ -46,7 +46,7 @@ public class HighScoreManager : MonoBehaviour
     public void FixDuplicates()
     {
         var dups = TeamScores.GroupBy(e => $"{e.SongVersion} {e.SongId} {e.Category}").Where(g => g.Count() > 1);
-        List<TeamScore> scoresToRemove = new List<TeamScore>();
+        var scoresToRemove = new List<TeamScore>();
 
         foreach (var dupGroup in dups)
         {

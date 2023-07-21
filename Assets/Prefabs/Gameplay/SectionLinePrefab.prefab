@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1559923828908329126}
   - component: {fileID: 8917757598567965359}
   m_Layer: 0
-  m_Name: BeatLinePrefab
+  m_Name: SectionLinePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 8917757598567965358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01875, y: 1.125, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: -2144779817
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bd888d059119a1e4eb8c714bc1ccf2fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a550eb2a27952544d86eb65d7241f03e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 200, y: 200}
+  m_Size: {x: 45, y: 225}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -99,5 +99,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: 0
   AbsoluteTime: 0
-  BeatLineType: 0
+  BeatLineType: 2
   XPositionOffset: 0

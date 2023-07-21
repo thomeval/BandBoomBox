@@ -48,3 +48,4 @@ MonoBehaviour:
   HoldNotePrefab: {fileID: 2582678796991891125, guid: 398bb0a026c567d4a8c81bab748e178f, type: 3}
   BeatLinePrefab: {fileID: 8917757598567965359, guid: 6792848381e033b429b38d0fb43daa40, type: 3}
   FinishMarkerPrefab: {fileID: 4785793796180272287, guid: 7713de78369362244ae5a1a97d39749f, type: 3}
+  SectionLinePrefab: {fileID: 8917757598567965359, guid: e7a15c0ca7a11d74d863c0f2ff528693, type: 3}

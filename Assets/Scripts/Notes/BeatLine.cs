@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D.Animation;
 
 public class BeatLine : MonoBehaviour
 {
@@ -10,12 +7,7 @@ public class BeatLine : MonoBehaviour
 
     public BeatLineType BeatLineType;
     public int XPositionOffset = 0;
-    private SpriteResolver _spriteResolver;
 
-    void Awake()
-    {
-        _spriteResolver = GetComponent<SpriteResolver>();
-    }
 
     public void SetPosition(float newXPos)
     {
@@ -27,10 +19,5 @@ public class BeatLine : MonoBehaviour
     {
         var currentPos = this.transform.localPosition;
         this.transform.localPosition = new Vector3(newXPos + XPositionOffset, newYPos, currentPos.z);
-    }
-
-    public void SetSprite()
-    {
-        _spriteResolver.SetCategoryAndLabel("BeatLines", BeatLineType.ToString());
     }
 }

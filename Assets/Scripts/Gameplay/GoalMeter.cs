@@ -42,6 +42,18 @@ public class GoalMeter : MonoBehaviour
     }
 
     [SerializeField]
+    private int _pace;
+    public int Pace
+    {
+        get { return _pace; }
+        set
+        {
+            _pace = value;
+            Refresh();
+        }
+    }
+
+    [SerializeField]
     private int _playerCurrent;
     public int PlayerCurrent
     {
@@ -137,10 +149,6 @@ public class GoalMeter : MonoBehaviour
         {
             return;
         }
-
-        var tempMax = Max - Min;
-        var tempValue = Value - Min;
-        tempValue = Math.Max(0, tempValue);
 
         var percent = GetMeterPercent();
 

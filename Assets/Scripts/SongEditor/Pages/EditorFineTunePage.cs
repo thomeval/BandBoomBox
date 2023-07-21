@@ -94,7 +94,7 @@ public class EditorFineTunePage : EditorPageManager
         NoteManager.AttachNotes();
         NoteManager.ApplyNoteSkin("Default", "None");
 
-        NoteGenerator.GenerateBeatLines(BeatLineType.Phrase, endBeat, Parent.CurrentSong.BeatsPerMeasure, NoteManager);
+        NoteGenerator.GenerateBeatLines(BeatLineType.Phrase, Parent.CurrentSong, NoteManager);
 
         NoteManager.CalculateAbsoluteTimes(_songManager.CurrentSong.Bpm);
         NoteManager.ScrollSpeed = this.Player.ScrollSpeed;

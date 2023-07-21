@@ -120,7 +120,7 @@ public class GameplayManager : ScreenManager
         {
             var player = _playerManager.Players.Single(e => e.Slot == noteManager.Slot);
             NoteGenerator.LoadOrGenerateSongNotes(_songManager.CurrentSong, player.ChartGroup, player.Difficulty, noteManager);
-            NoteGenerator.GenerateBeatLines(player.BeatLineType, _songManager.GetSongEndInBeats(), _songManager.CurrentSong.BeatsPerMeasure, noteManager);
+            NoteGenerator.GenerateBeatLines(player.BeatLineType, _songManager.CurrentSong, noteManager);
             noteManager.ApplyNoteSkin(player.NoteSkin, player.LabelSkin);
             noteManager.CalculateAbsoluteTimes(_songManager.CurrentSong.Bpm);
             noteManager.ScrollSpeed = player.ScrollSpeed;

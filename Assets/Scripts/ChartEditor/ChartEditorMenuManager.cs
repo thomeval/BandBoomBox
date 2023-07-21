@@ -26,7 +26,7 @@ public class ChartEditorMenuManager : MonoBehaviour
     public Menu ActiveMenu
     {
         get { return _activeMenu; }
-        private set {  _activeMenu = value; }
+        private set { _activeMenu = value; }
     }
 
     private readonly ChartEditorState[] _handledStates = new[]
@@ -54,8 +54,8 @@ public class ChartEditorMenuManager : MonoBehaviour
         {
             case ChartEditorState.Edit:
             case ChartEditorState.Playback:
-                RootMenuContainer.SetActive(false); 
-               break;
+                RootMenuContainer.SetActive(false);
+                break;
             case ChartEditorState.MainMenu:
                 MnuMainContainer.SetActive(true);
                 ActiveMenu = MnuMain;
@@ -257,6 +257,14 @@ public class ChartEditorMenuManager : MonoBehaviour
                 _parent.NoteTransformer.Invert();
                 _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
+            case "Rotate 90 Degrees":
+                _parent.NoteTransformer.Rotate90();
+                _parent.ChartEditorState = ChartEditorState.Edit;
+                break;
+            case "Expand Medium To Hard":
+                _parent.NoteTransformer.ExpandMediumToHard();
+                _parent.ChartEditorState = ChartEditorState.Edit;
+                break;
             case "Clear Selected Region":
                 _parent.NoteTransformer.ClearRegion();
                 _parent.ChartEditorState = ChartEditorState.Edit;
@@ -265,6 +273,8 @@ public class ChartEditorMenuManager : MonoBehaviour
                 _parent.NoteTransformer.ClampToDifficulty(_parent.CurrentChart.Difficulty);
                 _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
+            default:
+                throw new Exception("Unknown menu item selected: " + args.SelectedItem);
         }
     }
 

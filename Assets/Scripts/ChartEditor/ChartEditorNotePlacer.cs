@@ -53,8 +53,7 @@ public class ChartEditorNotePlacer : MonoBehaviour
 
         if (!NoteIsValidForDifficulty(noteType, noteClass))
         {
-            _parent.PlaySfx(SoundEvent.Mistake);
-            _parent.DisplayMessage($"The selected note type ({noteType}), does not belong in a {_parent.CurrentDifficulty} chart.",true);
+            _parent.DisplayMistake($"The selected note type ({noteType}), does not belong in a {_parent.CurrentDifficulty} chart.");
             return;
         }
 
@@ -99,7 +98,7 @@ public class ChartEditorNotePlacer : MonoBehaviour
         {
             return noteType == NoteType.AnyB
                    || noteType == NoteType.AnyD
-                   || (noteType == NoteType.AnyT && (diff == Difficulty.Expert || diff == Difficulty.Master));
+                   || (noteType == NoteType.AnyT && (diff == Difficulty.Expert || diff == Difficulty.Master || diff == Difficulty.Extra));
         }
 
         return NoteUtils.GetValidNoteTypesForDifficulty(diff).Contains(noteType);
@@ -134,8 +133,7 @@ public class ChartEditorNotePlacer : MonoBehaviour
 
         if (prevNote == null || prevNote.NoteClass != NoteClass.Tap)
         {
-            _parent.PlaySfx(SoundEvent.Mistake);
-            _parent.DisplayMessage("Cannot place a Hold Release here. First mark the beginning of the Hold note by placing a Tap note on the same lane.", true);
+            _parent.DisplayMistake("Cannot place a Hold Release here. First mark the beginning of the Hold note by placing a Tap note on the same lane.");
             return;
         }
 
@@ -199,13 +197,13 @@ public class ChartEditorNotePlacer : MonoBehaviour
         // Don't try to modify Release notes.
         if (existing.NoteClass == NoteClass.Release)
         {
-            _parent.DisplayMessage("Cannot modify a release note. To change a hold note, modify its beginning note instead.", true);
+            _parent.DisplayMistake("Cannot modify a release note. To change a hold note, modify its beginning note instead.");
             return;
         }
 
         if (noteClass == NoteClass.Release)
         {
-            _parent.DisplayMessage("Cannot place a release note here. Another note is in the way.", true);
+            _parent.DisplayMistake("Cannot place a release note here. Another note is in the way.");
             return;
         }
 

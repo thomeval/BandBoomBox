@@ -136,6 +136,8 @@ public static class NoteUtils
                 return  new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB };
             case Difficulty.Master:
                 return  new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB, NoteType.LT, NoteType.RT };
+            case Difficulty.Extra:
+                return  new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB, NoteType.LT, NoteType.RT };
             default:
                 return Array.Empty<NoteType>();
         }
@@ -205,6 +207,7 @@ public enum BeatLineType
 {
     Beat,
     Phrase,
+    Section,
     Off,
     Finish
 }

@@ -20,6 +20,7 @@ public class DifficultyDisplayItem : MonoBehaviour
         {Difficulty.Hard, new Color(0.65f, 0.65f, 0.0f )},
         {Difficulty.Expert, new Color(0.8f, 0.0f, 0.0f )},
         {Difficulty.Master, new Color(0.65f, 0.0f, 0.65f )},
+        {Difficulty.Extra, new Color(0.0f, 0.6f, 0.6f )},
     };
 
     private readonly Dictionary<Difficulty, Color> _layer2Colors = new Dictionary<Difficulty, Color>
@@ -29,6 +30,7 @@ public class DifficultyDisplayItem : MonoBehaviour
         {Difficulty.Hard, new Color(1.0f, 1.0f, 0.6f )},
         {Difficulty.Expert, new Color(1.0f, 0.65f, 0.65f )},
         {Difficulty.Master, new Color(1.0f, 0.7f, 1.0f )},
+        {Difficulty.Extra, new Color(0.0f, 0.9f, 0.9f )},
     };
 
     private MenuItem _menuItem;
@@ -43,13 +45,18 @@ public class DifficultyDisplayItem : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void DisplayDifficulty(Difficulty diff, int minLevel, int maxLevel)
+    public void DisplayDifficulty(Difficulty difficulty, int level)
     {
-        var visible = (minLevel > -1 || maxLevel > -1);
+        DisplayDifficulty(new DifficultyRange{Difficulty = difficulty, Min = level, Max = level});
+    }
+
+    public void DisplayDifficulty(DifficultyRange diff)
+    {
+        var visible = !diff.IsEmpty;
         this.gameObject.SetActive(visible);
 
-        this.Difficulty = diff;
-        TxtDifficultyText.text = diff.ToString();
+        this.Difficulty = diff.Difficulty;
+        TxtDifficultyText.text = diff.Difficulty.ToString();
 
         if (_menuItem != null)
         {
@@ -59,16 +66,16 @@ public class DifficultyDisplayItem : MonoBehaviour
         Layer1Sprite.InnerSprite.color = _layer1Colors[Difficulty];
         Layer2Sprite.InnerSprite.color = _layer2Colors[Difficulty];
 
-        if (minLevel == maxLevel)
+        if (diff.Min == diff.Max)
         {
-            TxtDifficultyLevels.text = string.Format("{0:00}", minLevel);
+            TxtDifficultyLevels.text = string.Format("{0:00}", diff.Min);
         }
         else
         {
-            TxtDifficultyLevels.text = string.Format("{0:00}-{1:00}", minLevel, maxLevel);
+            TxtDifficultyLevels.text = string.Format("{0:00}-{1:00}", diff.Min, diff.Max);
         }
 
-        UpdateDifficultyBar(maxLevel);
+        UpdateDifficultyBar(diff.Max);
     }
 
     private void UpdateDifficultyBar(int maxLevel)

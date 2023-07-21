@@ -1,3 +1,5 @@
+using UnityEditor;
+
 public class HoldRegion
 {
     public float Start { get; set; }

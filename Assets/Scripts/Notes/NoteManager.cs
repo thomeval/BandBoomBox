@@ -528,11 +528,6 @@ public class NoteManager : MonoBehaviour
         {
             note.SetSpriteCategories(this.NoteSkin, this.LabelSkin);
         }
-        foreach (var beatLine in BeatLines)
-        {
-            beatLine.SetSprite();
-        }
-
     }
 
     public void ClearNotes()

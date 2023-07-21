@@ -174,7 +174,7 @@ public class ChartEditorManager : ScreenManager
         LoadChart();
         SetupSongManager();
         UpdateHud();
-        DisplayMessage("To see the full list of controls, press Esc and select 'Controls'.", false);
+        DisplayMessage("To see the full list of controls, press Esc and select 'Controls'.");
     }
 
     private void LoadChart()
@@ -184,7 +184,7 @@ public class ChartEditorManager : ScreenManager
         CurrentSongData = Helpers.TryGetArg<SongData>(args, "SelectedSongData") ?? CoreManager.SongLibrary.Songs[0];
         CurrentChart =  Helpers.TryGetArg<SongChart>(args, "SelectedSongChart") ?? CurrentSongData.GetChart("Main", Difficulty.Hard);
         TxtChartDifficulty.text = CurrentChart.Difficulty.ToString();
-        NoteGenerator.GenerateBeatLines(BeatLineType.Phrase, CurrentSongData.LengthInBeats, CurrentSongData.BeatsPerMeasure, this.NoteManager);
+        NoteGenerator.GenerateBeatLines(BeatLineType.Phrase, CurrentSongData, this.NoteManager);
         NoteGenerator.LoadSongNotes(CurrentChart, this.NoteManager);
         NoteManager.CalculateAbsoluteTimes(CurrentSongData.Bpm);
         ShowNotePalette();
@@ -460,13 +460,12 @@ public class ChartEditorManager : ScreenManager
             
             CoreManager.SongLibrary.SaveSongToDisk(CurrentSongData);
             PlaySfx(SoundEvent.Editor_SaveComplete);
-            DisplayMessage($"Successfully saved SJSON file to {CurrentSongData.SjsonFilePath} ", false);
+            DisplayMessage($"Successfully saved SJSON file to {CurrentSongData.SjsonFilePath} ");
         }
         catch (Exception e)
         {
             Debug.LogError(e);
-            DisplayMessage(e.Message, true);
-            PlaySfx(SoundEvent.Mistake);
+            DisplayMistake(e.Message);
         }
 
     }
@@ -475,13 +474,13 @@ public class ChartEditorManager : ScreenManager
     {
         TxtMessage.color = isError ? MessageColorError : MessageColorNormal;
         TxtMessage.text = message;
-
-        if (isError)
-        {
-            PlaySfx(SoundEvent.Mistake);
-        }
     }
 
+    public void DisplayMistake(string message)
+    {
+        DisplayMessage(message, true);
+        PlaySfx(SoundEvent.Mistake);
+    }
     public bool IsInPlayableArea(double position)
     {
         return position > 0 && position < CurrentSongData.LengthInBeats;

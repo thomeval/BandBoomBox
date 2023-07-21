@@ -87,7 +87,12 @@ public class ChartEditorPlaybackManager : MonoBehaviour
 
         var currentPosition = _parent.SongManager.GetSongPosition();
 
-        if (pressNote.DistanceTo(currentPosition) < releaseNote.DistanceTo(currentPosition))
+        if (releaseNote == null)
+        {
+            return;
+        }
+
+        if (pressNote != null && pressNote.DistanceTo(currentPosition) < releaseNote.DistanceTo(currentPosition))
         {
             return;
         }
