@@ -553,8 +553,8 @@ public class GameplayManager : ScreenManager
     {
         var newGainRate = 1.0f;
 
-        var comboGainBonus = ((int)(TeamCombo / MX_COMBO_FOR_GAIN_BONUS)) * 0.1f;
-        comboGainBonus = Math.Min(comboGainBonus, 2.0f);
+        var comboGainBonus = ((int)(TeamCombo / MX_COMBO_FOR_GAIN_BONUS)) * 0.05f;
+        comboGainBonus = Math.Min(comboGainBonus, 1.0f);
         newGainRate += comboGainBonus;
 
         var playersInTurbo = _playerManager.Players.Count(e => e.TurboActive);
