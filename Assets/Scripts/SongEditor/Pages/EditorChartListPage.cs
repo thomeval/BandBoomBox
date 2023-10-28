@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Collections.Specialized.BitVector32;
 
 public class EditorChartListPage : EditorPageManager
 {
@@ -226,6 +228,83 @@ public class EditorChartListPage : EditorPageManager
             obj.gameObject.name = $"{section.Key}: {section.Value}";
             SectionListItemContainer.AddChild(obj.gameObject);
             DisplayedSections.Add(obj);
+        }
+    }
+
+    public void BtnPlusBeat_Click(int amount)
+    {
+        var sections = Parent.CurrentSong.Sections;
+
+        if (!sections.Any())
+        {
+            TxtAddSectionBeat.text = "0";
+            return;
+        }
+        var lastSection = sections.OrderByDescending(e => e.Key).FirstOrDefault();
+
+        TxtAddSectionBeat.text = lastSection.Key + amount + "";
+    }
+
+    public void GenerateSectionName(string sectionType)
+    {
+        var sections = Parent.CurrentSong.Sections;
+        var lastSection = sections.Where(e => e.Value.ToUpperInvariant().StartsWith(sectionType.ToUpperInvariant()))
+            .OrderByDescending(e => e.Key).FirstOrDefault();
+
+        if (lastSection.Value == null)
+        {
+            TxtAddSectionName.text = sectionType + " 1";
+            return;
+        }
+
+        var sectionNumber = Regex.Match(lastSection.Value, @"\d+").Value;
+
+        if (string.IsNullOrEmpty(sectionNumber))
+        {
+            TxtAddSectionName.text = sectionType + " 1";
+            return;
+        }
+
+        var nextSectionNumber = int.Parse(sectionNumber) + 1;
+        TxtAddSectionName.text = sectionType + " " + nextSectionNumber;
+    }
+
+    public void SplitSection()
+    {
+        var sections = Parent.CurrentSong.Sections;
+        int.TryParse(TxtAddSectionBeat.text, out int beat);
+
+        var lastSection = sections.OrderByDescending(e => e.Key).FirstOrDefault(e => e.Key < beat);
+
+        if (lastSection.Value == null)
+        {
+            return;
+        }
+
+        // Example: Verse 2a -> Verse 2b
+        var match = Regex.Match(lastSection.Value, @".+ \d+\w$");
+
+        if (match.Success)
+        {
+            TxtAddSectionName.text = match.Value.Substring(0, match.Length - 1) + ((char) (match.Value[match.Value.Length-1] + 1));
+            return;
+        }
+
+        // Example: Verse 2 -> Verse 2b (and rename Verse 2 to Verse 2a)
+
+        match = Regex.Match(lastSection.Value, @".+ \d+");
+
+        if (match.Success)
+        {
+            TxtAddSectionName.text =  sections[lastSection.Key] + "b";
+            sections[lastSection.Key] += "a";
+            return;
+        }
+
+        if (lastSection.Value != null)
+        {
+            TxtAddSectionName.text = lastSection.Value;
+            return;
         }
     }
 }

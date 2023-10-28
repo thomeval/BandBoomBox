@@ -259,7 +259,7 @@ public class ChartEditorNoteTransformer : MonoBehaviour
 
     private bool IsMediumNote(Note note)
     {
-        return _mediumNoteTypes.Contains(note.NoteType);      
+        return _mediumNoteTypes.Contains(note.NoteType);
     }
 
     public void SwapHandsAtCurrentPosition()
@@ -297,6 +297,7 @@ public class ChartEditorNoteTransformer : MonoBehaviour
 
         foreach (var note in notesToRemove)
         {
+            // TODO: Does this remove the end note for hold notes?
             _noteManager.RemoveNote(note);
         }
         _parent.PlaySfx(SoundEvent.Editor_NoteRemoved);
@@ -312,6 +313,28 @@ public class ChartEditorNoteTransformer : MonoBehaviour
 
         ClearRegion(_parent.SelectedRegionStart!.Value, _parent.SelectedRegionEnd!.Value);
 
+    }
+
+    public void ClearRegionExceptStep(float step)
+    {
+        var notesAffected = GetNotesInCurrentRegion();
+        notesAffected = notesAffected.Where(e => !e.IsEndNote).ToList();
+
+        var notesToRemove = notesAffected.Where(e => !IsInStep(e, step)).ToList();
+
+        foreach (var note in notesToRemove)
+        {
+            _noteManager.RemoveNote(note, true);
+        }
+        _parent.PlaySfx(SoundEvent.Editor_NoteRemoved);
+
+        _parent.DisplayMessage($"Removed {notesToRemove.Count} notes.");
+    }
+
+    private bool IsInStep(Note note, float step)
+    {
+        const float TOLERANCE = 0.0001f;
+        return Mathf.Abs(note.Position * step - Mathf.Round(note.Position * step)) < TOLERANCE;
     }
 
     public void ClampToDifficulty(Difficulty difficulty)
@@ -344,6 +367,17 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         return lookup;
     }
 
+    public void RemoveNotesInsideHolds()
+    {
+        var notesToCheck = GetNotesInCurrentRegion();
+
+        var notesInHolds = ChartValidator.GetNotesInsideHolds(notesToCheck);
+
+        foreach (var note in notesInHolds)
+        {
+            _noteManager.RemoveNote(note);
+        }
+    }
     public bool HasValidRegionSet()
     {
         return _parent.SelectedRegionStart != null && _parent.SelectedRegionEnd != null && (_parent.SelectedRegionEnd - _parent.SelectedRegionStart > 0);
@@ -385,6 +419,6 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         note.Refresh();
 
         var yPos = _noteManager.TopLanePos - (note.Lane * _noteManager.LaneHeight);
-        note.SetYPosition(yPos);
+        note.SetRenderYPosition(yPos);
     }
 }

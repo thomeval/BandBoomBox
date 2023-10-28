@@ -45,19 +45,19 @@ public class Note : MonoBehaviour
         HoldTailSprite.size = new Vector2(width, HoldSpriteHeight);
         HoldTailSprite.transform.localPosition = new Vector3(width / 2, 0, 0);
     }
-    public void SetXPosition(float newXPos)
+    public void SetRenderXPosition(float newXPos)
     {
         var currentPos = this.transform.localPosition;
         this.transform.localPosition = new Vector3(newXPos, currentPos.y, currentPos.z);
     }
 
-    public void SetYPosition(float newYPos)
+    public void SetRenderYPosition(float newYPos)
     {
         var currentPos = this.transform.localPosition;
         this.transform.localPosition = new Vector3(currentPos.x, newYPos, currentPos.z);
     }
 
-    public void SetPosition(float newXPos, float newYPos)
+    public void SetRenderPosition(float newXPos, float newYPos)
     {
         var currentPos = this.transform.localPosition;
         this.transform.localPosition = new Vector3(newXPos, newYPos, currentPos.z);
@@ -123,5 +123,7 @@ public class Note : MonoBehaviour
     {
         return MathF.Abs(absoluteTime - this.AbsoluteTime);
     }
+
+    public bool IsEndNote { get { return this.NoteClass == NoteClass.Release; } }
 }
 

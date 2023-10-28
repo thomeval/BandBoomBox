@@ -63,10 +63,10 @@ public class PlayerManager : MonoBehaviour
         foreach (var player in GetLocalPlayers())
         {
             Debug.Log(_controlsManager.InputActionAsset.GetInstanceID());
-            player.ApplyInputActions(json);          
+            player.ApplyInputActions(json);
         }
     }
-    
+
     public Player GetPlayer(int slot)
     {
         return Players.FirstOrDefault(e => e.Slot == slot);
@@ -110,7 +110,7 @@ public class PlayerManager : MonoBehaviour
         {
             var playerToRemove = Players[Players.Count - 1];
             Players.Remove(playerToRemove);
-            GameObject.Destroy(playerToRemove);
+            GameObject.Destroy(playerToRemove.gameObject);
         }
 
         var playersToAdd = players - Players.Count;

@@ -21,6 +21,7 @@ public class EditorDetailsPage : EditorPageManager
     public InputField TxtBeatsInMeasure;
     public InputField TxtIssues;
     public InputField TxtVersion;
+    public InputField TxtUrl;
 
     public Text TxtErrorMessage;
 
@@ -49,6 +50,7 @@ public class EditorDetailsPage : EditorPageManager
         TxtChartAuthor.text = CurrentSong.ChartAuthor;
         TxtIssues.text = CurrentSong.Issues;
         TxtVersion.text = "" + CurrentSong.Version;
+        TxtUrl.text = CurrentSong.Url;
 
         TxtAudioStart.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", CurrentSong.AudioStart);
         TxtBpm.text = string.Format(CultureInfo.InvariantCulture, "{0:F1}", CurrentSong.Bpm);
@@ -70,6 +72,7 @@ public class EditorDetailsPage : EditorPageManager
         CurrentSong.AudioStart = GetNumberValueOrDefault(TxtAudioStart);
         CurrentSong.Length = GetNumberValueOrDefault(TxtLength);
         CurrentSong.Issues = TxtIssues.text;
+        CurrentSong.Url = TxtUrl.text;
 
         Validate(TxtAudioStart, "Audio Start", out CurrentSong.AudioStart);
         Validate(TxtBpm, "BPM", out CurrentSong.Bpm);
@@ -90,7 +93,7 @@ public class EditorDetailsPage : EditorPageManager
     private void Validate(InputField inputField, string description, out int destination)
     {
 
-        if (!int.TryParse( inputField.text, NumberStyles.Any, CultureInfo.InvariantCulture, out destination))
+        if (!int.TryParse(inputField.text, NumberStyles.Any, CultureInfo.InvariantCulture, out destination))
         {
             _isValid = false;
             TxtErrorMessage.text += $"{description} is not a valid number.\r\n";
@@ -220,7 +223,7 @@ public class EditorDetailsPage : EditorPageManager
 
     private void AutoSetAudioStart()
     {
-        
+
         if (CurrentSong == null)
         {
             return;

@@ -1,9 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -171,6 +169,7 @@ public class ChartEditorManager : ScreenManager
             return;
         }
 
+        this.Options.Load(CoreManager.Settings);
         LoadChart();
         SetupSongManager();
         UpdateHud();
@@ -374,6 +373,7 @@ public class ChartEditorManager : ScreenManager
         }
 
         UpdateHud();
+        NoteManager.HighlightRegion((float?) SelectedRegionStart, (float?) SelectedRegionEnd, CurrentSongData.Bpm);
     }
 
     private void MoveCursorSections(int delta)
@@ -442,6 +442,7 @@ public class ChartEditorManager : ScreenManager
     public void CloseEditor()
     {
         SceneTransition(GameScene.Editor);
+        this.Options.Save(CoreManager.Settings);
     }
 
     public void SaveChart()

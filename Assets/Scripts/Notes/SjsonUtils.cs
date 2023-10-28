@@ -81,7 +81,13 @@ public static class SjsonUtils
         blocks = MergeSjsonEntries(blocks);
 
         var blocksByBeat = blocks.ToLookup(e => (int)e.Position);
-        var lastBeat = blocks.Select(e => (int)e.Position).Max();
+
+        var lastBeat = 0;
+
+        if (blocks.Any())
+        {
+            lastBeat = blocks.Select(e => (int)e.Position).Max();
+        }
 
         for (int x = 0; x <= lastBeat; x++)
         {
@@ -150,7 +156,7 @@ public static class SjsonUtils
             }
         }
 
-        var errStr = notes.Select(e => e.Position.ToString("F3",CultureInfo.InvariantCulture)).Aggregate((cur, next) => $"{cur}, {next}" );
+        var errStr = notes.Select(e => e.Position.ToString("F3", CultureInfo.InvariantCulture)).Aggregate((cur, next) => $"{cur}, {next}");
         throw new ArgumentException("Unable to determine suitable step size to note block. Note positions: " + errStr);
     }
 

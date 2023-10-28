@@ -273,6 +273,10 @@ public class ChartEditorMenuManager : MonoBehaviour
                 _parent.NoteTransformer.ClampToDifficulty(_parent.CurrentChart.Difficulty);
                 _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
+            case "Remove all notes except current step":
+                _parent.NoteTransformer.ClearRegionExceptStep(_parent.CursorStepSize);
+                _parent.ChartEditorState = ChartEditorState.Edit;
+                break;
             default:
                 throw new Exception("Unknown menu item selected: " + args.SelectedItem);
         }

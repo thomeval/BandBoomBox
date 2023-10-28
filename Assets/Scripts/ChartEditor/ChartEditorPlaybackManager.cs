@@ -119,7 +119,8 @@ public class ChartEditorPlaybackManager : MonoBehaviour
     public void BeginPlayback()
     {
         _playbackStartPosition = Math.Max(0, _parent.CursorPosition);
-        _parent.SongManager.PlayFromPosition(_parent.CursorPositionInSeconds + _parent.CurrentSongData.Offset);
+        var songPosition = Math.Max(0, _parent.CursorPositionInSeconds + _parent.CurrentSongData.Offset);
+        _parent.SongManager.PlayFromPosition(songPosition);
         _parent.ChartEditorState = ChartEditorState.Playback;
         _parent.SetActionMap(ActionMapType.Gameplay);
         _parent.DisplayMessage("Press Esc to stop playback, or Space to pause.");

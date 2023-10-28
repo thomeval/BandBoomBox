@@ -35,6 +35,11 @@ public class SettingsManager : MonoBehaviour
     [Header("Editor Settings")] 
     public string LastUsedEditorPath;
     public string DefaultChartAuthor;
+    public string EditorLastUsedNoteLabels = "WASD";
+    public int EditorAutoSaveIntervalMinutes = 10;
+    public bool EditorAutoStepForward = false;
+    public bool EditorAllowAllNotes = false;
+    public int EditorScrollSpeed = 500;
 
     // Start is called before the first frame update
     void Awake()

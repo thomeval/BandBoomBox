@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Assets;
 
 public class PlayerJoinManager : ScreenManager
 {
@@ -36,13 +35,18 @@ public class PlayerJoinManager : ScreenManager
     private void HandlePlayerLeft(object sender, EventArgs e)
     {
         var player = ((PlayerJoinFrame)sender).Player;
-
-        if (CoreManager.PlayerManager.GetLocalPlayers().Count > 1)
+        var manager = CoreManager.PlayerManager;
+        if (player.Slot > 1)
         {
-            CoreManager.PlayerManager.RemovePlayer(player.Slot);
+            manager.RemovePlayer(player.Slot);
+            manager.AllowPlayerJoining = CoreManager.PlayerManager.GetLocalPlayers().Count < MAX_ALLOWED_PLAYERS;
         }
-
-        CoreManager.PlayerManager.AllowPlayerJoining = CoreManager.PlayerManager.GetLocalPlayers().Count < MAX_ALLOWED_PLAYERS;
+        else
+        {
+            manager.SetPlayerCount(1);
+            manager.AllowPlayerJoining = false;
+            SceneTransition(GameScene.MainMenu);
+        }
     }
 
     // Start is called before the first frame update
@@ -85,11 +89,6 @@ public class PlayerJoinManager : ScreenManager
             CoreManager.SaveAllActiveProfiles();
             CoreManager.PlayerManager.SortPlayers();
             SceneTransition(GameScene.SongSelect);
-        }
-        else if (ReadyPlayerCount == 0 && JoinedPlayerCount == 0)
-        {
-            CoreManager.PlayerManager.AllowPlayerJoining = false;
-            SceneTransition(GameScene.MainMenu);
         }
     }
 

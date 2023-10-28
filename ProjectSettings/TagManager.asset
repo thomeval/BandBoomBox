@@ -50,6 +50,9 @@ TagManager:
   - name: Highway Scrolling Background
     uniqueID: 1213070975
     locked: 0
+  - name: Highway Regions
+    uniqueID: 904323473
+    locked: 0
   - name: Highway Under Notes 1
     uniqueID: 3071633411
     locked: 0

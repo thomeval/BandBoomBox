@@ -39,9 +39,9 @@ public static class NoteUtils
             case 0:
                 return new[] { NoteType.LB, NoteType.LT, NoteType.RB, NoteType.RT, NoteType.AnyT };
             case 1:
-                return new[] {NoteType.Left, NoteType.Up, NoteType.Right, NoteType.Down, NoteType.AnyD};
+                return new[] { NoteType.Left, NoteType.Up, NoteType.Right, NoteType.Down, NoteType.AnyD };
             case 2:
-                return new[] {NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.AnyB};
+                return new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.AnyB };
             default:
                 throw new ArgumentException("Invalid lane number: " + lane);
         }
@@ -74,7 +74,7 @@ public static class NoteUtils
                 return NoteType.AnyT;
 
             default:
-                throw new ArgumentException("Unrecognised note type: " +  noteType);
+                throw new ArgumentException("Unrecognised note type: " + noteType);
         }
     }
 
@@ -83,7 +83,7 @@ public static class NoteUtils
         switch (lane)
         {
             case 0: return NoteType.AnyT;
-            case 1: return NoteType.AnyD;             
+            case 1: return NoteType.AnyD;
             case 2: return NoteType.AnyB;
             default:
                 throw new ArgumentException("Invalid lane number: " + lane);
@@ -131,13 +131,13 @@ public static class NoteUtils
             case Difficulty.Medium:
                 return new[] { NoteType.A, NoteType.B, NoteType.Left, NoteType.Down };
             case Difficulty.Hard:
-                return  new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right };
+                return new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right };
             case Difficulty.Expert:
-                return  new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB };
+                return new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB };
             case Difficulty.Master:
-                return  new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB, NoteType.LT, NoteType.RT };
+                return new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB, NoteType.LT, NoteType.RT };
             case Difficulty.Extra:
-                return  new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB, NoteType.LT, NoteType.RT };
+                return new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right, NoteType.LB, NoteType.RB, NoteType.LT, NoteType.RT };
             default:
                 return Array.Empty<NoteType>();
         }
@@ -174,6 +174,20 @@ public static class NoteUtils
             note.AbsoluteTime = note.Position * 60 / bpm;
         }
     }
+
+    public static void CalculateAbsoluteTimes(RegionMarker marker, float bpm)
+    {
+        marker.StartAbsoluteTime = marker.StartPosition * 60 / bpm;
+        marker.EndAbsoluteTime = marker.EndPosition * 60 / bpm;
+    }
+
+    public static void CalculateAbsoluteTimes(IEnumerable<RegionMarker> markers, float bpm)
+    {
+        foreach (var marker in markers)
+        {
+            CalculateAbsoluteTimes(marker, bpm);
+        }
+    }
 }
 
 public enum NoteType
@@ -192,15 +206,15 @@ public enum NoteType
     LT,
     RB,
     RT,
-    AnyT  
+    AnyT
 }
 
 public enum NoteClass
 {
     Tap,
     Hold,
-    Release,  
-    None, 
+    Release,
+    None,
 }
 
 public enum BeatLineType
@@ -210,5 +224,11 @@ public enum BeatLineType
     Section,
     Off,
     Finish
+}
+
+public enum RegionMarkerType
+{
+    SelectedRegion,
+    CriticalSection
 }
 

@@ -7,8 +7,10 @@ public class NoteManager : MonoBehaviour
 {
     public List<Note> Notes = new();
     public List<BeatLine> BeatLines;
+    public List<RegionMarker> RegionMarkers = new();
     public SongChart Chart;
     public RectTransform ScrollingBackground;
+    public RegionMarker SelectedRegionMarker;
 
     public int ImpactZoneCenter = -540;
 
@@ -32,7 +34,7 @@ public class NoteManager : MonoBehaviour
     public string NoteSkin;
     public string LabelSkin;
 
-    public float ScrollSpeed = 500;
+    public int ScrollSpeed = 500;
     public int Slot = 1;
     public bool TrimNotesEnabled = true;
 
@@ -41,13 +43,12 @@ public class NoteManager : MonoBehaviour
     private readonly List<BeatLine> _beatLinesToRemove = new();
     private float _lastSeenPosition = -999.0f;
     private float _noteAreaWidth;
-    
+
     private GameplayManager _gameplayManager;
 
     private SpriteRenderer _scrollingBackgroundRenderer;
 
     private readonly Note[] _pendingReleases = new Note[4];
-
 
     public float MaxVisiblePosition
     {
@@ -95,16 +96,18 @@ public class NoteManager : MonoBehaviour
         }
     }
 
-    [field:SerializeField]
+    [field: SerializeField]
     public bool TurboActive { get; set; }
 
     public void CalculateAbsoluteTimes(float bpm)
     {
         NoteUtils.CalculateAbsoluteTimes(this.Notes, bpm);
         NoteUtils.CalculateAbsoluteTimes(this.BeatLines, bpm);
+        NoteUtils.CalculateAbsoluteTimes(this.RegionMarkers, bpm);
 
         this.Notes = this.Notes.OrderBy(e => e.AbsoluteTime).ToList();
         this.BeatLines = this.BeatLines.OrderBy(e => e.AbsoluteTime).ToList();
+        this.RegionMarkers = this.RegionMarkers.OrderBy(e => e.StartAbsoluteTime).ToList();
     }
 
     public void SetNoteMxValue()
@@ -113,7 +116,7 @@ public class NoteManager : MonoBehaviour
         {
             return;
         }
-        
+
         var mxFromHit = HitJudge.JudgeMxValues[JudgeResult.Perfect] * HitJudge.DifficultyMxValues[this.Chart.Difficulty];
 
         foreach (var note in this.Notes)
@@ -129,7 +132,7 @@ public class NoteManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+
         if (_lastSeenPosition > SongPosition)
         {
             HideAllNotes();
@@ -149,8 +152,6 @@ public class NoteManager : MonoBehaviour
         {
             holdNote.CalculateTailWidth();
         }
-
-
     }
 
     private const float SCROLLING_BACKGROUND_SHOW_SPEED = 0.015f;
@@ -181,7 +182,7 @@ public class NoteManager : MonoBehaviour
 
         var result = MIN_BACKGROUND_OPACITY;
 
-        var lerp = (1 - MIN_BACKGROUND_OPACITY)  * beatFraction;
+        var lerp = (1 - MIN_BACKGROUND_OPACITY) * beatFraction;
         result += lerp;
         result *= scrollingBackgroundOpacity;
         return result;
@@ -210,11 +211,11 @@ public class NoteManager : MonoBehaviour
     {
         foreach (var note in Notes)
         {
-            note.SetXPosition(10000.0f);
+            note.SetRenderXPosition(10000.0f);
         }
         foreach (var beatline in BeatLines)
         {
-            beatline.SetPosition(10000.0f);
+            beatline.SetRenderPosition(10000.0f);
         }
     }
 
@@ -222,11 +223,17 @@ public class NoteManager : MonoBehaviour
     {
         foreach (var note in Notes)
         {
-            note.SetXPosition(CalculateRenderPosition(note.AbsoluteTime));
+            note.SetRenderXPosition(CalculateRenderPosition(note.AbsoluteTime));
         }
         foreach (var beatline in BeatLines)
         {
-            beatline.SetPosition(CalculateRenderPosition(beatline.AbsoluteTime));
+            beatline.SetRenderPosition(CalculateRenderPosition(beatline.AbsoluteTime));
+        }
+        foreach (var region in RegionMarkers)
+        {
+            var startPos = CalculateRenderPosition(region.StartAbsoluteTime);
+            var endPos = CalculateRenderPosition(region.EndAbsoluteTime);
+            region.SetRenderPosition(startPos, endPos);
         }
     }
 
@@ -247,7 +254,7 @@ public class NoteManager : MonoBehaviour
 
             var xPos = CalculateRenderPosition(note.AbsoluteTime);
             var yPos = TopLanePos - (note.Lane * LaneHeight);
-            note.SetPosition(xPos, yPos);
+            note.SetRenderPosition(xPos, yPos);
         }
 
         foreach (var beatLine in BeatLines)
@@ -257,12 +264,38 @@ public class NoteManager : MonoBehaviour
                 break;
             }
             var xPos = CalculateRenderPosition(beatLine.AbsoluteTime);
-            beatLine.SetPosition(xPos);
+            beatLine.SetRenderPosition(xPos);
+        }
+
+        foreach (var region in RegionMarkers)
+        {
+            SetRenderPosition(region);
+        }
+
+        if (SelectedRegionMarker != null)
+        {
+            SetRenderPosition(SelectedRegionMarker);
         }
 
         TrimNotes();
 
         UpdateBackground();
+    }
+
+    private void SetRenderPosition(RegionMarker region)
+    {
+        if (region.StartAbsoluteTime > this.MaxVisiblePosition)
+        {
+            return;
+        }
+        var startPos = CalculateRenderPosition(region.StartAbsoluteTime);
+        var endPos = CalculateRenderPosition(region.EndAbsoluteTime);
+
+        if (float.IsNaN(startPos) || float.IsNaN(endPos))
+        {
+            return;
+        }
+        region.SetRenderPosition(startPos, endPos);
     }
 
     private bool UpdateScrollSpeed()
@@ -494,12 +527,18 @@ public class NoteManager : MonoBehaviour
         RemoveNote(note);
 
     }
-    public void RemoveNote(Note note)
+    public void RemoveNote(Note note, bool removeEnd = false)
     {
 
         if (note.NoteClass == NoteClass.Release)
         {
             _pendingReleases[note.Lane] = null;
+        }
+
+        if (removeEnd && note.EndNote != null)
+        {
+            Notes.Remove(note.EndNote);
+            GameObject.Destroy(note.EndNote.gameObject);
         }
 
         Notes.Remove(note);
@@ -552,7 +591,7 @@ public class NoteManager : MonoBehaviour
 
     public void AttachNote(Note note)
     {
-        note.transform.SetParent(this.transform, false); 
+        note.transform.SetParent(this.transform, false);
         note.transform.localPosition = new Vector3(9999.0f, note.transform.localPosition.y);
         note.SetSpriteCategories(this.NoteSkin, this.LabelSkin);
         note.RefreshLane();
@@ -575,18 +614,26 @@ public class NoteManager : MonoBehaviour
             beatLine.transform.localPosition = new Vector3(9999.0f, beatLine.transform.localPosition.y);
         }
     }
+    public void AttachRegionMarkers()
+    {
+        foreach (var marker in this.RegionMarkers)
+        {
+            marker.transform.SetParent(this.transform, false);
+            marker.transform.localPosition = new Vector3(9999.0f, marker.transform.localPosition.y);
+        }
+    }
 
     public Note GetNoteAtPosition(double position, int lane)
     {
         // ReSharper disable once CompareOfFloatsByEqualityOperator
-        var result = Notes.SingleOrDefault(e => (double) e.Position == position && e.Lane == lane);
+        var result = Notes.SingleOrDefault(e => (double)e.Position == position && e.Lane == lane);
         return result;
     }
 
     public List<Note> GetNotesAtPosition(double position)
     {
         // ReSharper disable once CompareOfFloatsByEqualityOperator
-        var result = Notes.Where(e => (double) e.Position == position).ToList();
+        var result = Notes.Where(e => (double)e.Position == position).ToList();
         return result;
     }
 
@@ -611,7 +658,7 @@ public class NoteManager : MonoBehaviour
             {
                 result.Add(holdNote.EndNote);
             }
-   
+
         }
 
         // If a hold note ends in the selected region but its start is outside, don't process it.
@@ -625,5 +672,18 @@ public class NoteManager : MonoBehaviour
             }
         }
         return result;
+    }
+
+    public void HighlightRegion(float? start, float? end, float bpm)
+    {
+        if (start == null || end == null)
+        {
+            start = 0;
+            end = 0;
+        }
+        this.SelectedRegionMarker.StartPosition = start.Value;
+        this.SelectedRegionMarker.EndPosition = end.Value;
+        NoteUtils.CalculateAbsoluteTimes(this.SelectedRegionMarker, bpm);
+        SetRenderPosition(this.SelectedRegionMarker);
     }
 }

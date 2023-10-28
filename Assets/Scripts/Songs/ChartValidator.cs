@@ -27,21 +27,24 @@ public static class ChartValidator
         return null;
     }
 
-    private static string CheckForNotesInsideHolds(IList<Note> notes)
+    public static List<Note> GetNotesInsideHolds(IList<Note> notes)
     {
+        var result = new List<Note>();
         var holdRegions = GetHoldRegions(notes);
-        foreach (var note in notes)
-        {
-            var isInsideHold =
-                holdRegions.Any(e => e.IsInsideRegion(note));
+        result.AddRange(notes.Where(e => holdRegions.Any(r => r.IsInsideRegion(e))));
+        return result;
+    }
 
-            if (isInsideHold)
-            {
-                return $"Error: Note {note.NoteType} at position {note.Position}, on lane {note.Lane} is inside a hold note. This is not allowed.";
-            }
+    public static string CheckForNotesInsideHolds(IList<Note> notes)
+    {
+        var notesInsideHolds = GetNotesInsideHolds(notes);
+        var firstResult = notesInsideHolds.FirstOrDefault();
+        if (firstResult == null)
+        {
+            return null;
         }
 
-        return null;
+        return $"Error: Note {firstResult.NoteType} at position {firstResult.Position}, on lane {firstResult.Lane} is inside a hold note. This is not allowed.";
     }
 
     private static List<HoldRegion> GetHoldRegions(IList<Note> notes)
