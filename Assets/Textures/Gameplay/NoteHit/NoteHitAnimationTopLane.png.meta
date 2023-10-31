@@ -1,0 +1,622 @@
+fileFormatVersion: 2
+guid: 14055fe13b5f6e74aafca3bd91afecc9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -51651366958144250
+    second: NoteHitAnimationTopLane_0
+  - first:
+      213: 8261700689483999686
+    second: NoteHitAnimationTopLane_1
+  - first:
+      213: 1383742942645773576
+    second: NoteHitAnimationTopLane_2
+  - first:
+      213: 7873702712220991092
+    second: NoteHitAnimationTopLane_3
+  - first:
+      213: 1483530934046523209
+    second: NoteHitAnimationTopLane_4
+  - first:
+      213: -6012167625137408430
+    second: NoteHitAnimationTopLane_5
+  - first:
+      213: -1582392192995192671
+    second: NoteHitAnimationTopLane_6
+  - first:
+      213: -7338644936613573125
+    second: NoteHitAnimationTopLane_7
+  - first:
+      213: 1288573580307420694
+    second: NoteHitAnimationTopLane_8
+  - first:
+      213: -7388415399601009503
+    second: NoteHitAnimationTopLane_9
+  - first:
+      213: 1683546336052463444
+    second: NoteHitAnimationTopLane_10
+  - first:
+      213: 5176610300393350256
+    second: NoteHitAnimationTopLane_11
+  - first:
+      213: 6244447569186207379
+    second: NoteHitAnimationTopLane_12
+  - first:
+      213: -7883298628949003240
+    second: NoteHitAnimationTopLane_13
+  - first:
+      213: 911466656939973707
+    second: NoteHitAnimationTopLane_14
+  - first:
+      213: 7707353770315407114
+    second: NoteHitAnimationTopLane_15
+  - first:
+      213: 601745636225676100
+    second: NoteHitAnimationTopLane_16
+  - first:
+      213: 8095962363043071011
+    second: NoteHitAnimationTopLane_17
+  - first:
+      213: 2042163611308101898
+    second: NoteHitAnimationTopLane_18
+  - first:
+      213: 6963530407793588006
+    second: NoteHitAnimationTopLane_19
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 2
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2850
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 605eb4cfa5f784ff0800000000000000
+      internalID: -51651366958144250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2700
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c92b45310577a270800000000000000
+      internalID: 8261700689483999686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2550
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 805eadcffda043310800000000000000
+      internalID: 1383742942645773576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2400
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47e36fc66e2054d60800000000000000
+      internalID: 7873702712220991092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2250
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94f7521468f869410800000000000000
+      internalID: 1483530934046523209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2100
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 256b495166d709ca0800000000000000
+      internalID: -6012167625137408430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1950
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a09b213fa63a0ae0800000000000000
+      internalID: -1582392192995192671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1800
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfdcd6cdf45e72a90800000000000000
+      internalID: -7338644936613573125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1650
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6165d2918dee1e110800000000000000
+      internalID: 1288573580307420694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1500
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ac81cde653177990800000000000000
+      internalID: -7388415399601009503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1350
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 457415b09782d5710800000000000000
+      internalID: 1683546336052463444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1200
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 074e29f24a307d740800000000000000
+      internalID: 5176610300393350256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1050
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39635ebcafbb8a650800000000000000
+      internalID: 6244447569186207379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 900
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 814bb2b1aa5e89290800000000000000
+      internalID: -7883298628949003240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 750
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4c1587681e26ac00800000000000000
+      internalID: 911466656939973707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0fdae53b6506fa60800000000000000
+      internalID: 7707353770315407114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 450
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4437f5cc774d95800800000000000000
+      internalID: 601745636225676100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 300
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3244d1cffd2aa5070800000000000000
+      internalID: 8095962363043071011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 150
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a019f311cf8375c10800000000000000
+      internalID: 2042163611308101898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoteHitAnimationTopLane_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 750
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 627fa23f20e63a060800000000000000
+      internalID: 6963530407793588006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      NoteHitAnimationTopLane_10: 1683546336052463444
+      NoteHitAnimationTopLane_14: 911466656939973707
+      NoteHitAnimationTopLane_1: 8261700689483999686
+      NoteHitAnimationTopLane_16: 601745636225676100
+      NoteHitAnimationTopLane_18: 2042163611308101898
+      NoteHitAnimationTopLane_0: -51651366958144250
+      NoteHitAnimationTopLane_6: -1582392192995192671
+      NoteHitAnimationTopLane_7: -7338644936613573125
+      NoteHitAnimationTopLane_4: 1483530934046523209
+      NoteHitAnimationTopLane_11: 5176610300393350256
+      NoteHitAnimationTopLane_17: 8095962363043071011
+      NoteHitAnimationTopLane_8: 1288573580307420694
+      NoteHitAnimationTopLane_15: 7707353770315407114
+      NoteHitAnimationTopLane_3: 7873702712220991092
+      NoteHitAnimationTopLane_5: -6012167625137408430
+      NoteHitAnimationTopLane_2: 1383742942645773576
+      NoteHitAnimationTopLane_9: -7388415399601009503
+      NoteHitAnimationTopLane_12: 6244447569186207379
+      NoteHitAnimationTopLane_13: -7883298628949003240
+      NoteHitAnimationTopLane_19: 6963530407793588006
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

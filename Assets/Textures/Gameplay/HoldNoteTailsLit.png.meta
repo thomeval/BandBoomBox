@@ -1,0 +1,372 @@
+fileFormatVersion: 2
+guid: be3c51229aabc9e45827b18f637eeca1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6778582085045650876
+    second: HoldNoteTailsLit_A
+  - first:
+      213: 3333006125136427764
+    second: HoldNoteTailsLit_B
+  - first:
+      213: -7342000016454975824
+    second: HoldNoteTailsLit_X
+  - first:
+      213: 8791125232445243646
+    second: HoldNoteTailsLit_Y
+  - first:
+      213: -117623128987147326
+    second: HoldNoteTailsLit_Any
+  - first:
+      213: 828407489459759510
+    second: HoldNoteTailsLit_LB
+  - first:
+      213: 2941736711053035245
+    second: HoldNoteTailsLit_LT
+  - first:
+      213: -912160125110772790
+    second: HoldNoteTailsLit_RB
+  - first:
+      213: 8349604449672268390
+    second: HoldNoteTailsLit_RT
+  - first:
+      213: -4449545538435912060
+    second: HoldNoteTailsLit_Unused
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 2
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HoldNoteTailsLit_A
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2700
+        width: 198
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64164efe71c0f004da80246a5e4bdbeb
+      internalID: 6778582085045650876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HoldNoteTailsLit_B
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2400
+        width: 198
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e85596169dd3d19409e7d925c634d020
+      internalID: 3333006125136427764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HoldNoteTailsLit_X
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2100
+        width: 198
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b31003ace00b61a43a062873627acee3
+      internalID: -7342000016454975824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HoldNoteTailsLit_Y
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1800
+        width: 198
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ef6b5e450bd5e5448bcb4dd18b79536
+      internalID: 8791125232445243646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HoldNoteTailsLit_Any
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1500
+        width: 198
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c06ed677ca2f1d044af2a0f28b0f7987
+      internalID: -117623128987147326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HoldNoteTailsLit_LB
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1200
+        width: 198
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 505c6551f7fe47149a855d4854bc2a44
+      internalID: 828407489459759510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HoldNoteTailsLit_LT
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 900
+        width: 198
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14256d2ecee74d84cb9a9f43a0513322
+      internalID: 2941736711053035245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HoldNoteTailsLit_RB
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 198
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1337c297c63fa14fa8aefcfa8bf2f11
+      internalID: -912160125110772790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HoldNoteTailsLit_RT
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 300
+        width: 198
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ab394c55c0c4134991b9f2955d067a7
+      internalID: 8349604449672268390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HoldNoteTailsLit_Unused
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 198
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 772a13833488fc14eb3b23e1a60aac1e
+      internalID: -4449545538435912060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      HoldNoteTailsLit_LT: 2941736711053035245
+      HoldNoteTailsLit_RB: -912160125110772790
+      HoldNoteTailsLit_Unused: -4449545538435912060
+      HoldNoteTailsLit_Any: -117623128987147326
+      HoldNoteTailsLit_B: 3333006125136427764
+      HoldNoteTailsLit_A: 6778582085045650876
+      HoldNoteTailsLit_Y: 8791125232445243646
+      HoldNoteTailsLit_LB: 828407489459759510
+      HoldNoteTailsLit_X: -7342000016454975824
+      HoldNoteTailsLit_RT: 8349604449672268390
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
