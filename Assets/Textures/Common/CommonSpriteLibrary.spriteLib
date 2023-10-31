@@ -82,8 +82,13 @@ MonoBehaviour:
       m_Sprite: {fileID: 8772879199988717694, guid: a1199bc1023c4064bb7a2d4c4ed64591, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 8772879199988717694, guid: a1199bc1023c4064bb7a2d4c4ed64591, type: 3}
+    - m_Name: None
+      m_Hash: -542986255
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
     m_FromMain: 0
-    m_EntryOverrideCount: 13
+    m_EntryOverrideCount: 14
   - m_Name: PlayerIdentifiers
     m_Hash: 584032422
     m_CategoryList: []

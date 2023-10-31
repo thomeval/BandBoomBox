@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 
 public class DifficultyDisplayItem : MonoBehaviour
@@ -12,6 +13,7 @@ public class DifficultyDisplayItem : MonoBehaviour
     public Text TxtDifficultyLevels;
 
     public Difficulty Difficulty;
+    public SpriteResolver GradeSprite;
 
     private readonly Dictionary<Difficulty, Color> _layer1Colors = new Dictionary<Difficulty, Color>
     {
@@ -47,7 +49,7 @@ public class DifficultyDisplayItem : MonoBehaviour
 
     public void DisplayDifficulty(Difficulty difficulty, int level)
     {
-        DisplayDifficulty(new DifficultyRange{Difficulty = difficulty, Min = level, Max = level});
+        DisplayDifficulty(new DifficultyRange { Difficulty = difficulty, Min = level, Max = level });
     }
 
     public void DisplayDifficulty(DifficultyRange diff)
@@ -88,5 +90,12 @@ public class DifficultyDisplayItem : MonoBehaviour
         maxLevel -= 10;
         value = Mathf.Clamp(maxLevel / 10.0f, 0.0f, 1.0f);
         Layer2Sprite.Value = value;
+    }
+
+    public void DisplayGrade(Grade? grade)
+    {
+        var label = grade == null ? "None" : grade.ToString();
+
+        GradeSprite.SetCategoryAndLabel("Grades", label);
     }
 }

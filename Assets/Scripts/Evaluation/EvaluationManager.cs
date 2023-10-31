@@ -13,7 +13,7 @@ public class EvaluationManager : ScreenManager
     public bool UseWidePlayerResultFrames;
 
     private DateTime _screenStartTime;
-    private readonly float[] _percentSfxCutoffs = { 0.8f, 0.9f };
+    private readonly float[] _percentSfxCutoffs = { 0.8f, 0.9f, 0.96f };
     public bool AllowContinue
     {
         get

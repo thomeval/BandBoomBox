@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -61,8 +62,8 @@ public class DifficultySelectFrame : MonoBehaviour
     {
         get { return DisplayedSongData.GetChart(SelectedChartGroup, SelectedDifficulty); }
     }
-    
-    
+
+
     [SerializeField]
     private SongData _displayedSongData;
 
@@ -112,11 +113,14 @@ public class DifficultySelectFrame : MonoBehaviour
     {
         DifficultyMenu.ClearItems();
         var charts = DisplayedSongData.SongCharts.Where(e => e.Group == SelectedChartGroup).ToArray();
-        foreach (var chart in charts.OrderBy(e=> e.DifficultyLevel).ThenBy(e => e.Difficulty))
+        foreach (var chart in charts.OrderBy(e => e.DifficultyLevel).ThenBy(e => e.Difficulty))
         {
             var obj = Instantiate(DifficultyMenuItemPrefab);
-            
-            obj.GetComponent<DifficultyDisplayItem>().DisplayDifficulty(chart.Difficulty, chart.DifficultyLevel);
+            var ddi = obj.GetComponent<DifficultyDisplayItem>();
+            ddi.DisplayDifficulty(chart.Difficulty, chart.DifficultyLevel);
+            var score = GetHighScore(chart.Difficulty);
+            var grade = score == null ? (Grade?)null : Helpers.PercentToGrade(score.PerfPercent);
+            ddi.DisplayGrade(grade);
             DifficultyMenu.AddItem(obj);
         }
     }
@@ -162,9 +166,19 @@ public class DifficultySelectFrame : MonoBehaviour
         }
     }
 
+    public PlayerScore GetHighScore(Difficulty diff)
+    {
+        var playerId = Player.ProfileId;
+        var selectedSong = Parent.CoreManager.SongLibrary[Parent.CoreManager.SelectedSong];
+        var group = SelectedChartGroup;
+
+        var result = Parent.CoreManager.ProfileManager.GetPlayerHighScore(playerId, selectedSong.ID, selectedSong.Version, diff, group);
+        return result;
+    }
+
     private void FetchHighScore()
     {
-        var score = Parent.GetHighScore(this);
+        var score = GetHighScore(SelectedDifficulty);
         PlayerHighScoreDisplay.DisplayedScore = score;
     }
 

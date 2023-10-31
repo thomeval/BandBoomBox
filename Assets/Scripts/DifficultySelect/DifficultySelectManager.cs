@@ -33,7 +33,7 @@ public class DifficultySelectManager : ScreenManager
             var frame = DifficultySelectFrames[player.Slot - 1];
             frame.Show();
             frame.Player = player;
-            
+
             frame.DisplayedSongData = selectedSong;
 
             DifficultySelectFrames[player.Slot - 1].State = DifficultySelectState.Selecting;
@@ -42,7 +42,7 @@ public class DifficultySelectManager : ScreenManager
 
     public override void OnPlayerInput(InputEvent inputEvent)
     {
-        DifficultySelectFrames[inputEvent.Player-1].HandleInput(inputEvent);
+        DifficultySelectFrames[inputEvent.Player - 1].HandleInput(inputEvent);
     }
 
     public void MenuItemSelected(MenuEventArgs args)
@@ -85,16 +85,5 @@ public class DifficultySelectManager : ScreenManager
     private void TryReturnToSongSelect()
     {
         SceneTransition(GameScene.SongSelect);
-    }
-
-    public PlayerScore GetHighScore(DifficultySelectFrame frame)
-    {
-        var playerId = frame.Player.ProfileId;
-        var selectedSong = CoreManager.SongLibrary[CoreManager.SelectedSong];
-        var diff = frame.SelectedDifficulty;
-        var group = frame.SelectedChartGroup;
-        
-        var result = CoreManager.ProfileManager.GetPlayerHighScore(playerId, selectedSong.ID, selectedSong.Version, diff, group);
-        return result;
     }
 }
