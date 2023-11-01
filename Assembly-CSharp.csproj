@@ -56,135 +56,120 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Common\GameScene.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorOptions.cs" />
+    <Compile Include="Assets\Scripts\Credits\CreditsManager.cs" />
     <Compile Include="Assets\Scripts\Options\OptionsManager.cs" />
     <Compile Include="Assets\Scripts\Managers\PlayerHudManager.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\ProfileListItem.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplay.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\SongList.cs" />
     <Compile Include="Assets\Scripts\Input\ControlsChangedArgs.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteGenerator.cs" />
-    <Compile Include="Assets\Scripts\Evaluation\EvaluationManager.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\EditorDifficultyListItem.cs" />
-    <Compile Include="Assets\Scripts\Input\InputEvent.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\GameplayUtils.cs" />
-    <Compile Include="Assets\Scripts\Input\DeviationResult.cs" />
-    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNoteTransformer.cs" />
-    <Compile Include="Assets\Scripts\Input\ActionMapType.cs" />
-    <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteItem.cs" />
-    <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureBpmPage.cs" />
-    <Compile Include="Assets\Scripts\Songs\ChartValidator.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\EditorSectionListItem.cs" />
-    <Compile Include="Assets\Scripts\Evaluation\ExpModifierList.cs" />
-    <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />
-    <Compile Include="Assets\Scripts\Managers\ProfileManager.cs" />
-    <Compile Include="Assets\Scripts\Common\SoundEventHandler.cs" />
-    <Compile Include="Assets\Scripts\Managers\HudManager.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
-    <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
-    <Compile Include="Assets\Scripts\Managers\CoreManager.cs" />
-    <Compile Include="Assets\BackgroundManager.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\LaneFlasher.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\GoalMeter.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\GameplayState.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\HeldNoteDisplay.cs" />
-    <Compile Include="Assets\Scripts\Common\Difficulty.cs" />
-    <Compile Include="Assets\BackgroundPlaneAnimator.cs" />
-    <Compile Include="Assets\EnergyMeter.cs" />
-    <Compile Include="Assets\Scripts\SongSelect\SongListItem.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorBasicsPage.cs" />
-    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileSelectFrame.cs" />
-    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorManager.cs" />
-    <Compile Include="Assets\Scripts\Common\PlayerSongSelectFrame.cs" />
-    <Compile Include="Assets\Scripts\Common\ExpLevelUtils.cs" />
-    <Compile Include="Assets\StarMeter.cs" />
-    <Compile Include="Assets\Scripts\MainMenu\MainMenuManager.cs" />
-    <Compile Include="Assets\Scripts\Songs\DifficultyRange.cs" />
-    <Compile Include="Assets\Scripts\Misc\LogicalNotProcessor.cs" />
-    <Compile Include="Assets\Scripts\Common\ExpMeter.cs" />
-    <Compile Include="Assets\Scripts\Misc\UIExtensions.cs" />
-    <Compile Include="Assets\Scripts\Managers\ControlsManager.cs" />
-    <Compile Include="Assets\Scripts\Common\SoundEvent.cs" />
-    <Compile Include="Assets\Scripts\Songs\SongLibrary.cs" />
-    <Compile Include="Assets\Scripts\SongSelect\SongPreviewManager.cs" />
-    <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicManager.cs" />
-    <Compile Include="Assets\Scripts\Common\SettingsManager.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\EditorStarScoresColumn.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\NoteHitFlasher.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorFineTunePage.cs" />
-    <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectFrame.cs" />
-    <Compile Include="Assets\Scripts\Notes\Note.cs" />
-    <Compile Include="Assets\Scripts\Common\ErrorMessage.cs" />
-    <Compile Include="Assets\Scripts\HowToPlay\HowToPlayManager.cs" />
-    <Compile Include="Assets\Scripts\Common\MenuEventArgs.cs" />
-    <Compile Include="Assets\Scripts\Misc\CompressedFileHelper.cs" />
-    <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicEntry.cs" />
-    <Compile Include="Assets\Scripts\Managers\PlayerManager.cs" />
-    <Compile Include="Assets\SongProgressMeter.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorPageManager.cs" />
-    <Compile Include="Assets\Scripts\DifficultySelect\PlayerHighScoreDisplay.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\TimingDisplay.cs" />
-    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinOptionsFrame.cs" />
-    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNotePlacer.cs" />
-    <Compile Include="Assets\Scripts\Common\MenuSelectionHighlight.cs" />
-    <Compile Include="Assets\Scripts\Notes\NoteManager.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMainMenuPage.cs" />
-    <Compile Include="Assets\Scripts\Notes\FinishMarker.cs" />
-    <Compile Include="Assets\Scripts\HighScores\HighScoreManager.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorDetailsPage.cs" />
-    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinManager.cs" />
-    <Compile Include="Assets\Scripts\Common\GameScene.cs" />
-    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorOptions.cs" />
-    <Compile Include="Assets\Scripts\Credits\CreditsManager.cs" />
-    <Compile Include="Assets\Scripts\SongSelect\SongList.cs" />
     <Compile Include="Assets\Scripts\Gameplay\MxMeter.cs" />
     <Compile Include="Assets\Scripts\Misc\SceneTransitionState.cs" />
+    <Compile Include="Assets\Scripts\Evaluation\EvaluationManager.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\EditorDifficultyListItem.cs" />
     <Compile Include="Assets\Scripts\Input\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Input\InputEvent.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileCreateFrame.cs" />
     <Compile Include="Assets\Scripts\InitialLoad\InitialLoadManager.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteUtils.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameplayUtils.cs" />
+    <Compile Include="Assets\Scripts\Input\DeviationResult.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNoteTransformer.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorClipboard.cs" />
     <Compile Include="Assets\Scripts\Common\TextPulser.cs" />
+    <Compile Include="Assets\Scripts\Input\ActionMapType.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteItem.cs" />
+    <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorPlaybackManager.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureBpmPage.cs" />
     <Compile Include="Assets\Scripts\Songs\SongChart.cs" />
+    <Compile Include="Assets\Scripts\Songs\ChartValidator.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinFrame.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayManager.cs" />
     <Compile Include="Assets\SectionProgressMeter.cs" />
     <Compile Include="Assets\Scripts\Common\SpriteMeter.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\EditorSectionListItem.cs" />
+    <Compile Include="Assets\Scripts\Evaluation\ExpModifierList.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />
     <Compile Include="Assets\Scripts\Input\HitJudge.cs" />
+    <Compile Include="Assets\Scripts\Managers\ProfileManager.cs" />
     <Compile Include="Assets\Scripts\Input\JudgeResult.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenuState.cs" />
     <Compile Include="Assets\Scripts\Util\SpriteFader.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectState.cs" />
     <Compile Include="Assets\EditorButtonHandler.cs" />
+    <Compile Include="Assets\Scripts\Common\SoundEventHandler.cs" />
+    <Compile Include="Assets\Scripts\Managers\HudManager.cs" />
     <Compile Include="Assets\Scripts\Gameplay\TimingDisplayType.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectManager.cs" />
     <Compile Include="Assets\Scripts\Input\HitResult.cs" />
     <Compile Include="Assets\Scripts\Misc\ObjectEventArgs.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
+    <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
+    <Compile Include="Assets\Scripts\Managers\CoreManager.cs" />
+    <Compile Include="Assets\BackgroundManager.cs" />
     <Compile Include="Assets\Scripts\Input\DeviceLostArgs.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorChartListPage.cs" />
     <Compile Include="Assets\Scripts\Notes\SjsonUtils.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\LaneFlasher.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GoalMeter.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameplayState.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\HeldNoteDisplay.cs" />
     <Compile Include="Assets\Scripts\HighScores\PlayerScore.cs" />
+    <Compile Include="Assets\Scripts\Common\Difficulty.cs" />
+    <Compile Include="Assets\BackgroundPlaneAnimator.cs" />
     <Compile Include="Assets\Scripts\Notes\BeatLine.cs" />
+    <Compile Include="Assets\EnergyMeter.cs" />
     <Compile Include="Assets\Scripts\Input\InputAction.cs" />
     <Compile Include="Assets\Scripts\Songs\SongData.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinState.cs" />
     <Compile Include="Assets\Scripts\HighScores\TeamScore.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\SongListItem.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorBasicsPage.cs" />
+    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileSelectFrame.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownNumber.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorManager.cs" />
+    <Compile Include="Assets\Scripts\Common\PlayerSongSelectFrame.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorMenuManager.cs" />
+    <Compile Include="Assets\Scripts\Common\ExpLevelUtils.cs" />
+    <Compile Include="Assets\StarMeter.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\MainMenuManager.cs" />
+    <Compile Include="Assets\Scripts\Songs\DifficultyRange.cs" />
+    <Compile Include="Assets\Scripts\Misc\LogicalNotProcessor.cs" />
     <Compile Include="Assets\Scripts\Common\ProfileData.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\Songs\HoldRegion.cs" />
+    <Compile Include="Assets\Scripts\Common\ExpMeter.cs" />
+    <Compile Include="Assets\Scripts\Misc\UIExtensions.cs" />
     <Compile Include="Assets\Scripts\Evaluation\PlayerResultFrame.cs" />
+    <Compile Include="Assets\Scripts\Managers\ControlsManager.cs" />
     <Compile Include="Assets\Scripts\Songs\SongManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorPage.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteSjsonEntry.cs" />
+    <Compile Include="Assets\Scripts\Common\SoundEvent.cs" />
+    <Compile Include="Assets\Scripts\Songs\SongLibrary.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\SongPreviewManager.cs" />
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierEntry.cs" />
+    <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicManager.cs" />
     <Compile Include="Assets\Scripts\Notes\RegionMarker.cs" />
     <Compile Include="Assets\Scripts\Common\HighScoreDisplay.cs" />
+    <Compile Include="Assets\Scripts\Common\SettingsManager.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\EditorStarScoresColumn.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteSet.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\NoteHitFlasher.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorFineTunePage.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongSelectManager.cs" />
     <Compile Include="Assets\Scripts\Songs\SongStarScoreValues.cs" />
+    <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectFrame.cs" />
+    <Compile Include="Assets\Scripts\Notes\Note.cs" />
+    <Compile Include="Assets\Scripts\Common\ErrorMessage.cs" />
+    <Compile Include="Assets\Scripts\HowToPlay\HowToPlayManager.cs" />
     <Compile Include="Assets\Scripts\HighScores\TeamScoreCategory.cs" />
+    <Compile Include="Assets\Scripts\Common\MenuEventArgs.cs" />
+    <Compile Include="Assets\Scripts\Misc\CompressedFileHelper.cs" />
     <Compile Include="Assets\Scripts\Managers\SceneTransitionManager.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SelectedSongFrame.cs" />
     <Compile Include="Assets\Scripts\Common\Menu.cs" />
@@ -194,20 +179,35 @@
     <Compile Include="Assets\Scripts\Common\MenuItem.cs" />
     <Compile Include="Assets\Scripts\Evaluation\Grade.cs" />
     <Compile Include="Assets\Scripts\Managers\ScreenManager.cs" />
+    <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicEntry.cs" />
+    <Compile Include="Assets\Scripts\Managers\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Common\Player.cs" />
+    <Compile Include="Assets\SongProgressMeter.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorPageManager.cs" />
+    <Compile Include="Assets\Scripts\DifficultySelect\PlayerHighScoreDisplay.cs" />
+    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinOptionsFrame.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\TimingDisplay.cs" />
     <Compile Include="Assets\Scripts\Misc\AudioCrossFader.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorState.cs" />
     <Compile Include="Assets\AnimatedSprite.cs" />
     <Compile Include="Assets\Scripts\Misc\SongStarValueCalculator.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureTimePage.cs" />
     <Compile Include="Assets\PlayerGroupHighScoreDisplay.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNotePlacer.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureTimePage.cs" />
+    <Compile Include="Assets\Scripts\Common\MenuSelectionHighlight.cs" />
+    <Compile Include="Assets\Scripts\Notes\NoteManager.cs" />
     <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePalette.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMainMenuPage.cs" />
+    <Compile Include="Assets\Scripts\Notes\FinishMarker.cs" />
+    <Compile Include="Assets\Scripts\HighScores\HighScoreManager.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\Pages\EditorDetailsPage.cs" />
+    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\StreamingAssets\Songs\Readme.txt" />
-    <None Include="Assets\Packages\Newtonsoft.Json.13.0.1\lib\netstandard2.0\Newtonsoft.Json.xml" />
     <None Include="Assets\Packages\Newtonsoft.Json.13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll" />
+    <None Include="Assets\Packages\Newtonsoft.Json.13.0.1\lib\netstandard2.0\Newtonsoft.Json.xml" />
     <None Include="Assets\StreamingAssets\Acknowledgements.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -454,6 +454,9 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\Packages\Newtonsoft.Json.13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Burst.Unsafe">
       <HintPath>Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.Unsafe.dll</HintPath>
     </Reference>
@@ -468,12 +471,6 @@
     </Reference>
     <Reference Include="Unity.Burst.Cecil.Rocks">
       <HintPath>Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.6\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Assets\Packages\Newtonsoft.Json.13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -841,53 +838,17 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Flow.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Animation.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.001">
-      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Core.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.State.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.IK.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEditorBridge.001">
-      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Flow">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
@@ -895,47 +856,47 @@
     <Reference Include="Unity.InputSystem">
       <HintPath>Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Core">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mathematics">
-      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.IK.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst">
-      <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Shared.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Animation.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Timeline.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mathematics.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    <Reference Include="Unity.2D.IK.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Common.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.IK.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Animation.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Animation.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.InternalAPIEngineBridge.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst">
+      <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.Common.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.State">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
+    <Reference Include="Unity.Burst.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.InternalAPIEditorBridge.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
