@@ -20,8 +20,8 @@ public class ChartEditorManager : ScreenManager
     public double? SelectedRegionEnd;
 
     public Color MessageColorNormal = Color.white;
-    public Color MessageColorError = new Color(1.0f,0.5f,0.5f);
-    public Color MessageColorWarning = new Color(1.0f,1.0f,0.5f);
+    public Color MessageColorError = new Color(1.0f, 0.5f, 0.5f);
+    public Color MessageColorWarning = new Color(1.0f, 1.0f, 0.5f);
 
     [Header("Components")]
     public SongChart CurrentChart;
@@ -56,7 +56,7 @@ public class ChartEditorManager : ScreenManager
 
     public const Difficulty DEFAULT_PALETTE = Difficulty.Expert;
 
-    private readonly int[] _stepSizes = new[] { 1, 2, 3, 4, 6, 8};
+    private readonly int[] _stepSizes = new[] { 1, 2, 3, 4, 6, 8 };
 
     #region Properties
 
@@ -152,7 +152,7 @@ public class ChartEditorManager : ScreenManager
     {
         get
         {
-            return (float) (CursorPosition / CurrentSongData.Bpm * 60);
+            return (float)(CursorPosition / CurrentSongData.Bpm * 60);
         }
     }
 
@@ -181,7 +181,7 @@ public class ChartEditorManager : ScreenManager
         var args = CoreManager.SceneLoadArgs;
 
         CurrentSongData = Helpers.TryGetArg<SongData>(args, "SelectedSongData") ?? CoreManager.SongLibrary.Songs[0];
-        CurrentChart =  Helpers.TryGetArg<SongChart>(args, "SelectedSongChart") ?? CurrentSongData.GetChart("Main", Difficulty.Hard);
+        CurrentChart = Helpers.TryGetArg<SongChart>(args, "SelectedSongChart") ?? CurrentSongData.GetChart("Main", Difficulty.Hard);
         TxtChartDifficulty.text = CurrentChart.Difficulty.ToString();
         NoteGenerator.GenerateBeatLines(BeatLineType.Phrase, CurrentSongData, this.NoteManager);
         NoteGenerator.LoadSongNotes(CurrentChart, this.NoteManager);
@@ -198,7 +198,8 @@ public class ChartEditorManager : ScreenManager
 
     public void ShowNotePalette()
     {
-        EditorNotePaletteSet.DisplayedPalette = Options.AllowAllNotes ? DEFAULT_PALETTE: CurrentChart.Difficulty;
+        EditorNotePaletteSet.DisplayedPalette = Options.AllowAllNotes ? DEFAULT_PALETTE : CurrentChart.Difficulty;
+        EditorNotePaletteSet.SetNoteSkin(Options.NoteSkin, Options.LabelSkin);
     }
 
     private void SetupSongManager()
@@ -221,7 +222,7 @@ public class ChartEditorManager : ScreenManager
     private void UpdateNoteHighway()
     {
         NoteManager.SongPosition = CursorPositionInSeconds;
-        NoteManager.SongPositionInBeats = (float) CursorPosition;
+        NoteManager.SongPositionInBeats = (float)CursorPosition;
         NoteManager.UpdateNotes();
     }
 
@@ -265,7 +266,7 @@ public class ChartEditorManager : ScreenManager
                 PlaybackManager.OnPlayerInputPlayback(inputEvent);
                 break;
         }
-       
+
         base.OnPlayerInput(inputEvent);
     }
 
@@ -308,7 +309,7 @@ public class ChartEditorManager : ScreenManager
                 MoveCursorSections(1);
                 break;
             case InputAction.Editor_StepSizeUp:
-                
+
                 ChangeStepSize(1);
                 break;
             case InputAction.Editor_StepSizeDown:
@@ -373,7 +374,7 @@ public class ChartEditorManager : ScreenManager
         }
 
         UpdateHud();
-        NoteManager.HighlightRegion((float?) SelectedRegionStart, (float?) SelectedRegionEnd, CurrentSongData.Bpm);
+        NoteManager.HighlightRegion((float?)SelectedRegionStart, (float?)SelectedRegionEnd, CurrentSongData.Bpm);
     }
 
     private void MoveCursorSections(int delta)
@@ -386,7 +387,7 @@ public class ChartEditorManager : ScreenManager
         }
         else
         {
-            targetSection  = orderedSections.LastOrDefault(e => e.Key < CursorPosition);
+            targetSection = orderedSections.LastOrDefault(e => e.Key < CursorPosition);
         }
 
         // ReSharper disable once CompareOfFloatsByEqualityOperator
@@ -397,13 +398,13 @@ public class ChartEditorManager : ScreenManager
             PlaySfx(SoundEvent.Mistake);
             return;
         }
-        
+
         CursorPosition = targetSection.Key;
     }
 
     private void ChangeZoom(int delta)
     {
-        var newValue = Helpers.GetNextValue<int>(Player.ScrollSpeeds, (int) NoteManager.ScrollSpeed, delta, false);
+        var newValue = Helpers.GetNextValue<int>(Player.ScrollSpeeds, (int)NoteManager.ScrollSpeed, delta, false);
         NoteManager.ScrollSpeed = newValue;
         UpdateHud();
     }
@@ -458,7 +459,7 @@ public class ChartEditorManager : ScreenManager
 
             var sjson = SjsonUtils.ToSjson(NoteManager.Notes);
             CurrentChart.Notes = sjson;
-            
+
             CoreManager.SongLibrary.SaveSongToDisk(CurrentSongData);
             PlaySfx(SoundEvent.Editor_SaveComplete);
             DisplayMessage($"Successfully saved SJSON file to {CurrentSongData.SjsonFilePath} ");

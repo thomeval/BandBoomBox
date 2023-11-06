@@ -1,3 +1,13 @@
+
+param(
+    [Parameter(Mandatory=$true)]
+    [string] $outputPath = "D:\Writable Folder\Band BoomBox\",
+    [Parameter(Mandatory=$false)]
+    [string] $gameVersion = "",
+    [Parameter(Mandatory=$false)]
+    [string] $unityPath = "C:\Program Files\Unity\2021.2.12f1\Editor\Unity.exe"
+)
+
 function Clean-TargetFolder($target)
 {
     if (Test-Path($folder))
@@ -18,29 +28,39 @@ function Build-Project()
         [Parameter(Mandatory=$true)]
         [string] $TargetPlatform,
         [Parameter(Mandatory=$true)]
-        [string] $gameName
+        [string] $gameName,
+        [Parameter(Mandatory=$true)]
+        [bool] $debugBuild
     )
 
     [string] $folder = [System.IO.Path]::GetDirectoryName($BuildPath)
     [string] $targetSwitch = "-build" + $TargetPlatform + "Player"
+    [string] $debugArg = $debugBuild ? "-debugCodeOptimization" : ""
     #Clean the target folder. Powershell will ask for confirmation if it is not empty.
     Clean-TargetFolder $folder
     Write-Host "Building $TargetPlatform to $BuildPath..."
-    . $unityPath -quit -batchmode -projectpath $ProjectPath -$targetSwitch $BuildPath -logFile $windowsLogPath | Out-Default
+    . $unityPath -quit -batchmode -projectpath $ProjectPath -$targetSwitch $BuildPath $debugArg -logFile $windowsLogPath | Out-Default
     Get-ChildItem -Path $folder *_DoNotShip -Recurse | Remove-Item -Recurse
 
     [string] $archiveName =  "$folder\$gameName ($TargetPlatform).zip"
-    Write-Host "Creating Archive at  $archiveName"
+    Write-Host "Creating Archive at $archiveName"
     Compress-Archive -Path "$folder\*" -DestinationPath "$archiveName"
 }
 
-[string] $outputPath = "D:\Writable Folder\Band BoomBox\"
-[string] $unityPath = "C:\Program Files\Unity\2021.2.12f1\Editor\Unity.exe" 
+if (-not($outputPath.EndsWith("\")))
+{
+    $outputPath+= "\"
+}
 
 [string] $projectPath  = $PSScriptRoot
 [string] $gameName = "Band BoomBox"
-[string] $windowsBuildPath   = $outputPath + "Test\Windows\$($gameName).exe" 
-[string] $linuxBuildPath     = $outputPath + "Test\Linux\$($gameName).x86_64"
+
+if ($gameVersion -ne "")
+{
+    $gameName += " " + $gameVersion
+}
+[string] $windowsBuildPath   = $outputPath + "Windows\$($gameName).exe" 
+[string] $linuxBuildPath     = $outputPath + "Linux\$($gameName).x86_64"
 [string] $windowsLogPath     = $outputPath + "Logs\log_Windows.txt"
 [string] $linuxLogPath       = $outputPath + "Logs\log_Linux.txt"
 

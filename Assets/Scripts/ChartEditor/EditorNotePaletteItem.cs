@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.U2D.Animation;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-[ExecuteAlways]
 public class EditorNotePaletteItem : MonoBehaviour
 {
     public string Label;
@@ -20,7 +15,7 @@ public class EditorNotePaletteItem : MonoBehaviour
     }
 
     private void Awake()
-    {      
+    {
         if (Note == null || TxtLabel == null)
         {
             return;
@@ -31,13 +26,4 @@ public class EditorNotePaletteItem : MonoBehaviour
         TxtLabel.text = Label;
     }
 
-    void Update()
-    {
-        if (Application.isPlaying)
-        {
-            return;
-        }
-
-        Awake();     
-    }
 }

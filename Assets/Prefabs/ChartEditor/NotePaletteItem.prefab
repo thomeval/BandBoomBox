@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1045633231963110545, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1045633231963110545, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
@@ -220,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366192, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_SpriteKey
-      value: -0.00000005063674
+      value: 0.005358274
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_Size.x
@@ -248,7 +248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366199, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: NoteType
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9117357304727996035, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_Enabled
@@ -256,7 +256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9117357304727996035, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_SpriteKey
-      value: 3.25385e-13
+      value: 0.005358274
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}

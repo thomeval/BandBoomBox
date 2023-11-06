@@ -1,24 +1,23 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-[ExecuteAlways]
 public class EditorNotePaletteSet : MonoBehaviour
 {
     public EditorNotePalette[] NotePalettes = new EditorNotePalette[0];
     public GameObject PaletteContainer;
 
     [SerializeField]
-    private Difficulty displayedPalette = Difficulty.Beginner;
+    private Difficulty _displayedPalette = Difficulty.Beginner;
 
     public Difficulty DisplayedPalette
     {
         get
         {
-            return displayedPalette;
+            return _displayedPalette;
         }
         set
         {
-            displayedPalette = value;
+            _displayedPalette = value;
             DisplayPalette();
         }
     }
@@ -32,7 +31,10 @@ public class EditorNotePaletteSet : MonoBehaviour
     {
         foreach (var palette in NotePalettes)
         {
+            var isEnabled = palette.gameObject.activeSelf;
+            palette.gameObject.SetActive(true);
             palette.SetNoteskin(noteSkin, labelSkin);
+            palette.gameObject.SetActive(isEnabled);
         }
     }
 
@@ -45,20 +47,5 @@ public class EditorNotePaletteSet : MonoBehaviour
 
         var paletteToShow = NotePalettes.Single(e => e.Difficulty == DisplayedPalette);
         paletteToShow.Show();
-    }
-
-    private void Update()
-    {
-        if (Application.isPlaying)
-        {
-            return;
-        }
-
-        if (NotePalettes.Length == 0)
-        {
-            Awake();
-        }
-
-        DisplayPalette();
     }
 }
