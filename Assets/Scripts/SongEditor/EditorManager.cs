@@ -99,7 +99,7 @@ public class EditorManager : ScreenManager
 
     public void RequestMeasureTime(Action<float?> callback, float startTime = 0.0f)
     {
-        var measurer = (EditorMeasureTimePage) _pages[EditorPage.MeasureTime];
+        var measurer = (EditorMeasureTimePage)_pages[EditorPage.MeasureTime];
         measurer.OnMeasureComplete = callback;
         CurrentPage = EditorPage.MeasureTime;
         measurer.BeginMeasure(startTime);
@@ -115,7 +115,7 @@ public class EditorManager : ScreenManager
 
     public void RequestFineTune(Action callback)
     {
-        var tuner = (EditorFineTunePage) _pages[EditorPage.FineTune];
+        var tuner = (EditorFineTunePage)_pages[EditorPage.FineTune];
         tuner.OnTuneComplete = callback;
         CurrentPage = EditorPage.FineTune;
         tuner.BeginFineTune();
@@ -151,7 +151,7 @@ public class EditorManager : ScreenManager
     {
         try
         {
-            var result = CoreManager.SongLibrary.LoadSong(target);
+            var result = CoreManager.SongLibrary.LoadSong(target, true);
             CurrentSong = result;
         }
         catch (Exception e)

@@ -69,24 +69,29 @@ namespace Assets
                 LoadSong(file);
             }
         }
-        public SongData LoadSong(string path)
+        public SongData LoadSong(string path, bool ignoreDuplicate = false)
         {
-            
+
             if (string.IsNullOrEmpty(path))
             {
                 throw new ArgumentNullException(nameof(path));
             }
 
-
-
             var folder = Path.GetDirectoryName(path);
             var json = File.ReadAllText(path);
             //  var song = JsonUtility.FromJson<SongData>(json);
             var song = JsonConvert.DeserializeObject<SongData>(json);
+
+            if (this.Contains(song.ID) && !ignoreDuplicate)
+            {
+                var otherPath = this[song.ID].SjsonFilePath;
+                Debug.LogWarning($"Found duplicate song with ID {song.ID} at {path} and {otherPath}.");
+            }
+
             song.SjsonFilePath = path;
             song.AudioPath = Path.Combine(folder, song.AudioFile);
             song.Sections = song.Sections.OrderBy(e => e.Key).ToDictionary(e => e.Key, e => e.Value);
-            
+
             this[song.ID] = song;
             return song;
         }
@@ -103,7 +108,7 @@ namespace Assets
                     Directory.CreateDirectory(folder);
                 }
 
-                var json = JsonConvert.SerializeObject(songData,Formatting.Indented);
+                var json = JsonConvert.SerializeObject(songData, Formatting.Indented);
                 File.WriteAllText(filePath, json);
                 Debug.Log($"Successfully saved SJSON file: {filePath}");
 
