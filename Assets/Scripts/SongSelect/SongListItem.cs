@@ -15,13 +15,13 @@ public class SongListItem : MonoBehaviour
 
     public void DisplayTeamScore(TeamScore teamScore)
     {
-        StarCountDisplay.SetActive(teamScore != null);
-        var stars = (int) (teamScore?.Stars ?? 0);
+        var starsText = teamScore == null ? "" : ((int)teamScore.Stars) + "";
+        var label = teamScore == null ? "None" : starsText;
 
-        TxtStarCount.text = string.Format(CultureInfo.InvariantCulture, "{0:F0}",  stars);
-        StarIconSpriteResolver.SetCategoryAndLabel("StarIcons", "" + stars);
+        TxtStarCount.text = starsText;
+        StarIconSpriteResolver.SetCategoryAndLabel("StarIcons", label);
     }
-    
+
     [SerializeField]
     private bool _isSelected;
     public bool IsSelected

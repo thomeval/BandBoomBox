@@ -1,11 +1,11 @@
 
 param(
     [Parameter(Mandatory=$true)]
-    [string] $outputPath = "D:\Writable Folder\Band BoomBox\",
+    [string] $OutputPath = "D:\Writable Folder\Band BoomBox\",
     [Parameter(Mandatory=$false)]
-    [string] $gameVersion = "",
+    [string] $GameVersion = "",
     [Parameter(Mandatory=$false)]
-    [string] $unityPath = "C:\Program Files\Unity\2021.2.12f1\Editor\Unity.exe"
+    [string] $UnityPath = "C:\Program Files\Unity\2021.2.12f1\Editor\Unity.exe"
 )
 
 function Clean-TargetFolder($target)
@@ -28,9 +28,9 @@ function Build-Project()
         [Parameter(Mandatory=$true)]
         [string] $TargetPlatform,
         [Parameter(Mandatory=$true)]
-        [string] $gameName,
-        [Parameter(Mandatory=$true)]
-        [bool] $debugBuild
+        [string] $GameName,
+        [Parameter(Mandatory=$false)]
+        [string] $GameVersion = ""      
     )
 
     [string] $folder = [System.IO.Path]::GetDirectoryName($BuildPath)
@@ -42,7 +42,8 @@ function Build-Project()
     . $unityPath -quit -batchmode -projectpath $ProjectPath -$targetSwitch $BuildPath $debugArg -logFile $windowsLogPath | Out-Default
     Get-ChildItem -Path $folder *_DoNotShip -Recurse | Remove-Item -Recurse
 
-    [string] $archiveName =  "$folder\$gameName ($TargetPlatform).zip"
+
+    [string] $archiveName =  "$folder\$GameName $GameVersion ($TargetPlatform).zip"
     Write-Host "Creating Archive at $archiveName"
     Compress-Archive -Path "$folder\*" -DestinationPath "$archiveName"
 }
@@ -55,10 +56,6 @@ if (-not($outputPath.EndsWith("\")))
 [string] $projectPath  = $PSScriptRoot
 [string] $gameName = "Band BoomBox"
 
-if ($gameVersion -ne "")
-{
-    $gameName += " " + $gameVersion
-}
 [string] $windowsBuildPath   = $outputPath + "Windows\$($gameName).exe" 
 [string] $linuxBuildPath     = $outputPath + "Linux\$($gameName).x86_64"
 [string] $windowsLogPath     = $outputPath + "Logs\log_Windows.txt"
@@ -78,9 +75,9 @@ if (-not (Test-Path($unityPath)))
 }
 
 #Build For Windows
-Build-Project -ProjectPath $ProjectPath -buildPath $windowsBuildPath -logFilePath $windowsLogPath -targetPlatform "Windows64" -gameName $gameName
+Build-Project -ProjectPath $ProjectPath -buildPath $windowsBuildPath -logFilePath $windowsLogPath -targetPlatform "Windows64" -GameName $GameName -gameVersion $GameVersion
 
 # Build For Linux
-Build-Project -ProjectPath $ProjectPath -buildPath $linuxBuildPath -logFilePath $linuxLogPath -targetPlatform "Linux64" -gameName $gameName
+Build-Project -ProjectPath $ProjectPath -buildPath $linuxBuildPath -logFilePath $linuxLogPath -targetPlatform "Linux64" -GameName $GameName -gameVersion $GameVersion
 
 Write-Host "All builds completed successfully!"
