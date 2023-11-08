@@ -110,7 +110,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1223333885
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f7259b054eb89c24aa4770f94e119062, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -215,9 +215,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2144779817
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ee2b7c3ce7469134db11c0707f46862f, type: 3}
+  m_Sprite: {fileID: 200751982, guid: 90faec99de5b5b2428f96246fbc99d90, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -311,6 +311,7 @@ MonoBehaviour:
     Artist: 
     ChartAuthor: 
     Issues: 
+    Url: 
     AudioFile: 
     Version: 1
     Bpm: 0
