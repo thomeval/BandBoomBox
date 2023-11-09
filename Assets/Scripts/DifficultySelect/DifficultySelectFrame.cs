@@ -5,32 +5,7 @@ using UnityEngine.UI;
 
 public class DifficultySelectFrame : MonoBehaviour
 {
-    public GameObject ChartGroupSelector;
-    public Text TxtChartGroup;
-    public Text TxtScrollSpeed;
-    public Text TxtPlayerName;
-    public ExpMeter ExpMeter;
-    public Menu DifficultyMenu;
-    public GameObject DifficultyMenuItemPrefab;
-    public PlayerHighScoreDisplay PlayerHighScoreDisplay;
-    public DifficultySelectManager Parent;
-
-    public GameObject PageSelecting;
-    public GameObject PageReady;
-
-    private string[] _chartGroups;
-
-    public string SelectedChartGroup;
-
-
-    public Difficulty SelectedDifficulty
-    {
-        get
-        {
-            var selectedItem = DifficultyMenu.SelectedGameObject.GetComponent<DifficultyDisplayItem>();
-            return selectedItem.Difficulty;
-        }
-    }
+    [Header("Basics")]
 
     [SerializeField]
     private DifficultySelectState _state = DifficultySelectState.NotJoined;
@@ -46,6 +21,34 @@ public class DifficultySelectFrame : MonoBehaviour
         }
     }
 
+    public Text TxtScrollSpeed;
+    public Text TxtPlayerName;
+    public ExpMeter ExpMeter;
+    public Menu DifficultyMenu;
+    public GameObject DifficultyMenuItemPrefab;
+    public PlayerHighScoreDisplay PlayerHighScoreDisplay;
+    public DifficultySelectManager Parent;
+
+    [Header("Pages")]
+    public GameObject PageSelecting;
+    public GameObject PageReady;
+
+    [Header("Chart Groups")]
+    public GameObject ChartGroupSelector;
+    public Text TxtChartGroup;
+    public Text TxtChartSelectedIndex;
+    private string[] _chartGroups;
+    public string SelectedChartGroup;
+
+    public Difficulty SelectedDifficulty
+    {
+        get
+        {
+            var selectedItem = DifficultyMenu.SelectedGameObject.GetComponent<DifficultyDisplayItem>();
+            return selectedItem.Difficulty;
+        }
+    }
+
     private void UpdateShownPage()
     {
         PageSelecting.SetActive(State == DifficultySelectState.Selecting);
@@ -53,10 +56,7 @@ public class DifficultySelectFrame : MonoBehaviour
     }
 
     [Header("Sounds")]
-    public AudioSource SfxChartGroupChanged;
-    public AudioSource SfxScrollSpeedChanged;
-    public AudioSource SfxSelectionConfirmed;
-    public AudioSource SfxSelectionCancelled;
+    public SoundEventHandler SoundEventHandler;
 
     public SongChart SelectedSongChart
     {
@@ -66,8 +66,6 @@ public class DifficultySelectFrame : MonoBehaviour
 
     [SerializeField]
     private SongData _displayedSongData;
-
-
 
     public SongData DisplayedSongData
     {
@@ -106,7 +104,10 @@ public class DifficultySelectFrame : MonoBehaviour
     private void RefreshText()
     {
         TxtChartGroup.text = SelectedChartGroup;
+
         TxtScrollSpeed.text = "" + Player.ScrollSpeed;
+        var idx = Array.IndexOf(_chartGroups, SelectedChartGroup) + 1;
+        TxtChartSelectedIndex.text = $"{idx} / {_chartGroups.Length}";
     }
 
     private void RefreshMenu()
@@ -160,7 +161,7 @@ public class DifficultySelectFrame : MonoBehaviour
         {
             case InputAction.B:
             case InputAction.Back:
-                SfxSelectionCancelled.PlayUnlessNull();
+                SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
                 DifficultyMenu.HandleInput(inputEvent);
                 break;
         }
@@ -185,12 +186,13 @@ public class DifficultySelectFrame : MonoBehaviour
     private void ChangeScrollSpeed(int delta)
     {
         Player.ChangeScrollSpeed(delta);
-        SfxScrollSpeedChanged.Play();
+        SoundEventHandler.PlaySfx(SoundEvent.SelectionShifted);
         RefreshText();
     }
 
     public void MenuItemSelected(MenuEventArgs args)
     {
+        /*
         if (args.SelectedItem == "Back")
         {
             SfxSelectionCancelled.PlayUnlessNull();
@@ -199,7 +201,7 @@ public class DifficultySelectFrame : MonoBehaviour
         {
             SfxSelectionConfirmed.PlayUnlessNull();
         }
-
+        */
         Parent.MenuItemSelected(args);
     }
 
@@ -210,9 +212,10 @@ public class DifficultySelectFrame : MonoBehaviour
             return;
         }
 
-        SfxChartGroupChanged.Play();
+        SoundEventHandler.PlaySfx(SoundEvent.SelectionShifted);
         SelectedChartGroup = Helpers.GetNextValue(_chartGroups, SelectedChartGroup, delta, true);
         RefreshMenu();
+        RefreshText();
         FetchHighScore();
     }
 }
