@@ -30,7 +30,7 @@ public class NoteGenerator : MonoBehaviour
     public void LoadOrGenerateSongNotes(SongData songData, string group, Difficulty difficulty, NoteManager destination)
     {
         var chart = songData.GetChart(group, difficulty);
-       LoadOrGenerateSongNotes(chart, songData.LengthInBeats, destination );
+        LoadOrGenerateSongNotes(chart, songData.LengthInBeats, destination);
     }
 
     public void LoadOrGenerateSongNotes(SongChart chart, float lengthInBeats, NoteManager destination)
@@ -38,7 +38,7 @@ public class NoteGenerator : MonoBehaviour
 
         if (chart.Notes == null || chart.Notes.Length == 0)
         {
-            var notes = GenerateNotes(chart.Difficulty, (int) lengthInBeats);
+            var notes = GenerateNotes(chart.Difficulty, (int)lengthInBeats);
             ApplyToDestination(chart, destination, notes);
         }
         else
@@ -68,7 +68,7 @@ public class NoteGenerator : MonoBehaviour
         var result = new List<Note>();
         for (int x = 0; x <= endBeat; x++)
         {
-           GenerateNotesAtBeat(difficulty, x, ref result);
+            GenerateNotesAtBeat(difficulty, x, ref result);
         }
 
         return result;
@@ -163,7 +163,7 @@ public class NoteGenerator : MonoBehaviour
             case Difficulty.Beginner:
                 return beat % 2 == 0 ? 1 : 0;
             case Difficulty.Medium:
-                return beat % 8 == 7 ?  0 : 1;
+                return beat % 8 == 7 ? 0 : 1;
             case Difficulty.Hard:
                 return beat % 16 == 0 ? 2 : 1;
             case Difficulty.Expert:
@@ -214,14 +214,12 @@ public class NoteGenerator : MonoBehaviour
                 continue;
             }
 
-            var beatLine = Instantiate(BeatLinePrefab);
+            var beatLine = InstantiateBeatLine(BeatLinePrefab, x, BeatLineType.Phrase);
             if (beatLine == null)
             {
                 continue;
             }
 
-            beatLine.Position = x;
-            beatLine.BeatLineType = BeatLineType.Phrase;
             destination.Add(beatLine);
         }
     }
@@ -231,7 +229,8 @@ public class NoteGenerator : MonoBehaviour
 
         foreach (var section in sections)
         {
-            var beatLine = InstantiateBeatLine(SectionLinePrefab, (float) section, BeatLineType.Section);
+            var beatLine = InstantiateBeatLine(SectionLinePrefab, (float)section, BeatLineType.Section);
+
             destination.Add(beatLine);
         }
     }
@@ -243,8 +242,8 @@ public class NoteGenerator : MonoBehaviour
         Debug.Assert(result != null, $"Prefab instantiate failed for beatline of type {beatLineType}");
         result!.Position = xPos;
         result.BeatLineType = beatLineType;
+        result.gameObject.name = $"{beatLineType} Beatline ({xPos:F1})";
         return result;
-
     }
 
     public void LoadNoteArray(string[] noteArray, ref List<Note> destination)
@@ -259,7 +258,7 @@ public class NoteGenerator : MonoBehaviour
     private const int LINE_SIZE = 4;
     private void LoadNoteBlock(string notes, int beat, ref List<Note> destination)
     {
-        notes = notes.Trim().Replace(" ","");
+        notes = notes.Trim().Replace(" ", "");
 
         if (string.IsNullOrEmpty(notes))
         {
@@ -275,23 +274,23 @@ public class NoteGenerator : MonoBehaviour
 
         for (int x = 0; x < notes.Length; x += LINE_SIZE)
         {
-            lines.Add(notes.Substring(x,LINE_SIZE));
+            lines.Add(notes.Substring(x, LINE_SIZE));
         }
 
         float beatFraction = 1.0f / lines.Count;
         float currentBeatFraction = 0.0f;
         foreach (var line in lines)
         {
-            LoadNoteLine(line, beat + currentBeatFraction,  ref destination);
+            LoadNoteLine(line, beat + currentBeatFraction, ref destination);
             currentBeatFraction += beatFraction;
         }
     }
 
-    private void LoadNoteLine(string line, float beat,  ref List<Note> destination)
+    private void LoadNoteLine(string line, float beat, ref List<Note> destination)
     {
         if (line.Length != LINE_SIZE)
         {
-            
+
             Debug.LogWarning($"Invalid note line length: {line}.");
             return;
         }
