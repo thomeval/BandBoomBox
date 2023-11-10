@@ -18168,14 +18168,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Notes: []
   BeatLines: []
-  RegionMarkers: []
+  RegionMarkers:
+  - {fileID: 2032373263}
   Chart:
     Group: 
     Difficulty: 0
     DifficultyLevel: 0
     Notes: []
   ScrollingBackground: {fileID: 151706333}
-  SelectedRegionMarker: {fileID: 2032373263}
   ImpactZoneCenter: -320
   LaneHeight: 75
   TopLanePos: 75

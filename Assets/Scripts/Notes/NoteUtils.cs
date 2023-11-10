@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 public static class NoteUtils
 {
-    public static float MissCutoff = 0.3f;
-    public static float BeatLineCutoff = 1.0f;
     public static int GetNoteLane(NoteType noteType)
     {
         switch (noteType)

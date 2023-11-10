@@ -6,11 +6,17 @@ using System.Linq;
 public class NoteManager : MonoBehaviour
 {
     public List<Note> Notes = new();
-    public List<BeatLine> BeatLines;
+    public List<BeatLine> BeatLines = new();
     public List<RegionMarker> RegionMarkers = new();
     public SongChart Chart;
     public RectTransform ScrollingBackground;
-    public RegionMarker SelectedRegionMarker;
+    public RegionMarker SelectedRegionMarker
+    {
+        get
+        {
+            return this.RegionMarkers.FirstOrDefault(e => e.RegionMarkerType == RegionMarkerType.SelectedRegion);
+        }
+    }
 
     public int ImpactZoneCenter = -540;
 
@@ -39,13 +45,11 @@ public class NoteManager : MonoBehaviour
     public bool TrimNotesEnabled = true;
 
     private float _displayedScrollSpeed = 500;
-    private readonly List<Note> _notesToRemove = new();
-    private readonly List<BeatLine> _beatLinesToRemove = new();
     private float _lastSeenPosition = -999.0f;
     private float _noteAreaWidth;
 
     private GameplayManager _gameplayManager;
-
+    private NoteTrimmer _noteTrimmer;
     private SpriteRenderer _scrollingBackgroundRenderer;
 
     private readonly Note[] _pendingReleases = new Note[4];
@@ -83,6 +87,7 @@ public class NoteManager : MonoBehaviour
 
     [SerializeField]
     private float _scrollingBackgroundOpacity;
+
     public float ScrollingBackgroundOpacity
     {
         get
@@ -217,6 +222,11 @@ public class NoteManager : MonoBehaviour
         {
             beatline.SetRenderPosition(10000.0f);
         }
+
+        foreach (var marker in RegionMarkers)
+        {
+            marker.SetRenderPosition(10000.0f, 10001.0f);
+        }
     }
 
     public void ShowAllNotes()
@@ -322,63 +332,11 @@ public class NoteManager : MonoBehaviour
 
     public void TrimNotes()
     {
-        if (!TrimNotesEnabled)
+        if (_noteTrimmer == null)
         {
-            return;
+            _noteTrimmer = new NoteTrimmer(this);
         }
-
-        GetNotesToRemove();
-        foreach (var note in _notesToRemove)
-        {
-            ApplyNoteMissed(note);
-        }
-
-        foreach (var beatLine in _beatLinesToRemove)
-        {
-            RemoveBeatLine(beatLine);
-        }
-    }
-
-    private void GetNotesToRemove()
-    {
-        _notesToRemove.Clear();
-        _beatLinesToRemove.Clear();
-        foreach (var note in this.Notes)
-        {
-            if (IsNoteExpired(note))
-            {
-                _notesToRemove.Add(note);
-            }
-            else
-            {
-                // Notes are ordered by AbsoluteTime. Stop processing once the current note is inside the cutoff range.
-                break;
-            }
-        }
-
-        foreach (var beatLine in this.BeatLines)
-        {
-            if (IsNoteExpired(beatLine))
-            {
-                _beatLinesToRemove.Add(beatLine);
-            }
-            else
-            {
-                // BeatLines are ordered by AbsoluteTime. Stop processing once the current beatline is inside the cutoff range.
-                break;
-            }
-        }
-    }
-
-    private bool IsNoteExpired(Note note)
-    {
-        return note.AbsoluteTime < SongPosition - NoteUtils.MissCutoff;
-    }
-
-    private bool IsNoteExpired(BeatLine beatLine)
-    {
-        return beatLine.AbsoluteTime < SongPosition - NoteUtils.BeatLineCutoff &&
-               beatLine.BeatLineType != BeatLineType.Finish;
+        _noteTrimmer.TrimNotes();
     }
 
     private float CalculateRenderPosition(float notePosition)
@@ -549,6 +507,12 @@ public class NoteManager : MonoBehaviour
     {
         BeatLines.Remove(beatLine);
         GameObject.Destroy(beatLine.gameObject);
+    }
+
+    public void RemoveRegionMarker(RegionMarker marker)
+    {
+        RegionMarkers.Remove(marker);
+        GameObject.Destroy(marker.gameObject);
     }
 
     public void ApplyNoteSkin(string noteSkin = null, string labelSkin = null)
