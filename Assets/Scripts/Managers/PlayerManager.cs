@@ -132,7 +132,6 @@ public class PlayerManager : MonoBehaviour
         gameObj.name = $"Player{playerInput.playerIndex + 1}";
         player.Slot = playerInput.playerIndex + 1;
         Players.Add(player);
-        Debug.Log(_coreManager.ControlsManager.InputActionAsset.GetInstanceID());
         player.ApplyInputActions(_controlsManager.InputActionAsset.ToJson());
 
         _coreManager.OnPlayerJoined(player);
