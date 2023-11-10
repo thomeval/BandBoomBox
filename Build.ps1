@@ -3,8 +3,6 @@ param(
     [Parameter(Mandatory=$true)]
     [string] $OutputPath = "D:\Writable Folder\Band BoomBox\",
     [Parameter(Mandatory=$false)]
-    [string] $GameVersion = "",
-    [Parameter(Mandatory=$false)]
     [string] $UnityPath = "C:\Program Files\Unity\2021.2.12f1\Editor\Unity.exe"
 )
 
@@ -25,6 +23,28 @@ function Clean-TargetFolder($target)
     }
 }
 
+function Get-ProjectVersion()
+{
+    param(
+        [Parameter(Mandatory=$true)]
+        [string] $ProjectPath
+    )
+
+    [string] $projectJsonPath = [System.IO.Path]::Combine($ProjectPath, "ProjectSettings", "ProjectSettings.asset")
+
+    Write-Host "Reading version number from $projectJsonPath"
+    if (-not(Test-Path($projectJsonPath)))
+    {
+        Write-Warning "Project settings file was not found at : $projectJsonPath"
+        return ""
+    }
+
+    $versionLine = get-content .\ProjectSettings\ProjectSettings.asset | select-string "bundleVersion:"
+    $versionLine = $versionLine.Line.Trim().Replace("bundleVersion: ","")
+
+    Write-Host "Found Version: $versionLine"
+    return $versionLine
+}
 function Build-Project()
 {
     param(
@@ -91,6 +111,8 @@ if (-not($continue))
     return
 }
 
+$gameVersion = Get-ProjectVersion $projectPath
+
 # Create Releases Subfolder
 if (-not(Test-Path $releasesPath))
 {
@@ -98,9 +120,9 @@ if (-not(Test-Path $releasesPath))
 }
 
 #Build For Windows
-Build-Project -ProjectPath $ProjectPath -buildPath $windowsBuildPath -logFilePath $windowsLogPath -targetPlatform "Windows64" -GameName $GameName -gameVersion $GameVersion -ReleasesPath $releasesPath
+Build-Project -ProjectPath $ProjectPath -buildPath $windowsBuildPath -logFilePath $windowsLogPath -targetPlatform "Windows64" -GameName $GameName -gameVersion $gameVersion -ReleasesPath $releasesPath
 
 # Build For Linux
-Build-Project -ProjectPath $ProjectPath -buildPath $linuxBuildPath -logFilePath $linuxLogPath -targetPlatform "Linux64" -GameName $GameName -gameVersion $GameVersion -ReleasesPath $releasesPath
+Build-Project -ProjectPath $ProjectPath -buildPath $linuxBuildPath -logFilePath $linuxLogPath -targetPlatform "Linux64" -GameName $GameName -gameVersion $gameVersion -ReleasesPath $releasesPath
 
 Write-Host "All builds completed successfully!"
