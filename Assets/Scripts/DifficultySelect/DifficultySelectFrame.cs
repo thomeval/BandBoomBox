@@ -192,16 +192,6 @@ public class DifficultySelectFrame : MonoBehaviour
 
     public void MenuItemSelected(MenuEventArgs args)
     {
-        /*
-        if (args.SelectedItem == "Back")
-        {
-            SfxSelectionCancelled.PlayUnlessNull();
-        }
-        else
-        {
-            SfxSelectionConfirmed.PlayUnlessNull();
-        }
-        */
         Parent.MenuItemSelected(args);
     }
 
