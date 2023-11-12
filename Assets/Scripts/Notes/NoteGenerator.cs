@@ -248,6 +248,11 @@ public class NoteGenerator : MonoBehaviour
 
     public void LoadNoteArray(string[] noteArray, ref List<Note> destination)
     {
+        if (noteArray == null)
+        {
+            return;
+        }
+
         for (int beat = 0; beat < noteArray.Length; beat++)
         {
             LoadNoteBlock(noteArray[beat], beat, ref destination);
