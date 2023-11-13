@@ -2,6 +2,7 @@
 ![Band BoomBox Logo](Assets/StreamingAssets/Icons/Deck-Logo.png)
 
 Band BoomBox is a free, open source rhythm game built using the Unity engine. The main gameplay involves players hitting a sequence of notes as accurately as possible in order to earn points. The game can be played with either a keyboard or a controller, and local cooperative multiplayer for up to 4 players is supported.
+![BB-Gameplay](https://github.com/thomeval/BandBoomBox/assets/11618454/0c38179f-d922-49c8-b332-e64835292d9e)
 
 ## Features
 - Completely free (as in "Open Source Freedom", not "Free To Play but Pay To Win")
