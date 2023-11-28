@@ -9,7 +9,6 @@ public class EditorFileSelectPage : EditorPageManager
         get { return EditorPage.FileSelect; }
     }
 
-   // public FileBrowser FileBrowser;
     public string DefaultPath;
     private Action<string> _onFileSelectComplete;
 
@@ -26,6 +25,11 @@ public class EditorFileSelectPage : EditorPageManager
         FileBrowser.SetFilters(true, patterns);
         FileBrowser.SetDefaultFilter(patterns[0]);
 
+        foreach (var folder in Parent.CoreManager.Settings.GetResolvedSongFolders())
+        {
+            FileBrowser.AddQuickLink(folder, folder, null);
+        }
+
         FileBrowser.ShowLoadDialog(FileSelectSuccess, FileSelectCancelled, FileBrowser.PickMode.Files, false, DefaultPath);
     }
 
@@ -34,7 +38,7 @@ public class EditorFileSelectPage : EditorPageManager
         _onFileSelectComplete(paths[0]);
     }
 
-    void FileSelectCancelled()
+    private void FileSelectCancelled()
     {
         _onFileSelectComplete(null);
     }

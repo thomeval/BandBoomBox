@@ -1627,6 +1627,17 @@
         "0D70",
         "4070"
       ]
+    },
+    {
+      "Group": "Main",
+      "Difficulty": 4,
+      "DifficultyLevel": 18,
+      "Notes": [
+        "7000",
+        "D000",
+        "4000",
+        "A000"
+      ]
     }
   ]
 }

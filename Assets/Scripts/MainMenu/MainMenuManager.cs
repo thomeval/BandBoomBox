@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class MainMenuManager : ScreenManager
 {
@@ -12,12 +14,14 @@ public class MainMenuManager : ScreenManager
     public MainMenuState State = MainMenuState.PressStart;
     public ErrorMessage ErrorMessage;
     public Text TxtVersion;
+    public SecretCodeHandler SecretCodeHandler;
 
     public Animator LogoAnimator;
     public float StartAnimationDelay = 1.0f;
-
+    public float MusicStartDelay = 0.5f;
+    public float MusicStartDelaySecret = 5.0f;
     private TextPulser _pulser;
-
+    private bool temp;
     void Awake()
     {
         FindCoreManager();
@@ -44,17 +48,25 @@ public class MainMenuManager : ScreenManager
         switch (State)
         {
             case MainMenuState.PressStart:
-                if (inputEvent.Action == InputAction.Pause)
-                {
-                    OnStartPressed();
-                }
-                else
-                {
-                    PlaySfx(SoundEvent.Mistake);
-                }
+                HandleTitleInput(inputEvent);
                 break;
             case MainMenuState.MainMenu:
                 Menu.HandleInput(inputEvent);
+                break;
+        }
+
+    }
+
+    private void HandleTitleInput(InputEvent inputEvent)
+    {
+        SecretCodeHandler.HandleInput(inputEvent.Action);
+        switch (inputEvent.Action)
+        {
+            case InputAction.Pause:
+                OnStartPressed();
+                break;
+            default:
+                PlaySfx(SoundEvent.Mistake);
                 break;
         }
 
@@ -67,23 +79,40 @@ public class MainMenuManager : ScreenManager
         DisplayMenu();
     }
 
+    private IEnumerator StartMenuMusicAfterDelay(bool secretUnlocked)
+    {
+        yield return new WaitForSeconds(secretUnlocked ? MusicStartDelaySecret : MusicStartDelay);
+        CoreManager.MenuMusicManager.PlaySceneMusic(GameScene.MainMenu);
+    }
+
     private void DisplayMenu()
     {
         LblPressStart.SetActive(false);
         MenuContainer.SetActive(true);
         State = MainMenuState.MainMenu;
-        CoreManager.MenuMusicManager.PlaySceneMusic(GameScene.MainMenu);
     }
 
     private void OnStartPressed()
     {
-        PlaySfx(SoundEvent.TitleScreen_StartPressed);
+        var secretUnlocked = SecretCodeHandler.ActivatedCode != null;
+        if (secretUnlocked)
+        {
+            PlaySfx(SoundEvent.SecretUnlocked);
+            SecretCodeHandler.RunActivatedCode();
+            ErrorMessage.Error = SecretCodeHandler.Message;
+        }
+        else
+        {
+            PlaySfx(SoundEvent.TitleScreen_StartPressed);
+        }
+
         CoreManager.MenuMusicManager.StopAll();
         CoreManager.TitleScreenShown = true;
         _pulser.Period = 1 / 10f;
         _pulser.Min = 0.1f;
         CoreManager.PlayerManager.Players[0].TriggerRumbleForTitleStart();
         StartCoroutine(DisplayMenuAfterDelay());
+        StartCoroutine(StartMenuMusicAfterDelay(secretUnlocked));
     }
 
     public void MenuItemSelected(MenuEventArgs args)

@@ -182,7 +182,7 @@ public class ChartEditorManager : ScreenManager
 
         CurrentSongData = Helpers.TryGetArg<SongData>(args, "SelectedSongData") ?? CoreManager.SongLibrary.Songs[0];
         CurrentChart = Helpers.TryGetArg<SongChart>(args, "SelectedSongChart") ?? CurrentSongData.GetChart("Main", Difficulty.Hard);
-        TxtChartDifficulty.text = CurrentChart.Difficulty.ToString();
+        TxtChartDifficulty.text = CurrentChart.Difficulty.GetDisplayName();
         NoteGenerator.GenerateBeatLines(BeatLineType.Phrase, CurrentSongData, this.NoteManager);
         NoteGenerator.LoadSongNotes(CurrentChart, this.NoteManager);
         NoteManager.CalculateAbsoluteTimes(CurrentSongData.Bpm);

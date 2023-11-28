@@ -168,7 +168,7 @@ public class NoteGenerator : MonoBehaviour
                 return beat % 16 == 0 ? 2 : 1;
             case Difficulty.Expert:
                 return beat % 4 == 0 ? 2 : 1;
-            case Difficulty.Master:
+            case Difficulty.Nerf:
                 return beat % 16 == 0 ? 3 : (beat % 4 == 0 ? 2 : 1);
             default:
                 return 1;

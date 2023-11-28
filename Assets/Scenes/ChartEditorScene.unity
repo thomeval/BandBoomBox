@@ -9890,7 +9890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7224100504064989466, guid: 44e7f4497d7320a41848552537d88bbf, type: 3}
       propertyPath: m_Name
-      value: PaletteMaster
+      value: PaletteNerf
       objectReference: {fileID: 0}
     - target: {fileID: 7224100504064989466, guid: 44e7f4497d7320a41848552537d88bbf, type: 3}
       propertyPath: m_IsActive

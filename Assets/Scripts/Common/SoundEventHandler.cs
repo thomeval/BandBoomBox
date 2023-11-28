@@ -32,6 +32,7 @@ public class SoundEventHandler : MonoBehaviour
     [Header("Misc")]
     public AudioSource[] SfxEvaluationGrades = new AudioSource[3];
     public AudioSource SfxTitleScreenStartPressed;
+    public AudioSource SfxSecretUnlocked;
 
     private Dictionary<SoundEvent, AudioSource> _sfxEntries;
 
@@ -58,6 +59,7 @@ public class SoundEventHandler : MonoBehaviour
             { SoundEvent.Gameplay_TurboOn, SfxGameplayTurboOn},
 
             { SoundEvent.TitleScreen_StartPressed, SfxTitleScreenStartPressed},
+            { SoundEvent.SecretUnlocked, SfxSecretUnlocked},
         };
 
     }

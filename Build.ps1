@@ -68,7 +68,7 @@ function Build-Project()
     [string] $targetSwitch = "-build" + $TargetPlatform + "Player"
 
     Write-Host "Building $TargetPlatform to $BuildPath..."
-    . $unityPath -quit -batchmode -projectpath $ProjectPath -$targetSwitch $BuildPath $debugArg -logFile $windowsLogPath | Out-Default
+    . $unityPath -quit -batchmode -projectpath $ProjectPath -$targetSwitch $BuildPath $debugArg -logFile $LogFilePath | Out-Default
     Get-ChildItem -Path $folder *_DoNotShip -Recurse | Remove-Item -Recurse
 
     [string] $archiveName =  "$ReleasesPath\$GameName $GameVersion ($TargetPlatform).zip"
@@ -86,8 +86,10 @@ if (-not($outputPath.EndsWith("\")))
 
 [string] $windowsBuildPath   = $outputPath + "Windows\$($gameName).exe" 
 [string] $linuxBuildPath     = $outputPath + "Linux\$($gameName).x86_64"
+[string] $macBuildPath       = $outputPath + "MacOSX\$($gameName).app"
 [string] $windowsLogPath     = $outputPath + "Logs\log_Windows.txt"
 [string] $linuxLogPath       = $outputPath + "Logs\log_Linux.txt"
+[string] $macLogPath         = $outputPath + "Logs\log_Mac.txt"
 [string] $releasesPath       = $outputPath + "Releases"
 
 $ErrorActionPreference = "Stop"
@@ -120,9 +122,15 @@ if (-not(Test-Path $releasesPath))
 }
 
 #Build For Windows
-Build-Project -ProjectPath $ProjectPath -buildPath $windowsBuildPath -logFilePath $windowsLogPath -targetPlatform "Windows64" -GameName $GameName -gameVersion $gameVersion -ReleasesPath $releasesPath
+$targetPlatform = "Windows64"
+Build-Project -ProjectPath $ProjectPath -buildPath $windowsBuildPath -logFilePath $windowsLogPath -targetPlatform $targetPlatform -GameName $GameName -gameVersion $gameVersion -ReleasesPath $releasesPath
 
 # Build For Linux
-Build-Project -ProjectPath $ProjectPath -buildPath $linuxBuildPath -logFilePath $linuxLogPath -targetPlatform "Linux64" -GameName $GameName -gameVersion $gameVersion -ReleasesPath $releasesPath
+$targetPlatform = "Linux64"
+Build-Project -ProjectPath $ProjectPath -buildPath $linuxBuildPath -logFilePath $linuxLogPath -targetPlatform $targetPlatform -GameName $GameName -gameVersion $gameVersion -ReleasesPath $releasesPath
+
+# Build For Mac OSX
+$targetPlatform = "OSXUniversal"
+Build-Project -ProjectPath $ProjectPath -buildPath $macBuildPath -logFilePath $macLogPath -targetPlatform $targetPlatform -GameName $GameName -gameVersion $gameVersion -ReleasesPath $releasesPath
 
 Write-Host "All builds completed successfully!"

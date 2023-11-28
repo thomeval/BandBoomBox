@@ -63,7 +63,7 @@ public class HitJudge
         {Difficulty.Medium, 0.9f},
         {Difficulty.Hard, 1.0f},
         {Difficulty.Expert, 1.05f},
-        {Difficulty.Master, 1.1f},
+        {Difficulty.Nerf, 1.1f},
         {Difficulty.Extra, 1.0f}
     };
 
@@ -73,7 +73,7 @@ public class HitJudge
         {Difficulty.Medium, 0.75f},
         {Difficulty.Hard, 1.0f},
         {Difficulty.Expert, 1.0f},
-        {Difficulty.Master, 1.0f},
+        {Difficulty.Nerf, 1.0f},
         {Difficulty.Extra, 1.0f}
     };
 
@@ -84,7 +84,7 @@ public class HitJudge
         {Difficulty.Hard, 1.0f},
         {Difficulty.Extra, 1.0f},
         {Difficulty.Expert, 1.1f},
-        {Difficulty.Master, 1.2f}
+        {Difficulty.Nerf, 1.2f}
     };
 
     public static Dictionary<Grade, float> GoalExpValues = new()

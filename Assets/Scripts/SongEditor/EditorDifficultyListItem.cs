@@ -31,7 +31,7 @@ public class EditorDifficultyListItem : MonoBehaviour
     {
         TxtDifficultyLevel.text = "" + DisplayedChart.DifficultyLevel;
         TxtGroup.text = DisplayedChart.Group;
-        CmbDifficulty.SetSelectedText(DisplayedChart.Difficulty.ToString());
+        CmbDifficulty.SetSelectedText(DisplayedChart.Difficulty.GetDisplayName());
         TxtIsBlank.text = DisplayedChart.IsBlank ? "B" : "";
     }
 
@@ -64,7 +64,7 @@ public class EditorDifficultyListItem : MonoBehaviour
     {
         DisplayedChart.Group = TxtGroup.text;
         DisplayedChart.DifficultyLevel = Convert.ToInt32(TxtDifficultyLevel.text);
-        Enum.TryParse(CmbDifficulty.GetSelectedText(), out DisplayedChart.Difficulty);
+        DisplayedChart.Difficulty = Helpers.GetDifficultyByDisplayName(CmbDifficulty.GetSelectedText());
     }
 
     public string ValidateChart()

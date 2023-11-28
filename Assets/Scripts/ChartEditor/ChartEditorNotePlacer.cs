@@ -98,7 +98,7 @@ public class ChartEditorNotePlacer : MonoBehaviour
         {
             return noteType == NoteType.AnyB
                    || noteType == NoteType.AnyD
-                   || (noteType == NoteType.AnyT && (diff == Difficulty.Expert || diff == Difficulty.Master || diff == Difficulty.Extra));
+                   || (noteType == NoteType.AnyT && (diff == Difficulty.Expert || diff == Difficulty.Nerf || diff == Difficulty.Extra));
         }
 
         return NoteUtils.GetValidNoteTypesForDifficulty(diff).Contains(noteType);

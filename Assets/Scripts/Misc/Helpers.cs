@@ -84,7 +84,7 @@ public static class Helpers
     {
         var max = Enum.GetValues(typeof(TimingDisplayType)).Length - 1;
 
-        var result = (int) enumToAdd;
+        var result = (int)enumToAdd;
         result += delta;
 
         if (wrap)
@@ -96,7 +96,7 @@ public static class Helpers
             result = Clamp(result, max);
         }
 
-        return (TimingDisplayType) result;
+        return (TimingDisplayType)result;
     }
 
     /// <summary>
@@ -123,10 +123,10 @@ public static class Helpers
             result = Clamp(result, max);
         }
 
-        return (Difficulty) result;
+        return (Difficulty)result;
     }
 
-    public static float[] GradePercentages = 
+    public static float[] GradePercentages =
     {
         0.96f, 0.93f, 0.9f, // SS, S+ and S grades
         0.85f, 0.8f,        // A Grades
@@ -159,7 +159,7 @@ public static class Helpers
         {
             return 0.0f;
         }
-        return GradePercentages[(int) grade];
+        return GradePercentages[(int)grade];
     }
 
     public static string PathToUri(string path)
@@ -206,7 +206,7 @@ public static class Helpers
         get
         {
             var appSubfolder = "thomeval\\Band BoomBox";
-            
+
             string result;
             switch (Application.platform)
             {
@@ -279,11 +279,11 @@ public static class Helpers
         idx += delta;
         if (wrap)
         {
-            idx = Helpers.Wrap(idx, array.Length-1);
+            idx = Helpers.Wrap(idx, array.Length - 1);
         }
         else
         {
-            idx = Helpers.Clamp(idx, array.Length-1);
+            idx = Helpers.Clamp(idx, array.Length - 1);
         }
 
         return array[idx];
@@ -344,7 +344,7 @@ public static class Helpers
     public static string AsPercent(this float value, int decimals = 0)
     {
         var formatString = "{0:P" + decimals + "}";
-        return string.Format(CultureInfo.InvariantCulture, formatString, value).Replace(" %","%");
+        return string.Format(CultureInfo.InvariantCulture, formatString, value).Replace(" %", "%");
     }
 
     public static void PlayUnlessNull(this AudioSource source)
@@ -363,7 +363,7 @@ public static class Helpers
             component = Object.FindObjectOfType<T>();
         }
     }
-#endregion
+    #endregion
 
     public static T TryGetArg<T>(Dictionary<string, object> args, string key)
     {
@@ -373,6 +373,36 @@ public static class Helpers
         }
 
         return (T)args[key];
+    }
+
+    public static string GetDisplayName(this Difficulty diff)
+    {
+        switch (diff)
+        {
+            case Difficulty.Nerf:           // Not Even Remotely Fair
+                return "N.E.R.F.";
+            default:
+                return diff.ToString();
+
+        }
+    }
+
+    public static Difficulty GetDifficultyByDisplayName(string displayName)
+    {
+        switch (displayName)
+        {
+            case "N.E.R.F.":
+                return Difficulty.Nerf;
+
+            default:
+                var valid = Enum.TryParse(displayName, out Difficulty temp);
+                if (!valid)
+                {
+                    throw new ArgumentException($"Invalid difficulty name: {displayName}");
+                }
+                return temp;
+        }
+
     }
 }
 

@@ -155,7 +155,7 @@ public class ChartEditorNoteTransformer : MonoBehaviour
 
     private Dictionary<NoteType, NoteType> GetRotate180Lookup()
     {
-        return _parent.CurrentChart.Difficulty == Difficulty.Master || _parent.CurrentChart.Difficulty == Difficulty.Extra ? _rotate180MasterLookup : _rotate180Lookup;
+        return _parent.CurrentChart.Difficulty == Difficulty.Nerf || _parent.CurrentChart.Difficulty == Difficulty.Extra ? _rotate180MasterLookup : _rotate180Lookup;
     }
 
     #endregion

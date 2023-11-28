@@ -152,12 +152,14 @@
     <Compile Include="Assets\Scripts\SongEditor\EditorPage.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteSjsonEntry.cs" />
     <Compile Include="Assets\Scripts\Common\SoundEvent.cs" />
+    <Compile Include="Assets\Scripts\Misc\SecretCode.cs" />
     <Compile Include="Assets\Scripts\Songs\SongLibrary.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongPreviewManager.cs" />
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierEntry.cs" />
     <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicManager.cs" />
     <Compile Include="Assets\Scripts\Notes\RegionMarker.cs" />
     <Compile Include="Assets\Scripts\Common\HighScoreDisplay.cs" />
+    <Compile Include="Assets\Scripts\Misc\SecretCodeHandler.cs" />
     <Compile Include="Assets\Scripts\Common\SettingsManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorStarScoresColumn.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteSet.cs" />

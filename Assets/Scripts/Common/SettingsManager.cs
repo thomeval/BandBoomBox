@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SettingsManager : MonoBehaviour
 {
-    public string[] SongFolders = 
+    public string[] SongFolders =
     {
         Path.Combine("%StreamingAssetsFolder%","Songs"),
         Path.Combine("%AppSaveFolder%","Songs")
@@ -16,6 +16,10 @@ public class SettingsManager : MonoBehaviour
 
     [NonSerialized]
     public string SettingsFilePath;
+
+    [Header("Gameplay Settings")]
+    public bool EnableNerfDifficulty = false;
+    public bool EnableExtraDifficulty = false;
 
     [Header("Audio Settings")]
     public float MasterVolume = 0.5f;
@@ -32,7 +36,7 @@ public class SettingsManager : MonoBehaviour
     public bool VSyncEnabled = false;
     public FullScreenMode FullScreenMode = FullScreenMode.FullScreenWindow;
 
-    [Header("Editor Settings")] 
+    [Header("Editor Settings")]
     public string LastUsedEditorPath;
     public string DefaultChartAuthor;
     public string EditorLastUsedNoteLabels = "WASD";
@@ -93,5 +97,18 @@ public class SettingsManager : MonoBehaviour
         }
 
         Debug.Log("Settings loaded successfully.");
+    }
+
+    public bool IsDifficultyVisible(Difficulty difficulty)
+    {
+        switch (difficulty)
+        {
+            case Difficulty.Extra:
+                return this.EnableExtraDifficulty;
+            case Difficulty.Nerf:
+                return this.EnableNerfDifficulty;
+            default:
+                return true;
+        }
     }
 }

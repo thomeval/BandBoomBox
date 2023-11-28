@@ -375,6 +375,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Extra
       m_Image: {fileID: 0}
+    - m_Text: N.E.R.F.
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

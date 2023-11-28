@@ -90,6 +90,14 @@ public class DifficultySelectFrame : MonoBehaviour
         }
     }
 
+    private SettingsManager _settingsManager
+    {
+        get
+        {
+            return Parent.CoreManager.Settings;
+        }
+    }
+
     private void Refresh()
     {
 
@@ -113,7 +121,7 @@ public class DifficultySelectFrame : MonoBehaviour
     private void RefreshMenu()
     {
         DifficultyMenu.ClearItems();
-        var charts = DisplayedSongData.SongCharts.Where(e => e.Group == SelectedChartGroup).ToArray();
+        var charts = DisplayedSongData.SongCharts.Where(e => e.Group == SelectedChartGroup && _settingsManager.IsDifficultyVisible(e.Difficulty)).ToArray();
         foreach (var chart in charts.OrderBy(e => e.DifficultyLevel).ThenBy(e => e.Difficulty))
         {
             var obj = Instantiate(DifficultyMenuItemPrefab);
