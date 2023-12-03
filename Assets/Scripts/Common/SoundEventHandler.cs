@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -11,7 +12,7 @@ public class SoundEventHandler : MonoBehaviour
     public AudioSource SfxGameplayTurboOff;
     public AudioSource SfxGameplayTurboOn;
     public AudioSource SfxMistake;
-    public AudioSource[] SfxGameplayStars = new AudioSource[3];
+    public AudioSource[] SfxGameplayStars = new AudioSource[5];
 
     [Header("Menus")]
     public AudioSource SfxSelectionChanged;
@@ -77,7 +78,15 @@ public class SoundEventHandler : MonoBehaviour
     {
         var id = 0;
 
-        if (starCount >= 5)
+        if (starCount >= 7)
+        {
+            id = 4;
+        }
+        else if (starCount >= 6)
+        {
+            id = 3;
+        }
+        else if (starCount >= 5)
         {
             id = 2;
         }
