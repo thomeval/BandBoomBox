@@ -29,4 +29,4 @@ Band BoomBox is a free, open source rhythm game built using the Unity engine. Th
 ![Controller-LayoutDiagram-Bg](https://github.com/thomeval/BandBoomBox/assets/11618454/ca4d5b13-bbf6-475e-a504-61fef24b1aae)
 
 ## Songs
-The current version of Band BoomBox includes one playable song. More songs can be added by using the built-in editor to import audio files (.mp3, .ogg and .flac formats are supported), then composing note sequences for them (called Charts).
+The current version of Band BoomBox includes two playable songs. More songs can be added by using the built-in editor to import audio files (.mp3, .ogg and .flac formats are supported), then composing note sequences for them (called Charts).
