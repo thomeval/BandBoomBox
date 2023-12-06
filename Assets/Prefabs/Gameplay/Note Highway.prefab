@@ -2211,7 +2211,6 @@ MonoBehaviour:
     DifficultyLevel: 0
     Notes: []
   ScrollingBackground: {fileID: 173249840906701199}
-  SelectedRegionMarker: {fileID: 0}
   ImpactZoneCenter: -560
   LaneHeight: 75
   TopLanePos: 75
@@ -3695,7 +3694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4888650438314091710, guid: d1bd5aca234af7d41af38f1e1afd07a5, type: 3}
       propertyPath: m_SpriteKey
-      value: 0.00079180475
+      value: -0.00079180475
       objectReference: {fileID: 0}
     - target: {fileID: 4888650438314091710, guid: d1bd5aca234af7d41af38f1e1afd07a5, type: 3}
       propertyPath: m_labelHash
@@ -3985,7 +3984,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4888650438314091710, guid: d1bd5aca234af7d41af38f1e1afd07a5, type: 3}
       propertyPath: m_SpriteKey
-      value: 1.2936246e-21
+      value: -1.2936246e-21
       objectReference: {fileID: 0}
     - target: {fileID: 4888650438314091710, guid: d1bd5aca234af7d41af38f1e1afd07a5, type: 3}
       propertyPath: m_labelHash

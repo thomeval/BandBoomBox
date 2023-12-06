@@ -57,13 +57,11 @@ MonoBehaviour:
   MenuItemsContainer: {fileID: 1923562750085481710}
   SelectionHighlight: {fileID: 806329157485359585}
   SelectionHighlightPadding: {x: 20, y: 0}
-  TxtExplanation: {fileID: 0}
   YScrollOffset: 0
-  SfxSelectionShifted: {fileID: 0}
-  SfxSelectionChanged: {fileID: 0}
-  SfxSelectionConfirmed: {fileID: 0}
-  SfxSelectionCancelled: {fileID: 0}
+  SoundEventHandler: {fileID: 0}
   WrapSelection: 1
+  TxtExplanation: {fileID: 0}
+  ExplanationTextColor: {r: 1, g: 1, b: 1, a: 1}
   _selectedIndex: 0
   CancelMenuAction: Leave
   Player: 0
@@ -101,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
-  m_Softness: {x: 0, y: 35}
+  m_Softness: {x: 0, y: 0}
 --- !u!331 &5554915531928717208
 SpriteMask:
   m_ObjectHideFlags: 0

@@ -296,9 +296,6 @@
     <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.ScreenCaptureModule">
-      <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.ScreenCaptureModule.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.SharedInternalsModule">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.SharedInternalsModule.dll</HintPath>
     </Reference>
@@ -340,9 +337,6 @@
     </Reference>
     <Reference Include="UnityEngine.UNETModule">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.UNETModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UmbraModule">
-      <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.UmbraModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityAnalyticsModule">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityAnalyticsModule.dll</HintPath>

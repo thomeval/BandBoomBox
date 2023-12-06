@@ -2962,6 +2962,10 @@ PrefabInstance:
       propertyPath: DangerSprite
       value: 
       objectReference: {fileID: 1673972321}
+    - target: {fileID: 2630264203951897548, guid: 54825131424afb0458e542290b1f40f0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9d65ebc14544b7744b264aa9b8bf8ddc, type: 3}
     - target: {fileID: 3254075220312999574, guid: 54825131424afb0458e542290b1f40f0, type: 3}
       propertyPath: m_SpriteKey
       value: -1.44515495e-27
@@ -3066,6 +3070,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7617803486673685878, guid: 54825131424afb0458e542290b1f40f0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9d65ebc14544b7744b264aa9b8bf8ddc, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54825131424afb0458e542290b1f40f0, type: 3}
 --- !u!1 &1673972321 stripped
@@ -3927,6 +3935,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 9d65ebc14544b7744b264aa9b8bf8ddc, type: 3}
+    - target: {fileID: 2630264203951897549, guid: 54825131424afb0458e542290b1f40f0, type: 3}
+      propertyPath: m_SpriteKey
+      value: -1.2936246e-21
+      objectReference: {fileID: 0}
     - target: {fileID: 3380623067636679513, guid: 54825131424afb0458e542290b1f40f0, type: 3}
       propertyPath: m_Pitch
       value: 1
@@ -4046,10 +4058,10 @@ PrefabInstance:
     - target: {fileID: 7617803486673685878, guid: 54825131424afb0458e542290b1f40f0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 7707353770315407114, guid: 14055fe13b5f6e74aafca3bd91afecc9, type: 3}
+      objectReference: {fileID: 21300000, guid: 9d65ebc14544b7744b264aa9b8bf8ddc, type: 3}
     - target: {fileID: 7617803486673685879, guid: 54825131424afb0458e542290b1f40f0, type: 3}
       propertyPath: m_SpriteKey
-      value: -1.5704196e+20
+      value: -0.00079180475
       objectReference: {fileID: 0}
     - target: {fileID: 7617803486673685879, guid: 54825131424afb0458e542290b1f40f0, type: 3}
       propertyPath: m_labelHash

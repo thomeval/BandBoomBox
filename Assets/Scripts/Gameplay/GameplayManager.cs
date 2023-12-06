@@ -41,7 +41,7 @@ public class GameplayManager : ScreenManager
         {
             value = Mathf.Clamp(value, 0.0f, MaxEnergy);
             _energy = value;
-            
+
             if (_energy == 0.0f)
             {
                 if (_playerManager.AnyTurboActive())
@@ -218,7 +218,7 @@ public class GameplayManager : ScreenManager
     {
         var backgroundSpeed = Math.Min(1.0, this.Multiplier);
 
-        _backgroundManager.SetSpeedMultiplier((float) backgroundSpeed);
+        _backgroundManager.SetSpeedMultiplier((float)backgroundSpeed);
         _backgroundManager.SetBeatNumber(_songManager.GetSongPositionInBeats());
     }
 
@@ -349,7 +349,7 @@ public class GameplayManager : ScreenManager
                 if (note != null)
                 {
                     var allowCrit = _playerManager.GetPlayer(inputEvent.Player).TurboActive;
-                    
+
                     // Note was hit. Apply a hit result.
                     var deviation = SongPosition - note.AbsoluteTime;
                     var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass, allowCrit);
@@ -360,7 +360,7 @@ public class GameplayManager : ScreenManager
                         playerHudManager.DisplayHeldNote(note.EndNote);
                     }
 
-                    if (hitResult.JudgeResult < JudgeResult.Bad)
+                    if (hitResult.JudgeResult < JudgeResult.Ok)
                     {
                         playerHudManager.FlashNoteHit(lane);
                     }
@@ -439,7 +439,7 @@ public class GameplayManager : ScreenManager
             var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, releaseNote.NoteType, releaseNote.NoteClass, allowCrit);
             ApplyHitResult(hitResult);
 
-            if (hitResult.JudgeResult < JudgeResult.Bad)
+            if (hitResult.JudgeResult < JudgeResult.Ok)
             {
                 playerHudManager.FlashNoteHit(lane);
             }

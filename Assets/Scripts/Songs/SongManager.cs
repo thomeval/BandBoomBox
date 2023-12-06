@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class SongManager : MonoBehaviour
 {
@@ -88,7 +89,7 @@ public class SongManager : MonoBehaviour
     {
         return CurrentSong.Length - CurrentSong.Offset;
     }
-    
+
     public string GetCurrentSection()
     {
         var position = GetSongPositionInBeats();
@@ -131,6 +132,7 @@ public class SongManager : MonoBehaviour
         StartCoroutine(LoadSongCoroutine(url, onCompleted));
     }
 
+    /*
     IEnumerator LoadSongCoroutine(string url, Action onCompleted)
     {
 
@@ -146,6 +148,28 @@ public class SongManager : MonoBehaviour
         _audioSource.clip = clip;
         Debug.Log("Song Load complete. ");
         onCompleted?.Invoke();
+    }
+    */
+
+    IEnumerator LoadSongCoroutine(string url, Action onCompleted)
+    {
+
+        using (var request = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.UNKNOWN))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.error != null)
+            {
+                Debug.LogError("Error occurred while loading audio: " + request.error);
+                yield break;
+            }
+
+            var clip = DownloadHandlerAudioClip.GetContent(request);
+            _audioSource.clip = clip;
+            Debug.Log("Song Load complete. ");
+            onCompleted?.Invoke();
+        }
+
     }
 
     public void StartSong()
