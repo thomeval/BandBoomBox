@@ -98,6 +98,7 @@ public class GameplayManager : ScreenManager
     private HitJudge _hitJudge;
     DateTime _lastUpdate = DateTime.Now;
     private DateTime _outroTime;
+    private bool _isSongLoading;
     private readonly float[] _turborMxGainRates = { 0.0f, 1.0f, 2.5f, 4.5f, 7.0f, 10.0f, 11.0f, 13.0f, 16f };
 
     void Awake()
@@ -297,11 +298,18 @@ public class GameplayManager : ScreenManager
     private void SongManager_SongLoaded()
     {
         _songManager.StartSong();
+        _isSongLoading = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        // Avoids a race condition where this method could be called before the song has loaded (especially when restarting a song).
+        if (_isSongLoading)
+        {
+            return;
+        }
 
         foreach (var noteManager in NoteManagers)
         {
@@ -491,6 +499,12 @@ public class GameplayManager : ScreenManager
             case "Continue":
                 PauseGame(args.Player, false);
                 break;
+            case "Restart":
+                SceneTransition(GameScene.Gameplay);
+                break;
+            case "Change Difficulty":
+                SceneTransition(GameScene.DifficultySelect);
+                break;
             case "Exit Song":
                 SceneTransition(GameScene.SongSelect);
                 break;
@@ -584,10 +598,11 @@ public class GameplayManager : ScreenManager
 
     private void ApplySelectedSong(SongData selectedSongData)
     {
+        _isSongLoading = true;
         _songManager.LoadSong(selectedSongData, SongManager_SongLoaded);
-
         HudManager.SongTitleText = selectedSongData.Title + " " + selectedSongData.Subtitle;
     }
+
     public void OnNoteMissed(Note note, int player)
     {
         var diff = _playerManager.GetPlayer(player).Difficulty;
