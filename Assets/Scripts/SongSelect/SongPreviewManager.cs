@@ -28,12 +28,12 @@ public class SongPreviewManager : MonoBehaviour
     public SongData PreviewedSongData;
 
     private BackgroundManager _backgroundManager;
-    
+
     void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
         _backgroundManager = FindObjectOfType<BackgroundManager>();
-        
+
     }
     // Start is called before the first frame update
     void Start()
@@ -86,12 +86,29 @@ public class SongPreviewManager : MonoBehaviour
         AudioSource.volume = 0.0f;
     }
 
+    /*
+     * Implementation using UnityWebRequest.
+     * Recommended by Unity compiler, but not used due to poor performance.
     IEnumerator LoadSongCoroutine(string url, float previewStart, float previewEnd)
     {
+        var request = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.UNKNOWN);
+        yield return request.SendWebRequest();
 
-       // var request = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG);
-      //  var r = request.SendWebRequest();
-        
+        if (request.error != null)
+        {
+            Debug.LogError("Error occurred while loading audio: " + request.error);
+            yield break;
+        }
+
+        var clip = DownloadHandlerAudioClip.GetContent(request);
+        PreviewStart = previewStart;
+        PreviewEnd = previewEnd;
+        StartPreview(clip);
+    }
+    */
+
+    IEnumerator LoadSongCoroutine(string url, float previewStart, float previewEnd)
+    {
         var www = new WWW(url);
         yield return www;
 
