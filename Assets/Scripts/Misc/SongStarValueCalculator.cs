@@ -14,7 +14,7 @@ public class SongStarValueCalculator : MonoBehaviour
         {TeamScoreCategory.Crowd, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.05, 1.25}},
         {TeamScoreCategory.Legion, new[] {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.05, 1.25, 1.45, 1.65}}
     };
-    
+
     public int NoteBaseValue = 50;
 
     public SongStarScoreValues CalculateSuggestedScores(List<NoteManager> managers)
@@ -54,12 +54,12 @@ public class SongStarValueCalculator : MonoBehaviour
 
         var notes = noteManagers.SelectMany(e => e.Notes).ToList();
         var noteCount = 0;
-        
+
         foreach (var note in notes.OrderBy(e => e.AbsoluteTime))
         {
             double value = (this.NoteBaseValue * NoteUtils.GetNoteValue(note.NoteType, note.NoteClass));
-            value *=  mx;
-            result += (long) value;
+            value *= mx;
+            result += (long)value;
 
             // TODO: Consider implementing combo gain rate bonuses, and a "mistake interval".
             mx += note.MxValue;
@@ -73,7 +73,14 @@ public class SongStarValueCalculator : MonoBehaviour
             noteCount++;
         }
 
-        Debug.Log($"CalculateMaxScore result: Charts:{noteManagers.Count()}, Notes: {noteCount}, Score: {result}, Ending Mx: {mx:F3}, Max Mx: {maxMx:F3}");
+        var category = HighScoreManager.GetCategory(noteManagers.Count);
+        var scores = "";
+
+        for (int x = 0; x < Percentages[category].Length; x++)
+        {
+            scores += $"{x + 1} stars: {Percentages[category][x] * result:F0}, ";
+        }
+        Debug.Log($"CalculateMaxScore result: Charts:{noteManagers.Count()}, Category: {category}, Notes: {noteCount}, Score: {result}, Ending Mx: {mx:F3}, Max Mx: {maxMx:F3}, {scores}");
         return result;
     }
 

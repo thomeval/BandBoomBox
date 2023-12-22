@@ -121,7 +121,7 @@ public class GameplayManager : ScreenManager
         {
             var player = _playerManager.Players.Single(e => e.Slot == noteManager.Slot);
             NoteGenerator.LoadOrGenerateSongNotes(_songManager.CurrentSong, player.ChartGroup, player.Difficulty, noteManager);
-            NoteGenerator.GenerateBeatLines(player.BeatLineType, _songManager.CurrentSong, noteManager);
+            NoteGenerator.GenerateBeatLines(_songManager.CurrentSong, noteManager);
             noteManager.ApplyNoteSkin(player.NoteSkin, player.LabelSkin);
             noteManager.CalculateAbsoluteTimes(_songManager.CurrentSong.Bpm);
             noteManager.ScrollSpeed = player.ScrollSpeed;
@@ -211,8 +211,23 @@ public class GameplayManager : ScreenManager
         UpdateGameplayState();
         CheckOutroState();
         UpdateBackground();
+        UpdateScrollSpeeds();
         _lastUpdate = DateTime.Now;
 
+    }
+
+    private void UpdateScrollSpeeds()
+    {
+        foreach (var manager in NoteManagers)
+        {
+            var player = _playerManager.Players.SingleOrDefault(e => e.Slot == manager.Slot);
+            if (player == null)
+            {
+                continue;
+            }
+
+            manager.ScrollSpeed = player.GetCurrentScrollSpeed(this.Multiplier);
+        }
     }
 
     private void UpdateBackground()

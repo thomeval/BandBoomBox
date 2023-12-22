@@ -37,6 +37,10 @@ public class PlayerJoinFrame : MonoBehaviour
         }
     }
 
+    public void ShowMomentumOption()
+    {
+        OptionsFrame.ShowMomentumOption();
+    }
     private PlayerManager _playerManager;
     public Color ErrorMessageColor = new Color(1.0f, 0.5f, 0.5f);
 
@@ -140,7 +144,7 @@ public class PlayerJoinFrame : MonoBehaviour
         }
 
         ProfileSelectFrame.Error = null;
-        profileData.ApplyToPlayer(this.Player);
+        this.Player.ProfileData = profileData;
         State = PlayerJoinState.Options;
         SoundEventHandler.PlaySfx(SoundEvent.SelectionConfirmed);
         Refresh();

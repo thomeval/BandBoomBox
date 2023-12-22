@@ -175,15 +175,15 @@ public class NoteGenerator : MonoBehaviour
         }
     }
 
-    public void GenerateBeatLines(BeatLineType beatLineType, SongData song, NoteManager destination)
+    public void GenerateBeatLines(SongData song, NoteManager destination)
     {
-        GenerateBeatLines(beatLineType, song.LengthInBeats, song.BeatsPerMeasure, song.Sections, destination);
+        GenerateBeatLines(song.LengthInBeats, song.BeatsPerMeasure, song.Sections, destination);
     }
 
-    public void GenerateBeatLines(BeatLineType beatLineType, float endBeat, int beatsPerMeasure, Dictionary<double, string> sections, NoteManager destination)
+    public void GenerateBeatLines(float endBeat, int beatsPerMeasure, Dictionary<double, string> sections, NoteManager destination)
     {
 
-        if (beatLineType == BeatLineType.Off || beatsPerMeasure <= 0)
+        if (beatsPerMeasure <= 0)
         {
             return;
         }

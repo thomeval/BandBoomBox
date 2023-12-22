@@ -8,15 +8,13 @@ public class ProfileData
     public TimingDisplayType TimingDisplayType { get; set; }
     public int ScrollSpeed { get; set; }
     public long Exp { get; set; }
-
     public float? Goal { get; set; }
-    public Difficulty Difficulty { get; set; }
-
     public int SongsPlayed { get; set; }
     public bool MistakeSfxEnabled { get; set; } = true;
     public bool RumbleEnabled { get; set; } = true;
 
     public List<PlayerScore> PlayerScores { get; set; } = new();
+    public int Momentum { get; set; }
 
     public PlayerScore GetPlayerHighScore(string songId, int songVersion, Difficulty difficulty, string chartGroup)
     {
@@ -41,21 +39,6 @@ public class ProfileData
         PlayerScores.Remove(existing);
         PlayerScores.Add(playerScore);
         return true;
-    }
-
-
-    public void ApplyToPlayer(Player player)
-    {
-        player.ProfileId = this.ID;
-        player.Name = this.Name;
-        player.Exp = this.Exp;
-        player.ScrollSpeed = this.ScrollSpeed;
-        player.TimingDisplayType = this.TimingDisplayType;
-        player.Goal = this.Goal;
-        player.Difficulty = this.Difficulty;
-        player.SongsPlayed = this.SongsPlayed;
-        player.MistakeSfxEnabled = this.MistakeSfxEnabled;
-        player.RumbleEnabled = this.RumbleEnabled;
     }
 
     public PlayerScore GetBestPlayerHighScore(string songId, int songVersion)

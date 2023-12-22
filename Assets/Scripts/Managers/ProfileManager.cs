@@ -33,18 +33,19 @@ public class ProfileManager : MonoBehaviour
         {
             return new ProfileData
             {
-                Difficulty = Difficulty.Beginner,
                 Exp = 0,
                 Goal = null,
                 ID = null,
                 Name = "Guest",
                 ScrollSpeed = 500,
-                TimingDisplayType = TimingDisplayType.Words
+                TimingDisplayType = TimingDisplayType.Words,
+                MistakeSfxEnabled = true,
+                RumbleEnabled = true
             };
         }
     }
 
-    private readonly string[] _invalidProfileNames = {"##NEW##", "GUEST", ""};
+    private readonly string[] _invalidProfileNames = { "##NEW##", "GUEST", "" };
     public ProfileData Create(string profileName)
     {
         if (this.ContainsName(name))
@@ -52,7 +53,7 @@ public class ProfileManager : MonoBehaviour
             throw new ArgumentException("A profile with the given name is invalid or already exists.");
         }
 
-        var result =  GuestProfile;
+        var result = GuestProfile;
         result.ID = Guid.NewGuid().ToString();
         result.Name = profileName;
         this[result.ID] = result;
@@ -82,7 +83,7 @@ public class ProfileManager : MonoBehaviour
         {
             return null;
         }
-        
+
         return result;
     }
 

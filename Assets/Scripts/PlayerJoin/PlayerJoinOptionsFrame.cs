@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,15 +8,18 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public PlayerJoinFrame Parent;
     public Menu Menu;
 
-
     public Text TxtScrollSpeed;
     public Text TxtTimingDisplay;
     public Text TxtLabelSkin;
     public Text TxtGoal;
     public Text TxtMistakeSfxEnabled;
     public Text TxtControllerRumbleEnabled;
-    
+    public Text TxtMomentum;
+
+    public GameObject MomentumMenuItem;
+
     public Grade?[] Goals = { null, Grade.D, Grade.DPlus, Grade.C, Grade.CPlus, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus };
+    public int[] MomentumAmounts = { 0, 25, 50, 100, 150, 200 };
 
     public List<Note> NotePreviews;
 
@@ -60,6 +64,10 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
             case "Controller Rumble":
                 Parent.Player.RumbleEnabled = !Parent.Player.RumbleEnabled;
                 break;
+            case "Momentum":
+                var newMomentum = Helpers.GetNextValue(MomentumAmounts, Parent.Player.Momentum, amount, false);
+                Parent.Player.Momentum = newMomentum;
+                break;
         }
     }
 
@@ -100,6 +108,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         UpdateGoalText(player);
         TxtMistakeSfxEnabled.text = BoolToOnOff(player.MistakeSfxEnabled);
         TxtControllerRumbleEnabled.text = BoolToOnOff(player.RumbleEnabled);
+        TxtMomentum.text = "" + player.Momentum;
     }
 
     private string BoolToOnOff(bool value)
@@ -135,5 +144,10 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         {
             note.SetSpriteCategories(Parent.Player.NoteSkin, Parent.Player.LabelSkin);
         }
+    }
+
+    public void ShowMomentumOption()
+    {
+        MomentumMenuItem.SetActive(true);
     }
 }

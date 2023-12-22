@@ -1,4 +1,5 @@
 public enum SecretCode
 {
-    EnableNerfDifficulty = 0
+    EnableNerfDifficulty = 0,
+    EnableMomentumOption = 1
 }

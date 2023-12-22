@@ -94,7 +94,7 @@ public class EditorFineTunePage : EditorPageManager
         NoteManager.AttachNotes();
         NoteManager.ApplyNoteSkin("Default", "None");
 
-        NoteGenerator.GenerateBeatLines(BeatLineType.Phrase, Parent.CurrentSong, NoteManager);
+        NoteGenerator.GenerateBeatLines(Parent.CurrentSong, NoteManager);
 
         NoteManager.CalculateAbsoluteTimes(_songManager.CurrentSong.Bpm);
         NoteManager.ScrollSpeed = this.Player.ScrollSpeed;
@@ -109,7 +109,7 @@ public class EditorFineTunePage : EditorPageManager
 
     private float? RollingAverage(int count)
     {
-        
+
         if (_hits.Count < count)
         {
             return null;
@@ -117,6 +117,7 @@ public class EditorFineTunePage : EditorPageManager
 
         return _hits.Take(count).Average();
     }
+
     public override void HandleInput(InputEvent inputEvent)
     {
         if (inputEvent.IsPressed)
@@ -187,7 +188,7 @@ public class EditorFineTunePage : EditorPageManager
         // Note was hit. Apply a hit result.
         var deviation = SongPosition - note.AbsoluteTime;
         NoteManager.RemoveNote(note);
-        var hitResult = _hitJudge.GetHitResult(deviation, 1, Difficulty.Beginner ,2, note.NoteType,  note.NoteClass, false);
+        var hitResult = _hitJudge.GetHitResult(deviation, 1, Difficulty.Beginner, 2, note.NoteType, note.NoteClass, false);
         PlayerHudManager.DisplayHitResult(hitResult);
         DisplayHit(deviation * 1000f);
         if (AutoAdjustOffsetEnabled)

@@ -9,12 +9,14 @@ public class Player : MonoBehaviour
 
     public static readonly int[] ScrollSpeeds = { 200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000 };
 
-    public static readonly string[] NoteSkins = {"Default"};
+    public static readonly string[] NoteSkins = { "Default" };
 
-    public static readonly string[] LabelSkins = {"ABXY","BAYX", "Symbols", "WASD", "None"};
+    public static readonly string[] LabelSkins = { "ABXY", "BAYX", "Symbols", "WASD", "None" };
 
     public PlayerHudManager HudManager;
     private InputManager _inputManager;
+
+    public ProfileData ProfileData = new();
 
     void Awake()
     {
@@ -28,7 +30,7 @@ public class Player : MonoBehaviour
     }
 
     #region Properties
-    
+
     [SerializeField]
     private int _perfPoints;
     public int PerfPoints
@@ -54,13 +56,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private int _scrollSpeed;
-    public int ScrollSpeed
+    public int GetCurrentScrollSpeed(double multiplier)
     {
-        get { return _scrollSpeed; }
-        set { _scrollSpeed = value; }
+        var result = ScrollSpeed + ((multiplier - 1) * Momentum);
+        return (int)result;
     }
+
     public int Slot;
 
     [SerializeField]
@@ -90,13 +91,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public string Name;
-
-    public string NameOrPlayerNumber
-    {
-        get { return this.Name == "Guest" ? "Player " + this.Slot : this.Name; }
-    }
-    
     [SerializeField]
     private int _ranking;
 
@@ -123,11 +117,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public float? Goal;
-
-    public long Exp;
-
-
     [SerializeField]
     private bool _turboActive;
 
@@ -141,45 +130,83 @@ public class Player : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private string _profileId;
+    #region Profile Data Properties
 
     public string ProfileId
     {
-        get { return _profileId; }
-        set
+        get
         {
-            _profileId = value;
+            return ProfileData.ID;
         }
     }
 
-    [SerializeField]
-    private bool _mistakeSfxEnabled = true;
+    public string Name
+    {
+        get { return ProfileData.Name; }
+        set { ProfileData.Name = value; }
+    }
+
+    public string NameOrPlayerNumber
+    {
+        get { return this.ProfileData.Name == "Guest" ? "Player " + this.Slot : this.ProfileData.Name; }
+    }
+
     public bool MistakeSfxEnabled
     {
-        get
-        {
-            return _mistakeSfxEnabled;
-        }
+        get { return ProfileData.MistakeSfxEnabled; }
+        set { ProfileData.MistakeSfxEnabled = value; }
+    }
+
+    public bool RumbleEnabled
+    {
+        get { return ProfileData.RumbleEnabled; }
+        set { ProfileData.RumbleEnabled = value; }
+    }
+
+    public int Momentum
+    {
+        get { return ProfileData.Momentum; }
         set
         {
-            _mistakeSfxEnabled = value;
+            ProfileData.Momentum = value;
+            RefreshHud();
         }
     }
 
-    [SerializeField]
-    private bool _rumbleEnabled = true;
-    public bool RumbleEnabled
+    public float? Goal
     {
-        get
-        {
-            return _rumbleEnabled;
-        }
+        get { return ProfileData.Goal; }
         set
         {
-            _rumbleEnabled = value;
+            ProfileData.Goal = value;
+            RefreshHud();
         }
     }
+
+    public long Exp
+    {
+        get { return ProfileData.Exp; }
+        set
+        {
+            ProfileData.Exp = value;
+            RefreshHud();
+        }
+    }
+
+    public int ScrollSpeed
+    {
+        get { return ProfileData.ScrollSpeed; }
+        set { ProfileData.ScrollSpeed = value; }
+    }
+
+    public TimingDisplayType TimingDisplayType
+    {
+        get { return ProfileData.TimingDisplayType; }
+        set { ProfileData.TimingDisplayType = value; }
+    }
+
+    #endregion
+
 
     public void RefreshHud()
     {
@@ -188,8 +215,6 @@ public class Player : MonoBehaviour
             HudManager.UpdateHud(this);
         }
     }
-
-    public TimingDisplayType TimingDisplayType = TimingDisplayType.Words;
 
     public string NoteSkin = "Default";
     public string LabelSkin = "None";
@@ -208,9 +233,9 @@ public class Player : MonoBehaviour
                 return null;
             }
 
-            return (int) (MaxPerfPoints * Goal.Value);
+            return (int)(MaxPerfPoints * Goal.Value);
         }
-        
+
     }
 
     public int MaxPerfPointsWithMistakes
@@ -231,30 +256,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private BeatLineType _beatLineType = BeatLineType.Beat;
-    public BeatLineType BeatLineType 
-    {
-        get { return _beatLineType; }
-        set { _beatLineType = value; }
-    }
-
     public bool ControllerConnected
     {
         get { return _inputManager.ControllerConnected; }
     }
-
-    public int Level
-    {
-        get
-        {
-            return ExpLevelUtils.GetLevel(this.Level);
-        }
-    }
-
-
-
-    public int SongsPlayed;
 
     public string ChartGroup = "Main";
 
@@ -340,14 +345,14 @@ public class Player : MonoBehaviour
             Mistakes[result.JudgeResult]++;
         }
         else switch (result.DeviationResult)
-        {
-            case DeviationResult.Early:
-                EarlyHits[result.JudgeResult]++;
-                break;
-            case DeviationResult.Late:
-                LateHits[result.JudgeResult]++;
-                break;
-        }
+            {
+                case DeviationResult.Early:
+                    EarlyHits[result.JudgeResult]++;
+                    break;
+                case DeviationResult.Late:
+                    LateHits[result.JudgeResult]++;
+                    break;
+            }
     }
 
     private void UpdateCombo(JudgeResult result)
@@ -410,7 +415,7 @@ public class Player : MonoBehaviour
     public int GetBaseExpGain()
     {
         float result = PerfPoints;
-        return (int) result;
+        return (int)result;
     }
 
     public Grade? GetGoalGrade()
@@ -433,7 +438,7 @@ public class Player : MonoBehaviour
 
     public void ApplyExpGain(float modifier)
     {
-        this.Exp += (int) (GetBaseExpGain() * modifier);
+        this.Exp += (int)(GetBaseExpGain() * modifier);
     }
 
     #region Helpers
@@ -511,27 +516,9 @@ public class Player : MonoBehaviour
         */
     }
 
-    //TODO: Convert to association.
-    public ProfileData GetProfileData()
-    {
-        return new ProfileData
-        {
-            ID = this.ProfileId,
-            Name = this.Name,
-            ScrollSpeed = this.ScrollSpeed,
-            Exp = this.Exp,
-            TimingDisplayType = this.TimingDisplayType,
-            Goal = this.Goal,
-            Difficulty = this.Difficulty,
-            SongsPlayed = this.SongsPlayed,
-            MistakeSfxEnabled = this.MistakeSfxEnabled,
-            RumbleEnabled = this.RumbleEnabled
-        };
-    }
-
     public FullComboType GetFullComboType()
     {
-        var totalNotes = this.EarlyHits.Sum(e => e.Value) 
+        var totalNotes = this.EarlyHits.Sum(e => e.Value)
                          + this.LateHits.Sum(e => e.Value)
                          + this.Mistakes[JudgeResult.Miss];     // Include misses, but not wrongs.
 
@@ -539,15 +526,12 @@ public class Player : MonoBehaviour
                                                               + this.EarlyHits[JudgeResult.Crit] +
                                                               this.LateHits[JudgeResult.Crit];
 
-        Debug.Log($"Total Notes: {totalNotes}\r\n" +
-                  $"Perfect Hits: {perfectHits}\r\n" +
-                  $"Max Combo: {this.MaxCombo}");
-        
+
         if (perfectHits == totalNotes)
         {
             return FullComboType.PerfectFullCombo;
         }
-        
+
         if (this.MaxCombo == totalNotes)
         {
             return FullComboType.FullCombo;

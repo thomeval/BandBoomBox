@@ -57,7 +57,7 @@ public class CoreManager : MonoBehaviour
         DontDestroyOnLoad(this);
         PlayerManager = FindObjectOfType<PlayerManager>();
         SongLibrary = FindObjectOfType<SongLibrary>();
-        Settings = GetComponent <SettingsManager>();
+        Settings = GetComponent<SettingsManager>();
     }
 
     void Start()
@@ -65,7 +65,7 @@ public class CoreManager : MonoBehaviour
         PlayerManager.SetPlayerCount(1);
     }
 
-        public void LoadSettings()
+    public void LoadSettings()
     {
         Settings.Load();
         ControlsManager.LoadInputActions();
@@ -76,14 +76,14 @@ public class CoreManager : MonoBehaviour
     {
         SongLibrary.SongFolders = Settings.SongFolders;
 
-       ApplyAudioSettings(); 
-       ApplyGraphicsSettings();
-     //  PlayerManager.ApplyInputActions();
+        ApplyAudioSettings();
+        ApplyGraphicsSettings();
+        //  PlayerManager.ApplyInputActions();
     }
 
     public void ApplyAudioSettings()
     {
-        ApplyAudioVolume("MasterVolume",Settings.MasterVolume);
+        ApplyAudioVolume("MasterVolume", Settings.MasterVolume);
         ApplyAudioVolume("GameplaySfxVolume", Settings.GameplaySfxVolume);
         ApplyAudioVolume("GameplayMusicVolume", Settings.GameplayMusicVolume);
         ApplyAudioVolume("MistakeSfxVolume", Settings.MistakeVolume);
@@ -122,7 +122,7 @@ public class CoreManager : MonoBehaviour
             width = DEFAULT_WIDTH;
             height = DEFAULT_HEIGHT;
         }
-       
+
         Screen.SetResolution(width, height, Settings.FullScreenMode);
         Application.targetFrameRate = Settings.TargetFrameRate;
         QualitySettings.vSyncCount = Settings.VSyncEnabled ? 1 : 0;
@@ -161,7 +161,7 @@ public class CoreManager : MonoBehaviour
         foreach (var player in PlayerManager.GetLocalPlayers().Where(e => !string.IsNullOrEmpty(e.ProfileId)))
         {
 
-            var data = player.GetProfileData();
+            var data = player.ProfileData;
             var scores = ProfileManager[player.ProfileId]?.PlayerScores;
             data.PlayerScores = scores ?? new List<PlayerScore>();
             ProfileManager.Save(data);

@@ -20,6 +20,7 @@ public class SettingsManager : MonoBehaviour
     [Header("Gameplay Settings")]
     public bool EnableNerfDifficulty = false;
     public bool EnableExtraDifficulty = false;
+    public bool EnableMomentumOption = false;
 
     [Header("Audio Settings")]
     public float MasterVolume = 0.5f;

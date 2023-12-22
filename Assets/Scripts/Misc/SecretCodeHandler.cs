@@ -7,6 +7,7 @@ public class SecretCodeHandler : MonoBehaviour
     private readonly Dictionary<SecretCode, InputAction[]> _inputCodes = new()
         {
             { SecretCode.EnableNerfDifficulty, new [] { InputAction.Left, InputAction.Left, InputAction.Left, InputAction.Right, InputAction.Right, InputAction.Right, InputAction.Left, InputAction.Right, InputAction.Pause } },
+            { SecretCode.EnableMomentumOption, new [] { InputAction.B, InputAction.X, InputAction.Down, InputAction.A, InputAction.B, InputAction.X, InputAction.Down, InputAction.A, InputAction.Pause  } },
         };
 
     private readonly Dictionary<SecretCode, int> _inputCodeProgress = new();
@@ -14,6 +15,7 @@ public class SecretCodeHandler : MonoBehaviour
     private Dictionary<SecretCode, string> _activationMessages = new()
     {
         { SecretCode.EnableNerfDifficulty, "N.E.R.F. difficulty unlocked!" },
+        { SecretCode.EnableMomentumOption, "Momentum scroll speed option unlocked!" },
     };
 
     public SecretCode? ActivatedCode { get; private set; }
@@ -77,6 +79,10 @@ public class SecretCodeHandler : MonoBehaviour
         {
             case SecretCode.EnableNerfDifficulty:
                 _coreManager.Settings.EnableNerfDifficulty = true;
+                _coreManager.Settings.Save();
+                break;
+            case SecretCode.EnableMomentumOption:
+                _coreManager.Settings.EnableMomentumOption = true;
                 _coreManager.Settings.Save();
                 break;
             default:

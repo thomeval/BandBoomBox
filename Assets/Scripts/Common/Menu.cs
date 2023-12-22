@@ -18,7 +18,7 @@ public class Menu : MonoBehaviour
     private VerticalLayoutGroup _layoutGroup;
     private RectTransform _itemsContainerRectTransform;
 
-    [Header("Sounds")] 
+    [Header("Sounds")]
     public SoundEventHandler SoundEventHandler;
 
     [Header("Behaviour")]
@@ -126,6 +126,7 @@ public class Menu : MonoBehaviour
 
         foreach (var item in MenuItemsContainer.GetChildren())
         {
+
             var menuItem = item.GetComponent<MenuItem>();
 
             if (menuItem == null)
@@ -332,6 +333,11 @@ public class Menu : MonoBehaviour
         else
         {
             SelectedIndex = Helpers.Clamp(SelectedIndex + delta, _menuItems.Count - 1);
+        }
+
+        if (!SelectedMenuItem.gameObject.activeSelf)
+        {
+            ChangeSelection(delta);
         }
     }
 

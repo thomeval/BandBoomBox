@@ -63,6 +63,12 @@ public class PlayerJoinManager : ScreenManager
         {
             var player = players.SingleOrDefault(e => e.Slot == x);
             var frame = PlayerJoinFrames[x - 1];
+
+            if (CoreManager.Settings.EnableMomentumOption)
+            {
+                frame.ShowMomentumOption();
+            }
+
             if (player != null)
             {
                 AssignFrameToPlayer(frame, player, false);

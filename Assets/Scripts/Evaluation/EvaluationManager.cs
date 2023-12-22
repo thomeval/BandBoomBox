@@ -21,7 +21,7 @@ public class EvaluationManager : ScreenManager
             return DateTime.Now.Subtract(_screenStartTime).TotalSeconds > DelayBeforeContinueAllowed;
         }
     }
-    
+
     void Awake()
     {
         FindCoreManager();
@@ -47,8 +47,8 @@ public class EvaluationManager : ScreenManager
 
             var isPersonalBest = CoreManager.ProfileManager.SavePlayerScore(player, CoreManager.LastTeamScore.SongId, CoreManager.LastTeamScore.SongVersion);
 
-            DisplayPlayerResultFrame(player,  isPersonalBest);
-            player.SongsPlayed++;
+            DisplayPlayerResultFrame(player, isPersonalBest);
+            player.ProfileData.SongsPlayed++;
 
         }
 

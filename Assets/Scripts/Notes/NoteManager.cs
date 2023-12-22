@@ -153,7 +153,7 @@ public class NoteManager : MonoBehaviour
             return;
         }
 
-        foreach (var holdNote in Notes.Where(e => e.NoteClass == NoteClass.Hold))
+        foreach (var holdNote in Notes.Where(e => e.NoteClass == NoteClass.Hold && e.AbsoluteTime < MaxVisiblePosition))
         {
             holdNote.CalculateTailWidth();
         }
@@ -161,7 +161,7 @@ public class NoteManager : MonoBehaviour
 
     private const float SCROLLING_BACKGROUND_SHOW_SPEED = 0.015f;
     private const float SCROLLING_BACKGROUND_HIDE_SPEED = 0.01f;
-    private const float MIN_BACKGROUND_OPACITY = 0.5f;
+    private const float MIN_BACKGROUND_OPACITY = 0.25f;
 
     private void UpdateBackgroundOpacity()
     {
@@ -202,7 +202,7 @@ public class NoteManager : MonoBehaviour
             _noteAreaWidth = ScrollingBackground.rect.width;
         }
 
-        var newX = (this.ScrollSpeed * this.SongPosition * -1) % _noteAreaWidth;
+        var newX = (this._displayedScrollSpeed * this.SongPosition * -1) % _noteAreaWidth;
 
         if (float.IsNaN(newX))
         {
@@ -210,6 +210,9 @@ public class NoteManager : MonoBehaviour
         }
 
         ScrollingBackground.position = new Vector3(newX, ScrollingBackground.position.y);
+
+        // var speedScale = this._displayedScrollSpeed / 500.0f;
+        // ScrollingBackground.localScale = new Vector3(speedScale, 1.0f);
     }
 
     public void HideAllNotes()
