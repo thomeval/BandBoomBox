@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 
 public class ProfileData
 {
@@ -48,6 +49,11 @@ public class ProfileData
             .ToList();
 
         return scores.FirstOrDefault();
+    }
+
+    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+    {
+        throw new System.NotImplementedException();
     }
 }
 

@@ -33,7 +33,7 @@ public class PlayerJoinFrame : MonoBehaviour
             }
 
             Pages[(int)value].SetActive(true);
-
+            _playerJoinManager.RefreshPlayerList();
         }
     }
 
@@ -42,6 +42,7 @@ public class PlayerJoinFrame : MonoBehaviour
         OptionsFrame.ShowMomentumOption();
     }
     private PlayerManager _playerManager;
+    private PlayerJoinManager _playerJoinManager;
     public Color ErrorMessageColor = new Color(1.0f, 0.5f, 0.5f);
 
     [Header("Sounds")]
@@ -52,6 +53,7 @@ public class PlayerJoinFrame : MonoBehaviour
     void Awake()
     {
         _playerManager = FindObjectOfType<PlayerManager>();
+        _playerJoinManager = FindObjectOfType<PlayerJoinManager>();
     }
 
     public void Refresh()
@@ -77,6 +79,13 @@ public class PlayerJoinFrame : MonoBehaviour
         ExpMeter.Exp = Player.Exp;
         OptionsFrame.UpdateMenu();
         ProfileCreateFrame.Reset();
+        SendNetUpdate();
+
+    }
+
+    public void SendNetUpdate()
+    {
+        _playerJoinManager.SendNetPlayerUpdate(this.Player);
     }
 
     public void HandleInput(InputEvent inputEvent)
@@ -86,6 +95,7 @@ public class PlayerJoinFrame : MonoBehaviour
             case PlayerJoinState.Ready:
                 if (inputEvent.Action == InputAction.B || inputEvent.Action == InputAction.Back)
                 {
+                    Player.PlayerState = PlayerState.PlayerJoin_Options;
                     State = PlayerJoinState.Options;
                     SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
                 }
@@ -122,8 +132,8 @@ public class PlayerJoinFrame : MonoBehaviour
     {
         this.Player = player;
         this.ProfileSelectFrame.PopulateProfileList();
+        this.Player.PlayerState = string.IsNullOrEmpty(player.ProfileId) ? PlayerState.PlayerJoin_SelectProfile : PlayerState.PlayerJoin_Options;
         this.State = string.IsNullOrEmpty(player.ProfileId) ? PlayerJoinState.ProfileSelect : PlayerJoinState.Options;
-
 
         if (withSfx)
         {
@@ -145,6 +155,7 @@ public class PlayerJoinFrame : MonoBehaviour
 
         ProfileSelectFrame.Error = null;
         this.Player.ProfileData = profileData;
+        this.Player.PlayerState = PlayerState.PlayerJoin_Options;
         State = PlayerJoinState.Options;
         SoundEventHandler.PlaySfx(SoundEvent.SelectionConfirmed);
         Refresh();

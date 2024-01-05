@@ -10,6 +10,7 @@ public class EvaluationManager : ScreenManager
     public PlayerResultFrame[] WidePlayerResultFrames = new PlayerResultFrame[4];
     public SongResultFrame SongResultFrame;
     public GameObject PbContinue;
+    public OnlinePlayerList OnlinePlayerList;
     public bool UseWidePlayerResultFrames;
 
     private DateTime _screenStartTime;
@@ -44,7 +45,6 @@ public class EvaluationManager : ScreenManager
 
         foreach (var player in CoreManager.PlayerManager.GetLocalPlayers())
         {
-
             var isPersonalBest = CoreManager.ProfileManager.SavePlayerScore(player, CoreManager.LastTeamScore.SongId, CoreManager.LastTeamScore.SongVersion);
 
             DisplayPlayerResultFrame(player, isPersonalBest);
@@ -58,6 +58,8 @@ public class EvaluationManager : ScreenManager
         CoreManager.SaveAllActiveProfiles();
         StartCoroutine(DisplayContinueAfterDelay());
         StartCoroutine(PlayGradeSfx());
+        UpdatePlayersState(PlayerState.Evaluation_NotReady);
+        RefreshPlayerList();
     }
 
     private void DisplayPlayerResultFrame(Player player, bool isPersonalBest)
@@ -93,6 +95,33 @@ public class EvaluationManager : ScreenManager
 
     public override void OnPlayerInput(InputEvent inputEvent)
     {
+        var player = CoreManager.PlayerManager.GetPlayer(inputEvent.Player);
+
+        switch (player.PlayerState)
+        {
+            case PlayerState.Evaluation_NotReady:
+                HandleEvaluationNotReadyInput(inputEvent, player);
+                break;
+            case PlayerState.Evaluation_Ready:
+                HandleEvaluationReadyInput(inputEvent, player);
+                break;
+        }
+    }
+
+    private void HandleEvaluationReadyInput(InputEvent inputEvent, Player player)
+    {
+        switch (inputEvent.Action)
+        {
+            case InputAction.B:
+                UpdatePlayerState(player, PlayerState.Evaluation_NotReady);
+                PlaySfx(SoundEvent.SelectionCancelled);
+                RefreshPlayerList();
+                break;
+        }
+    }
+
+    private void HandleEvaluationNotReadyInput(InputEvent inputEvent, Player player)
+    {
         switch (inputEvent.Action)
         {
             case InputAction.Left:
@@ -105,11 +134,23 @@ public class EvaluationManager : ScreenManager
             case InputAction.B:
             case InputAction.Pause:
             case InputAction.Back:
+
                 if (AllowContinue)
                 {
-                    SceneTransition(GameScene.SongSelect);
+                    UpdatePlayerState(player, PlayerState.Evaluation_Ready);
+                    PlaySfx(SoundEvent.SelectionConfirmed);
+                    TryToContinue();
+                    RefreshPlayerList();
                 }
                 break;
+        }
+    }
+
+    private void TryToContinue()
+    {
+        if (CoreManager.PlayerManager.GetLocalPlayers().All(e => e.PlayerState == PlayerState.Evaluation_Ready))
+        {
+            this.SceneTransition(GameScene.SongSelect);
         }
     }
 
@@ -118,4 +159,20 @@ public class EvaluationManager : ScreenManager
         PlayerResultFrames[player - 1].DisplayedPage += amount;
     }
 
+    public void RefreshPlayerList()
+    {
+        OnlinePlayerList.RefreshAll();
+    }
+
+    public override void OnNetPlayerListUpdated()
+    {
+        base.OnNetPlayerListUpdated();
+        RefreshPlayerList();
+    }
+
+    public override void OnNetPlayerUpdated(Player player)
+    {
+        base.OnNetPlayerUpdated(player);
+        RefreshPlayerList();
+    }
 }

@@ -61,6 +61,7 @@ public class PlayerJoinProfileSelectFrame : MonoBehaviour
         {
             Parent.ProfileCreateFrame.EnteredText = "";
             Parent.State = PlayerJoinState.ProfileCreate;
+            Parent.Player.PlayerState = PlayerState.PlayerJoin_CreateProfile;
         }
         else
         {
@@ -73,7 +74,7 @@ public class PlayerJoinProfileSelectFrame : MonoBehaviour
         var guest = _profileManager.GuestProfile;
         AddToMenu(guest);
 
-        var newProfile = new ProfileData {ID = "##NEW##"};
+        var newProfile = new ProfileData { ID = "##NEW##" };
         AddToMenu(newProfile);
     }
     public void AddToMenu(ProfileData profile)

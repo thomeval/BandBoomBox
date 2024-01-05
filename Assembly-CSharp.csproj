@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\Bin\Debug\</OutputPath>
-    <DefineConstants>UNITY_2021_2_12;UNITY_2021_2;UNITY_2021;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;USE_SEARCH_ENGINE_API;USE_SEARCH_TABLE;USE_SEARCH_MODULE;USE_PROPERTY_DATABASE;SCENE_TEMPLATE_MODULE;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_OSX;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_SPATIALTRACKING;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>UNITY_2021_2_12;UNITY_2021_2;UNITY_2021;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;USE_SEARCH_ENGINE_API;USE_SEARCH_TABLE;USE_SEARCH_MODULE;USE_PROPERTY_DATABASE;SCENE_TEMPLATE_MODULE;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -49,7 +49,7 @@
     <UnityProjectGenerator>Package</UnityProjectGenerator>
     <UnityProjectGeneratorVersion>2.0.14</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
-    <UnityBuildTarget>StandaloneOSX:2</UnityBuildTarget>
+    <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2021.2.12f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Common\GameScene.cs" />
+    <Compile Include="Assets\Scripts\Common\OnlinePlayerList.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorOptions.cs" />
     <Compile Include="Assets\Scripts\Credits\CreditsManager.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteTrimmer.cs" />
@@ -64,11 +65,12 @@
     <Compile Include="Assets\Scripts\Managers\PlayerHudManager.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\ProfileListItem.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplay.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameplayOnlinePlayerListItem.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongList.cs" />
     <Compile Include="Assets\Scripts\Input\ControlsChangedArgs.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteGenerator.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\MxMeter.cs" />
     <Compile Include="Assets\Scripts\Misc\SceneTransitionState.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\MxMeter.cs" />
     <Compile Include="Assets\Scripts\Evaluation\EvaluationManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorDifficultyListItem.cs" />
     <Compile Include="Assets\Scripts\Input\InputManager.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Assets\Scripts\Gameplay\GameplayUtils.cs" />
     <Compile Include="Assets\Scripts\Input\DeviationResult.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNoteTransformer.cs" />
+    <Compile Include="Assets\Scripts\Common\OnlinePlayerListItem.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorClipboard.cs" />
     <Compile Include="Assets\Scripts\Common\TextPulser.cs" />
     <Compile Include="Assets\Scripts\Input\ActionMapType.cs" />
@@ -90,12 +93,13 @@
     <Compile Include="Assets\Scripts\Songs\ChartValidator.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinFrame.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayManager.cs" />
-    <Compile Include="Assets\SectionProgressMeter.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\NetSongChoiceResponse.cs" />
     <Compile Include="Assets\Scripts\Common\SpriteMeter.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorSectionListItem.cs" />
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierList.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />
     <Compile Include="Assets\Scripts\Input\HitJudge.cs" />
+    <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectOnlinePlayerListItem.cs" />
     <Compile Include="Assets\Scripts\Managers\ProfileManager.cs" />
     <Compile Include="Assets\Scripts\Input\JudgeResult.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenuState.cs" />
@@ -108,11 +112,12 @@
     <Compile Include="Assets\Scripts\Gameplay\TimingDisplayType.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectManager.cs" />
     <Compile Include="Assets\Scripts\Input\HitResult.cs" />
+    <Compile Include="Assets\Scripts\Common\SectionProgressMeter.cs" />
     <Compile Include="Assets\Scripts\Misc\ObjectEventArgs.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
     <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
-    <Compile Include="Assets\Scripts\Managers\CoreManager.cs" />
     <Compile Include="Assets\BackgroundManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\CoreManager.cs" />
     <Compile Include="Assets\Scripts\Input\DeviceLostArgs.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorChartListPage.cs" />
     <Compile Include="Assets\Scripts\Notes\SjsonUtils.cs" />
@@ -122,14 +127,17 @@
     <Compile Include="Assets\Scripts\Gameplay\HeldNoteDisplay.cs" />
     <Compile Include="Assets\Scripts\HighScores\PlayerScore.cs" />
     <Compile Include="Assets\Scripts\Common\Difficulty.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\ClientNetApi.cs" />
     <Compile Include="Assets\BackgroundPlaneAnimator.cs" />
     <Compile Include="Assets\Scripts\Notes\BeatLine.cs" />
-    <Compile Include="Assets\EnergyMeter.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\EnergyMeter.cs" />
     <Compile Include="Assets\Scripts\Input\InputAction.cs" />
     <Compile Include="Assets\Scripts\Songs\SongData.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinState.cs" />
     <Compile Include="Assets\Scripts\HighScores\TeamScore.cs" />
+    <Compile Include="Assets\Scripts\Common\OnlinePlayerListSortMode.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongListItem.cs" />
+    <Compile Include="Assets\Scripts\OnlineMenu\OnlineMenuManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorBasicsPage.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileSelectFrame.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownNumber.cs" />
@@ -137,7 +145,7 @@
     <Compile Include="Assets\Scripts\Common\PlayerSongSelectFrame.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorMenuManager.cs" />
     <Compile Include="Assets\Scripts\Common\ExpLevelUtils.cs" />
-    <Compile Include="Assets\StarMeter.cs" />
+    <Compile Include="Assets\Scripts\Common\StarMeter.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\Songs\DifficultyRange.cs" />
     <Compile Include="Assets\Scripts\Misc\LogicalNotProcessor.cs" />
@@ -146,19 +154,21 @@
     <Compile Include="Assets\Scripts\Songs\HoldRegion.cs" />
     <Compile Include="Assets\Scripts\Common\ExpMeter.cs" />
     <Compile Include="Assets\Scripts\Misc\UIExtensions.cs" />
-    <Compile Include="Assets\Scripts\Evaluation\PlayerResultFrame.cs" />
     <Compile Include="Assets\Scripts\Managers\ControlsManager.cs" />
+    <Compile Include="Assets\Scripts\Evaluation\PlayerResultFrame.cs" />
     <Compile Include="Assets\Scripts\Songs\SongManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorPage.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteSjsonEntry.cs" />
     <Compile Include="Assets\Scripts\Common\SoundEvent.cs" />
     <Compile Include="Assets\Scripts\Misc\SecretCode.cs" />
-    <Compile Include="Assets\Scripts\Songs\SongLibrary.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\ServerNetApi.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongPreviewManager.cs" />
+    <Compile Include="Assets\Scripts\Songs\SongLibrary.cs" />
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierEntry.cs" />
     <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicManager.cs" />
     <Compile Include="Assets\Scripts\Notes\RegionMarker.cs" />
     <Compile Include="Assets\Scripts\Common\HighScoreDisplay.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\PlayerScoreDto.cs" />
     <Compile Include="Assets\Scripts\Misc\SecretCodeHandler.cs" />
     <Compile Include="Assets\Scripts\Common\SettingsManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorStarScoresColumn.cs" />
@@ -172,37 +182,44 @@
     <Compile Include="Assets\Scripts\Common\ErrorMessage.cs" />
     <Compile Include="Assets\Scripts\HowToPlay\HowToPlayManager.cs" />
     <Compile Include="Assets\Scripts\HighScores\TeamScoreCategory.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\SongSelectOnlinePlayerList.cs" />
     <Compile Include="Assets\Scripts\Common\MenuEventArgs.cs" />
     <Compile Include="Assets\Scripts\Misc\CompressedFileHelper.cs" />
-    <Compile Include="Assets\Scripts\Managers\SceneTransitionManager.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SelectedSongFrame.cs" />
+    <Compile Include="Assets\Scripts\Managers\SceneTransitionManager.cs" />
     <Compile Include="Assets\Scripts\Common\Menu.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorFileSelectPage.cs" />
+    <Compile Include="Assets\Scripts\Common\SongProgressMeter.cs" />
     <Compile Include="Assets\Scripts\Common\FullComboType.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorManager.cs" />
     <Compile Include="Assets\Scripts\Common\MenuItem.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\PlayerDto.cs" />
     <Compile Include="Assets\Scripts\Evaluation\Grade.cs" />
     <Compile Include="Assets\Scripts\Managers\ScreenManager.cs" />
     <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicEntry.cs" />
     <Compile Include="Assets\Scripts\Managers\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Common\Player.cs" />
-    <Compile Include="Assets\SongProgressMeter.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorPageManager.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\PlayerHighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinOptionsFrame.cs" />
     <Compile Include="Assets\Scripts\Gameplay\TimingDisplay.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\NetSongChoiceRequest.cs" />
     <Compile Include="Assets\Scripts\Misc\AudioCrossFader.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorState.cs" />
     <Compile Include="Assets\AnimatedSprite.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\NetSongChoiceResponseType.cs" />
     <Compile Include="Assets\Scripts\Misc\SongStarValueCalculator.cs" />
-    <Compile Include="Assets\PlayerGroupHighScoreDisplay.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\PlayerGroupHighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNotePlacer.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureTimePage.cs" />
     <Compile Include="Assets\Scripts\Common\MenuSelectionHighlight.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteManager.cs" />
     <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
+    <Compile Include="Assets\Scripts\Evaluation\EvaluationOnlinePlayerListItem.cs" />
+    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinOnlinePlayerListItem.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePalette.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMainMenuPage.cs" />
+    <Compile Include="Assets\Scripts\Common\PlayerState.cs" />
     <Compile Include="Assets\Scripts\Notes\FinishMarker.cs" />
     <Compile Include="Assets\Scripts\HighScores\HighScoreManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorDetailsPage.cs" />
@@ -287,9 +304,6 @@
     <Reference Include="UnityEngine.PerformanceReportingModule">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.PerformanceReportingModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Physics2DModule">
-      <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.Physics2DModule.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.ProfilerModule">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.ProfilerModule.dll</HintPath>
     </Reference>
@@ -322,9 +336,6 @@
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.TextRenderingModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TilemapModule">
-      <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.TilemapModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIModule">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.UIModule.dll</HintPath>
@@ -419,23 +430,29 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Collections.LowLevel.ILSupport">
+      <HintPath>Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Burst.Unsafe">
-      <HintPath>Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.Unsafe.dll</HintPath>
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Cecil.Mdb">
-      <HintPath>Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Assets\Packages\Newtonsoft.Json.13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Cecil.Pdb">
-      <HintPath>Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Cecil">
-      <HintPath>Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Cecil.Rocks">
-      <HintPath>Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>Library\PackageCache\com.unity.nuget.mono-cecil@1.10.1\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -803,9 +820,6 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>C:\Program Files\Unity\2021.2.12f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.IK.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.Animation.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
     </Reference>
@@ -815,23 +829,11 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Burst">
-      <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Animation.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Sysroot.Linux_x86_64">
       <HintPath>Library\ScriptAssemblies\Unity.Sysroot.Linux_x86_64.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Toolchain.Win-x86_64-Linux-x86_64">
-      <HintPath>Library\ScriptAssemblies\Unity.Toolchain.Win-x86_64-Linux-x86_64.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Timeline.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
@@ -839,20 +841,17 @@
     <Reference Include="Unity.Burst.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Mathematics.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Common.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.IK.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.InternalAPIEditorBridge.001">
-      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
+    <Reference Include="Unity.Netcode.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Netcode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Networking.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Networking.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
@@ -860,17 +859,56 @@
     <Reference Include="Unity.InputSystem">
       <HintPath>Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Common.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
+    <Reference Include="Unity.InternalAPIEditorBridge.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Netcode.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.Netcode.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.SysrootPackage.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.SysrootPackage.Editor.dll</HintPath>
+    <Reference Include="Unity.Networking.Transport">
+      <HintPath>Library\ScriptAssemblies\Unity.Networking.Transport.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.IK.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Netcode.Components">
+      <HintPath>Library\ScriptAssemblies\Unity.Netcode.Components.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst">
+      <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
       <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Animation.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Toolchain.Win-x86_64-Linux-x86_64">
+      <HintPath>Library\ScriptAssemblies\Unity.Toolchain.Win-x86_64-Linux-x86_64.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Common.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Collections">
+      <HintPath>Library\ScriptAssemblies\Unity.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Netcode.Editor.PackageChecker">
+      <HintPath>Library\ScriptAssemblies\Unity.Netcode.Editor.PackageChecker.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Common.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.SysrootPackage.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.SysrootPackage.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

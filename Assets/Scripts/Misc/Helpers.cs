@@ -5,7 +5,6 @@ using System.Globalization;
 using System.IO;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
-using Object = UnityEngine.Object;
 
 public static class Helpers
 {
@@ -317,7 +316,7 @@ public static class Helpers
     {
         foreach (var child in gameObject.GetChildren())
         {
-            Object.Destroy(child);
+            UnityEngine.Object.Destroy(child);
         }
     }
 
@@ -360,7 +359,7 @@ public static class Helpers
     {
         if (component == null)
         {
-            component = Object.FindObjectOfType<T>();
+            component = UnityEngine.Object.FindObjectOfType<T>();
         }
     }
     #endregion
@@ -403,6 +402,34 @@ public static class Helpers
                 return temp;
         }
 
+    }
+
+    public static string FormatRanking(int ranking)
+    {
+        string suffix;
+        switch (ranking)
+        {
+            case 1:
+                suffix = "st";
+                break;
+            case 2:
+                suffix = "nd";
+                break;
+            case 3:
+                suffix = "rd";
+                break;
+            default:
+                suffix = "th";
+                break;
+        }
+
+        return $"{ranking}{suffix}";
+    }
+
+    public static string FormatPercent(float value)
+    {
+        var result = value.ToString("P1", CultureInfo.InvariantCulture);
+        return result.Replace(" %", "%");
     }
 }
 

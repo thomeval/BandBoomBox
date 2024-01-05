@@ -13,5 +13,6 @@
     DifficultySelect,
     Editor,
     ChartEditor,
+    OnlineMenu,
     All
 }

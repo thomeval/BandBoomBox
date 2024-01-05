@@ -76,12 +76,16 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         switch (args.SelectedItem)
         {
             case "Ready":
+                Parent.Player.PlayerState = PlayerState.PlayerJoin_Ready;
                 Parent.State = PlayerJoinState.Ready;
+                Parent.SendNetUpdate();
                 break;
             case "Select Profile":
                 Parent.ProfileSelectFrame.PopulateProfileList();
                 Parent.ProfileSelectFrame.Refresh();
+                Parent.Player.PlayerState = PlayerState.PlayerJoin_SelectProfile;
                 Parent.State = PlayerJoinState.ProfileSelect;
+                Parent.SendNetUpdate();
                 break;
             case "Leave":
                 Parent.State = PlayerJoinState.NotJoined;

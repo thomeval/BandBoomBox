@@ -5,6 +5,7 @@ using Assets;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Audio;
+using Unity.Netcode;
 
 public class CoreManager : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class CoreManager : MonoBehaviour
     public SceneTransitionManager SceneTransitionManager;
     public SoundEventHandler SoundEventHandler;
     public SongLibrary SongLibrary;
+    public NetworkManager NetworkManager;
+    public ClientNetApi ClientNetApi;
+    public ServerNetApi ServerNetApi;
 
     public string SelectedSong;
 
@@ -38,6 +42,32 @@ public class CoreManager : MonoBehaviour
     public InputManager InputManager;
 
     public bool TitleScreenShown;
+    public bool IsNetGame;
+    public bool IsHost = true;
+    public int MaxNetPlayers = 8;
+
+    public int MaxLocalPlayers
+    {
+        get
+        {
+            return IsNetGame ? 2 : 4;
+        }
+    }
+
+    public ulong NetId
+    {
+        get
+        {
+            if (!NetworkManager.IsConnectedClient && !(NetworkManager.IsListening))
+            {
+                return 255;
+            }
+            return NetworkManager.LocalClientId;
+
+        }
+    }
+
+
 
     public Dictionary<string, object> SceneLoadArgs = new();
 
@@ -58,6 +88,19 @@ public class CoreManager : MonoBehaviour
         PlayerManager = FindObjectOfType<PlayerManager>();
         SongLibrary = FindObjectOfType<SongLibrary>();
         Settings = GetComponent<SettingsManager>();
+
+        NetworkManager.OnClientConnectedCallback += NetworkManager_OnClientConnectedCallback;
+        NetworkManager.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
+    }
+
+    private void NetworkManager_OnClientDisconnectCallback(ulong id)
+    {
+        ActiveMainManager.OnNetClientDisconnected(id);
+    }
+
+    private void NetworkManager_OnClientConnectedCallback(ulong id)
+    {
+        ActiveMainManager.OnNetClientConnected(id);
     }
 
     void Start()
@@ -128,8 +171,6 @@ public class CoreManager : MonoBehaviour
         QualitySettings.vSyncCount = Settings.VSyncEnabled ? 1 : 0;
     }
 
-
-
     void OnPlayerInput(InputEvent inputEvent)
     {
         if (ActiveMainManager.IgnoreReleaseInputs && !inputEvent.IsPressed)
@@ -156,6 +197,33 @@ public class CoreManager : MonoBehaviour
         ActiveMainManager.OnPlayerJoined(player);
     }
 
+    public void OnNetPlayerUpdated(Player player)
+    {
+        if (!IsNetGame)
+        {
+            return;
+        }
+        ActiveMainManager.OnNetPlayerUpdated(player);
+    }
+
+    public void OnNetPlayerScoreUpdated(Player player)
+    {
+        if (!IsNetGame)
+        {
+            return;
+        }
+        ActiveMainManager.OnNetPlayerScoreUpdated(player);
+    }
+
+    public void OnNetPlayerListUpdated()
+    {
+        if (!IsNetGame)
+        {
+            return;
+        }
+        ActiveMainManager.OnNetPlayerListUpdated();
+    }
+
     public void SaveAllActiveProfiles()
     {
         foreach (var player in PlayerManager.GetLocalPlayers().Where(e => !string.IsNullOrEmpty(e.ProfileId)))
@@ -168,4 +236,32 @@ public class CoreManager : MonoBehaviour
         }
     }
 
+    public void ShutdownNetPlay()
+    {
+        PlayerManager.ClearNetPlayers();
+        if (NetworkManager.IsListening || NetworkManager.IsClient)
+        {
+            NetworkManager.Shutdown();
+        }
+    }
+
+    public void OnNetRequestSongResponse(NetSongChoiceResponse response)
+    {
+        if (!IsNetGame)
+        {
+            return;
+        }
+
+        ActiveMainManager.OnNetRequestSongResponse(response);
+    }
+
+    public void OnNetSongSelected(NetSongChoiceRequest request)
+    {
+        if (!IsNetGame)
+        {
+            return;
+        }
+
+        ActiveMainManager.OnNetSongSelected(request);
+    }
 }

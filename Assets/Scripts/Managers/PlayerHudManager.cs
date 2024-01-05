@@ -32,25 +32,9 @@ public class PlayerHudManager : MonoBehaviour
         TxtRanking.enabled = ShowRankings;
         CountdownDisplay.PlayerName = player.NameOrPlayerNumber;
 
-        string suffix;
+        var ranking = Helpers.FormatRanking(player.Ranking);
 
-        switch (player.Ranking)
-        {
-            case 1:
-                suffix = "st";
-                break;
-            case 2:
-                suffix = "nd";
-                break;
-            case 3:
-                suffix = "rd";
-                break;
-            default:
-                suffix = "th";
-                break;
-        }
-
-        TxtRanking.text = string.Format("{0}{1}", player.Ranking, suffix);
+        TxtRanking.text = ranking;
 
         TimingDisplay.gameObject.SetActive(player.TimingDisplayType != TimingDisplayType.Off);
         TimingDisplay.SpriteCategory = "Timing" + player.TimingDisplayType;

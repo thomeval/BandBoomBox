@@ -13,6 +13,7 @@ public class GameplayManager : ScreenManager
     public HudManager HudManager;
     public PauseMenu PauseMenu;
     public SongStarScoreValues SongStarScoreValues;
+    public OnlinePlayerList OnlinePlayerList;
 
     public float SongPosition
     {
@@ -119,7 +120,7 @@ public class GameplayManager : ScreenManager
     {
         foreach (var noteManager in NoteManagers.Where(e => e.ParentEnabled))
         {
-            var player = _playerManager.Players.Single(e => e.Slot == noteManager.Slot);
+            var player = _playerManager.GetLocalPlayers().Single(e => e.Slot == noteManager.Slot);
             NoteGenerator.LoadOrGenerateSongNotes(_songManager.CurrentSong, player.ChartGroup, player.Difficulty, noteManager);
             NoteGenerator.GenerateBeatLines(_songManager.CurrentSong, noteManager);
             noteManager.ApplyNoteSkin(player.NoteSkin, player.LabelSkin);
@@ -167,6 +168,8 @@ public class GameplayManager : ScreenManager
         var highwayScale = fourPlayers ? FOUR_PLAYER_HUD_SCALE : 1.0f;
         NoteHighways.transform.localScale = new Vector3(highwayScale, highwayScale, highwayScale);
         NoteHighways.GetComponent<VerticalLayoutGroup>().spacing = fourPlayers ? FOUR_PLAYER_HUD_SPACING : 0;
+        OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
+        OnlinePlayerList.RefreshAll();
         AssignManagers();
 
         var selectedSongData = CoreManager.CurrentSongData;
@@ -179,13 +182,15 @@ public class GameplayManager : ScreenManager
 
         _lastUpdate = DateTime.Now;
 
-        UpdateRankings();
+        _playerManager.UpdateRankings();
 
         _playerManager.Reset();
         this.DisableAllTurbos();
         this.Energy = 0.0f;
         HudManager.EnergyMeter.MaxEnergy = this.MaxEnergy;
         GameplayState = GameplayState.Intro;
+
+        UpdatePlayersState(PlayerState.Gameplay);
     }
 
     private void CalculateStarScores()
@@ -220,7 +225,7 @@ public class GameplayManager : ScreenManager
     {
         foreach (var manager in NoteManagers)
         {
-            var player = _playerManager.Players.SingleOrDefault(e => e.Slot == manager.Slot);
+            var player = _playerManager.GetLocalPlayers().SingleOrDefault(e => e.Slot == manager.Slot);
             if (player == null)
             {
                 continue;
@@ -478,6 +483,12 @@ public class GameplayManager : ScreenManager
 
     private void PauseGame(int player, bool pause)
     {
+        // Don't allow pausing in net games
+        if (CoreManager.IsNetGame)
+        {
+            return;
+        }
+
         if (pause)
         {
             if (GameplayState == GameplayState.Outro)
@@ -554,7 +565,10 @@ public class GameplayManager : ScreenManager
         }
         _playerManager.ApplyHitResult(hitResult, hitResult.Player);
         UpdateTeamCombo(hitResult.JudgeResult);
-        UpdateRankings();
+        _playerManager.UpdateRankings();
+
+        var player = _playerManager.GetPlayer(hitResult.Player);
+        SendNetPlayerScoreUpdate(player);
     }
 
     private void UpdateTeamCombo(JudgeResult result)
@@ -592,24 +606,6 @@ public class GameplayManager : ScreenManager
         MxGainRate = newGainRate;
     }
 
-
-    private void UpdateRankings()
-    {
-        var orderedPlayers = _playerManager.Players.OrderByDescending(e => e.PerfPercent).ToList();
-        int count = 0;
-        float last = 1000.0f;
-        for (int x = 0; x < orderedPlayers.Count; x++)
-        {
-            var perc = orderedPlayers[x].PerfPercent;
-            if (perc < last)
-            {
-                last = perc;
-                count++;
-            }
-            orderedPlayers[x].Ranking = count;
-        }
-
-    }
 
     private void ApplySelectedSong(SongData selectedSongData)
     {
@@ -650,5 +646,24 @@ public class GameplayManager : ScreenManager
             return 0;
         }
         return SongStarScoreValues.GetStarFraction(score);
+    }
+
+    public override void OnNetPlayerListUpdated()
+    {
+        base.OnNetPlayerListUpdated();
+        OnlinePlayerList.RefreshAll();
+    }
+
+    public override void OnNetPlayerUpdated(Player player)
+    {
+        base.OnNetPlayerUpdated(player);
+        OnlinePlayerList.Refresh(player);
+    }
+
+    public override void OnNetPlayerScoreUpdated(Player player)
+    {
+        base.OnNetPlayerScoreUpdated(player);
+        // TODO: Should be managed by server
+        OnlinePlayerList.Refresh(player);
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -50,6 +52,34 @@ public class ScreenManager : MonoBehaviour
     {
     }
 
+    public virtual void OnNetPlayerUpdated(Player player)
+    {
+
+    }
+    public virtual void OnNetPlayerScoreUpdated(Player player)
+    {
+    }
+
+    public virtual void OnNetPlayerListUpdated()
+    {
+
+    }
+
+    public virtual void OnNetRequestSongResponse(NetSongChoiceResponse response)
+    {
+        if (response.ResponseType != NetSongChoiceResponseType.Ok)
+        {
+            Debug.LogWarning($"(Client) Received song request response: {response.ResponseType} - {response.ResponseMessage}.");
+            return;
+        }
+
+        Debug.Log($"(Client) Received song request response: {response.ResponseType}.");
+    }
+
+    public virtual void OnNetSongSelected(NetSongChoiceRequest request)
+    {
+    }
+
     protected Player GetPlayer(int slot)
     {
         return CoreManager.PlayerManager.GetPlayer(slot);
@@ -66,7 +96,7 @@ public class ScreenManager : MonoBehaviour
     }
 
     protected IEnumerator DoSceneTransition(GameScene gameScene, bool withTransition = true)
-    
+
     {
         Debug.Log($"Transitioning to {gameScene}");
         var sceneName = gameScene + "Scene";
@@ -74,11 +104,11 @@ public class ScreenManager : MonoBehaviour
         if (CoreManager == null || !withTransition)
         {
             SceneManager.LoadScene(sceneName);
-         
+
             yield break;    // Return statement, but for a coroutine.
         }
 
-        yield return  CoreManager.SceneTransitionManager.RunTransitionStart();
+        yield return CoreManager.SceneTransitionManager.RunTransitionStart();
         CoreManager?.MenuMusicManager?.PlaySceneMusic(gameScene);
         SceneManager.LoadScene(sceneName);
         yield return CoreManager.SceneTransitionManager.RunTransitionEnd();
@@ -94,6 +124,73 @@ public class ScreenManager : MonoBehaviour
     {
         CoreManager.ControlsManager.SetActionMap(actionMapType);
     }
+
+    public virtual void OnNetClientDisconnected(ulong id)
+    {
+        if (CoreManager.NetworkManager.IsHost)
+        {
+            CoreManager.ServerNetApi.RemoveNetPlayersServerRpc(id);
+            Debug.Log("Client disconnected.");
+        }
+    }
+
+    public virtual void OnNetClientConnected(ulong id)
+    {
+
+        Debug.Log($"Client connected. ID: {id}, Host: {CoreManager.IsHost}");
+        CoreManager.PlayerManager.SetNetId();
+        foreach (var player in CoreManager.PlayerManager.GetLocalPlayers())
+        {
+            var dto = PlayerDto.FromPlayer(player);
+            CoreManager.ServerNetApi.RegisterNetPlayerServerRpc(dto);
+        }
+
+        if (!CoreManager.IsHost)
+        {
+            CoreManager.ServerNetApi.RequestPlayerListServerRpc();
+        }
+    }
+
+    public void SendNetPlayerUpdate(Player player)
+    {
+        if (!CoreManager.IsNetGame)
+        {
+            return;
+        }
+
+        var dto = PlayerDto.FromPlayer(player);
+
+        Debug.Assert(dto.NetId != 255, "NetId is 255. This should not happen.");
+        CoreManager.ServerNetApi.UpdatePlayerServerRpc(dto);
+    }
+
+    public void SendNetPlayerScoreUpdate(Player player)
+    {
+        if (!CoreManager.IsNetGame)
+        {
+            return;
+        }
+
+        var dto = PlayerScoreDto.FromPlayer(player);
+
+        Debug.Assert(dto.NetId != 255, "NetId is 255. This should not happen.");
+        CoreManager.ServerNetApi.UpdatePlayerScoreServerRpc(dto);
+    }
+
+    public void UpdatePlayersState(PlayerState playerState)
+    {
+        foreach (var player in CoreManager.PlayerManager.GetLocalPlayers())
+        {
+            UpdatePlayerState(player, playerState);
+        }
+    }
+
+    public void UpdatePlayerState(Player player, PlayerState playerState)
+    {
+        player.PlayerState = playerState;
+        SendNetPlayerUpdate(player);
+    }
+
 
 }
 

@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Assets;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SongSelectManager : ScreenManager
 {
-    
+
     public SelectedSongFrame SelectedSongFrame;
 
     public int SelectedSongIndex;
@@ -21,7 +20,7 @@ public class SongSelectManager : ScreenManager
     public Text TxtSortMode;
 
     public SongList SongList;
-
+    public SongSelectOnlinePlayerList OnlinePlayerList;
 
     public List<SongData> OrderedSongs { get; private set; } = new List<SongData>();
 
@@ -38,7 +37,7 @@ public class SongSelectManager : ScreenManager
         }
     }
 
-    private readonly string[] _availableSortModes = {"TITLE", "ARTIST", "BPM", "LENGTH", "STARS"};
+    private readonly string[] _availableSortModes = { "TITLE", "ARTIST", "BPM", "LENGTH", "STARS" };
 
     public SongData SelectedSong
     {
@@ -71,6 +70,9 @@ public class SongSelectManager : ScreenManager
         SortSongs();
         SelectLastPlayedSong();
         ShowSelectedSong();
+        UpdatePlayersState(PlayerState.SelectSong);
+        OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
+        OnlinePlayerList.Refresh();
     }
 
     private void SortSongs()
@@ -200,12 +202,12 @@ public class SongSelectManager : ScreenManager
                 SongSortMode = Helpers.GetNextValue(_availableSortModes, SongSortMode, 1, true);
                 PlaySfx(SoundEvent.SelectionShifted);
                 break;
-                case InputAction.Turbo:
-                    HighScoreDisplay.ToggleVisibility();
-                    PlayerGroupHighScoreDisplay.ToggleVisibility();
-                    ShowHighScores(OrderedSongs[SelectedSongIndex]);
-                    PlaySfx(SoundEvent.SelectionShifted);
-                    break;
+            case InputAction.Turbo:
+                HighScoreDisplay.ToggleVisibility();
+                PlayerGroupHighScoreDisplay.ToggleVisibility();
+                ShowHighScores(OrderedSongs[SelectedSongIndex]);
+                PlaySfx(SoundEvent.SelectionShifted);
+                break;
 
         }
     }
@@ -225,6 +227,26 @@ public class SongSelectManager : ScreenManager
     }
     private void OnSongDecided()
     {
+        if (CoreManager.IsNetGame)
+        {
+            var request = new NetSongChoiceRequest()
+            {
+                SongId = SelectedSong.ID,
+                SongVersion = SelectedSong.Version,
+                Artist = SelectedSong.Artist,
+                Title = SelectedSong.Title,
+            };
+
+            CoreManager.ServerNetApi.RequestSongServerRpc(request);
+            return;
+        }
+
+        ContinueSongDecided();
+
+    }
+
+    private void ContinueSongDecided()
+    {
         CoreManager.SelectedSong = SelectedSong.ID;
         CoreManager.Settings.LastPlayedSong = SelectedSong.ID;
         CoreManager.Settings.Save();
@@ -237,5 +259,48 @@ public class SongSelectManager : ScreenManager
         var playerCount = CoreManager.PlayerManager.Players.Count;
         var teamScore = CoreManager.HighScoreManager.GetTeamScore(songData.ID, songData.Version, playerCount);
         return teamScore;
+    }
+
+    public override void OnNetPlayerListUpdated()
+    {
+        base.OnNetPlayerListUpdated();
+        OnlinePlayerList.Refresh();
+    }
+
+    public override void OnNetPlayerUpdated(Player player)
+    {
+        base.OnNetPlayerUpdated(player);
+        OnlinePlayerList.Refresh();
+    }
+
+    public override void OnNetSongSelected(NetSongChoiceRequest request)
+    {
+        Debug.Log($"(Client) Received song choice from server for song {request.SongId}, version {request.SongVersion}.");
+        var song = CoreManager.SongLibrary[request.SongId];
+
+        if (song == null)
+        {
+            throw new ArgumentException($"Requested song with ID {request.SongId}, version {request.SongVersion} was not found in song library.");
+        }
+
+        if (song.Version != request.SongVersion)
+        {
+            throw new ArgumentException($"Requested song version {request.SongVersion} does not match local version {song.Version}.");
+        }
+
+        SetSelectedIndex(request.SongId);
+        ShowSelectedSong();
+        ContinueSongDecided();
+
+    }
+
+    public override void OnNetRequestSongResponse(NetSongChoiceResponse response)
+    {
+
+        base.OnNetRequestSongResponse(response);
+        if (response.ResponseType != NetSongChoiceResponseType.Ok)
+        {
+            PlaySfx(SoundEvent.Mistake);
+        }
     }
 }
