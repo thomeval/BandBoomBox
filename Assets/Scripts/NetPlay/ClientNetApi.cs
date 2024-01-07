@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -5,11 +6,13 @@ public class ClientNetApi : NetworkBehaviour
 {
     private PlayerManager _playerManager;
     private CoreManager _coreManager;
+    private NetGameSettings _netGameSettings;
 
     void Awake()
     {
         Helpers.AutoAssign(ref _playerManager);
         Helpers.AutoAssign(ref _coreManager);
+        Helpers.AutoAssign(ref _netGameSettings);
         DontDestroyOnLoad(this);
     }
 
@@ -56,6 +59,17 @@ public class ClientNetApi : NetworkBehaviour
     }
 
     /// <summary>
+    /// Called by the server once all players have finished loading the selected song. This starts playback on the GameplayScene.
+    /// </summary>
+    /// <param name="param"></param>
+    /// <exception cref="System.NotImplementedException"></exception>
+    [ClientRpc]
+    public void StartSongPlaybackClientRpc(ClientRpcParams param = default)
+    {
+        _coreManager.ActiveMainManager.OnNetStartSongSignal();
+    }
+
+    /// <summary>
     /// Called by the server to provide the client with a list of all players currently in the game. 
     /// This is a response to a RequestPlayerListServerRpc() request.
     /// </summary>
@@ -94,5 +108,11 @@ public class ClientNetApi : NetworkBehaviour
     public void SongSelectedClientRpc(NetSongChoiceRequest request)
     {
         _coreManager.OnNetSongSelected(request);
+    }
+
+    [ClientRpc]
+    public void ReceiveNetGameSettingsClientRpc(NetGameSettings serverSettings, ClientRpcParams param)
+    {
+        _netGameSettings.CopyFrom(serverSettings);
     }
 }

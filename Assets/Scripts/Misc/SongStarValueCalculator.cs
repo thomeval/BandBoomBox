@@ -11,7 +11,8 @@ public class SongStarValueCalculator : MonoBehaviour
     {
         {TeamScoreCategory.Solo, new[]   {0.05, 0.2, 0.35, 0.55, 0.75, 1.00}},
         {TeamScoreCategory.Duet, new[]   {0.05, 0.2, 0.35, 0.55, 0.70, 0.90, 1.10}},
-        {TeamScoreCategory.Crowd, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.05, 1.25}},
+        {TeamScoreCategory.Squad, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.05, 1.25}},
+        {TeamScoreCategory.Crowd, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.05, 1.25, 1.45}},
         {TeamScoreCategory.Legion, new[] {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.05, 1.25, 1.45, 1.65}}
     };
 

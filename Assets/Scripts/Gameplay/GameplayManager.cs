@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -72,7 +71,7 @@ public class GameplayManager : ScreenManager
         get { return _playerManager.Players.Count; }
     }
     public float MxGainRate = 1.0f;
-    public GameplayState GameplayState = GameplayState.Intro;
+    public GameplayScreenState GameplayState = GameplayScreenState.Intro;
     public GameObject NoteHighways;
 
     public const float MX_COMBO_FOR_GAIN_BONUS = 50;
@@ -100,6 +99,7 @@ public class GameplayManager : ScreenManager
     DateTime _lastUpdate = DateTime.Now;
     private DateTime _outroTime;
     private bool _isSongLoading;
+    private bool _startSignalReceived = false;
     private readonly float[] _turborMxGainRates = { 0.0f, 1.0f, 2.5f, 4.5f, 7.0f, 10.0f, 11.0f, 13.0f, 16f };
 
     void Awake()
@@ -164,33 +164,48 @@ public class GameplayManager : ScreenManager
     {
         CoreManager.SongPreviewManager.StopPreviews();
 
-        var fourPlayers = _playerManager.GetLocalPlayers().Count == 4;
-        var highwayScale = fourPlayers ? FOUR_PLAYER_HUD_SCALE : 1.0f;
-        NoteHighways.transform.localScale = new Vector3(highwayScale, highwayScale, highwayScale);
-        NoteHighways.GetComponent<VerticalLayoutGroup>().spacing = fourPlayers ? FOUR_PLAYER_HUD_SPACING : 0;
+        SetNoteHighwayScale();
+
         OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
         OnlinePlayerList.RefreshAll();
+
         AssignManagers();
 
+        _playerManager.Reset();
+        InitTurbo();
+
+        // TODO: Set this to true only for local games. For online games this should be set to true when the host sends the start signal.
+        if (!CoreManager.IsNetGame)
+        {
+            _startSignalReceived = true;
+        }
+
         var selectedSongData = CoreManager.CurrentSongData;
-        ApplySelectedSong(selectedSongData);
+        StartLoadingSong(selectedSongData);
         SetupNoteHighways();
         CalculateStarScores();
 
         // Temporary value. This will get set properly once the song goes past its playable state.
         _outroTime = DateTime.Now.AddDays(1);
-
         _lastUpdate = DateTime.Now;
 
-        _playerManager.UpdateRankings();
+        GameplayState = GameplayScreenState.Intro;
 
-        _playerManager.Reset();
+    }
+
+    private void SetNoteHighwayScale()
+    {
+        var fourPlayers = _playerManager.GetLocalPlayers().Count == 4;
+        var highwayScale = fourPlayers ? FOUR_PLAYER_HUD_SCALE : 1.0f;
+        NoteHighways.transform.localScale = new Vector3(highwayScale, highwayScale, highwayScale);
+        NoteHighways.GetComponent<VerticalLayoutGroup>().spacing = fourPlayers ? FOUR_PLAYER_HUD_SPACING : 0;
+    }
+
+    private void InitTurbo()
+    {
         this.DisableAllTurbos();
         this.Energy = 0.0f;
         HudManager.EnergyMeter.MaxEnergy = this.MaxEnergy;
-        GameplayState = GameplayState.Intro;
-
-        UpdatePlayersState(PlayerState.Gameplay);
     }
 
     private void CalculateStarScores()
@@ -245,7 +260,7 @@ public class GameplayManager : ScreenManager
 
     private void UpdatePlayerEnergy(double timeDiff)
     {
-        if (this.GameplayState == GameplayState.Paused)
+        if (this.GameplayState == GameplayScreenState.Paused)
         {
             return;
         }
@@ -272,7 +287,7 @@ public class GameplayManager : ScreenManager
 
     private void UpdateGameplayState()
     {
-        if (GameplayState == GameplayState.Paused || GameplayState == GameplayState.Outro)
+        if (GameplayState == GameplayScreenState.Paused || GameplayState == GameplayScreenState.Outro)
         {
             return;
         }
@@ -280,24 +295,24 @@ public class GameplayManager : ScreenManager
         // Note: Audio clip will rewind automatically once it is done playing.
         if (SongPosition < 0 && _songManager.IsSongPlaying)
         {
-            GameplayState = GameplayState.Intro;
+            GameplayState = GameplayScreenState.Intro;
         }
         else if (SongPosition > _songManager.GetPlayableLength())
         {
-            GameplayState = GameplayState.Outro;
+            GameplayState = GameplayScreenState.Outro;
             _outroTime = DateTime.Now.AddSeconds(OUTRO_TIME);
             CoreManager.LastTeamScore = GetTeamScore();
         }
         else
         {
-            GameplayState = GameplayState.Playing;
+            GameplayState = GameplayScreenState.Playing;
         }
 
     }
 
     private void RecoverMultiplier(double timeDiff)
     {
-        if (GameplayState == GameplayState.Paused)
+        if (GameplayState == GameplayScreenState.Paused)
         {
             return;
         }
@@ -307,7 +322,7 @@ public class GameplayManager : ScreenManager
 
     private void DecayMultiplier(double timeDiff)
     {
-        if (GameplayState == GameplayState.Paused)
+        if (GameplayState == GameplayScreenState.Paused)
         {
             return;
         }
@@ -317,8 +332,20 @@ public class GameplayManager : ScreenManager
 
     private void SongManager_SongLoaded()
     {
-        _songManager.StartSong();
         _isSongLoading = false;
+        UpdatePlayersState(PlayerState.Gameplay_ReadyToStart);
+        TryToStartSong();
+    }
+
+    private void TryToStartSong()
+    {
+        if (_isSongLoading || !_startSignalReceived)
+        {
+            return;
+        }
+
+        _songManager.StartSong();
+        UpdatePlayersState(PlayerState.Gameplay_Playing);
     }
 
     // Update is called once per frame
@@ -341,7 +368,7 @@ public class GameplayManager : ScreenManager
     }
     public override void OnPlayerInput(InputEvent inputEvent)
     {
-        if (GameplayState == GameplayState.Paused)
+        if (GameplayState == GameplayScreenState.Paused)
         {
             HandlePauseMenuInput(inputEvent);
             return;
@@ -362,54 +389,58 @@ public class GameplayManager : ScreenManager
                 return;
             }
 
-            var noteType = NoteUtils.GetNoteTypeForInput(inputEvent.Action);
-
-            var noteManager = GetNoteManager(inputEvent.Player);
-
-
-            if (noteType != null && noteManager != null)
-            {
-                var lane = NoteUtils.GetNoteLane(noteType.Value);
-                var playerHudManager = HudManager.GetPlayerHudManager(player.Slot);
-                playerHudManager.FlashLane(lane);
-                var note = noteManager.FindNextNote(noteType.Value, true);
-
-                if (note != null)
-                {
-                    var allowCrit = _playerManager.GetPlayer(inputEvent.Player).TurboActive;
-
-                    // Note was hit. Apply a hit result.
-                    var deviation = SongPosition - note.AbsoluteTime;
-                    var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass, allowCrit);
-                    ApplyHitResult(hitResult);
-                    if (note.NoteClass == NoteClass.Hold)
-                    {
-                        noteManager.OnNoteHeld(note.Lane);
-                        playerHudManager.DisplayHeldNote(note.EndNote);
-                    }
-
-                    if (hitResult.JudgeResult < JudgeResult.Ok)
-                    {
-                        playerHudManager.FlashNoteHit(lane);
-                    }
-
-                    noteManager.RemoveNote(note);
-                }
-                else
-                {
-                    // Check for WRONG judgement
-                    note = noteManager.FindNextNote(true);
-                    if (note != null)
-                    {
-                        var hitResult = _hitJudge.GetWrongResult(lane, inputEvent.Player, player.Difficulty);
-                        ApplyHitResult(hitResult);
-                    }
-                }
-            }
+            HandleNoteInput(inputEvent, player);
         }
         else
         {
             HandlePlayerReleaseInput(inputEvent);
+        }
+    }
+
+    private void HandleNoteInput(InputEvent inputEvent, Player player)
+    {
+        var noteType = NoteUtils.GetNoteTypeForInput(inputEvent.Action);
+
+        var noteManager = GetNoteManager(inputEvent.Player);
+
+        if (noteType != null && noteManager != null)
+        {
+            var lane = NoteUtils.GetNoteLane(noteType.Value);
+            var playerHudManager = HudManager.GetPlayerHudManager(player.Slot);
+            playerHudManager.FlashLane(lane);
+            var note = noteManager.FindNextNote(noteType.Value, true);
+
+            if (note != null)
+            {
+                var allowCrit = _playerManager.GetPlayer(inputEvent.Player).TurboActive;
+
+                // Note was hit. Apply a hit result.
+                var deviation = SongPosition - note.AbsoluteTime;
+                var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass, allowCrit);
+                ApplyHitResult(hitResult);
+                if (note.NoteClass == NoteClass.Hold)
+                {
+                    noteManager.OnNoteHeld(note.Lane);
+                    playerHudManager.DisplayHeldNote(note.EndNote);
+                }
+
+                if (hitResult.JudgeResult < JudgeResult.Ok)
+                {
+                    playerHudManager.FlashNoteHit(lane);
+                }
+
+                noteManager.RemoveNote(note);
+            }
+            else
+            {
+                // Check for WRONG judgement
+                note = noteManager.FindNextNote(true);
+                if (note != null)
+                {
+                    var hitResult = _hitJudge.GetWrongResult(lane, inputEvent.Player, player.Difficulty);
+                    ApplyHitResult(hitResult);
+                }
+            }
         }
     }
 
@@ -491,12 +522,12 @@ public class GameplayManager : ScreenManager
 
         if (pause)
         {
-            if (GameplayState == GameplayState.Outro)
+            if (GameplayState == GameplayScreenState.Outro)
             {
                 return;
             }
             PauseMenu.Show(player);
-            GameplayState = GameplayState.Paused;
+            GameplayState = GameplayScreenState.Paused;
             _songManager.PauseSong(true);
 
             foreach (var phudManager in HudManager.PlayerHudManagers)
@@ -512,7 +543,7 @@ public class GameplayManager : ScreenManager
                 return;
             }
             PauseMenu.Hide();
-            GameplayState = GameplayState.Playing;
+            GameplayState = GameplayScreenState.Playing;
             _songManager.PauseSong(false);
         }
 
@@ -606,8 +637,7 @@ public class GameplayManager : ScreenManager
         MxGainRate = newGainRate;
     }
 
-
-    private void ApplySelectedSong(SongData selectedSongData)
+    private void StartLoadingSong(SongData selectedSongData)
     {
         _isSongLoading = true;
         _songManager.LoadSong(selectedSongData, SongManager_SongLoaded);
@@ -663,7 +693,13 @@ public class GameplayManager : ScreenManager
     public override void OnNetPlayerScoreUpdated(Player player)
     {
         base.OnNetPlayerScoreUpdated(player);
-        // TODO: Should be managed by server
         OnlinePlayerList.Refresh(player);
+    }
+
+    public override void OnNetStartSongSignal()
+    {
+        base.OnNetStartSongSignal();
+        _startSignalReceived = true;
+        TryToStartSong();
     }
 }

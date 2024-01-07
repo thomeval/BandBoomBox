@@ -8,20 +8,13 @@ using Newtonsoft.Json;
 public class HighScoreManager : MonoBehaviour
 {
 
-    private PlayerManager _playerManager;
-
     public List<TeamScore> TeamScores = new();
 
-    public string TeamHighScoresPath = "%AppSaveFolder%/TeamScores.bin";
-
-    private void Awake()
-    {
-        _playerManager = FindObjectOfType<PlayerManager>();
-    }
+    private readonly string _teamHighScoresPath = "%AppSaveFolder%/TeamScores.bin";
 
     public void Load()
     {
-        var path = Helpers.ResolvePath(TeamHighScoresPath);
+        var path = Helpers.ResolvePath(_teamHighScoresPath);
         if (!File.Exists(path))
         {
             Debug.LogWarning($"Team high scores file was not found at {path}");
@@ -71,12 +64,12 @@ public class HighScoreManager : MonoBehaviour
         Save();
 
     }
-    
+
     public void Save()
     {
         try
         {
-            var path = Helpers.ResolvePath(TeamHighScoresPath);
+            var path = Helpers.ResolvePath(_teamHighScoresPath);
 
             // Built in Unity Json serializer doesn't support arrays or collections. Using Json.Net instead.
             var json = JsonConvert.SerializeObject(TeamScores);
@@ -89,7 +82,7 @@ public class HighScoreManager : MonoBehaviour
             Debug.LogWarning($"Failed to save team high scores: {e}");
         }
     }
-    
+
 
     public TeamScore GetTeamScore(string songId, int songVersion, int playerCount)
     {
@@ -101,11 +94,11 @@ public class HighScoreManager : MonoBehaviour
             return result;
         }
         catch (InvalidOperationException ex)
-        { 
+        {
             Debug.LogError($"Failed to retrieve team high score for song {songId}, version {songVersion}, category {category}. {ex}");
             return null;
         }
-  
+
     }
 
     public bool AddTeamScore(TeamScore teamScore)
@@ -114,7 +107,6 @@ public class HighScoreManager : MonoBehaviour
         {
             return false;
         }
-
 
         var existing = GetTeamScore(teamScore.SongId, teamScore.SongVersion, teamScore.NumPlayers);
 
@@ -148,21 +140,22 @@ public class HighScoreManager : MonoBehaviour
 
     public static TeamScoreCategory GetCategory(int playerCount)
     {
-        if (playerCount >= 5)
+        if (playerCount >= 9)
         {
             return TeamScoreCategory.Legion;
         }
-
-        if (playerCount >= 3)
+        if (playerCount >= 5)
         {
             return TeamScoreCategory.Crowd;
         }
-
+        if (playerCount >= 3)
+        {
+            return TeamScoreCategory.Squad;
+        }
         if (playerCount == 2)
         {
             return TeamScoreCategory.Duet;
         }
-
         if (playerCount == 1)
         {
             return TeamScoreCategory.Solo;
@@ -175,7 +168,7 @@ public class HighScoreManager : MonoBehaviour
     {
         var stars = songs.Select(e => GetTeamScore(e.ID, e.Version, playerCount))
             .Where(e => e != null)
-            .Select(e => (int) e.Stars)
+            .Select(e => (int)e.Stars)
             .Sum();
         return stars;
     }

@@ -13,8 +13,6 @@ public class PlayerManager : MonoBehaviour
     public Player PlayerPrefab;
     public Player NetPlayerPrefab;
 
-    public int MaxNetPlayers = 8;
-
     public const int DEFAULT_NET_ID = 255;
 
     public bool AllowPlayerJoining
@@ -57,10 +55,12 @@ public class PlayerManager : MonoBehaviour
 
     public void Reset()
     {
-        foreach (var player in Players)
+        foreach (var player in GetLocalPlayers())
         {
             player.Reset();
         }
+
+        UpdateRankings();
     }
 
     public void ApplyInputActions(string json)

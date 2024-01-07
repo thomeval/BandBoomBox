@@ -2,7 +2,9 @@ public enum PlayerState
 {
     Unknown,
     NotPlaying,
-    Gameplay,
+    Gameplay_Loading,
+    Gameplay_ReadyToStart,
+    Gameplay_Playing,
     SelectSong,
     PlayerJoin_SelectProfile,
     PlayerJoin_CreateProfile,

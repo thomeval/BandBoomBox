@@ -84,6 +84,7 @@ public class DifficultySelectManager : ScreenManager
         if (this.JoinedPlayers == this.ReadyPlayers)
         {
             SceneTransition(GameScene.Gameplay);
+            UpdatePlayersState(PlayerState.Gameplay_Loading);
         }
     }
 

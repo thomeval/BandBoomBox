@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Assets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -62,7 +60,6 @@ public class ScreenManager : MonoBehaviour
 
     public virtual void OnNetPlayerListUpdated()
     {
-
     }
 
     public virtual void OnNetRequestSongResponse(NetSongChoiceResponse response)
@@ -77,6 +74,10 @@ public class ScreenManager : MonoBehaviour
     }
 
     public virtual void OnNetSongSelected(NetSongChoiceRequest request)
+    {
+    }
+
+    public virtual void OnNetStartSongSignal()
     {
     }
 
@@ -148,6 +149,7 @@ public class ScreenManager : MonoBehaviour
         if (!CoreManager.IsHost)
         {
             CoreManager.ServerNetApi.RequestPlayerListServerRpc();
+            CoreManager.ServerNetApi.RequestNetGameSettingsServerRpc();
         }
     }
 

@@ -66,8 +66,12 @@ public class OnlinePlayerListItem : MonoBehaviour
                 return "Selecting Difficulty";
             case PlayerState.DifficultySelect_Ready:
                 return "Ready";
-            case PlayerState.Gameplay:
+            case PlayerState.Gameplay_Playing:
                 return "Playing";
+            case PlayerState.Gameplay_Loading:
+                return "Loading";
+            case PlayerState.Gameplay_ReadyToStart:
+                return "Waiting for other players";
             case PlayerState.Evaluation_NotReady:
                 return "Checking Results";
             case PlayerState.Evaluation_Ready:

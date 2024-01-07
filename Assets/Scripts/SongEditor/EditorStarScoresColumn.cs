@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 
@@ -11,7 +10,6 @@ public class EditorStarScoresColumn : MonoBehaviour
     public SpriteResolver CategoryIconSprite;
 
     public InputField[] TextBoxes = new InputField[5];
-
 
     public SongStarScoreValues ScoreValues
     {
@@ -35,10 +33,10 @@ public class EditorStarScoresColumn : MonoBehaviour
             {
                 values[x] = value;
             }
-            
+
         }
 
-        var result = new SongStarScoreValues {ScoreCategory = this.TeamScoreCategory, Scores = values};
+        var result = new SongStarScoreValues { ScoreCategory = this.TeamScoreCategory, Scores = values };
         return result;
     }
 

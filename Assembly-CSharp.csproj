@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\Input\JudgeResult.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenuState.cs" />
     <Compile Include="Assets\Scripts\Util\SpriteFader.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\NetGameSettings.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectState.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteTrimResult.cs" />
     <Compile Include="Assets\EditorButtonHandler.cs" />
@@ -123,7 +124,8 @@
     <Compile Include="Assets\Scripts\Notes\SjsonUtils.cs" />
     <Compile Include="Assets\Scripts\Gameplay\LaneFlasher.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GoalMeter.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\GameplayState.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameplayScreenState.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\NetSongSelectRules.cs" />
     <Compile Include="Assets\Scripts\Gameplay\HeldNoteDisplay.cs" />
     <Compile Include="Assets\Scripts\HighScores\PlayerScore.cs" />
     <Compile Include="Assets\Scripts\Common\Difficulty.cs" />
@@ -175,6 +177,7 @@
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteSet.cs" />
     <Compile Include="Assets\Scripts\Gameplay\NoteHitFlasher.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorFineTunePage.cs" />
+    <Compile Include="Assets\Scripts\OnlineMenu\OnlineMenuState.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongSelectManager.cs" />
     <Compile Include="Assets\Scripts\Songs\SongStarScoreValues.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectFrame.cs" />

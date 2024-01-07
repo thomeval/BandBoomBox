@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1096e62cdf4c5f49a42070249608349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ServerPasswordHash>k__BackingField: 
 --- !u!114 &364898358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,6 +411,7 @@ GameObject:
   - component: {fileID: 374259199}
   - component: {fileID: 374259201}
   - component: {fileID: 374259200}
+  - component: {fileID: 374259202}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -482,7 +484,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: de4bd4e21aded8046ae28959eff15601, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
-    ConnectionApproval: 0
+    ConnectionApproval: 1
     ConnectionData: 
     EnableTimeResync: 0
     TimeResyncInterval: 30
@@ -490,12 +492,26 @@ MonoBehaviour:
     EnableSceneManagement: 1
     ForceSamePrefabs: 0
     RecycleNetworkIds: 1
-    NetworkIdRecycleDelay: 120
+    NetworkIdRecycleDelay: 30
     RpcHashSize: 0
     LoadSceneTimeOut: 120
     SpawnTimeout: 1
     EnableNetworkLogs: 1
     OldPrefabList: []
+--- !u!114 &374259202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374259198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7c77ea2801b3d40a646596086ec6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxNetPlayers: 8
+  SongSelectRules: 0
 --- !u!1001 &500218857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1736,7 +1752,6 @@ MonoBehaviour:
   Players: []
   PlayerPrefab: {fileID: 9095834114669746516, guid: 52437084dbb2bc44888c61c171ae9ba7, type: 3}
   NetPlayerPrefab: {fileID: 9095834114669746516, guid: bd2e8f5a1eba0b34eaf07011f61460a5, type: 3}
-  MaxNetPlayers: 8
 --- !u!4 &1910463113991913806
 Transform:
   m_ObjectHideFlags: 0
@@ -2574,7 +2589,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeamScores: []
-  TeamHighScoresPath: '%AppSaveFolder%/TeamScores.bin'
 --- !u!1 &8584932642709129396
 GameObject:
   m_ObjectHideFlags: 0

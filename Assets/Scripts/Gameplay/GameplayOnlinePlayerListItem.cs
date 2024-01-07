@@ -16,7 +16,7 @@ public class GameplayOnlinePlayerListItem : OnlinePlayerListItem
 
         if (TxtChartGroupDifficulty != null)
         {
-            if (Player.PlayerState != PlayerState.Gameplay)
+            if (Player.PlayerState != PlayerState.Gameplay_Playing)
             {
                 TxtChartGroupDifficulty.text = GetStatusText(Player.PlayerState);
             }

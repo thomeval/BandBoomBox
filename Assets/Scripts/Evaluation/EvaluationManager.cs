@@ -32,7 +32,8 @@ public class EvaluationManager : ScreenManager
     void Start()
     {
         _screenStartTime = DateTime.Now;
-        UseWidePlayerResultFrames = CoreManager.PlayerManager.GetLocalPlayers().Count <= 2;
+        UseWidePlayerResultFrames = (!CoreManager.IsNetGame && CoreManager.PlayerManager.GetLocalPlayers().Count <= 2)
+                                  || (CoreManager.IsNetGame && CoreManager.PlayerManager.GetLocalPlayers().Count == 1);
         foreach (var frame in PlayerResultFrames)
         {
             frame.Hide();

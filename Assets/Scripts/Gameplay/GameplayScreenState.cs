@@ -1,4 +1,4 @@
-﻿public enum GameplayState
+﻿public enum GameplayScreenState
 {
     Paused,
     Intro,

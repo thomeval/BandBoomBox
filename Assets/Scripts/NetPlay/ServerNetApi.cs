@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
@@ -8,12 +9,30 @@ public class ServerNetApi : NetworkBehaviour
     private PlayerManager _playerManager;
     private ClientNetApi _clientNetApi;
     private NetworkManager _networkManager;
+    private NetGameSettings _netGameSettings;
+
+    [field: SerializeField]
+    public string ServerPasswordHash { get; set; }
+
+    public int MaxNetPlayers
+    {
+        get
+        {
+            return _netGameSettings.MaxNetPlayers;
+        }
+        set
+        {
+            _netGameSettings.MaxNetPlayers = value;
+        }
+    }
 
     void Awake()
     {
         Helpers.AutoAssign(ref _playerManager);
         Helpers.AutoAssign(ref _clientNetApi);
         Helpers.AutoAssign(ref _networkManager);
+        Helpers.AutoAssign(ref _netGameSettings);
+
         DontDestroyOnLoad(this);
     }
 
@@ -78,8 +97,9 @@ public class ServerNetApi : NetworkBehaviour
     public void UpdatePlayerServerRpc(PlayerDto player, ServerRpcParams serverParams = default)
     {
         player.NetId = serverParams.Receive.SenderClientId;
-        Debug.Log($"(Server) Updating Player from client ID {player.NetId}, slot {player.Slot}");
         _clientNetApi.UpdatePlayerClientRpc(player);
+
+        TryToStartPlayback(false);
     }
 
     /// <summary>
@@ -91,7 +111,6 @@ public class ServerNetApi : NetworkBehaviour
     public void UpdatePlayerScoreServerRpc(PlayerScoreDto dto, ServerRpcParams serverParams = default)
     {
         dto.NetId = serverParams.Receive.SenderClientId;
-        Debug.Log($"(Server) Updating Player from client ID {dto.NetId}, slot {dto.Slot}");
         _clientNetApi.UpdatePlayerScoreClientRpc(dto);
     }
 
@@ -133,6 +152,15 @@ public class ServerNetApi : NetworkBehaviour
         _clientNetApi.SongSelectedClientRpc(request);
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void RequestNetGameSettingsServerRpc(ServerRpcParams serverParams = default)
+    {
+        var netId = serverParams.Receive.SenderClientId;
+        Debug.Log($"(Server) Sending Game Settings to client ID {netId}");
+        var param = GetSingleClientParams(netId);
+        _clientNetApi.ReceiveNetGameSettingsClientRpc(_netGameSettings, param);
+    }
+
     #endregion
 
     public override void OnNetworkSpawn()
@@ -168,6 +196,17 @@ public class ServerNetApi : NetworkBehaviour
             };
         }
 
+        var turnResponse = GetChooseSongTurnResponse(netId);
+
+        if (turnResponse != "")
+        {
+            return new NetSongChoiceResponse
+            {
+                ResponseType = NetSongChoiceResponseType.NotAllowed,
+                ResponseMessage = turnResponse
+            };
+        }
+
         var playersNotReady = _playerManager.Players.Count(e => e.PlayerState != PlayerState.SelectSong);
         if (playersNotReady > 0)
         {
@@ -186,6 +225,24 @@ public class ServerNetApi : NetworkBehaviour
 
     }
 
+    private string GetChooseSongTurnResponse(ulong netId)
+    {
+        switch (_netGameSettings.SongSelectRules)
+        {
+            case NetSongSelectRules.AnyonePicks:
+                return "";
+            case NetSongSelectRules.HostPicks:
+                if (netId != 0)
+                {
+                    return "Only the host can choose the song.";
+                }
+                return "";
+            default:
+                throw new NotImplementedException();
+
+        }
+    }
+
     private List<string> FindPlayersWithoutSong(NetSongChoiceRequest request)
     {
         // TODO: Implement this
@@ -200,6 +257,44 @@ public class ServerNetApi : NetworkBehaviour
     private PlayerDto[] GetPlayerList()
     {
         return _playerManager.Players.Select(e => PlayerDto.FromPlayer(e)).ToArray();
+    }
+
+    public void ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+    {
+        Debug.Log("(Server) Verifying connection for client ID " + request.ClientNetworkId);
+        var hash = System.Text.Encoding.UTF8.GetString(request.Payload);
+
+        if (ServerPasswordHash != null && hash != ServerPasswordHash)
+        {
+            response.Approved = false;
+            response.Pending = false;
+            response.Reason = "Invalid password.";
+            return;
+        }
+
+        if (_playerManager.Players.Count == _netGameSettings.MaxNetPlayers)
+        {
+            response.Approved = false;
+            response.Pending = false;
+            response.Reason = "Server is full.";
+            return;
+        }
+
+        Debug.Log("(Server) Connection approved for client ID " + request.ClientNetworkId);
+        response.Approved = true;
+        response.Pending = false;
+        response.Reason = "";
+    }
+
+    public void TryToStartPlayback(bool force)
+    {
+        var allReady = _playerManager.Players.All(e => e.PlayerState == PlayerState.Gameplay_ReadyToStart);
+
+        if (allReady || force)
+        {
+            Debug.Log("(Server) Sending start signal to all players.");
+            _clientNetApi.StartSongPlaybackClientRpc();
+        }
     }
 
     #endregion

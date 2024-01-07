@@ -4386,7 +4386,7 @@ MonoBehaviour:
   ListContainer: {fileID: 8278763242051192865}
   TxtPlayerCount: {fileID: 0}
   ShowRemotePlayersOnly: 0
-  SortMode: 1
+  SortMode: 3
 --- !u!1 &8278763242009476244
 GameObject:
   m_ObjectHideFlags: 0

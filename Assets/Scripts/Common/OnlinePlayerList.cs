@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class OnlinePlayerList : MonoBehaviour
 {
     private PlayerManager _playerManager;
+    private NetGameSettings _netGameSettings;
+
     public OnlinePlayerListItem ListItemPrefab;
     public List<OnlinePlayerListItem> Children = new();
     public GameObject ListContainer;
@@ -18,6 +20,7 @@ public class OnlinePlayerList : MonoBehaviour
     private void Awake()
     {
         Helpers.AutoAssign(ref _playerManager);
+        Helpers.AutoAssign(ref _netGameSettings);
         ListContainer.ClearChildren();
     }
 
@@ -68,7 +71,7 @@ public class OnlinePlayerList : MonoBehaviour
 
         if (TxtPlayerCount != null)
         {
-            TxtPlayerCount.text = $"{playerCount}/{_playerManager.MaxNetPlayers}";
+            TxtPlayerCount.text = $"{playerCount}/{_netGameSettings.MaxNetPlayers}";
         }
     }
 
@@ -82,6 +85,8 @@ public class OnlinePlayerList : MonoBehaviour
                 return players.OrderBy(e => e.Name).ToList();
             case OnlinePlayerListSortMode.PerfPoints:
                 return players.OrderByDescending(e => e.PerfPoints).ToList();
+            case OnlinePlayerListSortMode.Ranking:
+                return players.OrderBy(e => e.Ranking).ToList();
             default:
                 throw new ArgumentOutOfRangeException();
         }
