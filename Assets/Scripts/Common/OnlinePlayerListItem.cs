@@ -31,7 +31,7 @@ public class OnlinePlayerListItem : MonoBehaviour
         }
 
         SetTextSafe(TxtPlayerLevel, $"{ExpLevelUtils.GetLevel(Player.Exp)}");
-        SetTextSafe(TxtNetId, Player.DisplayNetId);
+        SetTextSafe(TxtNetId, $"({Player.DisplayNetId})");
 
     }
 

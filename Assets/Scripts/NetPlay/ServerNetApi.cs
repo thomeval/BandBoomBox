@@ -10,6 +10,7 @@ public class ServerNetApi : NetworkBehaviour
     private ClientNetApi _clientNetApi;
     private NetworkManager _networkManager;
     private NetGameSettings _netGameSettings;
+    private CoreManager _coreManager;
 
     [field: SerializeField]
     public string ServerPasswordHash { get; set; }
@@ -32,6 +33,7 @@ public class ServerNetApi : NetworkBehaviour
         Helpers.AutoAssign(ref _clientNetApi);
         Helpers.AutoAssign(ref _networkManager);
         Helpers.AutoAssign(ref _netGameSettings);
+        Helpers.AutoAssign(ref _coreManager);
 
         DontDestroyOnLoad(this);
     }
@@ -65,7 +67,7 @@ public class ServerNetApi : NetworkBehaviour
 
 
     /// <summary>
-    /// Remopves all players from the current game that belong to the client that sent the request. 
+    /// Removes all players from the current game that belong to the client that sent the request. 
     /// </summary>
     /// <param name="serverParams"></param>
     [ServerRpc(RequireOwnership = false)]
@@ -159,6 +161,21 @@ public class ServerNetApi : NetworkBehaviour
         Debug.Log($"(Server) Sending Game Settings to client ID {netId}");
         var param = GetSingleClientParams(netId);
         _clientNetApi.ReceiveNetGameSettingsClientRpc(_netGameSettings, param);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void ApplyHitResultServerRpc(HitResult hitResult, ServerRpcParams serverParams = default)
+    {
+        var netId = serverParams.Receive.SenderClientId;
+        Debug.Log($"(Server) Applying {hitResult.JudgeResult} Hit Result from client ID {netId}");
+        _coreManager.ActiveMainManager.OnNetHitResult(hitResult);
+    }
+
+    [ServerRpc(RequireOwnership = true)]
+    public void ShutdownNetGameServerRpc()
+    {
+        Debug.Log("(Server) Shutting down game.");
+        _clientNetApi.ShutdownNetGameClientRpc();
     }
 
     #endregion

@@ -1,29 +1,29 @@
+using System;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 public class EnergyMeter : MonoBehaviour
 {
-
     public SpriteMeter SpriteMeter;
     public SpriteResolver SpriteResolver;
 
     private string _lastSprite = "Inactive";
 
     [SerializeField]
-    private float _energy;
+    private double _energy;
 
-    public float Energy
+    public double Energy
     {
         get { return _energy; }
         set
         {
-            _energy = Mathf.Clamp(value,0.0f, MaxEnergy);
-            SpriteMeter.Value = _energy / MaxEnergy;
+            _energy = Math.Clamp(value, 0.0f, MaxEnergy);
+            SpriteMeter.Value = (float)(_energy / MaxEnergy);
             SetSprite();
         }
     }
 
-    public float MaxEnergy = 1.0f;
+    public double MaxEnergy = 1.0;
 
     [SerializeField]
     private bool _turboActive;

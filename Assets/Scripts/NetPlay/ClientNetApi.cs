@@ -62,10 +62,10 @@ public class ClientNetApi : NetworkBehaviour
     /// Called by the server once all players have finished loading the selected song. This starts playback on the GameplayScene.
     /// </summary>
     /// <param name="param"></param>
-    /// <exception cref="System.NotImplementedException"></exception>
     [ClientRpc]
     public void StartSongPlaybackClientRpc(ClientRpcParams param = default)
     {
+        Debug.Log("(Client) Received Start Song Signal from server");
         _coreManager.ActiveMainManager.OnNetStartSongSignal();
     }
 
@@ -114,5 +114,17 @@ public class ClientNetApi : NetworkBehaviour
     public void ReceiveNetGameSettingsClientRpc(NetGameSettings serverSettings, ClientRpcParams param)
     {
         _netGameSettings.CopyFrom(serverSettings);
+    }
+
+    [ClientRpc]
+    public void ReceiveNetGameplayStateValuesClientRpc(GameplayStateValuesDto dto)
+    {
+        _coreManager.OnNetGameplayStateValuesUpdated(dto);
+    }
+
+    [ClientRpc]
+    public void ShutdownNetGameClientRpc()
+    {
+        _coreManager.ActiveMainManager.OnNetShutdown();
     }
 }

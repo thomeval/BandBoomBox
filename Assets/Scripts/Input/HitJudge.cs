@@ -134,7 +134,7 @@ public class HitJudge
         result.MxPoints = JudgeMxValues[judgeResult] * DifficultyMxValues[difficulty];
         result.Deviation = deviation;
 
-        result.Player = player;
+        result.PlayerSlot = player;
         return result;
 
     }
@@ -148,7 +148,7 @@ public class HitJudge
             PerfPoints = JudgePerfPointValues[JudgeResult.Miss],
             ScorePoints = JudgeScoreValues[JudgeResult.Miss],
             MxPoints = JudgeMxValues[JudgeResult.Miss] * DifficultyMissMxValues[difficulty],
-            Player = player,
+            PlayerSlot = player,
             Lane = lane
         };
         return result;
@@ -163,7 +163,7 @@ public class HitJudge
             PerfPoints = JudgePerfPointValues[JudgeResult.Wrong],
             ScorePoints = JudgeScoreValues[JudgeResult.Wrong],
             MxPoints = JudgeMxValues[JudgeResult.Wrong] * DifficultyMxValues[difficulty],
-            Player = player,
+            PlayerSlot = player,
             Lane = lane
         };
         return result;

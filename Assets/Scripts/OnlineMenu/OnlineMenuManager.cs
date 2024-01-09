@@ -70,7 +70,7 @@ public class OnlineMenuManager : ScreenManager
             LblJoinMessage.text = "Please enter a valid IP address.";
         }
 
-        var ip = TxtJoinIpAddress.text;
+        var ip = TxtJoinIpAddress.text.Trim();
 
         var port = GetValueOrDefault(TxtJoinPort.text, 3334);
         var port2 = Convert.ToUInt16(port);

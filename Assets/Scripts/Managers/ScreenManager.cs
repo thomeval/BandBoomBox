@@ -12,6 +12,7 @@ public class ScreenManager : MonoBehaviour
     public ActionMapType DefaultActionMapType = ActionMapType.Gameplay;
 
     private readonly Dictionary<string, object> _defaultSceneLoadArgs = new();
+
     public bool FindCoreManager()
     {
         if (CoreManager == null)
@@ -153,6 +154,27 @@ public class ScreenManager : MonoBehaviour
         }
     }
 
+    public virtual void OnNetGameplayStateValuesUpdated(GameplayStateValuesDto dto)
+    {
+    }
+
+
+    public virtual void OnNetHitResult(HitResult hitResult)
+    {
+    }
+
+    public virtual void OnNetShutdown()
+    {
+        if (!CoreManager.IsNetGame)
+        {
+            return;
+        }
+
+        Debug.Log("(Client) Server shutting down. Returning to main menu.");
+        CoreManager.ShutdownNetPlay();
+        SceneTransition(GameScene.MainMenu);
+    }
+
     public void SendNetPlayerUpdate(Player player)
     {
         if (!CoreManager.IsNetGame)
@@ -161,8 +183,6 @@ public class ScreenManager : MonoBehaviour
         }
 
         var dto = PlayerDto.FromPlayer(player);
-
-        Debug.Assert(dto.NetId != 255, "NetId is 255. This should not happen.");
         CoreManager.ServerNetApi.UpdatePlayerServerRpc(dto);
     }
 
@@ -175,7 +195,6 @@ public class ScreenManager : MonoBehaviour
 
         var dto = PlayerScoreDto.FromPlayer(player);
 
-        Debug.Assert(dto.NetId != 255, "NetId is 255. This should not happen.");
         CoreManager.ServerNetApi.UpdatePlayerScoreServerRpc(dto);
     }
 
@@ -192,7 +211,6 @@ public class ScreenManager : MonoBehaviour
         player.PlayerState = playerState;
         SendNetPlayerUpdate(player);
     }
-
 
 }
 

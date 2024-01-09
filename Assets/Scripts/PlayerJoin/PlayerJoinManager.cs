@@ -53,14 +53,27 @@ public class PlayerJoinManager : ScreenManager
         }
         else
         {
-            manager.SetPlayerCount(1);
-            manager.AllowPlayerJoining = false;
-            if (CoreManager.IsNetGame)
-            {
-                CoreManager.ServerNetApi.RemoveNetPlayerServerRpc();
-            }
-            SceneTransition(GameScene.MainMenu);
+            ReturnToMainMenu();
         }
+    }
+
+    private void ReturnToMainMenu()
+    {
+        CoreManager.PlayerManager.SetPlayerCount(1);
+        CoreManager.PlayerManager.AllowPlayerJoining = false;
+
+        if (CoreManager.IsNetGame && CoreManager.IsHost)
+        {
+            CoreManager.ServerNetApi.ShutdownNetGameServerRpc();
+            return;
+        }
+
+        if (CoreManager.IsNetGame)
+        {
+            CoreManager.ServerNetApi.RemoveNetPlayerServerRpc();
+        }
+
+        SceneTransition(GameScene.MainMenu);
     }
 
     // Start is called before the first frame update

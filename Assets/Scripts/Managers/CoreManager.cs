@@ -239,10 +239,14 @@ public class CoreManager : MonoBehaviour
     public void ShutdownNetPlay()
     {
         PlayerManager.ClearNetPlayers();
+
         if (NetworkManager.IsListening || NetworkManager.IsClient)
         {
             NetworkManager.Shutdown();
         }
+
+        PlayerManager.SetPlayerCount(1);
+        PlayerManager.AllowPlayerJoining = false;
     }
 
     public void OnNetRequestSongResponse(NetSongChoiceResponse response)
@@ -263,5 +267,27 @@ public class CoreManager : MonoBehaviour
         }
 
         ActiveMainManager.OnNetSongSelected(request);
+    }
+
+    public void OnNetGameplayStateValuesUpdated(GameplayStateValuesDto dto)
+    {
+        if (!IsNetGame)
+        {
+            return;
+        }
+
+        ActiveMainManager.OnNetGameplayStateValuesUpdated(dto);
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (IsNetGame)
+        {
+            if (IsHost)
+            {
+                ServerNetApi.ShutdownNetGameServerRpc();
+            }
+        }
+
     }
 }

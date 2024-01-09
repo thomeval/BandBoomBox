@@ -11,8 +11,10 @@ public class GameplayManager : ScreenManager
     public NoteGenerator NoteGenerator;
     public HudManager HudManager;
     public PauseMenu PauseMenu;
-    public SongStarScoreValues SongStarScoreValues;
+    public SongStarScoreValues SongStarScoreValues = new();
     public OnlinePlayerList OnlinePlayerList;
+    public GameplayStateHelper StateHelper;
+    public GameplayStateValues StateValues;
 
     public float SongPosition
     {
@@ -24,60 +26,26 @@ public class GameplayManager : ScreenManager
         get { return _songManager.GetSongPositionInBeats(); }
     }
 
-    public long Score;
-    public int TeamCombo;
-    public int MaxTeamCombo;
-
-    public double Multiplier;
-    public double MaxMultiplier;
-
-    [SerializeField]
-    private float _energy;
-
-    public float Energy
+    public void DisableAllTurbos()
     {
-        get { return _energy; }
-        set
+        if (_playerManager.AnyTurboActive())
         {
-            value = Mathf.Clamp(value, 0.0f, MaxEnergy);
-            _energy = value;
-
-            if (_energy == 0.0f)
-            {
-                if (_playerManager.AnyTurboActive())
-                {
-                    PlaySfx(SoundEvent.Gameplay_TurboOff);
-                }
-                DisableAllTurbos();
-            }
-
-            HudManager.UpdateEnergy(_energy, _playerManager.AnyTurboActive());
+            PlaySfx(SoundEvent.Gameplay_TurboOff);
         }
-    }
-
-    private void DisableAllTurbos()
-    {
         _playerManager.DisableAllTurbos();
 
         foreach (var note in NoteManagers)
         {
             note.TurboActive = false;
         }
-        HudManager.UpdateEnergy(_energy, _playerManager.AnyTurboActive());
+
+        HudManager.UpdateEnergyMeter(_playerManager.AnyTurboActive());
     }
 
-    public float MaxEnergy
-    {
-        get { return _playerManager.Players.Count; }
-    }
-    public float MxGainRate = 1.0f;
+
     public GameplayScreenState GameplayState = GameplayScreenState.Intro;
     public GameObject NoteHighways;
 
-    public const float MX_COMBO_FOR_GAIN_BONUS = 50;
-    public const double MX_MINIMUM = 0.1;
-
-    public const float ENERGY_DRAIN_RATE = 1.0f / 12;
     public const double OUTRO_TIME = 2.0;
 
     /// <summary>
@@ -100,7 +68,6 @@ public class GameplayManager : ScreenManager
     private DateTime _outroTime;
     private bool _isSongLoading;
     private bool _startSignalReceived = false;
-    private readonly float[] _turborMxGainRates = { 0.0f, 1.0f, 2.5f, 4.5f, 7.0f, 10.0f, 11.0f, 13.0f, 16f };
 
     void Awake()
     {
@@ -204,36 +171,29 @@ public class GameplayManager : ScreenManager
     private void InitTurbo()
     {
         this.DisableAllTurbos();
-        this.Energy = 0.0f;
-        HudManager.EnergyMeter.MaxEnergy = this.MaxEnergy;
+
+        StateValues.Energy = 0.0f;
+        StateValues.MaxEnergy = _playerManager.Players.Count;
+        HudManager.EnergyMeter.MaxEnergy = StateValues.MaxEnergy;
     }
 
     private void CalculateStarScores()
     {
         var activeManagers = NoteManagers.Where(e => e.gameObject.activeInHierarchy).ToList();
         SongStarScoreValues = _songStarValueCalculator.CalculateSuggestedScores(activeManagers);
+        HudManager.SongStarScoreValues = SongStarScoreValues;
     }
 
     void FixedUpdate()
     {
         var timeDiff = (DateTime.Now - _lastUpdate).TotalSeconds;
-        if (this.Multiplier > 1.0f)
-        {
-            DecayMultiplier(timeDiff);
-        }
-        else
-        {
-            RecoverMultiplier(timeDiff);
-        }
 
-        UpdatePlayerEnergy(timeDiff);
-        UpdateMxGainRate();
-        UpdateGameplayState();
+        StateHelper.UpdateGameplayState(timeDiff);
+        UpdateGameplayScreenState();
         CheckOutroState();
         UpdateBackground();
         UpdateScrollSpeeds();
         _lastUpdate = DateTime.Now;
-
     }
 
     private void UpdateScrollSpeeds()
@@ -246,35 +206,16 @@ public class GameplayManager : ScreenManager
                 continue;
             }
 
-            manager.ScrollSpeed = player.GetCurrentScrollSpeed(this.Multiplier);
+            manager.ScrollSpeed = player.GetCurrentScrollSpeed(StateValues.Multiplier);
         }
     }
 
     private void UpdateBackground()
     {
-        var backgroundSpeed = Math.Min(1.0, this.Multiplier);
+        var backgroundSpeed = Math.Min(1.0, StateValues.Multiplier);
 
         _backgroundManager.SetSpeedMultiplier((float)backgroundSpeed);
         _backgroundManager.SetBeatNumber(_songManager.GetSongPositionInBeats());
-    }
-
-    private void UpdatePlayerEnergy(double timeDiff)
-    {
-        if (this.GameplayState == GameplayScreenState.Paused)
-        {
-            return;
-        }
-
-        if (!_playerManager.AnyTurboActive())
-        {
-            return;
-        }
-        var amount = (float)(timeDiff * ENERGY_DRAIN_RATE);
-        var playersUsingTurbo = _playerManager.Players.Count(e => e.TurboActive);
-        amount *= playersUsingTurbo;
-
-        Energy -= amount;
-
     }
 
     private void CheckOutroState()
@@ -285,7 +226,7 @@ public class GameplayManager : ScreenManager
         }
     }
 
-    private void UpdateGameplayState()
+    private void UpdateGameplayScreenState()
     {
         if (GameplayState == GameplayScreenState.Paused || GameplayState == GameplayScreenState.Outro)
         {
@@ -308,26 +249,6 @@ public class GameplayManager : ScreenManager
             GameplayState = GameplayScreenState.Playing;
         }
 
-    }
-
-    private void RecoverMultiplier(double timeDiff)
-    {
-        if (GameplayState == GameplayScreenState.Paused)
-        {
-            return;
-        }
-
-        this.Multiplier = GameplayUtils.RecoverMultiplier(this.Multiplier, timeDiff);
-    }
-
-    private void DecayMultiplier(double timeDiff)
-    {
-        if (GameplayState == GameplayScreenState.Paused)
-        {
-            return;
-        }
-
-        this.Multiplier = GameplayUtils.DecayMultiplier(this.Multiplier, timeDiff);
     }
 
     private void SongManager_SongLoaded()
@@ -449,11 +370,12 @@ public class GameplayManager : ScreenManager
         PauseGame(args.Player, true);
     }
 
-    private const float MIN_ENERGY_FOR_TURBO = 0.15f;
+
+
     private void ToggleTurbo(Player player)
     {
         var activating = !player.TurboActive;
-        if (Energy < MIN_ENERGY_FOR_TURBO && activating)
+        if (StateValues.Energy < StateHelper.MIN_ENERGY_FOR_TURBO && activating)
         {
             return;
         }
@@ -461,7 +383,7 @@ public class GameplayManager : ScreenManager
         else if (!activating)
         {
             PlaySfx(SoundEvent.Gameplay_TurboOff);
-            Energy -= MIN_ENERGY_FOR_TURBO;
+            StateValues.Energy -= StateHelper.MIN_ENERGY_FOR_TURBO;
             player.ToggleTurbo();
         }
         else
@@ -471,7 +393,7 @@ public class GameplayManager : ScreenManager
         }
 
         GetNoteManager(player.Slot).TurboActive = player.TurboActive;
-        HudManager.UpdateEnergy(Energy, _playerManager.AnyTurboActive());
+        HudManager.UpdateEnergyMeter(_playerManager.AnyTurboActive());
     }
 
     private void HandlePlayerReleaseInput(InputEvent inputEvent)
@@ -581,60 +503,29 @@ public class GameplayManager : ScreenManager
 
     private void ApplyHitResult(HitResult hitResult)
     {
-        var appliedMxGainRate = hitResult.DeviationResult == DeviationResult.NotHit ? 1.0f : MxGainRate;
-
-        hitResult.ScorePoints = (int)(this.Multiplier * hitResult.ScorePoints);
-        this.Score += hitResult.ScorePoints;
-        this.Multiplier += hitResult.MxPoints * appliedMxGainRate;
-        this.Multiplier = Math.Max(MX_MINIMUM, this.Multiplier);
-        this.MaxMultiplier = Math.Max(this.Multiplier, this.MaxMultiplier);
-
-        const float ENERGY_GAIN_RATE = 0.01f;
-        if (hitResult.JudgeResult <= JudgeResult.Perfect)
-        {
-            this.Energy += ENERGY_GAIN_RATE;
-        }
-        _playerManager.ApplyHitResult(hitResult, hitResult.Player);
-        UpdateTeamCombo(hitResult.JudgeResult);
+        var player = _playerManager.GetPlayer(hitResult.PlayerSlot);
+        _playerManager.ApplyHitResult(hitResult, hitResult.PlayerSlot);
         _playerManager.UpdateRankings();
-
-        var player = _playerManager.GetPlayer(hitResult.Player);
         SendNetPlayerScoreUpdate(player);
+        CoreManager.ServerNetApi.ApplyHitResultServerRpc(hitResult);
+        ApplyHitResultToTeam(hitResult);
+
     }
 
-    private void UpdateTeamCombo(JudgeResult result)
+    private void ApplyHitResultToTeam(HitResult hitResult)
     {
-        var comboBreak = HitJudge.IsComboBreak(result);
-        if (!comboBreak.HasValue)
+        if (!CoreManager.IsHost)
         {
             return;
         }
 
-        if (comboBreak.Value)
+        StateHelper.ApplyHitResult(hitResult);
+        StateHelper.UpdateTeamCombo(hitResult.JudgeResult);
+
+        if (CoreManager.IsNetGame)
         {
-            this.TeamCombo = 0;
+            SendNetGameplayStateValuesUpdate(StateValues.AsDto());
         }
-        else
-        {
-            this.TeamCombo++;
-            this.MaxTeamCombo = Math.Max(this.MaxTeamCombo, this.TeamCombo);
-        }
-
-        UpdateMxGainRate();
-    }
-
-    private void UpdateMxGainRate()
-    {
-        var newGainRate = 1.0f;
-
-        var comboGainBonus = ((int)(TeamCombo / MX_COMBO_FOR_GAIN_BONUS)) * 0.05f;
-        comboGainBonus = Math.Min(comboGainBonus, 1.0f);
-        newGainRate += comboGainBonus;
-
-        var playersInTurbo = _playerManager.Players.Count(e => e.TurboActive);
-        var turboBonus = _turborMxGainRates[playersInTurbo];
-        newGainRate += turboBonus;
-        MxGainRate = newGainRate;
     }
 
     private void StartLoadingSong(SongData selectedSongData)
@@ -660,22 +551,13 @@ public class GameplayManager : ScreenManager
             SongArtist = _songManager.CurrentSong.Artist,
             SongVersion = _songManager.CurrentSong.Version,
             DateTime = DateTime.Now,
-            MaxMultiplier = this.MaxMultiplier,
-            MaxTeamCombo = this.MaxTeamCombo,
+            MaxMultiplier = StateValues.MaxMultiplier,
+            MaxTeamCombo = StateValues.MaxTeamCombo,
             NumPlayers = _playerManager.Players.Count,
             Category = HighScoreManager.GetCategory(_playerManager.Players.Count),
-            Score = this.Score,
-            Stars = GetStarFraction(this.Score)
+            Score = StateValues.Score,
+            Stars = SongStarScoreValues.GetStarFraction(StateValues.Score)
         };
-    }
-
-    public double GetStarFraction(long score)
-    {
-        if (SongStarScoreValues == null)
-        {
-            return 0;
-        }
-        return SongStarScoreValues.GetStarFraction(score);
     }
 
     public override void OnNetPlayerListUpdated()
@@ -701,5 +583,38 @@ public class GameplayManager : ScreenManager
         base.OnNetStartSongSignal();
         _startSignalReceived = true;
         TryToStartSong();
+    }
+
+    public override void OnNetGameplayStateValuesUpdated(GameplayStateValuesDto dto)
+    {
+        base.OnNetGameplayStateValuesUpdated(dto);
+        StateValues.CopyValues(dto);
+        HudManager.UpdateEnergyMeter(_playerManager.AnyTurboActive());
+    }
+
+    public override void OnNetHitResult(HitResult hitResult)
+    {
+        base.OnNetHitResult(hitResult);
+        ApplyHitResultToTeam(hitResult);
+    }
+
+    public void SendNetHitResult(HitResult hitResult)
+    {
+        if (!CoreManager.IsNetGame)
+        {
+            return;
+        }
+
+        CoreManager.ServerNetApi.ApplyHitResultServerRpc(hitResult);
+    }
+
+    public void SendNetGameplayStateValuesUpdate(GameplayStateValuesDto dto)
+    {
+        if (!CoreManager.IsNetGame || !CoreManager.IsHost)
+        {
+            return;
+        }
+
+        CoreManager.ClientNetApi.ReceiveNetGameplayStateValuesClientRpc(dto);
     }
 }

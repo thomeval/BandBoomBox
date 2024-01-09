@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorOptions.cs" />
     <Compile Include="Assets\Scripts\Credits\CreditsManager.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteTrimmer.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\GameplayStateValuesDto.cs" />
     <Compile Include="Assets\Scripts\Options\OptionsManager.cs" />
     <Compile Include="Assets\Scripts\Managers\PlayerHudManager.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\ProfileListItem.cs" />
@@ -161,11 +162,13 @@
     <Compile Include="Assets\Scripts\Songs\SongManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorPage.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteSjsonEntry.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameplayStateHelper.cs" />
     <Compile Include="Assets\Scripts\Common\SoundEvent.cs" />
     <Compile Include="Assets\Scripts\Misc\SecretCode.cs" />
     <Compile Include="Assets\Scripts\NetPlay\ServerNetApi.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongPreviewManager.cs" />
     <Compile Include="Assets\Scripts\Songs\SongLibrary.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameplayStateValues.cs" />
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierEntry.cs" />
     <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicManager.cs" />
     <Compile Include="Assets\Scripts\Notes\RegionMarker.cs" />

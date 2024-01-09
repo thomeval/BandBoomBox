@@ -13,6 +13,7 @@ public class PlayerResultFrame : MonoBehaviour
     public Text TxtDifficulty;
     public Text TxtPercentage;
     public SpriteResolver GradeSprite;
+    public Text TxtRanking;
     public Text TxtMaxCombo;
     public Text TxtExpGain;
     public Text TxtIsLevelUp;
@@ -43,6 +44,7 @@ public class PlayerResultFrame : MonoBehaviour
     public SpriteResolver PlayerIdentifier;
     public GameObject[] Pages;
     public bool DisplayAllPages;
+    public GameObject ReadyPage;
 
     [SerializeField]
     private int _displayedPage;
@@ -51,7 +53,7 @@ public class PlayerResultFrame : MonoBehaviour
         get { return _displayedPage; }
         set
         {
-            _displayedPage = Helpers.Wrap(value, Pages.Length-1);
+            _displayedPage = Helpers.Wrap(value, Pages.Length - 1);
             DisplayPage(_displayedPage);
         }
     }
@@ -64,6 +66,7 @@ public class PlayerResultFrame : MonoBehaviour
     }
     private void DisplayPage(int pageNum)
     {
+        ReadyPage.SetActive(false);
         if (DisplayAllPages)
         {
             foreach (var page in Pages)
@@ -85,6 +88,7 @@ public class PlayerResultFrame : MonoBehaviour
 
         Pages[pageNum].SetActive(true);
     }
+
     public void DisplayResult(Player player, bool isNewPb, double stars, int numPlayers)
     {
         this.gameObject.SetActive(true);
@@ -94,11 +98,12 @@ public class PlayerResultFrame : MonoBehaviour
 
         TxtIsNewPb.gameObject.SetActive(isNewPb);
         var grade = player.GetCurrentGrade().ToString();
-        GradeSprite.SetCategoryAndLabel("Grades",grade);
+        GradeSprite.SetCategoryAndLabel("Grades", grade);
         TxtMaxCombo.text = string.Format("{0:000}", player.MaxCombo);
         TxtPercentage.text = string.Format(CultureInfo.InvariantCulture, "{0:P1}", player.PerfPercent);
+        TxtRanking.text = Helpers.FormatPercent(player.Ranking);
         PlayerIdentifier.SetCategoryAndLabel("PlayerIdentifiers", player.GetPlayerIdSprite());
-     
+
         DisplayHitCount(player);
         DisplayAccuracyDeviation(player);
         ExpModifierList.DisplayExpModifier(player, stars, numPlayers);
@@ -111,6 +116,15 @@ public class PlayerResultFrame : MonoBehaviour
 
         DisplayGradeAnimation();
 
+    }
+
+    public void DisplayReady()
+    {
+        foreach (var page in Pages)
+        {
+            page.SetActive(false);
+        }
+        ReadyPage.SetActive(true);
     }
 
     private void DisplayGradeAnimation()
@@ -138,7 +152,7 @@ public class PlayerResultFrame : MonoBehaviour
 
     private void DisplayAccuracyDeviation(Player player)
     {
-      //  TxtAccuracy.text = FormatMilliseconds(player.HitAccuracyAverage);
+        //  TxtAccuracy.text = FormatMilliseconds(player.HitAccuracyAverage);
         TxtDeviation.text = FormatMilliseconds(player.HitDeviationAverage);
     }
 
@@ -159,7 +173,7 @@ public class PlayerResultFrame : MonoBehaviour
 
         if (judgeResult == JudgeResult.Perfect || judgeResult == JudgeResult.Crit)
         {
-            return string.Format("{0:0000}",player.EarlyHits[judgeResult] + player.LateHits[judgeResult]);
+            return string.Format("{0:0000}", player.EarlyHits[judgeResult] + player.LateHits[judgeResult]);
         }
 
         return string.Format("{0:0000}|{1:0000}", player.EarlyHits[judgeResult], player.LateHits[judgeResult]);

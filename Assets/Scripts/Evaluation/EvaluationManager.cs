@@ -15,6 +15,7 @@ public class EvaluationManager : ScreenManager
 
     private DateTime _screenStartTime;
     private readonly float[] _percentSfxCutoffs = { 0.8f, 0.9f, 0.96f };
+
     public bool AllowContinue
     {
         get
@@ -115,6 +116,7 @@ public class EvaluationManager : ScreenManager
         {
             case InputAction.B:
                 UpdatePlayerState(player, PlayerState.Evaluation_NotReady);
+                ChangeResultPage(inputEvent.Player, -999);
                 PlaySfx(SoundEvent.SelectionCancelled);
                 RefreshPlayerList();
                 break;
@@ -139,6 +141,7 @@ public class EvaluationManager : ScreenManager
                 if (AllowContinue)
                 {
                     UpdatePlayerState(player, PlayerState.Evaluation_Ready);
+                    ShowReadyPage(inputEvent.Player);
                     PlaySfx(SoundEvent.SelectionConfirmed);
                     TryToContinue();
                     RefreshPlayerList();
@@ -160,8 +163,14 @@ public class EvaluationManager : ScreenManager
         PlayerResultFrames[player - 1].DisplayedPage += amount;
     }
 
+    private void ShowReadyPage(int player)
+    {
+        PlayerResultFrames[player - 1].DisplayReady();
+    }
+
     public void RefreshPlayerList()
     {
+        OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
         OnlinePlayerList.RefreshAll();
     }
 

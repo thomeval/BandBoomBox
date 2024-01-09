@@ -291,7 +291,6 @@ public class SongSelectManager : ScreenManager
         SetSelectedIndex(request.SongId);
         ShowSelectedSong();
         ContinueSongDecided();
-
     }
 
     public override void OnNetRequestSongResponse(NetSongChoiceResponse response)
@@ -302,5 +301,11 @@ public class SongSelectManager : ScreenManager
         {
             PlaySfx(SoundEvent.Mistake);
         }
+    }
+
+    public override void OnNetShutdown()
+    {
+        CoreManager.SongPreviewManager.StopPreviews();
+        base.OnNetShutdown();
     }
 }

@@ -2570,7 +2570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e368d4d01ac224ba0d9741ef91ad28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameplayManager: {fileID: 1345223263}
   TxtScore: {fileID: 659781548}
   TxtBpm: {fileID: 393901992}
   TxtDebug: {fileID: 0}
@@ -2583,6 +2582,7 @@ MonoBehaviour:
   MxMeter: {fileID: 1208776469}
   EnergyMeter: {fileID: 971336692}
   StarMeter: {fileID: 871678097}
+  StateValues: {fileID: 1345223265}
   PlayerHudManagers:
   - {fileID: 700864641}
   - {fileID: 1969041313}
@@ -2953,6 +2953,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1345223264}
   - component: {fileID: 1345223263}
+  - component: {fileID: 1345223266}
+  - component: {fileID: 1345223265}
   m_Layer: 0
   m_Name: GameplayManager
   m_TagString: Untagged
@@ -2984,13 +2986,8 @@ MonoBehaviour:
   HudManager: {fileID: 1223415358}
   PauseMenu: {fileID: 186211379}
   OnlinePlayerList: {fileID: 2687824984457592139}
-  Score: 0
-  TeamCombo: 0
-  MaxTeamCombo: 0
-  Multiplier: 1
-  MaxMultiplier: 0
-  _energy: 0
-  MxGainRate: 1
+  StateHelper: {fileID: 1345223266}
+  StateValues: {fileID: 1345223265}
   GameplayState: 1
   NoteHighways: {fileID: 283057264}
 --- !u!4 &1345223264
@@ -3009,6 +3006,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1345223265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345223262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 985329517549eb144acf76085ad73bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Score: 0
+  TeamCombo: 0
+  MaxTeamCombo: 0
+  Multiplier: 1
+  MaxMultiplier: 1
+  MxGainRate: 1
+  Energy: 0
+  MaxEnergy: 0
+--- !u!114 &1345223266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345223262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d769649187f014eb3b31bc19abaafc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParentManager: {fileID: 1345223263}
+  StateValues: {fileID: 1345223265}
 --- !u!1 &1386738871
 GameObject:
   m_ObjectHideFlags: 0
