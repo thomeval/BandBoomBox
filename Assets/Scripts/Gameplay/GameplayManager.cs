@@ -141,7 +141,6 @@ public class GameplayManager : ScreenManager
         _playerManager.Reset();
         InitTurbo();
 
-        // TODO: Set this to true only for local games. For online games this should be set to true when the host sends the start signal.
         if (!CoreManager.IsNetGame)
         {
             _startSignalReceived = true;
@@ -369,8 +368,6 @@ public class GameplayManager : ScreenManager
     {
         PauseGame(args.Player, true);
     }
-
-
 
     private void ToggleTurbo(Player player)
     {

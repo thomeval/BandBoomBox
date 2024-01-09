@@ -116,7 +116,7 @@ public class EvaluationManager : ScreenManager
         {
             case InputAction.B:
                 UpdatePlayerState(player, PlayerState.Evaluation_NotReady);
-                ChangeResultPage(inputEvent.Player, -999);
+                ChangeResultPage(inputEvent.Player, 0);
                 PlaySfx(SoundEvent.SelectionCancelled);
                 RefreshPlayerList();
                 break;
@@ -143,8 +143,8 @@ public class EvaluationManager : ScreenManager
                     UpdatePlayerState(player, PlayerState.Evaluation_Ready);
                     ShowReadyPage(inputEvent.Player);
                     PlaySfx(SoundEvent.SelectionConfirmed);
-                    TryToContinue();
                     RefreshPlayerList();
+                    TryToContinue();
                 }
                 break;
         }

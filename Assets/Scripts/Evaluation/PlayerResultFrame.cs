@@ -101,7 +101,7 @@ public class PlayerResultFrame : MonoBehaviour
         GradeSprite.SetCategoryAndLabel("Grades", grade);
         TxtMaxCombo.text = string.Format("{0:000}", player.MaxCombo);
         TxtPercentage.text = string.Format(CultureInfo.InvariantCulture, "{0:P1}", player.PerfPercent);
-        TxtRanking.text = Helpers.FormatPercent(player.Ranking);
+        TxtRanking.text = Helpers.FormatRanking(player.Ranking);
         PlayerIdentifier.SetCategoryAndLabel("PlayerIdentifiers", player.GetPlayerIdSprite());
 
         DisplayHitCount(player);

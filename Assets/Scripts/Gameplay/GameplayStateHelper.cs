@@ -25,10 +25,6 @@ public class GameplayStateHelper : MonoBehaviour
     /// </summary>
     public readonly float GR_COMBO_BONUS_AMOUNT = 0.05f;
 
-    /// <summary>
-    /// Controls the minimum possible score multiplier.
-    /// </summary>
-    public readonly double MX_MINIMUM = 0.1;
     public readonly float ENERGY_DRAIN_RATE = 1.0f / 12;
 
     /// <summary>
@@ -101,7 +97,7 @@ public class GameplayStateHelper : MonoBehaviour
             return;
         }
 
-        StateValues.Multiplier = GameplayUtils.RecoverMultiplier(StateValues.Multiplier, timeDiff);
+        StateValues.Multiplier = GameplayMultiplierUtils.RecoverMultiplier(StateValues.Multiplier, timeDiff);
     }
 
     public void DecayMultiplier(double timeDiff)
@@ -111,7 +107,7 @@ public class GameplayStateHelper : MonoBehaviour
             return;
         }
 
-        StateValues.Multiplier = GameplayUtils.DecayMultiplier(StateValues.Multiplier, timeDiff);
+        StateValues.Multiplier = GameplayMultiplierUtils.DecayMultiplier(StateValues.Multiplier, timeDiff);
     }
 
     public void UpdatePlayerEnergy(double timeDiff)
@@ -166,7 +162,7 @@ public class GameplayStateHelper : MonoBehaviour
         hitResult.ScorePoints = (int)(StateValues.Multiplier * hitResult.ScorePoints);
         StateValues.Score += hitResult.ScorePoints;
         StateValues.Multiplier += hitResult.MxPoints * appliedMxGainRate;
-        StateValues.Multiplier = Math.Max(MX_MINIMUM, StateValues.Multiplier);
+        StateValues.Multiplier = Math.Max(GameplayMultiplierUtils.MX_MINIMUM, StateValues.Multiplier);
         StateValues.MaxMultiplier = Math.Max(StateValues.Multiplier, StateValues.MaxMultiplier);
 
         if (hitResult.JudgeResult <= JudgeResult.Perfect)

@@ -1,6 +1,6 @@
 ﻿using System;
 
-public static class GameplayUtils
+public static class GameplayMultiplierUtils
 {
     /// <summary>
     /// The basic rate that momentum (score multiplier) will decay, per second, provided that the current multiplier is above 1.0x.
@@ -11,6 +11,11 @@ public static class GameplayUtils
     /// The basic rate that momentum (score multiplier) will recover, per second, provided that the current multiplier is below 1.0x.
     /// </summary>
     public const double MX_BASE_RECOVER_RATE = 0.05;
+
+    /// <summary>
+    /// Controls the minimum possible score multiplier.
+    /// </summary>
+    public const double MX_MINIMUM = 0.1;
 
     /// <summary>
     /// Calculates an updated score multiplier by taking the current score multiplier and time elapsed as inputs,
@@ -32,7 +37,7 @@ public static class GameplayUtils
         {
             effectiveMx += (int)Math.Max(0, multiplier - x);
         }
-        
+
         var decayRate = MX_BASE_DECAY_RATE * effectiveMx;
 
         multiplier -= decayRate * timeDiff;

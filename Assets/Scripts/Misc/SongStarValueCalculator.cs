@@ -68,7 +68,7 @@ public class SongStarValueCalculator : MonoBehaviour
 
             // Move to Next note
             var timeDiff = note.AbsoluteTime - lastNoteTime;
-            mx = GameplayUtils.DecayMultiplier(mx, timeDiff);
+            mx = GameplayMultiplierUtils.DecayMultiplier(mx, timeDiff);
 
             lastNoteTime = note.AbsoluteTime;
             noteCount++;
