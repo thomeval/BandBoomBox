@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
@@ -65,11 +64,11 @@ public class OnlinePlayerListItem : MonoBehaviour
             case PlayerState.DifficultySelect_Selecting:
                 return "Selecting Difficulty";
             case PlayerState.DifficultySelect_Ready:
-                return "Ready";
+                return "Waiting For Partner";
             case PlayerState.Gameplay_Playing:
                 return "Playing";
             case PlayerState.Gameplay_Loading:
-                return "Loading";
+                return "Loading Song";
             case PlayerState.Gameplay_ReadyToStart:
                 return "Waiting for other players";
             case PlayerState.Evaluation_NotReady:
