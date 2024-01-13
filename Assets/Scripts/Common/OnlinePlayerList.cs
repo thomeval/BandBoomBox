@@ -36,6 +36,9 @@ public class OnlinePlayerList : MonoBehaviour
         child.Refresh();
     }
 
+    /// <summary>
+    /// Refreshes the list of players.
+    /// </summary>
     public void RefreshAll()
     {
         var playerCount = _playerManager.Players.Count();

@@ -12,10 +12,7 @@ public class NoteGenerator : MonoBehaviour
     public BeatLine FinishMarkerPrefab;
     public BeatLine SectionLinePrefab;
 
-    private readonly Note[] _lastSeenHolds = new Note[4];
-
     private readonly Random _rnd = new();
-
 
     private NoteType GetNoteType(Difficulty playDifficulty, bool[] filledLanes)
     {
@@ -27,6 +24,12 @@ public class NoteGenerator : MonoBehaviour
         return available[result];
     }
 
+    public List<NoteBase> LoadOrGenerateSongNotes(SongData songData, string group, Difficulty difficulty)
+    {
+        var chart = songData.GetChart(group, difficulty);
+        return LoadOrGenerateSongNotes(chart, songData.LengthInBeats);
+    }
+
     public void LoadOrGenerateSongNotes(SongData songData, string group, Difficulty difficulty, NoteManager destination)
     {
         var chart = songData.GetChart(group, difficulty);
@@ -35,24 +38,37 @@ public class NoteGenerator : MonoBehaviour
 
     public void LoadOrGenerateSongNotes(SongChart chart, float lengthInBeats, NoteManager destination)
     {
+        var noteBases = LoadOrGenerateSongNotes(chart, lengthInBeats);
+        var notes = InstantiateNotes(noteBases);
+        ResolveHoldsWithReleases(notes);
+        ApplyToDestination(chart, destination, notes);
+    }
 
+    public List<NoteBase> LoadOrGenerateSongNotes(SongChart chart, float lengthInBeats)
+    {
+        var result = new List<NoteBase>();
         if (chart.Notes == null || chart.Notes.Length == 0)
         {
-            var notes = GenerateNotes(chart.Difficulty, (int)lengthInBeats);
-            ApplyToDestination(chart, destination, notes);
+            result = GenerateNotes(chart.Difficulty, (int)lengthInBeats);
+
         }
         else
         {
-            LoadSongNotes(chart, destination);
+            result = LoadNoteArray(chart.Notes);
         }
 
+        SetNoteMxValue(result, chart.Difficulty);
+        return result;
     }
 
-    public void LoadSongNotes(SongChart chart, NoteManager destination)
+    private void SetNoteMxValue(List<NoteBase> result, Difficulty difficulty)
     {
-        var notes = new List<Note>();
-        LoadNoteArray(chart.Notes, ref notes);
-        ApplyToDestination(chart, destination, notes);
+        var mxValue = HitJudge.JudgeMxValues[JudgeResult.Perfect] * HitJudge.DifficultyMxValues[difficulty];
+
+        foreach (var note in result)
+        {
+            note.MxValue = mxValue;
+        }
     }
 
     private static void ApplyToDestination(SongChart chart, NoteManager destination, List<Note> notes)
@@ -63,24 +79,26 @@ public class NoteGenerator : MonoBehaviour
         destination.ApplyNoteSkin();
     }
 
-    public List<Note> GenerateNotes(Difficulty difficulty, int endBeat)
+    public List<NoteBase> GenerateNotes(Difficulty difficulty, int endBeat)
     {
-        var result = new List<Note>();
+        var result = new List<NoteBase>();
         for (int x = 0; x <= endBeat; x++)
         {
             GenerateNotesAtBeat(difficulty, x, ref result);
         }
 
         return result;
-
     }
 
-    public void GenerateTestNotes(int endBeat, ref List<Note> destination)
+    public List<Note> GenerateTestNotes(int endBeat)
     {
+        var result = new List<Note>();
         for (int x = 0; x <= endBeat; x++)
         {
-            GenerateTestNotesAtBeat(x, ref destination);
+            result.Add(GenerateTestNotesAtBeat(x));
         }
+
+        return result;
     }
 
     public NoteType[] GetPossibleNoteTypes(bool[] filledLanes)
@@ -97,63 +115,95 @@ public class NoteGenerator : MonoBehaviour
 
         return result.ToArray();
     }
-    private void GenerateNotesAtBeat(Difficulty difficulty, int beat, ref List<Note> destination)
+
+    private void GenerateNotesAtBeat(Difficulty difficulty, int beat, ref List<NoteBase> destination)
     {
         var noteCount = GetNoteCount(beat, difficulty);
 
         var filledLanes = new bool[3];
 
-        for (int x = 0; x < noteCount; x++)
+        for (var x = 0; x < noteCount; x++)
         {
             var noteType = GetNoteType(difficulty, filledLanes);
             var lane = NoteUtils.GetNoteLane(noteType);
-            InstantiateNote(beat, noteType, NoteClass.Tap, ref destination);
+            var note = new NoteBase
+            {
+                Position = beat,
+                NoteType = noteType,
+                NoteClass = NoteClass.Tap,
+                Lane = lane
+            };
+            destination.Add(note);
             filledLanes[lane] = true;
         }
     }
 
-    private void GenerateTestNotesAtBeat(int beat, ref List<Note> destination)
+    private Note GenerateTestNotesAtBeat(int beat)
     {
-        InstantiateNote(beat, NoteType.AnyB, NoteClass.Tap, ref destination);
+        var result = InstantiateNote(beat, NoteType.AnyB, NoteClass.Tap);
+        return result;
     }
 
-    public Note InstantiateNote(float beat, NoteType noteType, NoteClass noteClass, ref List<Note> destination)
+    public Note InstantiateNote(float beat, NoteType noteType, NoteClass noteClass)
     {
-        var prefab = noteClass == NoteClass.Hold ? HoldNotePrefab : TapNotePrefab;
+        var noteBase = new NoteBase
+        {
+            Position = beat,
+            NoteType = noteType,
+            NoteClass = noteClass,
+            Lane = NoteUtils.GetNoteLane(noteType)
+        };
+
+        return InstantiateNote(noteBase);
+
+    }
+
+    private Note InstantiateNote(NoteBase noteBase)
+    {
+        var prefab = noteBase.NoteClass == NoteClass.Hold ? HoldNotePrefab : TapNotePrefab;
         var note = Instantiate(prefab);
-
-        note.Position = beat;
-        note.NoteType = noteType;
-        note.NoteClass = noteClass;
-        note.Lane = NoteUtils.GetNoteLane(note.NoteType);
+        note.NoteBase = noteBase;
         note.name = note.Description;
-
-        ResolveHoldsWithReleases(note);
-        destination.Add(note);
         return note;
     }
 
-    private void ResolveHoldsWithReleases(Note note)
+    private void ResolveHoldsWithReleases(List<Note> notes)
     {
-        if (note.NoteClass == NoteClass.Hold)
+        for (int x = 0; x < LINE_SIZE; x++)
         {
-            _lastSeenHolds[note.Lane] = note;
-        }
+            var notesInLane = notes.Where(n => n.Lane == x).OrderBy(n => n.Position).ToList();
 
-        else if (note.NoteClass == NoteClass.Release)
-        {
-            var lastHold = _lastSeenHolds[note.Lane];
-
-            if (lastHold == null)
+            Note lastSeenNote = null;
+            foreach (var note in notesInLane)
             {
-                Debug.LogWarning($"Note release at beat {note.Position} has no corresponding hold before it!");
-                return;
-            }
 
-            note.NoteType = lastHold.NoteType;
-            lastHold.EndNote = note;
-            _lastSeenHolds[note.Lane] = null;
+                switch (note.NoteClass)
+                {
+                    case NoteClass.Release:
+                        if (!ValidateReleaseNote(lastSeenNote, note))
+                        {
+                            continue;
+                        }
+                        note.NoteType = lastSeenNote.NoteType;
+                        lastSeenNote.EndNote = note;
+                        break;
+                }
+
+                lastSeenNote = note;
+            }
         }
+    }
+
+    private bool ValidateReleaseNote(Note lastSeenNote, Note note)
+    {
+        var lastSeenNoteClass = lastSeenNote?.NoteClass.ToString() ?? "Nothing at all";
+        if (lastSeenNote == null || lastSeenNote.NoteClass != NoteClass.Hold)
+        {
+            Debug.LogWarning($"Invalid Note in chart: Release note at beat {note.Position}, Lane {note.Lane} should be preceded by a Hold note, but is actually preceded by a {lastSeenNoteClass} note.");
+            return false;
+        }
+
+        return true;
     }
 
     private int GetNoteCount(int beat, Difficulty difficulty)
@@ -235,6 +285,16 @@ public class NoteGenerator : MonoBehaviour
         }
     }
 
+    public List<Note> InstantiateNotes(List<NoteBase> noteBases)
+    {
+        var result = new List<Note>();
+        foreach (var noteBase in noteBases)
+        {
+            result.Add(InstantiateNote(noteBase));
+        }
+
+        return result;
+    }
 
     private BeatLine InstantiateBeatLine(BeatLine prefab, float xPos, BeatLineType beatLineType)
     {
@@ -246,28 +306,37 @@ public class NoteGenerator : MonoBehaviour
         return result;
     }
 
-    public void LoadNoteArray(string[] noteArray, ref List<Note> destination)
+    public List<NoteBase> LoadSongNotes(SongChart chart)
     {
+        var result = LoadNoteArray(chart.Notes);
+        return result;
+    }
+
+    public List<NoteBase> LoadNoteArray(string[] noteArray)
+    {
+        var result = new List<NoteBase>();
         if (noteArray == null)
         {
-            return;
+            return result;
         }
 
         for (int beat = 0; beat < noteArray.Length; beat++)
         {
-            LoadNoteBlock(noteArray[beat], beat, ref destination);
+            result.AddRange(LoadNoteBlock(noteArray[beat], beat));
         }
 
+        return result;
     }
 
     private const int LINE_SIZE = 4;
-    private void LoadNoteBlock(string notes, int beat, ref List<Note> destination)
+    private List<NoteBase> LoadNoteBlock(string notes, int beat)
     {
+        var result = new List<NoteBase>();
         notes = notes.Trim().Replace(" ", "");
 
         if (string.IsNullOrEmpty(notes))
         {
-            return;
+            return result;
         }
 
         if (notes.Length % 4 != 0)
@@ -286,38 +355,45 @@ public class NoteGenerator : MonoBehaviour
         float currentBeatFraction = 0.0f;
         foreach (var line in lines)
         {
-            LoadNoteLine(line, beat + currentBeatFraction, ref destination);
+            var lineNotes = LoadNoteLine(line, beat + currentBeatFraction);
+            result.AddRange(lineNotes);
+
             currentBeatFraction += beatFraction;
         }
+
+        return result;
     }
 
-    private void LoadNoteLine(string line, float beat, ref List<Note> destination)
+    private List<NoteBase> LoadNoteLine(string line, float beat)
     {
+        var result = new List<NoteBase>();
         if (line.Length != LINE_SIZE)
         {
 
             Debug.LogWarning($"Invalid note line length: {line}.");
-            return;
+            return result;
         }
 
-        for (int x = 0; x < LINE_SIZE; x++)
+        for (int lane = 0; lane < LINE_SIZE; lane++)
         {
-            if (line[x] == '0')
+            if (line[lane] == '0')
             {
                 continue;
             }
 
-            var noteType = SjsonUtils.ResolveNoteType(line[x], x);
-            var noteClass = SjsonUtils.ResolveNoteClass(line[x]);
+            var noteType = SjsonUtils.ResolveNoteType(line[lane], lane);
+            var noteClass = SjsonUtils.ResolveNoteClass(line[lane]);
 
             if (noteType == null || noteClass == null)
             {
-                Debug.LogWarning($"Invalid note type or class in slice: {line}. Unrecognized value: {line[x]}.");
+                Debug.LogWarning($"Invalid note type or class in slice: {line}. Unrecognized value: {line[lane]}.");
                 continue;
             }
 
-            InstantiateNote(beat, noteType.Value, noteClass.Value, ref destination);
+            result.Add(new NoteBase { Position = beat, NoteType = noteType.Value, NoteClass = noteClass.Value, Lane = lane });
         }
+
+        return result;
     }
 
 }

@@ -7,16 +7,21 @@ using UnityEngine.UI;
 public class OnlineMenuManager : ScreenManager
 {
 
+    [Header("Hosting")]
     public InputField TxtHostPort;
     public InputField TxtHostMaxPlayers;
     public InputField TxtHostPassword;
+    public Dropdown CmbSongSelectRules;
+    public Text LblHostMessage;
 
+    [Header("Joining")]
     public InputField TxtJoinIpAddress;
     public InputField TxtJoinPort;
     public InputField TxtJoinPassword;
-
-    public Text LblHostMessage;
     public Text LblJoinMessage;
+
+
+
 
     public GameObject MainMenu;
     public GameObject HostMenu;
@@ -118,6 +123,7 @@ public class OnlineMenuManager : ScreenManager
         var maxPlayers = GetValueOrDefault(TxtHostMaxPlayers.text, 8);
         maxPlayers = Math.Clamp(maxPlayers, 2, 32);
         CoreManager.ServerNetApi.MaxNetPlayers = maxPlayers;
+        CoreManager.ServerNetApi.SongSelectRules = GetSongSelectRules();
 
         var passwordHash = ComputeHash(TxtHostPassword.text);
         CoreManager.ServerNetApi.ServerPasswordHash = passwordHash;
@@ -130,6 +136,19 @@ public class OnlineMenuManager : ScreenManager
         {
             Debug.LogError("Failed to start host.");
             return;
+        }
+    }
+
+    private NetSongSelectRules GetSongSelectRules()
+    {
+        switch (CmbSongSelectRules.GetSelectedText())
+        {
+            case "Anyone picks":
+                return NetSongSelectRules.AnyonePicks;
+            case "Host picks":
+                return NetSongSelectRules.HostPicks;
+            default:
+                return NetSongSelectRules.AnyonePicks;
         }
     }
 

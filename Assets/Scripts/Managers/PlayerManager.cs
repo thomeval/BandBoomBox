@@ -207,7 +207,7 @@ public class PlayerManager : MonoBehaviour
 
     public TeamScoreCategory GetScoreCategory()
     {
-        return HighScoreManager.GetCategory(this.Players.Count);
+        return HighScoreManager.GetScoreCategory(this.Players.Count);
     }
 
     public void SetControlsActionMap(ActionMapType actionMap)
@@ -219,8 +219,8 @@ public class PlayerManager : MonoBehaviour
     public void UpdateRankings()
     {
         var orderedPlayers = Players.OrderByDescending(e => e.PerfPercent).ToList();
-        int count = 0;
-        float last = 1000.0f;
+        var count = 0;
+        var last = 1000.0f;
         for (int x = 0; x < orderedPlayers.Count; x++)
         {
             var perc = orderedPlayers[x].PerfPercent;

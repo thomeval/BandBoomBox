@@ -48,7 +48,7 @@ public class HighScoreManager : MonoBehaviour
         }
 
         scoresToRemove.AddRange(TeamScores.Where(e => e.Category == TeamScoreCategory.NoPlayers).ToList());
-        int count = scoresToRemove.Count;
+        var count = scoresToRemove.Count;
 
         foreach (var score in scoresToRemove)
         {
@@ -86,7 +86,7 @@ public class HighScoreManager : MonoBehaviour
 
     public TeamScore GetTeamScore(string songId, int songVersion, int playerCount)
     {
-        var category = GetCategory(playerCount);
+        var category = GetScoreCategory(playerCount);
 
         try
         {
@@ -138,7 +138,7 @@ public class HighScoreManager : MonoBehaviour
         return TeamScores.Count(e => e.SongId == songId && e.Category == category && e.SongVersion == songVersion);
     }
 
-    public static TeamScoreCategory GetCategory(int playerCount)
+    public static TeamScoreCategory GetScoreCategory(int playerCount)
     {
         if (playerCount >= 9)
         {

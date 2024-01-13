@@ -13,7 +13,7 @@ public class HighScoreDisplay : MonoBehaviour
     public StarMeter StarMeter;
     public void Display(TeamScore teamScore, int numPlayers)
     {
-        var defaultCategory = HighScoreManager.GetCategory(numPlayers);
+        var defaultCategory = HighScoreManager.GetScoreCategory(numPlayers);
         if (teamScore == null)
         {
             TxtScore.text = "NONE";

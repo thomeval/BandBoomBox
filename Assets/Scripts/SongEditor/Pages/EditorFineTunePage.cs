@@ -52,7 +52,6 @@ public class EditorFineTunePage : EditorPageManager
 
     private SongManager _songManager;
 
-
     public Action OnTuneComplete { get; set; }
 
     void Awake()
@@ -90,8 +89,8 @@ public class EditorFineTunePage : EditorPageManager
     {
         var endBeat = (int)Parent.CurrentSong.LengthInBeats;
         NoteManager.ClearNotes();
-        NoteGenerator.GenerateTestNotes(endBeat, ref NoteManager.Notes);
-        NoteManager.AttachNotes();
+        var notes = NoteGenerator.GenerateTestNotes(endBeat);
+        NoteManager.AttachNotes(notes);
         NoteManager.ApplyNoteSkin("Default", "None");
 
         NoteGenerator.GenerateBeatLines(Parent.CurrentSong, NoteManager);

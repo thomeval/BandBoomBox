@@ -4,11 +4,44 @@ using UnityEngine.U2D.Animation;
 
 public class Note : MonoBehaviour
 {
-    public float Position;
-    public float AbsoluteTime;
+    public NoteBase NoteBase = new();
 
-    public NoteType NoteType;
-    public NoteClass NoteClass;
+    public float Position
+    {
+        get => NoteBase.Position;
+        set => NoteBase.Position = value;
+    }
+
+    public float AbsoluteTime
+    {
+        get => NoteBase.AbsoluteTime;
+        set => NoteBase.AbsoluteTime = value;
+    }
+
+    public NoteType NoteType
+    {
+        get => NoteBase.NoteType;
+        set => NoteBase.NoteType = value;
+    }
+
+    public NoteClass NoteClass
+    {
+        get => NoteBase.NoteClass;
+        set => NoteBase.NoteClass = value;
+    }
+
+    public int Lane
+    {
+        get => NoteBase.Lane;
+        set => NoteBase.Lane = value;
+    }
+
+    public float MxValue
+    {
+        get => NoteBase.MxValue;
+        set => NoteBase.MxValue = value;
+    }
+
     public Note EndNote;
 
     public GameObject LabelObject;
@@ -16,15 +49,11 @@ public class Note : MonoBehaviour
     public SpriteRenderer HoldTailSprite;
     public int HoldSpriteHeight = 100;
 
-    public int Lane;
-
-    public float MxValue = 0;
-
     private SpriteResolver _spriteResolver;
     private SpriteResolver _holdSpriteResolver;
     private SpriteResolver _labelSpriteResolver;
 
-    public string Description => $"{this.NoteClass}-{this.NoteType}";
+    public string Description => NoteBase.Description;
 
     void Awake()
     {

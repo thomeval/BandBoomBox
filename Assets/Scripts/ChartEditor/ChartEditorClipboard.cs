@@ -64,7 +64,7 @@ public class ChartEditorClipboard : MonoBehaviour
         ClipboardRegionSize = regionEnd - regionStart;
 
         var notes = _parent.NoteManager.GetNotesInRegion(regionStart, regionEnd).OrderBy(e => e.Position).ToList();
-        AddToClipboard(notes, (float) regionStart);
+        AddToClipboard(notes, (float)regionStart);
         _parent.DisplayMessage($"Copied {notes.Count} notes.");
         _parent.PlaySfx(SoundEvent.Editor_Copy);
     }
@@ -90,7 +90,7 @@ public class ChartEditorClipboard : MonoBehaviour
             }
 
             var noteType = invert ? _parent.NoteTransformer.Invert(note.NoteType) : note.NoteType;
-            var newNote = _parent.NoteGenerator.InstantiateNote((float) destPosition, noteType, note.NoteClass, ref  _parent.NoteManager.Notes);
+            var newNote = _parent.NoteGenerator.InstantiateNote((float)destPosition, noteType, note.NoteClass);
 
             newNote.name = newNote.Description + " (Pasted)";
 
@@ -149,7 +149,7 @@ public class ChartEditorClipboard : MonoBehaviour
                 Paste(_parent.CursorPosition, false);
                 break;
             case InputAction.Editor_PasteInverted:
-                Paste(_parent.CursorPosition,true);
+                Paste(_parent.CursorPosition, true);
                 break;
         }
     }

@@ -573,6 +573,17 @@ public class NoteManager : MonoBehaviour
 
         SetNoteMxValue();
     }
+
+    public void AttachNotes(IEnumerable<Note> notes)
+    {
+        foreach (var note in notes)
+        {
+            AttachNote(note);
+        }
+
+        SetNoteMxValue();
+    }
+
     public void AttachBeatLines()
     {
         foreach (var beatLine in this.BeatLines)

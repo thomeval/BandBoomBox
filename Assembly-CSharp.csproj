@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{79F99774-1F8E-5C43-0596-7FB996C7087B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -105,6 +104,7 @@
     <Compile Include="Assets\Scripts\Managers\ProfileManager.cs" />
     <Compile Include="Assets\Scripts\Input\JudgeResult.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenuState.cs" />
+    <Compile Include="Assets\Scripts\Songs\SongStarCalculatorChart.cs" />
     <Compile Include="Assets\Scripts\Util\SpriteFader.cs" />
     <Compile Include="Assets\Scripts\NetPlay\NetGameSettings.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectState.cs" />
@@ -119,6 +119,7 @@
     <Compile Include="Assets\Scripts\Misc\ObjectEventArgs.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
     <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
+    <Compile Include="Assets\Scripts\Notes\NoteBase.cs" />
     <Compile Include="Assets\BackgroundManager.cs" />
     <Compile Include="Assets\Scripts\Managers\CoreManager.cs" />
     <Compile Include="Assets\Scripts\Input\DeviceLostArgs.cs" />
@@ -152,7 +153,6 @@
     <Compile Include="Assets\Scripts\Common\StarMeter.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\Songs\DifficultyRange.cs" />
-    <Compile Include="Assets\Scripts\Misc\LogicalNotProcessor.cs" />
     <Compile Include="Assets\Scripts\Common\ProfileData.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\Songs\HoldRegion.cs" />
@@ -215,7 +215,7 @@
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorState.cs" />
     <Compile Include="Assets\AnimatedSprite.cs" />
     <Compile Include="Assets\Scripts\NetPlay\NetSongChoiceResponseType.cs" />
-    <Compile Include="Assets\Scripts\Misc\SongStarValueCalculator.cs" />
+    <Compile Include="Assets\Scripts\Songs\SongStarValueCalculator.cs" />
     <Compile Include="Assets\Scripts\SongSelect\PlayerGroupHighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNotePlacer.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureTimePage.cs" />

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Collections.Specialized.BitVector32;
 
 public class EditorChartListPage : EditorPageManager
 {
@@ -92,7 +91,7 @@ public class EditorChartListPage : EditorPageManager
     private bool ValidateCharts()
     {
         var error = "";
-        
+
         if (!DisplayedCharts.Any())
         {
             error += "At least one chart is required for the song to be playable.;";
@@ -120,7 +119,7 @@ public class EditorChartListPage : EditorPageManager
 
         error = error.TrimEnd(';');
         error = error.Replace(";", "\r\n");
-        
+
         TxtErrorCharts.text = error;
         return error == "";
     }
@@ -142,7 +141,7 @@ public class EditorChartListPage : EditorPageManager
         }
 
         if (!double.TryParse(TxtAddSectionBeat.text, out var beat))
-        {  
+        {
             TxtErrorSections.text = "Section beat must be a number";
             return;
         }
@@ -152,7 +151,7 @@ public class EditorChartListPage : EditorPageManager
             TxtErrorSections.text = $"This song already contains a section marker at beat {beat}.";
             return;
         }
-        
+
         Parent.CurrentSong.Sections.Add(beat, TxtAddSectionName.text);
         PopulateSectionList();
         TxtErrorSections.text = "";
@@ -286,7 +285,7 @@ public class EditorChartListPage : EditorPageManager
 
         if (match.Success)
         {
-            TxtAddSectionName.text = match.Value.Substring(0, match.Length - 1) + ((char) (match.Value[match.Value.Length-1] + 1));
+            TxtAddSectionName.text = match.Value.Substring(0, match.Length - 1) + ((char)(match.Value[match.Value.Length - 1] + 1));
             return;
         }
 
@@ -296,7 +295,7 @@ public class EditorChartListPage : EditorPageManager
 
         if (match.Success)
         {
-            TxtAddSectionName.text =  sections[lastSection.Key] + "b";
+            TxtAddSectionName.text = sections[lastSection.Key] + "b";
             sections[lastSection.Key] += "a";
             return;
         }

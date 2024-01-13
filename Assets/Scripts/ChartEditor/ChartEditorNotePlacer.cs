@@ -143,13 +143,13 @@ public class ChartEditorNotePlacer : MonoBehaviour
 
         RemoveExistingNote(prevNote);
         PlaceNewNoteCommon(holdType, NoteClass.Hold, holdPosition);
-        PlaceNewNoteCommon(noteType, NoteClass.Release, position );
+        PlaceNewNoteCommon(noteType, NoteClass.Release, position);
         AutoStep();
     }
 
     private void PlaceNewNoteCommon(NoteType noteType, NoteClass noteClass, float position)
     {
-        var note = _parent.NoteGenerator.InstantiateNote(position, noteType, noteClass, ref _noteManager.Notes);
+        var note = _parent.NoteGenerator.InstantiateNote(position, noteType, noteClass);
         _noteManager.AttachNote(note);
         _noteManager.CalculateAbsoluteTimes(_parent.CurrentSongData.Bpm);
         note.RefreshSprites();
@@ -222,7 +222,7 @@ public class ChartEditorNotePlacer : MonoBehaviour
 
     public void OnPlayerInput(InputEvent inputEvent)
     {
-        var position = (float) _parent.CursorPosition;
+        var position = (float)_parent.CursorPosition;
 
         if (inputEvent.Action == InputAction.Editor_DeleteNote)
         {

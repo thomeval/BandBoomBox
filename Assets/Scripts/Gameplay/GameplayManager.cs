@@ -42,7 +42,6 @@ public class GameplayManager : ScreenManager
         HudManager.UpdateEnergyMeter(_playerManager.AnyTurboActive());
     }
 
-
     public GameplayScreenState GameplayState = GameplayScreenState.Intro;
     public GameObject NoteHighways;
 
@@ -139,6 +138,10 @@ public class GameplayManager : ScreenManager
         AssignManagers();
 
         _playerManager.Reset();
+
+        // Set the team score category now based on the number of players present when the song starts. Should any players join or leave mid-game, this category should not change.
+        StateValues.TeamScoreCategory = _playerManager.GetScoreCategory();
+
         InitTurbo();
 
         if (!CoreManager.IsNetGame)
@@ -178,8 +181,7 @@ public class GameplayManager : ScreenManager
 
     private void CalculateStarScores()
     {
-        var activeManagers = NoteManagers.Where(e => e.gameObject.activeInHierarchy).ToList();
-        SongStarScoreValues = _songStarValueCalculator.CalculateSuggestedScores(activeManagers);
+        SongStarScoreValues = _songStarValueCalculator.CalculateSuggestedScores(CoreManager.CurrentSongData);
         HudManager.SongStarScoreValues = SongStarScoreValues;
     }
 
@@ -268,7 +270,6 @@ public class GameplayManager : ScreenManager
         UpdatePlayersState(PlayerState.Gameplay_Playing);
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -505,8 +506,11 @@ public class GameplayManager : ScreenManager
         _playerManager.UpdateRankings();
         SendNetPlayerScoreUpdate(player);
         CoreManager.ServerNetApi.ApplyHitResultServerRpc(hitResult);
-        ApplyHitResultToTeam(hitResult);
 
+        if (!CoreManager.IsNetGame)
+        {
+            ApplyHitResultToTeam(hitResult);
+        }
     }
 
     private void ApplyHitResultToTeam(HitResult hitResult)
@@ -551,7 +555,7 @@ public class GameplayManager : ScreenManager
             MaxMultiplier = StateValues.MaxMultiplier,
             MaxTeamCombo = StateValues.MaxTeamCombo,
             NumPlayers = _playerManager.Players.Count,
-            Category = HighScoreManager.GetCategory(_playerManager.Players.Count),
+            Category = StateValues.TeamScoreCategory,
             Score = StateValues.Score,
             Stars = SongStarScoreValues.GetStarFraction(StateValues.Score)
         };

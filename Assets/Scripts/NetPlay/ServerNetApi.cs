@@ -17,14 +17,14 @@ public class ServerNetApi : NetworkBehaviour
 
     public int MaxNetPlayers
     {
-        get
-        {
-            return _netGameSettings.MaxNetPlayers;
-        }
-        set
-        {
-            _netGameSettings.MaxNetPlayers = value;
-        }
+        get => _netGameSettings.MaxNetPlayers;
+        set => _netGameSettings.MaxNetPlayers = value;
+    }
+
+    public NetSongSelectRules SongSelectRules
+    {
+        get => _netGameSettings.SongSelectRules;
+        set => _netGameSettings.SongSelectRules = value;
     }
 
     void Awake()
@@ -166,8 +166,8 @@ public class ServerNetApi : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void ApplyHitResultServerRpc(HitResult hitResult, ServerRpcParams serverParams = default)
     {
-        var netId = serverParams.Receive.SenderClientId;
-        Debug.Log($"(Server) Applying {hitResult.JudgeResult} Hit Result from client ID {netId}");
+        // var netId = serverParams.Receive.SenderClientId;
+        //      Debug.Log($"(Server) Applying {hitResult.JudgeResult} Hit Result from client ID {netId}");
         _coreManager.ActiveMainManager.OnNetHitResult(hitResult);
     }
 

@@ -157,6 +157,14 @@ public static class NoteUtils
         return null;
     }
 
+    public static void CalculateAbsoluteTimes(IEnumerable<NoteBase> notes, float bpm)
+    {
+        foreach (var note in notes)
+        {
+            note.AbsoluteTime = note.Position * 60 / bpm;
+        }
+    }
+
     public static void CalculateAbsoluteTimes(IEnumerable<Note> notes, float bpm)
     {
         foreach (var note in notes)

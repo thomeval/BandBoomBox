@@ -18,19 +18,19 @@ public class MxMeter : MonoBehaviour
 
     private readonly Color[] _colors =
     {
-        new Color(0.2f, 0.2f, 1.0f),
-        new Color(0.6f, 0.6f, 1.0f),
-        new Color(0.2f, 0.6f, 0.6f),
-        new Color(0.2f, 1.0f, 1.0f),
-        new Color(0.2f, 1.0f, 0.2f),
-        new Color(0.6f, 1.0f, 0.2f),
-        new Color(1.0f, 1.0f, 0.2f),
-        new Color(1.0f, 0.7f, 0.2f),
-        new Color(1.0f, 0.4f, 0.2f),
-        new Color(1.0f, 0.2f, 0.2f),
-        new Color(1.0f, 0.2f, 0.6f),
-        new Color(0.8f, 0.2f, 0.8f),
-        new Color(0.4f, 0.2f, 0.8f)
+        new (0.2f, 0.2f, 1.0f),
+        new (0.6f, 0.6f, 1.0f),
+        new (0.2f, 0.6f, 0.6f),
+        new (0.2f, 1.0f, 1.0f),
+        new (0.2f, 1.0f, 0.2f),
+        new (0.6f, 1.0f, 0.2f),
+        new (1.0f, 1.0f, 0.2f),
+        new (1.0f, 0.7f, 0.2f),
+        new (1.0f, 0.4f, 0.2f),
+        new (1.0f, 0.2f, 0.2f),
+        new (1.0f, 0.2f, 0.6f),
+        new (0.8f, 0.2f, 0.8f),
+        new (0.4f, 0.2f, 0.8f)
     };
 
     public int MeterHeight = 980;
@@ -75,7 +75,7 @@ public class MxMeter : MonoBehaviour
     {
         var badFraction = 1.0f - Multiplier;
         var goodFraction = Math.Min(1.0f, (Multiplier - 1) / 20);
-        goodFraction *= (1-BeatFraction);
+        goodFraction *= (1 - BeatFraction);
         var color = Multiplier < 1.0f
             ? new Color(1.0f, 0.0f, 0.0f, badFraction)
             : new Color(1.0f, 1.0f, 1.0f, goodFraction);
@@ -100,7 +100,7 @@ public class MxMeter : MonoBehaviour
     {
         if (whole < 2)
         {
-            _backRend.color = new Color(0.0f,0.0f,0.0f,0.0f);
+            _backRend.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
         }
         else
         {
