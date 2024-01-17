@@ -20,9 +20,10 @@ public class HudManager : MonoBehaviour
     public EnergyMeter EnergyMeter;
     public StarMeter StarMeter;
     public GameplayStateValues StateValues;
-    public SongStarScoreValues SongStarScoreValues;
+    public SongStarScoreValues SongStarScoreValues = new();
 
     public List<PlayerHudManager> PlayerHudManagers;
+    public bool UpdateStarsWithScore = true;
 
     private SongManager _songManager;
 
@@ -35,6 +36,12 @@ public class HudManager : MonoBehaviour
             _songTitleText = value;
             TxtSongTitle.text = _songTitleText;
         }
+    }
+
+    public double Stars
+    {
+        get { return StarMeter.Value; }
+        set { StarMeter.Value = value; }
     }
 
     private long _displayedScore = 0;
@@ -99,8 +106,11 @@ public class HudManager : MonoBehaviour
         }
         TxtScore.text = string.Format(CultureInfo.InvariantCulture, "{0:00000000}", _displayedScore);
 
-        var stars = SongStarScoreValues.GetStarFraction(_displayedScore);
-        StarMeter.Value = stars;
+        if (UpdateStarsWithScore)
+        {
+            var stars = SongStarScoreValues.GetStarFraction(_displayedScore);
+            StarMeter.Value = stars;
+        }
     }
 
     public void UpdateEnergyMeter(bool turboActive)

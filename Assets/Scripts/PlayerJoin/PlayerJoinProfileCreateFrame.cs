@@ -173,7 +173,7 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
         }
 
         this.Error = null;
-        Parent.PlaySfx(SoundEvent.SelectionConfirmed);
+        Parent.PlayConfirmedSfx();
         var newProfile = _profileManager.Create(EnteredText);
         _profileManager.Save(newProfile);
         Parent.ProfileSelectFrame.PopulateProfileList();

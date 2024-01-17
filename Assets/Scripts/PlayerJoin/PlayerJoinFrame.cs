@@ -46,7 +46,7 @@ public class PlayerJoinFrame : MonoBehaviour
     public Color ErrorMessageColor = new Color(1.0f, 0.5f, 0.5f);
 
     [Header("Sounds")]
-    public SoundEventHandler SoundEventHandler;
+    public MenuSoundEventHandler SoundEventHandler;
 
     public event EventHandler PlayerLeft;
 
@@ -137,7 +137,8 @@ public class PlayerJoinFrame : MonoBehaviour
 
         if (withSfx)
         {
-            SoundEventHandler.PlaySfx(SoundEvent.SelectionConfirmed);
+            PlayConfirmedSfx();
+
         }
 
         this.Refresh();
@@ -157,12 +158,17 @@ public class PlayerJoinFrame : MonoBehaviour
         this.Player.ProfileData = profileData;
         this.Player.PlayerState = PlayerState.PlayerJoin_Options;
         State = PlayerJoinState.Options;
-        SoundEventHandler.PlaySfx(SoundEvent.SelectionConfirmed);
+        PlayConfirmedSfx();
         Refresh();
     }
 
     public void PlaySfx(SoundEvent soundEvent)
     {
         SoundEventHandler.PlaySfx(soundEvent);
+    }
+
+    public void PlayConfirmedSfx()
+    {
+        SoundEventHandler.PlaySfx(SoundEvent.SelectionConfirmed);
     }
 }

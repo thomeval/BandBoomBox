@@ -164,7 +164,7 @@ public class GameplayStateHelper : MonoBehaviour
         StateValues.Multiplier += hitResult.MxPoints * appliedMxGainRate;
         StateValues.Multiplier = Math.Max(GameplayMultiplierUtils.MX_MINIMUM, StateValues.Multiplier);
         StateValues.MaxMultiplier = Math.Max(StateValues.Multiplier, StateValues.MaxMultiplier);
-
+        StateValues.Stars = ParentManager.SongStarScoreValues.GetStarFraction(StateValues.Score);
         if (hitResult.JudgeResult <= JudgeResult.Perfect)
         {
             UpdateEnergyAmount(StateValues.Energy + ENERGY_GAIN_RATE);

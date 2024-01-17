@@ -56,13 +56,12 @@ public class DifficultySelectFrame : MonoBehaviour
     }
 
     [Header("Sounds")]
-    public SoundEventHandler SoundEventHandler;
+    public MenuSoundEventHandler SoundEventHandler;
 
     public SongChart SelectedSongChart
     {
         get { return DisplayedSongData.GetChart(SelectedChartGroup, SelectedDifficulty); }
     }
-
 
     [SerializeField]
     private SongData _displayedSongData;

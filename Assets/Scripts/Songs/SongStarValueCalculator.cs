@@ -1,6 +1,8 @@
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -39,6 +41,7 @@ public class SongStarValueCalculator : MonoBehaviour
 
     private List<SongStarCalculatorChart> GetCurrentPlayerCharts()
     {
+
         var result = new List<SongStarCalculatorChart>();
         foreach (var player in _playerManager.Players.Where(e => IsInGameplay(e.PlayerState)))
         {
@@ -92,18 +95,20 @@ public class SongStarValueCalculator : MonoBehaviour
 
     private SongStarScoreValues CalculateSuggestedScores(List<SongStarCalculatorChart> charts)
     {
-        var category = HighScoreManager.GetScoreCategory(charts.Count);
+        var maxScore = CalculateMaxScore(charts);
+        return CalculateSuggestedScores(maxScore, charts.Count);
+    }
 
+    public SongStarScoreValues CalculateSuggestedScores(long maxBaseScore, int playerCount)
+    {
         var values = new List<long>();
+        var category = HighScoreManager.GetScoreCategory(playerCount);
         var starCount = Percentages[category].Length;
+
         for (var x = 0; x < starCount; x++)
         {
-
-            var maxScore = CalculateMaxScore(charts);
             var percent = Percentages[category][x];
-
-            // Target Score = Maximum theoretical score * Percent
-            var targetScore = maxScore * percent;
+            var targetScore = maxBaseScore * percent;
             targetScore = Math.Floor(targetScore);
 
             values.Add((long)targetScore);
@@ -112,10 +117,11 @@ public class SongStarValueCalculator : MonoBehaviour
         return new SongStarScoreValues
         {
             ScoreCategory = category,
-            Scores = values.ToArray()
+            Scores = values.ToArray(),
+            MaxPossibleBaseScore = maxBaseScore,
+            ActivePlayers = playerCount
         };
     }
-
     public long CalculateMaxScore(List<SongStarCalculatorChart> charts)
     {
 

@@ -64,17 +64,17 @@ public class OnlinePlayerListItem : MonoBehaviour
             case PlayerState.DifficultySelect_Selecting:
                 return "Selecting Difficulty";
             case PlayerState.DifficultySelect_Ready:
-                return "Waiting For Partner";
+                return "Difficulty Selected";
             case PlayerState.Gameplay_Playing:
                 return $"Playing - {Player.PerfPercent:P1}";
             case PlayerState.Gameplay_Loading:
                 return "Loading Song";
             case PlayerState.Gameplay_ReadyToStart:
-                return "Waiting for other players";
+                return "Awaiting start signal";
             case PlayerState.Evaluation_NotReady:
                 return "Checking Results";
             case PlayerState.Evaluation_Ready:
-                return "Ready";
+                return "Waiting For Partner";
             default:
                 throw new ArgumentOutOfRangeException(nameof(playerState), playerState, null);
         }

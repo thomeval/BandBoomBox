@@ -145,7 +145,7 @@ MonoBehaviour:
   TxtPlayerStatus: {fileID: 1315107603405845713}
   PlayerIdentifier: {fileID: 0}
   TxtPlayerLevel: {fileID: 0}
-  TxtNetId: {fileID: 0}
+  TxtNetId: {fileID: 1936312074988507930}
   Player: {fileID: 0}
   TxtChartGroupDifficulty: {fileID: 1315107603405845713}
   TxtPerfPercent: {fileID: 2459397233599282799}

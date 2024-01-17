@@ -68,6 +68,8 @@ public class GameplayManager : ScreenManager
     private bool _isSongLoading;
     private bool _startSignalReceived = false;
 
+    private DateTime _songLoadStart;
+
     void Awake()
     {
         if (!FindCoreManager())
@@ -134,6 +136,7 @@ public class GameplayManager : ScreenManager
 
         OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
         OnlinePlayerList.RefreshAll();
+        HudManager.UpdateStarsWithScore = CoreManager.IsHost;
 
         AssignManagers();
 
@@ -141,6 +144,7 @@ public class GameplayManager : ScreenManager
 
         // Set the team score category now based on the number of players present when the song starts. Should any players join or leave mid-game, this category should not change.
         StateValues.TeamScoreCategory = _playerManager.GetScoreCategory();
+
 
         InitTurbo();
 
@@ -152,7 +156,6 @@ public class GameplayManager : ScreenManager
         var selectedSongData = CoreManager.CurrentSongData;
         StartLoadingSong(selectedSongData);
         SetupNoteHighways();
-        CalculateStarScores();
 
         // Temporary value. This will get set properly once the song goes past its playable state.
         _outroTime = DateTime.Now.AddDays(1);
@@ -179,7 +182,7 @@ public class GameplayManager : ScreenManager
         HudManager.EnergyMeter.MaxEnergy = StateValues.MaxEnergy;
     }
 
-    private void CalculateStarScores()
+    private void CalculateStarScoresFromSongData()
     {
         SongStarScoreValues = _songStarValueCalculator.CalculateSuggestedScores(CoreManager.CurrentSongData);
         HudManager.SongStarScoreValues = SongStarScoreValues;
@@ -256,6 +259,12 @@ public class GameplayManager : ScreenManager
     {
         _isSongLoading = false;
         UpdatePlayersState(PlayerState.Gameplay_ReadyToStart);
+        var songLoadTime = DateTime.Now - _songLoadStart;
+        Debug.Log(string.Format("Song loaded in {0:F0}ms", songLoadTime.TotalMilliseconds));
+        CalculateStarScoresFromSongData();
+
+        // Send the max possible base score (calculated above) to each client so that they can calculate stars earned correctly.
+        SendNetGameplayStateValuesUpdate(StateValues.AsDto());
         TryToStartSong();
     }
 
@@ -522,15 +531,12 @@ public class GameplayManager : ScreenManager
 
         StateHelper.ApplyHitResult(hitResult);
         StateHelper.UpdateTeamCombo(hitResult.JudgeResult);
-
-        if (CoreManager.IsNetGame)
-        {
-            SendNetGameplayStateValuesUpdate(StateValues.AsDto());
-        }
+        SendNetGameplayStateValuesUpdate(StateValues.AsDto());
     }
 
     private void StartLoadingSong(SongData selectedSongData)
     {
+        _songLoadStart = DateTime.Now;
         _isSongLoading = true;
         _songManager.LoadSong(selectedSongData, SongManager_SongLoaded);
         HudManager.SongTitleText = selectedSongData.Title + " " + selectedSongData.Subtitle;
@@ -591,6 +597,7 @@ public class GameplayManager : ScreenManager
         base.OnNetGameplayStateValuesUpdated(dto);
         StateValues.CopyValues(dto);
         HudManager.UpdateEnergyMeter(_playerManager.AnyTurboActive());
+        HudManager.StarMeter.Value = StateValues.Stars;
     }
 
     public override void OnNetHitResult(HitResult hitResult)
@@ -617,5 +624,11 @@ public class GameplayManager : ScreenManager
         }
 
         CoreManager.ClientNetApi.ReceiveNetGameplayStateValuesClientRpc(dto);
+    }
+
+    public override void OnNetShutdown()
+    {
+        _songManager.PauseSong(true);
+        base.OnNetShutdown();
     }
 }

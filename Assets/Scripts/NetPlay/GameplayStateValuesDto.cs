@@ -14,6 +14,7 @@ public class GameplayStateValuesDto : INetworkSerializable
     public double Energy;
     public double MaxEnergy;
     public TeamScoreCategory TeamScoreCategory;
+    public double Stars;
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
@@ -26,5 +27,6 @@ public class GameplayStateValuesDto : INetworkSerializable
         serializer.SerializeValue(ref Energy);
         serializer.SerializeValue(ref MaxEnergy);
         serializer.SerializeValue(ref TeamScoreCategory);
+        serializer.SerializeValue(ref Stars);
     }
 }

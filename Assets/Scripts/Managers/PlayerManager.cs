@@ -377,7 +377,13 @@ public class PlayerManager : MonoBehaviour
         toPlayer.Combo = fromPlayer.Combo;
         toPlayer.MaxCombo = fromPlayer.MaxCombo;
         toPlayer.Goal = fromPlayer.Goal == 0 ? null : fromPlayer.Goal;
+
+        if (fromPlayer.PlayerState != toPlayer.PlayerState)
+        {
+            Debug.Log($"Player {toPlayer.DisplayNetId}-{toPlayer.Slot} changed state from {toPlayer.PlayerState} to {fromPlayer.PlayerState}");
+        }
         toPlayer.PlayerState = fromPlayer.PlayerState;
+
 
         toPlayer.Difficulty = fromPlayer.Difficulty;
         toPlayer.Exp = fromPlayer.Exp;

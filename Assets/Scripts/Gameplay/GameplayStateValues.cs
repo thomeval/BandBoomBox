@@ -15,6 +15,7 @@ public class GameplayStateValues : MonoBehaviour
     public double MaxEnergy;
 
     public TeamScoreCategory TeamScoreCategory;
+    public double Stars;
 
     public GameplayStateValuesDto AsDto()
     {
@@ -28,7 +29,8 @@ public class GameplayStateValues : MonoBehaviour
             MxGainRate = MxGainRate,
             Energy = Energy,
             MaxEnergy = MaxEnergy,
-            TeamScoreCategory = TeamScoreCategory
+            TeamScoreCategory = TeamScoreCategory,
+            Stars = Stars
         };
     }
 
@@ -43,5 +45,6 @@ public class GameplayStateValues : MonoBehaviour
         Energy = dto.Energy;
         MaxEnergy = dto.MaxEnergy;
         TeamScoreCategory = dto.TeamScoreCategory;
+        Stars = dto.Stars;
     }
 }
