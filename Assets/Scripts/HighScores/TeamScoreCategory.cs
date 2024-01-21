@@ -16,12 +16,22 @@
     Duet = 2,
 
     /// <summary>
-    /// Represents a result for three or four players.
-    /// </summary>
-    Crowd = 4,
+    /// Not used. Use Squad for three players.
+    /// </summary> 
+    Trio = 3,
 
     /// <summary>
-    /// Represents a result for five or more players.
+    /// Represents a result for three or four players.
     /// </summary>
-    Legion = 5
+    Squad = 4,
+
+    /// <summary>
+    /// Represents a result for five to eight players.
+    /// </summary>
+    Crowd = 5,
+
+    /// <summary>
+    /// Represents a result for nine or more players.
+    /// 
+    Legion = 9,
 }

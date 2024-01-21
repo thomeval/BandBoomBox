@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using Assets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +12,7 @@ public class ScreenManager : MonoBehaviour
     public ActionMapType DefaultActionMapType = ActionMapType.Gameplay;
 
     private readonly Dictionary<string, object> _defaultSceneLoadArgs = new();
+
     public bool FindCoreManager()
     {
         if (CoreManager == null)
@@ -50,6 +51,37 @@ public class ScreenManager : MonoBehaviour
     {
     }
 
+    public virtual void OnNetPlayerUpdated(Player player)
+    {
+
+    }
+    public virtual void OnNetPlayerScoreUpdated(Player player)
+    {
+    }
+
+    public virtual void OnNetPlayerListUpdated()
+    {
+    }
+
+    public virtual void OnNetRequestSongResponse(NetSongChoiceResponse response)
+    {
+        if (response.ResponseType != NetSongChoiceResponseType.Ok)
+        {
+            Debug.LogWarning($"(Client) Received song request response: {response.ResponseType} - {response.ResponseMessage}.");
+            return;
+        }
+
+        Debug.Log($"(Client) Received song request response: {response.ResponseType}.");
+    }
+
+    public virtual void OnNetSongSelected(NetSongChoiceRequest request)
+    {
+    }
+
+    public virtual void OnNetStartSongSignal()
+    {
+    }
+
     protected Player GetPlayer(int slot)
     {
         return CoreManager.PlayerManager.GetPlayer(slot);
@@ -66,7 +98,7 @@ public class ScreenManager : MonoBehaviour
     }
 
     protected IEnumerator DoSceneTransition(GameScene gameScene, bool withTransition = true)
-    
+
     {
         Debug.Log($"Transitioning to {gameScene}");
         var sceneName = gameScene + "Scene";
@@ -74,11 +106,11 @@ public class ScreenManager : MonoBehaviour
         if (CoreManager == null || !withTransition)
         {
             SceneManager.LoadScene(sceneName);
-         
+
             yield break;    // Return statement, but for a coroutine.
         }
 
-        yield return  CoreManager.SceneTransitionManager.RunTransitionStart();
+        yield return CoreManager.SceneTransitionManager.RunTransitionStart();
         CoreManager?.MenuMusicManager?.PlaySceneMusic(gameScene);
         SceneManager.LoadScene(sceneName);
         yield return CoreManager.SceneTransitionManager.RunTransitionEnd();
@@ -93,6 +125,91 @@ public class ScreenManager : MonoBehaviour
     public virtual void SetActionMap(ActionMapType actionMapType)
     {
         CoreManager.ControlsManager.SetActionMap(actionMapType);
+    }
+
+    public virtual void OnNetClientDisconnected(ulong id)
+    {
+        if (CoreManager.NetworkManager.IsHost)
+        {
+            CoreManager.ServerNetApi.RemoveNetPlayersServerRpc(id);
+            Debug.Log("Client disconnected.");
+        }
+    }
+
+    public virtual void OnNetClientConnected(ulong id)
+    {
+
+        Debug.Log($"Client connected. ID: {id}, Host: {CoreManager.IsHost}");
+        CoreManager.PlayerManager.SetNetId();
+        foreach (var player in CoreManager.PlayerManager.GetLocalPlayers())
+        {
+            var dto = PlayerDto.FromPlayer(player);
+            CoreManager.ServerNetApi.RegisterNetPlayerServerRpc(dto);
+        }
+
+        if (!CoreManager.IsHost)
+        {
+            CoreManager.ServerNetApi.RequestPlayerListServerRpc();
+            CoreManager.ServerNetApi.RequestNetGameSettingsServerRpc();
+        }
+    }
+
+    public virtual void OnNetGameplayStateValuesUpdated(GameplayStateValuesDto dto)
+    {
+    }
+
+
+    public virtual void OnNetHitResult(HitResult hitResult)
+    {
+    }
+
+    public virtual void OnNetShutdown()
+    {
+        if (!CoreManager.IsNetGame)
+        {
+            return;
+        }
+
+        Debug.Log("(Client) Server shutting down. Returning to main menu.");
+        CoreManager.ShutdownNetPlay();
+        SceneTransition(GameScene.MainMenu);
+    }
+
+    public void SendNetPlayerUpdate(Player player)
+    {
+        if (!CoreManager.IsNetGame)
+        {
+            return;
+        }
+
+        var dto = PlayerDto.FromPlayer(player);
+        CoreManager.ServerNetApi.UpdatePlayerServerRpc(dto);
+    }
+
+    public void SendNetPlayerScoreUpdate(Player player)
+    {
+        if (!CoreManager.IsNetGame)
+        {
+            return;
+        }
+
+        var dto = PlayerScoreDto.FromPlayer(player);
+
+        CoreManager.ServerNetApi.UpdatePlayerScoreServerRpc(dto);
+    }
+
+    public void UpdatePlayersState(PlayerState playerState)
+    {
+        foreach (var player in CoreManager.PlayerManager.GetLocalPlayers())
+        {
+            UpdatePlayerState(player, playerState);
+        }
+    }
+
+    public void UpdatePlayerState(Player player, PlayerState playerState)
+    {
+        player.PlayerState = playerState;
+        SendNetPlayerUpdate(player);
     }
 
 }

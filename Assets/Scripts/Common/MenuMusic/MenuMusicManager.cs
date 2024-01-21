@@ -12,7 +12,7 @@ public class MenuMusicManager : MonoBehaviour
 
     public AudioCrossFader AudioCrossFader;
     public BackgroundManager BackgroundManager;
-    
+
     public MenuMusicEntry CurrentMusic;
 
     public string LastGroup;
@@ -35,14 +35,13 @@ public class MenuMusicManager : MonoBehaviour
 
     public void PlaySceneMusic(GameScene gameScene)
     {
-        var ip = new InvertProcessor();
         var entry = _menuMusicItems.FirstOrDefault(e => e.GameScene == gameScene);
 
         if (entry == null)
         {
             entry = _menuMusicItems.FirstOrDefault(e => e.GameScene == GameScene.All);
         }
-        
+
         if (entry.Group != CurrentMusic?.Group)
         {
             ApplyToBackground(entry);

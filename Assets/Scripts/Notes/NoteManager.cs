@@ -558,6 +558,11 @@ public class NoteManager : MonoBehaviour
 
     public void AttachNote(Note note)
     {
+        if (!Notes.Contains(note))
+        {
+            Notes.Add(note);
+        }
+
         note.transform.SetParent(this.transform, false);
         note.transform.localPosition = new Vector3(9999.0f, note.transform.localPosition.y);
         note.SetSpriteCategories(this.NoteSkin, this.LabelSkin);
@@ -571,8 +576,21 @@ public class NoteManager : MonoBehaviour
             AttachNote(note);
         }
 
+        Notes = Notes.OrderBy(e => e.Position).ToList();
         SetNoteMxValue();
     }
+
+    public void AttachNotes(IEnumerable<Note> notes)
+    {
+        foreach (var note in notes)
+        {
+            AttachNote(note);
+        }
+
+        Notes = Notes.OrderBy(e => e.Position).ToList();
+        SetNoteMxValue();
+    }
+
     public void AttachBeatLines()
     {
         foreach (var beatLine in this.BeatLines)

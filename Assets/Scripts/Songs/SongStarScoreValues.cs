@@ -17,6 +17,9 @@ public class SongStarScoreValues
         get { return this.Scores.Length; }
     }
 
+    public long MaxPossibleBaseScore;
+    public int ActivePlayers;
+
     public double GetStarFraction(long score)
     {
 
@@ -37,7 +40,7 @@ public class SongStarScoreValues
             return result;
         }
 
-        var prev = star == 0 ? 0 : this[star-1];
+        var prev = star == 0 ? 0 : this[star - 1];
         var next = this[star];
 
         var fraction = GetLerpFraction(score, prev, next);

@@ -1,24 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
-public class SoundEventHandler : MonoBehaviour
+public class SoundEventHandler : MenuSoundEventHandler
 {
     [Header("Sounds")]
 
     [Header("Gameplay")]
     public AudioSource SfxGameplayTurboOff;
     public AudioSource SfxGameplayTurboOn;
-    public AudioSource SfxMistake;
     public AudioSource[] SfxGameplayStars = new AudioSource[5];
-
-    [Header("Menus")]
-    public AudioSource SfxSelectionChanged;
-    public AudioSource SfxSelectionConfirmed;
-    public AudioSource SfxSelectionCancelled;
-    public AudioSource SfxSelectionShifted;
 
     [Header("Editor")]
     public AudioSource SfxEditorSaveComplete;
@@ -35,43 +25,30 @@ public class SoundEventHandler : MonoBehaviour
     public AudioSource SfxTitleScreenStartPressed;
     public AudioSource SfxSecretUnlocked;
 
-    private Dictionary<SoundEvent, AudioSource> _sfxEntries;
+    protected override void SetupSfxEntries()
+    {
+        base.SetupSfxEntries();
+
+        _sfxEntries.Add(SoundEvent.Editor_SaveComplete, SfxEditorSaveComplete);
+        _sfxEntries.Add(SoundEvent.Editor_NotePlaced, SfxEditorNotePlaced);
+        _sfxEntries.Add(SoundEvent.Editor_NoteRemoved, SfxEditorNoteRemoved);
+
+        _sfxEntries.Add(SoundEvent.Editor_Cut, SfxEditorCut);
+        _sfxEntries.Add(SoundEvent.Editor_Copy, SfxEditorCopy);
+        _sfxEntries.Add(SoundEvent.Editor_Paste, SfxEditorPaste);
+        _sfxEntries.Add(SoundEvent.Editor_SelectRegionStart, SfxEditorSelectRegionStart);
+        _sfxEntries.Add(SoundEvent.Editor_SelectRegionEnd, SfxEditorSelectRegionEnd);
+
+        _sfxEntries.Add(SoundEvent.Gameplay_TurboOff, SfxGameplayTurboOff);
+        _sfxEntries.Add(SoundEvent.Gameplay_TurboOn, SfxGameplayTurboOn);
+
+        _sfxEntries.Add(SoundEvent.TitleScreen_StartPressed, SfxTitleScreenStartPressed);
+        _sfxEntries.Add(SoundEvent.SecretUnlocked, SfxSecretUnlocked);
+    }
 
     void Awake()
     {
-        _sfxEntries = new Dictionary<SoundEvent, AudioSource>()
-        {
-            { SoundEvent.Mistake, SfxMistake},
-            { SoundEvent.SelectionChanged, SfxSelectionChanged},
-            { SoundEvent.SelectionConfirmed, SfxSelectionConfirmed},
-            { SoundEvent.SelectionCancelled, SfxSelectionCancelled},
-            { SoundEvent.SelectionShifted, SfxSelectionShifted},
-            { SoundEvent.Editor_SaveComplete, SfxEditorSaveComplete},
-            { SoundEvent.Editor_NotePlaced, SfxEditorNotePlaced},
-            { SoundEvent.Editor_NoteRemoved, SfxEditorNoteRemoved},
-
-            { SoundEvent.Editor_Cut, SfxEditorCut},
-            { SoundEvent.Editor_Copy, SfxEditorCopy},
-            { SoundEvent.Editor_Paste, SfxEditorPaste},
-            { SoundEvent.Editor_SelectRegionStart, SfxEditorSelectRegionStart},
-            { SoundEvent.Editor_SelectRegionEnd, SfxEditorSelectRegionEnd},
-
-            { SoundEvent.Gameplay_TurboOff, SfxGameplayTurboOff},
-            { SoundEvent.Gameplay_TurboOn, SfxGameplayTurboOn},
-
-            { SoundEvent.TitleScreen_StartPressed, SfxTitleScreenStartPressed},
-            { SoundEvent.SecretUnlocked, SfxSecretUnlocked},
-        };
-
-    }
-    public void PlaySfx(SoundEvent eventType)
-    {
-        if (!_sfxEntries.ContainsKey(eventType))
-        {
-            Debug.LogWarning("Unrecognised SoundEvent type: " + eventType);
-            return;
-        }
-        _sfxEntries[eventType].PlayUnlessNull();
+        SetupSfxEntries();
     }
 
     public void PlayStarAttainedSfx(int starCount)

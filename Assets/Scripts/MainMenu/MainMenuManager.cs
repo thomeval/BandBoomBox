@@ -21,7 +21,7 @@ public class MainMenuManager : ScreenManager
     public float MusicStartDelay = 0.5f;
     public float MusicStartDelaySecret = 5.0f;
     private TextPulser _pulser;
-    private bool temp;
+
     void Awake()
     {
         FindCoreManager();
@@ -32,6 +32,7 @@ public class MainMenuManager : ScreenManager
     {
         TxtVersion.text = Application.version;
 
+        CoreManager.ShutdownNetPlay();
         if (CoreManager.TitleScreenShown)
         {
             LogoAnimator.Play("MainMenuFastShown");
@@ -120,20 +121,25 @@ public class MainMenuManager : ScreenManager
         switch (args.SelectedItem)
         {
             case "Play":
-                if (!CoreManager.SongLibrary.Songs.Any())
+                if (CheckNoSongsLoaded())
                 {
-                    PlaySfx(SoundEvent.Mistake);
-                    this.ErrorMessage.Error = "No playable songs were found in any of the configured song folders. At least one song is required for the game to be playable. Check the log files for details.";
-                    var songFolders = CoreManager.Settings.GetResolvedSongFolders().Aggregate((cur, next) => cur + " \r\n" + next);
-                    Debug.LogError("No playable songs were found in any of the configured song folders. At least one song is required for the game to be playable. Current song folders: \r\n" + songFolders + "\r\n" +
-                                   "Song files must be located in one of the above folders (or a subfolder), be in the .sjson format, and have a .mp3 or .ogg file for audio. ");
                     return;
                 }
-
                 this.ErrorMessage.Error = null;
 
                 CoreManager.PlayerManager.AutoSetNoteSkin();
+                CoreManager.IsNetGame = false;
                 SceneTransition(GameScene.PlayerJoin);
+                break;
+            case "Play Online":
+                if (CheckNoSongsLoaded())
+                {
+                    return;
+                }
+                this.ErrorMessage.Error = null;
+
+                CoreManager.PlayerManager.AutoSetNoteSkin();
+                SceneTransition(GameScene.OnlineMenu);
                 break;
             case "Options":
                 SceneTransition(GameScene.Options);
@@ -151,5 +157,19 @@ public class MainMenuManager : ScreenManager
                 break;
         }
 
+    }
+
+    private bool CheckNoSongsLoaded()
+    {
+        if (!CoreManager.SongLibrary.Songs.Any())
+        {
+            PlaySfx(SoundEvent.Mistake);
+            this.ErrorMessage.Error = "No playable songs were found in any of the configured song folders. At least one song is required for the game to be playable. Check the log files for details.";
+            var songFolders = CoreManager.Settings.GetResolvedSongFolders().Aggregate((cur, next) => cur + " \r\n" + next);
+            Debug.LogError("No playable songs were found in any of the configured song folders. At least one song is required for the game to be playable. Current song folders: \r\n" + songFolders + "\r\n" +
+                            "Song files must be located in one of the above folders (or a subfolder), be in the .sjson format, and have a .mp3 or .ogg file for audio. ");
+            return true;
+        }
+        return false;
     }
 }

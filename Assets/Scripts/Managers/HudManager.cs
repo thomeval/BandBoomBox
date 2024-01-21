@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class HudManager : MonoBehaviour
 {
-    public GameplayManager GameplayManager;
-
     public Text TxtScore;
     public Text TxtBpm;
     public Text TxtDebug;
@@ -21,8 +19,11 @@ public class HudManager : MonoBehaviour
     public MxMeter MxMeter;
     public EnergyMeter EnergyMeter;
     public StarMeter StarMeter;
+    public GameplayStateValues StateValues;
+    public SongStarScoreValues SongStarScoreValues = new();
 
     public List<PlayerHudManager> PlayerHudManagers;
+    public bool UpdateStarsWithScore = true;
 
     private SongManager _songManager;
 
@@ -37,6 +38,12 @@ public class HudManager : MonoBehaviour
         }
     }
 
+    public double Stars
+    {
+        get { return StarMeter.Value; }
+        set { StarMeter.Value = value; }
+    }
+
     private long _displayedScore = 0;
 
     void Awake()
@@ -48,29 +55,30 @@ public class HudManager : MonoBehaviour
     {
         UpdateScore();
     }
+
     void Update()
     {
         var beat = _songManager.GetSongPositionInBeats();
 
-        MxMeter.BeatFraction = beat - (int) beat;
-        MxMeter.Multiplier = (float) GameplayManager.Multiplier;
-    
-        TxtTeamCombo.text = string.Format(CultureInfo.InvariantCulture,"{0:000}",GameplayManager.TeamCombo);
-        var mxGainBonus = GameplayManager.MxGainRate - 1.0f;
+        MxMeter.BeatFraction = beat - (int)beat;
+        MxMeter.Multiplier = (float)StateValues.Multiplier;
+
+        TxtTeamCombo.text = string.Format(CultureInfo.InvariantCulture, "{0:000}", StateValues.TeamCombo);
+        var mxGainBonus = StateValues.MxGainRate - 1.0f;
 
         TxtMxGainRate.text = string.Format(CultureInfo.InvariantCulture, "+{0:N0}%", mxGainBonus * 100);
-        TxtMxGainRate.enabled = mxGainBonus> 0.0f;
-        
+        TxtMxGainRate.enabled = mxGainBonus > 0.0f;
+
         if (_songManager.CurrentSong == null)
         {
             return;
         }
-        TxtBpm.text = string.Format(CultureInfo.InvariantCulture, "{0:N1}", _songManager.CurrentSong.Bpm);   
-        var songLength = (int) (_songManager.GetPlayableLength() - _songManager.GetSongPosition());
+        TxtBpm.text = string.Format(CultureInfo.InvariantCulture, "{0:N1}", _songManager.CurrentSong.Bpm);
+        var songLength = (int)(_songManager.GetPlayableLength() - _songManager.GetSongPosition());
         songLength = Math.Max(songLength, 0);
         TxtSongTime.text = string.Format(CultureInfo.InvariantCulture, "{0}:{1:00}", songLength / 60, songLength % 60);
         TxtSongCurrentSection.text = _songManager.GetCurrentSection();
-        
+
         DisplayBeat(_songManager.GetSongPositionInBeats());
 
     }
@@ -86,11 +94,11 @@ public class HudManager : MonoBehaviour
 
     private void UpdateScore()
     {
-        var diff = GameplayManager.Score - _displayedScore;
+        var diff = StateValues.Score - _displayedScore;
 
         if (diff <= 3)
         {
-            _displayedScore = GameplayManager.Score;
+            _displayedScore = StateValues.Score;
         }
         else
         {
@@ -98,13 +106,17 @@ public class HudManager : MonoBehaviour
         }
         TxtScore.text = string.Format(CultureInfo.InvariantCulture, "{0:00000000}", _displayedScore);
 
-        var stars = GameplayManager.GetStarFraction(_displayedScore);
-        StarMeter.Value = stars;
+        if (UpdateStarsWithScore)
+        {
+            var stars = SongStarScoreValues.GetStarFraction(_displayedScore);
+            StarMeter.Value = stars;
+        }
     }
 
-    public void UpdateEnergy(float energy, bool turboActive)
+    public void UpdateEnergyMeter(bool turboActive)
     {
-        EnergyMeter.Energy = energy;
+        EnergyMeter.Energy = StateValues.Energy;
+        EnergyMeter.MaxEnergy = StateValues.MaxEnergy;
         EnergyMeter.TurboActive = turboActive;
     }
 

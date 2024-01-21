@@ -44,6 +44,12 @@ public class EditorFineTunePage : EditorPageManager
         get { return _songManager.GetSongPosition(); }
     }
 
+    public int ScrollSpeed
+    {
+        get { return Parent.CoreManager.Settings.EditorScrollSpeed; }
+        set { Parent.CoreManager.Settings.EditorScrollSpeed = value; }
+    }
+
     public bool AutoAdjustOffsetEnabled
     {
         get { return ChkAutoAdjustOffset.isOn; }
@@ -51,7 +57,6 @@ public class EditorFineTunePage : EditorPageManager
     }
 
     private SongManager _songManager;
-
 
     public Action OnTuneComplete { get; set; }
 
@@ -90,21 +95,20 @@ public class EditorFineTunePage : EditorPageManager
     {
         var endBeat = (int)Parent.CurrentSong.LengthInBeats;
         NoteManager.ClearNotes();
-        NoteGenerator.GenerateTestNotes(endBeat, ref NoteManager.Notes);
-        NoteManager.AttachNotes();
+        NoteManager.ScrollSpeed = this.ScrollSpeed;
+        var notes = NoteGenerator.GenerateTestNotes(endBeat);
+        NoteManager.AttachNotes(notes);
         NoteManager.ApplyNoteSkin("Default", "None");
 
         NoteGenerator.GenerateBeatLines(Parent.CurrentSong, NoteManager);
-
-        NoteManager.CalculateAbsoluteTimes(_songManager.CurrentSong.Bpm);
-        NoteManager.ScrollSpeed = this.Player.ScrollSpeed;
+        NoteManager.CalculateAbsoluteTimes(Parent.CurrentSong.Bpm);
     }
 
     private void DisplaySong(SongData song)
     {
         TxtCurrentBpm.text = string.Format(CultureInfo.InvariantCulture, "{0:F1}", song.Bpm);
         TxtCurrentOffset.text = string.Format(CultureInfo.InvariantCulture, "{0:F3}", song.Offset);
-        TxtCurrentScrollSpeed.text = string.Format(CultureInfo.InvariantCulture, "{0:F0}", this.Player.ScrollSpeed);
+        TxtCurrentScrollSpeed.text = string.Format(CultureInfo.InvariantCulture, "{0:F0}", this.ScrollSpeed);
     }
 
     private float? RollingAverage(int count)
@@ -285,10 +289,8 @@ public class EditorFineTunePage : EditorPageManager
     }
     public void AdjustScrollSpeed(int amount)
     {
-        var newValue = this.Player.ScrollSpeed + amount;
-        newValue = Math.Max(200, newValue);
-        newValue = Math.Min(2000, newValue);
-        this.Player.ScrollSpeed = newValue;
+        var newValue = Math.Clamp(this.ScrollSpeed + amount, 200, 2000);
+        this.ScrollSpeed = newValue;
         NoteManager.ScrollSpeed = newValue;
         DisplaySong(Parent.CurrentSong);
     }
@@ -307,6 +309,8 @@ public class EditorFineTunePage : EditorPageManager
     public void BtnDone_OnClick()
     {
         _songManager.StopSong();
+        // Save the current scroll speed.
+        Parent.CoreManager.Settings.Save();
         OnTuneComplete?.Invoke();
     }
 

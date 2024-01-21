@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour
     private RectTransform _itemsContainerRectTransform;
 
     [Header("Sounds")]
-    public SoundEventHandler SoundEventHandler;
+    public MenuSoundEventHandler SoundEventHandler;
 
     [Header("Behaviour")]
     public bool WrapSelection;
@@ -121,7 +121,12 @@ public class Menu : MonoBehaviour
 
     void Awake()
     {
-        Helpers.AutoAssign(ref SoundEventHandler);
+        // If this menu doesn't have a MenuSoundEventHandler set, use the global one found in CoreManager. Note that SoundEventHandler extends MenuSoundEventHandler.
+        if (SoundEventHandler == null)
+        {
+            SoundEventHandler = FindObjectOfType<SoundEventHandler>();
+        }
+
         _menuItems.Clear();
 
         foreach (var item in MenuItemsContainer.GetChildren())

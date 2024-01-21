@@ -4,14 +4,15 @@ using System.Linq;
 public class PlayerJoinManager : ScreenManager
 {
     public PlayerJoinFrame[] PlayerJoinFrames = new PlayerJoinFrame[4];
+    public OnlinePlayerList OnlinePlayerList;
 
-    public const int MAX_ALLOWED_PLAYERS = 4;
-    public int ReadyPlayerCount
+    public int MaxAllowedPlayers = 4;
+    public virtual int ReadyPlayerCount
     {
         get { return PlayerJoinFrames.Count(e => e.State == PlayerJoinState.Ready); }
     }
 
-    public int JoinedPlayerCount
+    public virtual int JoinedPlayerCount
     {
         get
         {
@@ -26,6 +27,9 @@ public class PlayerJoinManager : ScreenManager
             return;
         }
 
+        MaxAllowedPlayers = CoreManager.IsNetGame ? 2 : 4;
+        OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
+
         foreach (var frame in PlayerJoinFrames)
         {
             frame.PlayerLeft += HandlePlayerLeft;
@@ -39,14 +43,37 @@ public class PlayerJoinManager : ScreenManager
         if (player.Slot > 1)
         {
             manager.RemovePlayer(player.Slot);
-            manager.AllowPlayerJoining = CoreManager.PlayerManager.GetLocalPlayers().Count < MAX_ALLOWED_PLAYERS;
+            manager.AllowPlayerJoining = CoreManager.PlayerManager.GetLocalPlayers().Count < MaxAllowedPlayers;
+            RefreshPlayerList();
+
+            if (CoreManager.IsNetGame)
+            {
+                CoreManager.ServerNetApi.RemoveNetPlayerServerRpc(player.Slot);
+            }
         }
         else
         {
-            manager.SetPlayerCount(1);
-            manager.AllowPlayerJoining = false;
-            SceneTransition(GameScene.MainMenu);
+            ReturnToMainMenu();
         }
+    }
+
+    private void ReturnToMainMenu()
+    {
+        CoreManager.PlayerManager.SetPlayerCount(1);
+        CoreManager.PlayerManager.AllowPlayerJoining = false;
+
+        if (CoreManager.IsNetGame && CoreManager.IsHost)
+        {
+            CoreManager.ServerNetApi.ShutdownNetGameServerRpc();
+            return;
+        }
+
+        if (CoreManager.IsNetGame)
+        {
+            CoreManager.ServerNetApi.RemoveNetPlayerServerRpc();
+        }
+
+        SceneTransition(GameScene.MainMenu);
     }
 
     // Start is called before the first frame update
@@ -58,11 +85,18 @@ public class PlayerJoinManager : ScreenManager
 
     private void SetupInitialFrameStates()
     {
-        var players = CoreManager.PlayerManager.Players;
-        for (int x = 1; x < 5; x++)
+        foreach (var frame in PlayerJoinFrames)
         {
-            var player = players.SingleOrDefault(e => e.Slot == x);
+            frame.gameObject.SetActive(false);
+        }
+
+        var players = CoreManager.PlayerManager.Players;
+        for (int x = 1; x <= MaxAllowedPlayers; x++)
+        {
+
+            var player = players.SingleOrDefault(e => e.Slot == x && e.IsLocalPlayer);
             var frame = PlayerJoinFrames[x - 1];
+            frame.gameObject.SetActive(true);
 
             if (CoreManager.Settings.EnableMomentumOption)
             {
@@ -88,7 +122,11 @@ public class PlayerJoinManager : ScreenManager
     public override void OnPlayerInput(InputEvent inputEvent)
     {
         PlayerJoinFrames[inputEvent.Player - 1].HandleInput(inputEvent);
+        TryToStart();
+    }
 
+    private void TryToStart()
+    {
         if (ReadyPlayerCount > 0 && JoinedPlayerCount == ReadyPlayerCount)
         {
             CoreManager.PlayerManager.AllowPlayerJoining = false;
@@ -100,10 +138,29 @@ public class PlayerJoinManager : ScreenManager
 
     public override void OnPlayerJoined(Player player)
     {
+        player.NetId = CoreManager.NetId;
         player.AutoSetLabelSkin();
         var frame = PlayerJoinFrames[player.Slot - 1];
         AssignFrameToPlayer(frame, player, true);
-        CoreManager.PlayerManager.AllowPlayerJoining = CoreManager.PlayerManager.GetLocalPlayers().Count < MAX_ALLOWED_PLAYERS;
+        CoreManager.PlayerManager.AllowPlayerJoining = CoreManager.PlayerManager.GetLocalPlayers().Count < MaxAllowedPlayers;
+
+        SendNetPlayerUpdate(player);
+        RefreshPlayerList();
     }
 
+    public override void OnNetPlayerListUpdated()
+    {
+        OnlinePlayerList.RefreshAll();
+    }
+
+    public override void OnNetPlayerUpdated(Player player)
+    {
+        OnlinePlayerList.Refresh(player);
+
+    }
+
+    public void RefreshPlayerList()
+    {
+        OnlinePlayerList.RefreshAll();
+    }
 }

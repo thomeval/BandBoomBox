@@ -6,6 +6,7 @@ public enum SoundEvent
     SelectionConfirmed,
     SelectionCancelled,
     SelectionShifted,
+
     Editor_NotePlaced,
     Editor_NoteRemoved,
     Editor_SaveComplete,

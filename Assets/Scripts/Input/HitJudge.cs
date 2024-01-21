@@ -63,7 +63,7 @@ public class HitJudge
         {Difficulty.Medium, 0.9f},
         {Difficulty.Hard, 1.0f},
         {Difficulty.Expert, 1.05f},
-        {Difficulty.Nerf, 1.1f},
+        {Difficulty.Nerf, 1.05f},
         {Difficulty.Extra, 1.0f}
     };
 
@@ -130,11 +130,11 @@ public class HitJudge
 
         result.Lane = lane;
         result.PerfPoints = JudgePerfPointValues[judgeResult];
-        result.ScorePoints = (int) (JudgeScoreValues[judgeResult] *  value);
+        result.ScorePoints = (int)(JudgeScoreValues[judgeResult] * value);
         result.MxPoints = JudgeMxValues[judgeResult] * DifficultyMxValues[difficulty];
         result.Deviation = deviation;
 
-        result.Player = player;
+        result.PlayerSlot = player;
         return result;
 
     }
@@ -148,7 +148,7 @@ public class HitJudge
             PerfPoints = JudgePerfPointValues[JudgeResult.Miss],
             ScorePoints = JudgeScoreValues[JudgeResult.Miss],
             MxPoints = JudgeMxValues[JudgeResult.Miss] * DifficultyMissMxValues[difficulty],
-            Player = player,
+            PlayerSlot = player,
             Lane = lane
         };
         return result;
@@ -163,17 +163,17 @@ public class HitJudge
             PerfPoints = JudgePerfPointValues[JudgeResult.Wrong],
             ScorePoints = JudgeScoreValues[JudgeResult.Wrong],
             MxPoints = JudgeMxValues[JudgeResult.Wrong] * DifficultyMxValues[difficulty],
-            Player = player,
+            PlayerSlot = player,
             Lane = lane
         };
         return result;
     }
 
-    private static readonly JudgeResult[] _comboBreakResults = {JudgeResult.Miss, JudgeResult.Wrong, JudgeResult.Bad};
-    private static readonly JudgeResult[] _comboAddResults = {JudgeResult.Crit, JudgeResult.Perfect, JudgeResult.Cool, JudgeResult.Ok};
+    private static readonly JudgeResult[] _comboBreakResults = { JudgeResult.Miss, JudgeResult.Wrong, JudgeResult.Bad };
+    private static readonly JudgeResult[] _comboAddResults = { JudgeResult.Crit, JudgeResult.Perfect, JudgeResult.Cool, JudgeResult.Ok };
     public static bool? IsComboBreak(JudgeResult result)
     {
-       
+
         if (_comboAddResults.Contains(result))
         {
             return false;

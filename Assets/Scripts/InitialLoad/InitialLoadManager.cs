@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using Assets.Scripts.Misc;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 public class InitialLoadManager : ScreenManager
@@ -15,6 +11,7 @@ public class InitialLoadManager : ScreenManager
     {
         FindCoreManager();
     }
+
     // Start is called before the first frame update
     void Start()
     {

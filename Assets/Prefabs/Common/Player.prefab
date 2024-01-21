@@ -47,24 +47,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HudManager: {fileID: 0}
+  PlayerState: 0
+  _netId: 255
   _perfPoints: 0
   _maxPerfPoints: 0
-  _scrollSpeed: 500
+  <IsLocalPlayer>k__BackingField: 1
   Slot: 1
   _combo: 0
   _maxCombo: 0
-  Name: Guest
   _ranking: 0
   _difficulty: 0
-  Exp: 0
   _turboActive: 0
-  _profileId: 
-  _mistakeSfxEnabled: 0
-  TimingDisplayType: 2
   NoteSkin: Default
   LabelSkin: None
-  _beatLineType: 1
-  SongsPlayed: 0
   ChartGroup: Main
 --- !u!114 &7961288735448498592
 MonoBehaviour:
@@ -78,6 +73,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487345c30a5e65c4ab7eaed965799996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ModifierShift: 0
+  ModifierCtrl: 0
+  ModifierAlt: 0
+  RumblePower: 0.4
+  RumbleDuration: 0.05
 --- !u!114 &7961288735448498593
 MonoBehaviour:
   m_ObjectHideFlags: 0

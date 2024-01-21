@@ -134,6 +134,11 @@ MonoBehaviour:
       m_Sprite: {fileID: 7435056001726443560, guid: 342c47b8a9b980e409ae82e424fde26b, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 7435056001726443560, guid: 342c47b8a9b980e409ae82e424fde26b, type: 3}
+    - m_Name: Squad
+      m_Hash: 236048611
+      m_Sprite: {fileID: 1619041453, guid: 342c47b8a9b980e409ae82e424fde26b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1619041453, guid: 342c47b8a9b980e409ae82e424fde26b, type: 3}
     - m_Name: Crowd
       m_Hash: 1903000574
       m_Sprite: {fileID: 1330067746170455961, guid: 342c47b8a9b980e409ae82e424fde26b, type: 3}
@@ -145,7 +150,7 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -3552216463021569340, guid: 342c47b8a9b980e409ae82e424fde26b, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 4
+    m_EntryOverrideCount: 5
   - m_Name: Stars
     m_Hash: -1059262680
     m_CategoryList: []

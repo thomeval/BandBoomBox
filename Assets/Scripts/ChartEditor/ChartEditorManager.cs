@@ -184,7 +184,9 @@ public class ChartEditorManager : ScreenManager
         CurrentChart = Helpers.TryGetArg<SongChart>(args, "SelectedSongChart") ?? CurrentSongData.GetChart("Main", Difficulty.Hard);
         TxtChartDifficulty.text = CurrentChart.Difficulty.GetDisplayName();
         NoteGenerator.GenerateBeatLines(CurrentSongData, this.NoteManager);
-        NoteGenerator.LoadSongNotes(CurrentChart, this.NoteManager);
+        var temp = NoteGenerator.LoadSongNotes(CurrentChart);
+        var notes = NoteGenerator.InstantiateNotes(temp);
+        NoteManager.AttachNotes(notes);
         NoteManager.CalculateAbsoluteTimes(CurrentSongData.Bpm);
         ShowNotePalette();
         ApplyNoteSkin();
@@ -491,5 +493,10 @@ public class ChartEditorManager : ScreenManager
     public void ForceCursorPosition(double position)
     {
         _cursorPosition = position;
+    }
+
+    public void ResolveHoldsWithReleases()
+    {
+        this.NoteGenerator.ResolveHoldsWithReleases(NoteManager.Notes);
     }
 }

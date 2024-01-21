@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +17,9 @@ public class Player : MonoBehaviour
     public PlayerHudManager HudManager;
     private InputManager _inputManager;
 
-    public ProfileData ProfileData = new();
+    public PlayerState PlayerState;
+
+    public ProfileData ProfileData = new() { Name = "Guest" };
 
     void Awake()
     {
@@ -30,6 +33,31 @@ public class Player : MonoBehaviour
     }
 
     #region Properties
+
+    [SerializeField]
+    private ulong _netId;
+    public ulong NetId
+    {
+        get { return _netId; }
+        set
+        {
+            _netId = value;
+        }
+    }
+
+    public string DisplayNetId
+    {
+        get
+        {
+            if (NetId == PlayerManager.DEFAULT_NET_ID)
+            {
+                return "-";
+            }
+
+            var result = (int)'A' + (int)NetId;
+            return "" + (char)result;
+        }
+    }
 
     [SerializeField]
     private int _perfPoints;
@@ -62,7 +90,22 @@ public class Player : MonoBehaviour
         return (int)result;
     }
 
+    [field: SerializeField]
+    public bool IsLocalPlayer { get; set; }
+
     public int Slot;
+
+    public int LocalSlot
+    {
+        get
+        {
+            if (!IsLocalPlayer)
+            {
+                return 0;
+            }
+            return Slot;
+        }
+    }
 
     [SerializeField]
     private int _combo;
@@ -433,7 +476,7 @@ public class Player : MonoBehaviour
 
     public string GetPlayerIdSprite()
     {
-        return Slot > 0 ? "P" + Slot : "None";
+        return LocalSlot > 0 ? "P" + Slot : "None";
     }
 
     public void ApplyExpGain(float modifier)
@@ -545,11 +588,6 @@ public class Player : MonoBehaviour
         return FullComboType.None;
     }
 
-    public void TriggerRumbleForCritHit()
-    {
-        _inputManager.TriggerRumble(0.25f, 0.4f);
-    }
-
     public void TriggerRumbleForTitleStart()
     {
         _inputManager.TriggerRumble(0.5f, 0.5f);
@@ -559,4 +597,5 @@ public class Player : MonoBehaviour
     {
         _inputManager.TriggerRumble(0.65f, 0.2f);
     }
+
 }

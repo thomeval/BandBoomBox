@@ -20,7 +20,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
 
     public Grade?[] Goals = { null, Grade.D, Grade.DPlus, Grade.C, Grade.CPlus, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus };
     public int[] MomentumAmounts = { 0, 25, 50, 100, 150, 200 };
-
+    NoteType[] _noteTypesInPreview = { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Down, NoteType.Right, NoteType.Left, NoteType.Up };
     public List<Note> NotePreviews;
 
     void OnEnable()
@@ -76,12 +76,16 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         switch (args.SelectedItem)
         {
             case "Ready":
+                Parent.Player.PlayerState = PlayerState.PlayerJoin_Ready;
                 Parent.State = PlayerJoinState.Ready;
+                Parent.SendNetUpdate();
                 break;
             case "Select Profile":
                 Parent.ProfileSelectFrame.PopulateProfileList();
                 Parent.ProfileSelectFrame.Refresh();
+                Parent.Player.PlayerState = PlayerState.PlayerJoin_SelectProfile;
                 Parent.State = PlayerJoinState.ProfileSelect;
+                Parent.SendNetUpdate();
                 break;
             case "Leave":
                 Parent.State = PlayerJoinState.NotJoined;
@@ -102,7 +106,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
 
         TxtScrollSpeed.text = "" + player.ScrollSpeed;
         TxtLabelSkin.text = player.LabelSkin;
-        // UpdateNotePreviews();
+        UpdateNotePreviews();
         TxtTimingDisplay.text = player.TimingDisplayType.ToString();
 
         UpdateGoalText(player);
@@ -140,9 +144,12 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
             return;
         }
 
+        int x = 0;
         foreach (var note in NotePreviews)
         {
+            note.NoteBase.NoteType = _noteTypesInPreview[x];
             note.SetSpriteCategories(Parent.Player.NoteSkin, Parent.Player.LabelSkin);
+            x++;
         }
     }
 

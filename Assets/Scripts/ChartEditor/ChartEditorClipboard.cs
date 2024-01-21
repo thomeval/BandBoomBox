@@ -5,23 +5,14 @@ using UnityEngine;
 public class ChartEditorClipboard : MonoBehaviour
 {
 
-    public GameObject ItemsContainer;
     public double ClipboardRegionSize;
-
+    public List<NoteBase> ClipboardNotes = new();
     private ChartEditorManager _parent;
 
     private readonly InputAction[] _inputsToHandle =
     {
         InputAction.Editor_Cut, InputAction.Editor_Copy, InputAction.Editor_Paste, InputAction.Editor_PasteInverted
     };
-
-    public Note[] Items
-    {
-        get
-        {
-            return ItemsContainer.GetComponentsInChildren<Note>();
-        }
-    }
 
     private bool EnsureValidRegion()
     {
@@ -38,11 +29,9 @@ public class ChartEditorClipboard : MonoBehaviour
     {
         foreach (var note in notes)
         {
-            //note.EndNote = null;
-
-            var newObj = Instantiate(note);
-            newObj.transform.parent = ItemsContainer.transform;
-            newObj.Position -= positionOffset;
+            var baseNote = note.NoteBase.Clone();
+            baseNote.Position -= positionOffset;
+            ClipboardNotes.Add(baseNote);
         }
     }
 
@@ -64,14 +53,14 @@ public class ChartEditorClipboard : MonoBehaviour
         ClipboardRegionSize = regionEnd - regionStart;
 
         var notes = _parent.NoteManager.GetNotesInRegion(regionStart, regionEnd).OrderBy(e => e.Position).ToList();
-        AddToClipboard(notes, (float) regionStart);
+        AddToClipboard(notes, (float)regionStart);
         _parent.DisplayMessage($"Copied {notes.Count} notes.");
         _parent.PlaySfx(SoundEvent.Editor_Copy);
     }
 
     public void Paste(double position, bool invert)
     {
-        if (!Items.Any())
+        if (!ClipboardNotes.Any())
         {
             _parent.DisplayMistake("Nothing to paste.");
             return;
@@ -80,7 +69,7 @@ public class ChartEditorClipboard : MonoBehaviour
         _parent.NoteTransformer.ClearRegion(position, position + ClipboardRegionSize);
 
         var notesPasted = 0;
-        foreach (var note in Items)
+        foreach (var note in ClipboardNotes)
         {
             var destPosition = note.Position + position;
 
@@ -90,13 +79,15 @@ public class ChartEditorClipboard : MonoBehaviour
             }
 
             var noteType = invert ? _parent.NoteTransformer.Invert(note.NoteType) : note.NoteType;
-            var newNote = _parent.NoteGenerator.InstantiateNote((float) destPosition, noteType, note.NoteClass, ref  _parent.NoteManager.Notes);
+            var newNote = _parent.NoteGenerator.InstantiateNote((float)destPosition, noteType, note.NoteClass);
 
             newNote.name = newNote.Description + " (Pasted)";
 
             _parent.NoteManager.AttachNote(newNote);
             notesPasted++;
         }
+
+        _parent.ResolveHoldsWithReleases();
         _parent.NoteManager.CalculateAbsoluteTimes(_parent.CurrentSongData.Bpm);
 
         var invertStr = invert ? "(inverted)" : "";
@@ -106,10 +97,7 @@ public class ChartEditorClipboard : MonoBehaviour
 
     public void Clear()
     {
-        foreach (var note in ItemsContainer.GetChildren())
-        {
-            Destroy(note);
-        }
+        ClipboardNotes.Clear();
     }
 
     void Awake()
@@ -149,7 +137,7 @@ public class ChartEditorClipboard : MonoBehaviour
                 Paste(_parent.CursorPosition, false);
                 break;
             case InputAction.Editor_PasteInverted:
-                Paste(_parent.CursorPosition,true);
+                Paste(_parent.CursorPosition, true);
                 break;
         }
     }
