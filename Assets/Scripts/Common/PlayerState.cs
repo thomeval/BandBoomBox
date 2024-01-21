@@ -12,6 +12,8 @@ public enum PlayerState
     PlayerJoin_Ready,
     DifficultySelect_Selecting,
     DifficultySelect_Ready,
+    DifficultySelect_ConfirmNerf,
+    DifficultySelect_ConfirmDisconnect,
     Evaluation_NotReady,
     Evaluation_Ready
 }

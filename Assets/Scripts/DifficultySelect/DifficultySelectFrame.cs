@@ -7,31 +7,18 @@ public class DifficultySelectFrame : MonoBehaviour
 {
     [Header("Basics")]
 
-    [SerializeField]
-    private DifficultySelectState _state = DifficultySelectState.NotJoined;
-
-    public DifficultySelectState State
-    {
-        get { return _state; }
-        set
-        {
-            _state = value;
-            UpdateShownPage();
-
-        }
-    }
-
     public Text TxtScrollSpeed;
     public Text TxtPlayerName;
     public ExpMeter ExpMeter;
     public Menu DifficultyMenu;
+    public Menu ConfirmNerfMenu;
+    public Menu ConfirmDisconnectMenu;
     public GameObject DifficultyMenuItemPrefab;
     public PlayerHighScoreDisplay PlayerHighScoreDisplay;
     public DifficultySelectManager Parent;
 
     [Header("Pages")]
-    public GameObject PageSelecting;
-    public GameObject PageReady;
+    public FramePageForPlayerState[] Pages = new FramePageForPlayerState[0];
 
     [Header("Chart Groups")]
     public GameObject ChartGroupSelector;
@@ -49,10 +36,23 @@ public class DifficultySelectFrame : MonoBehaviour
         }
     }
 
+    public PlayerState State
+    {
+        get { return Player.PlayerState; }
+        set
+        {
+            Player.PlayerState = value;
+            UpdateShownPage();
+        }
+    }
+
     private void UpdateShownPage()
     {
-        PageSelecting.SetActive(State == DifficultySelectState.Selecting);
-        PageReady.SetActive(State == DifficultySelectState.Ready);
+        foreach (var page in Pages)
+        {
+            page.gameObject.SetActive(page.PlayerState == State);
+        }
+
     }
 
     [Header("Sounds")]
@@ -135,12 +135,38 @@ public class DifficultySelectFrame : MonoBehaviour
 
     public void HandleInput(InputEvent inputEvent)
     {
-        if (this.State == DifficultySelectState.Ready)
+        switch (this.Player.PlayerState)
         {
-            HandleInputReadyState(inputEvent);
-            return;
+            case PlayerState.DifficultySelect_Ready:
+                HandleInputReadyState(inputEvent);
+                return;
+            case PlayerState.DifficultySelect_Selecting:
+                HandleInputSelectingState(inputEvent);
+                return;
+            case PlayerState.DifficultySelect_ConfirmDisconnect:
+                HandleInputConfirmDisconnectState(inputEvent);
+                return;
+            case PlayerState.DifficultySelect_ConfirmNerf:
+                HandleInputConfirmNerfState(inputEvent);
+                return;
         }
 
+    }
+
+    private void HandleInputReadyState(InputEvent inputEvent)
+    {
+        switch (inputEvent.Action)
+        {
+            case InputAction.B:
+            case InputAction.Back:
+                //  SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
+                DifficultyMenu.HandleInput(inputEvent);
+                break;
+        }
+    }
+
+    private void HandleInputSelectingState(InputEvent inputEvent)
+    {
         switch (inputEvent.Action)
         {
             case InputAction.Left:
@@ -162,16 +188,14 @@ public class DifficultySelectFrame : MonoBehaviour
         }
     }
 
-    private void HandleInputReadyState(InputEvent inputEvent)
+    private void HandleInputConfirmDisconnectState(InputEvent inputEvent)
     {
-        switch (inputEvent.Action)
-        {
-            case InputAction.B:
-            case InputAction.Back:
-                SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
-                DifficultyMenu.HandleInput(inputEvent);
-                break;
-        }
+        ConfirmDisconnectMenu.HandleInput(inputEvent);
+    }
+
+    private void HandleInputConfirmNerfState(InputEvent inputEvent)
+    {
+        ConfirmNerfMenu.HandleInput(inputEvent);
     }
 
     public PlayerScore GetHighScore(Difficulty diff)

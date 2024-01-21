@@ -167,7 +167,7 @@ public class NoteGenerator : MonoBehaviour
         return note;
     }
 
-    private void ResolveHoldsWithReleases(List<Note> notes)
+    public void ResolveHoldsWithReleases(List<Note> notes)
     {
         for (int x = 0; x < LINE_SIZE; x++)
         {
@@ -293,6 +293,7 @@ public class NoteGenerator : MonoBehaviour
             result.Add(InstantiateNote(noteBase));
         }
 
+        ResolveHoldsWithReleases(result);
         return result;
     }
 

@@ -13,6 +13,7 @@ public class ProfileData
     public int SongsPlayed { get; set; }
     public bool MistakeSfxEnabled { get; set; } = true;
     public bool RumbleEnabled { get; set; } = true;
+    public bool SeenNerfWarning { get; set; } = false;
 
     public List<PlayerScore> PlayerScores { get; set; } = new();
     public int Momentum { get; set; }

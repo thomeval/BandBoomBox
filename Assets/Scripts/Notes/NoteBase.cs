@@ -1,3 +1,5 @@
+using System;
+
 public class NoteBase
 {
     public float Position;
@@ -9,6 +11,12 @@ public class NoteBase
     public float MxValue = 0;
 
     public string Description => $"{this.NoteClass}-{this.NoteType}";
+
+    public NoteBase Clone()
+    {
+        return (NoteBase)this.MemberwiseClone();
+    }
+
     public override string ToString()
     {
         return Description;

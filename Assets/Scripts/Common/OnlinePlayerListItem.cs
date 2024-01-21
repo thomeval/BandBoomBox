@@ -62,6 +62,8 @@ public class OnlinePlayerListItem : MonoBehaviour
             case PlayerState.PlayerJoin_Ready:
                 return "Waiting For Partner";
             case PlayerState.DifficultySelect_Selecting:
+            case PlayerState.DifficultySelect_ConfirmDisconnect:
+            case PlayerState.DifficultySelect_ConfirmNerf:
                 return "Selecting Difficulty";
             case PlayerState.DifficultySelect_Ready:
                 return "Difficulty Selected";

@@ -1,8 +1,6 @@
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -15,10 +13,10 @@ public class SongStarValueCalculator : MonoBehaviour
     {
         //                                1     2    3     4     5     6     7     8     9     10
         {TeamScoreCategory.Solo, new[]   {0.05, 0.2, 0.35, 0.55, 0.75, 1.00}},
-        {TeamScoreCategory.Duet, new[]   {0.05, 0.2, 0.35, 0.55, 0.70, 0.90, 1.10}},
-        {TeamScoreCategory.Squad, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.05, 1.25}},
-        {TeamScoreCategory.Crowd, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.05, 1.25, 1.45}},
-        {TeamScoreCategory.Legion, new[] {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.05, 1.25, 1.45, 1.65}}
+        {TeamScoreCategory.Duet, new[]   {0.05, 0.2, 0.35, 0.55, 0.70, 0.90, 1.05}},
+        {TeamScoreCategory.Squad, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.00, 1.15}},
+        {TeamScoreCategory.Crowd, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.00, 1.15, 1.30}},
+        {TeamScoreCategory.Legion, new[] {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.00, 1.15, 1.30, 1.50}}
     };
 
     public int NoteBaseValue = 50;

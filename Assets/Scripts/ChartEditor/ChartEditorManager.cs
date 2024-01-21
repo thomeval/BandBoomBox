@@ -494,4 +494,9 @@ public class ChartEditorManager : ScreenManager
     {
         _cursorPosition = position;
     }
+
+    public void ResolveHoldsWithReleases()
+    {
+        this.NoteGenerator.ResolveHoldsWithReleases(NoteManager.Notes);
+    }
 }
