@@ -10,13 +10,14 @@ Band BoomBox is a free, open source rhythm game built using the Unity engine. Th
 - Playable on Windows, or Linux (including Steam Deck)
 - Support for playing with either a controller or a keyboard
 - Local multiplayer for up to 4 players
+- Experimental LAN (network) multiplayer for 8+ players
 - Full support for custom songs, complete with a built in editor
   
 ## Recommended System Requirements
 - OS: Windows 10 or later, OR Ubuntu Linux 22.04 or later, OR SteamOS 3.4 or later
   - Note: There are likely many other Linux distros that can run Band BoomBox without issue. Feel free to experiment, but those are not officially supported.
 - CPU: Intel Core i5 6600K
-- RAM: 8GB (Mainly for the OS itself, not the game. Band BoomBox actively uses around 512 of RAM)
+- RAM: 8GB (Mainly for the OS itself, not the game. Band BoomBox actively uses around 512 MB of RAM)
 - GPU: Nvidia GeForce GTX 960
   - Note: Many newer integrated GPUs will be able to run Band BoomBox with decent performance, but having a discrete one is recommended for higher resolutions and frame rates.
 - HDD: At least 500 MB of free space
