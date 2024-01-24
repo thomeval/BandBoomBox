@@ -18,6 +18,11 @@ public static class GameplayMultiplierUtils
     public const double MX_MINIMUM = 0.1;
 
     /// <summary>
+    /// Controls the maximum possible score multiplier.
+    /// </summary>
+    public const double MX_MAXIMUM = 99.0;
+
+    /// <summary>
     /// Calculates an updated score multiplier by taking the current score multiplier and time elapsed as inputs,
     /// and applying a decay function. No effect if the current multiplier is below or at 1.0x
     /// </summary>

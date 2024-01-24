@@ -53,9 +53,22 @@ public class SoundEventHandler : MenuSoundEventHandler
 
     public void PlayStarAttainedSfx(int starCount)
     {
+        if (starCount <= 0)
+        {
+            return;
+        }
+
         var id = 0;
 
-        if (starCount >= 7)
+        if (starCount >= 9)
+        {
+            id = 6;
+        }
+        else if (starCount >= 8)
+        {
+            id = 5;
+        }
+        else if (starCount >= 7)
         {
             id = 4;
         }

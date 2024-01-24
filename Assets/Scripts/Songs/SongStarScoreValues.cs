@@ -22,6 +22,10 @@ public class SongStarScoreValues
 
     public double GetStarFraction(long score)
     {
+        if (score == 0)
+        {
+            return 0.0;
+        }
 
         double result = 0.0;
         int star = 0;

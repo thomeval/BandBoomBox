@@ -1,7 +1,4 @@
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -13,7 +10,8 @@ public class GameplayStateHelper : MonoBehaviour
     private PlayerManager _playerManager;
     private HudManager _hudManager;
 
-    private readonly float[] _turboMxGainRates = { 0.0f, 1.0f, 2.5f, 4.25f, 6.0f, 8.0f, 10.0f, 12.0f, 14.0f, 16.0f };
+    private readonly float[] _turboMxGainRates = { 0.0f,  1.0f,  2.5f,  4.25f, 6.0f,  8.0f,  10.0f, 12.0f, 14.0f,
+                                                   16.0f, 18.0f, 20.0f, 22.0f, 24.0f, 26.0f, 28.0f, 30.0f, 32.0f  };
 
     /// <summary>
     /// Controls the amount of combo required to gain a bonus to the momentum gain rate.
@@ -163,6 +161,7 @@ public class GameplayStateHelper : MonoBehaviour
         StateValues.Score += hitResult.ScorePoints;
         StateValues.Multiplier += hitResult.MxPoints * appliedMxGainRate;
         StateValues.Multiplier = Math.Max(GameplayMultiplierUtils.MX_MINIMUM, StateValues.Multiplier);
+        StateValues.Multiplier = Math.Min(GameplayMultiplierUtils.MX_MAXIMUM, StateValues.Multiplier);
         StateValues.MaxMultiplier = Math.Max(StateValues.Multiplier, StateValues.MaxMultiplier);
         StateValues.Stars = ParentManager.SongStarScoreValues.GetStarFraction(StateValues.Score);
         if (hitResult.JudgeResult <= JudgeResult.Perfect)
