@@ -453,6 +453,12 @@ public class NoteManager : MonoBehaviour
         return result;
     }
 
+    public Note FindNoteAfter(float position, int lane)
+    {
+        var result = Notes.FirstOrDefault(e => e.Position > position && e.Lane == lane);
+        return result;
+    }
+
     public Note FindNearestRelease(int lane, bool enforceCutoffs = true)
     {
         var result = Notes.OrderBy(e => e.DistanceTo(SongPosition))
@@ -671,4 +677,6 @@ public class NoteManager : MonoBehaviour
         NoteUtils.CalculateAbsoluteTimes(this.SelectedRegionMarker, bpm);
         SetRenderPosition(this.SelectedRegionMarker);
     }
+
+
 }

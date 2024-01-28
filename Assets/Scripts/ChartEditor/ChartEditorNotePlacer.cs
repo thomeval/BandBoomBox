@@ -108,6 +108,15 @@ public class ChartEditorNotePlacer : MonoBehaviour
     {
         if (noteClass == NoteClass.Release)
         {
+            var lane = NoteUtils.GetNoteLane(noteType);
+            var existingRelease = FindReleaseNearPosition(position, lane);
+
+            if (existingRelease != null)
+            {
+                MoveExistingReleaseNote(existingRelease, position);
+                return;
+            }
+
             PlaceNewReleaseNote(noteType, position);
             return;
         }
@@ -116,6 +125,31 @@ public class ChartEditorNotePlacer : MonoBehaviour
             PlaceNewNoteCommon(noteType, NoteClass.Tap, position);
             AutoStep();
         }
+    }
+
+    private Note FindReleaseNearPosition(float position, int lane)
+    {
+        var result = _noteManager.FindNoteBefore(position, lane);
+
+        if (result != null && result.NoteClass == NoteClass.Release)
+        {
+            return result;
+        }
+
+        result = _noteManager.FindNoteAfter(position, lane);
+        if (result != null && result.NoteClass == NoteClass.Release)
+        {
+            return result;
+        }
+
+        return null;
+    }
+
+    private void MoveExistingReleaseNote(Note releaseNote, float position)
+    {
+        releaseNote.Position = position;
+        _noteManager.CalculateAbsoluteTimes(_parent.CurrentSongData.Bpm);
+        _parent.PlaySfx(SoundEvent.Editor_NotePlaced);
     }
 
     private void AutoStep()
