@@ -335,9 +335,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2013164245}
   - {fileID: 1257039414}
   - {fileID: 803872432}
+  - {fileID: 2013164245}
   - {fileID: 189828574}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -1873,7 +1873,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 186211380}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &803872433
 SpriteRenderer:
@@ -2966,7 +2966,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 186211380}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1257039415
 SpriteRenderer:
@@ -5954,6 +5954,10 @@ PrefabInstance:
     - target: {fileID: 8679955645443368009, guid: 54825131424afb0458e542290b1f40f0, type: 3}
       propertyPath: m_Library.Array.data[0].m_CategoryList.Array.data[1].m_Sprite
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9153773654004781017, guid: 54825131424afb0458e542290b1f40f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54825131424afb0458e542290b1f40f0, type: 3}

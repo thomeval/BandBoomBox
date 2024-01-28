@@ -215,13 +215,13 @@ public class CoreManager : MonoBehaviour
         ActiveMainManager.OnNetPlayerScoreUpdated(player);
     }
 
-    public void OnNetPlayerListUpdated()
+    public void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)
     {
         if (!IsNetGame)
         {
             return;
         }
-        ActiveMainManager.OnNetPlayerListUpdated();
+        ActiveMainManager.OnNetPlayerListUpdated(playerJoined, playerLeft);
     }
 
     public void SaveAllActiveProfiles()

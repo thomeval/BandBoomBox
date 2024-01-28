@@ -261,9 +261,9 @@ public class SongSelectManager : ScreenManager
         return teamScore;
     }
 
-    public override void OnNetPlayerListUpdated()
+    public override void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)
     {
-        base.OnNetPlayerListUpdated();
+        base.OnNetPlayerListUpdated(playerJoined, playerLeft);
         OnlinePlayerList.Refresh();
     }
 

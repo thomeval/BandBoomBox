@@ -148,8 +148,9 @@ public class PlayerJoinManager : ScreenManager
         RefreshPlayerList();
     }
 
-    public override void OnNetPlayerListUpdated()
+    public override void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)
     {
+        base.OnNetPlayerListUpdated(playerJoined, playerLeft);
         OnlinePlayerList.RefreshAll();
     }
 

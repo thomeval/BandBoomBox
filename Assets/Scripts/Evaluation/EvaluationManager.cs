@@ -174,9 +174,9 @@ public class EvaluationManager : ScreenManager
         OnlinePlayerList.RefreshAll();
     }
 
-    public override void OnNetPlayerListUpdated()
+    public override void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)
     {
-        base.OnNetPlayerListUpdated();
+        base.OnNetPlayerListUpdated(playerJoined, playerLeft);
         RefreshPlayerList();
     }
 

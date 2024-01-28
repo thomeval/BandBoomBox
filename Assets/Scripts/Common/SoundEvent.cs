@@ -18,5 +18,7 @@ public enum SoundEvent
     Editor_Paste,
     Editor_SelectRegionStart,
     Editor_SelectRegionEnd,
+    Net_PlayerJoined,
+    Net_PlayerLeft,
     SecretUnlocked,
 }

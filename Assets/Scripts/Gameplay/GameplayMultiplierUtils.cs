@@ -46,7 +46,7 @@ public static class GameplayMultiplierUtils
         var decayRate = MX_BASE_DECAY_RATE * effectiveMx;
 
         multiplier -= decayRate * timeDiff;
-        multiplier = Math.Max(1.0, multiplier);
+        multiplier = Math.Clamp(multiplier, 1.0, MX_MAXIMUM);
         return multiplier;
     }
 

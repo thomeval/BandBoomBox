@@ -20,6 +20,10 @@ public class SoundEventHandler : MenuSoundEventHandler
     public AudioSource SfxEditorSelectRegionStart;
     public AudioSource SfxEditorSelectRegionEnd;
 
+    [Header("Network")]
+    public AudioSource SfxNetPlayerJoined;
+    public AudioSource SfxNetPlayerLeft;
+
     [Header("Misc")]
     public AudioSource[] SfxEvaluationGrades = new AudioSource[3];
     public AudioSource SfxTitleScreenStartPressed;
@@ -41,6 +45,9 @@ public class SoundEventHandler : MenuSoundEventHandler
 
         _sfxEntries.Add(SoundEvent.Gameplay_TurboOff, SfxGameplayTurboOff);
         _sfxEntries.Add(SoundEvent.Gameplay_TurboOn, SfxGameplayTurboOn);
+
+        _sfxEntries.Add(SoundEvent.Net_PlayerJoined, SfxNetPlayerJoined);
+        _sfxEntries.Add(SoundEvent.Net_PlayerLeft, SfxNetPlayerLeft);
 
         _sfxEntries.Add(SoundEvent.TitleScreen_StartPressed, SfxTitleScreenStartPressed);
         _sfxEntries.Add(SoundEvent.SecretUnlocked, SfxSecretUnlocked);

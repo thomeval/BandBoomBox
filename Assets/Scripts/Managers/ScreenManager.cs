@@ -59,8 +59,17 @@ public class ScreenManager : MonoBehaviour
     {
     }
 
-    public virtual void OnNetPlayerListUpdated()
+    public virtual void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)
     {
+        if (playerLeft)
+        {
+            PlaySfx(SoundEvent.Net_PlayerLeft);
+        }
+
+        if (playerJoined)
+        {
+            PlaySfx(SoundEvent.Net_PlayerJoined);
+        }
     }
 
     public virtual void OnNetRequestSongResponse(NetSongChoiceResponse response)

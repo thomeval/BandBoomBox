@@ -260,7 +260,7 @@ public class PlayerManager : MonoBehaviour
             GameObject.Destroy(player.gameObject);
         }
 
-        _coreManager.OnNetPlayerListUpdated();
+        _coreManager.OnNetPlayerListUpdated(false, true);
     }
 
     public void RegisterNetPlayer(PlayerDto serverPlayer)
@@ -275,7 +275,7 @@ public class PlayerManager : MonoBehaviour
             gameObj.transform.parent = this.transform;
             gameObj.name = $"Online Player {serverPlayer.NetId}-{serverPlayer.Slot}";
             Players.Add(myPlayer);
-            _coreManager.OnNetPlayerListUpdated();
+            _coreManager.OnNetPlayerListUpdated(true, false);
 
         }
 
@@ -297,7 +297,7 @@ public class PlayerManager : MonoBehaviour
             GameObject.Destroy(player.gameObject);
         }
 
-        _coreManager.OnNetPlayerListUpdated();
+        _coreManager.OnNetPlayerListUpdated(false, true);
     }
 
     public void RemoveNetPlayer(ulong netId, int slot)
@@ -316,7 +316,7 @@ public class PlayerManager : MonoBehaviour
         Players.Remove(player);
         GameObject.Destroy(player.gameObject);
 
-        _coreManager.OnNetPlayerListUpdated();
+        _coreManager.OnNetPlayerListUpdated(false, true);
     }
 
     public void UpdateNetPlayer(PlayerDto player)
@@ -353,7 +353,7 @@ public class PlayerManager : MonoBehaviour
             GameObject.Destroy(player.gameObject);
         }
 
-        _coreManager.OnNetPlayerListUpdated();
+        _coreManager.OnNetPlayerListUpdated(false, false);
     }
 
     public bool HasNetPlayer(PlayerDto updatedPlayer)

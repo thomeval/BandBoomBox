@@ -567,9 +567,9 @@ public class GameplayManager : ScreenManager
         };
     }
 
-    public override void OnNetPlayerListUpdated()
+    public override void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)
     {
-        base.OnNetPlayerListUpdated();
+        base.OnNetPlayerListUpdated(playerJoined, playerLeft);
         OnlinePlayerList.RefreshAll();
     }
 
