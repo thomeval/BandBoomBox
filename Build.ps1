@@ -21,6 +21,8 @@ function Clean-TargetFolder($target)
         Write-Host "Deleting $target ..."
         return $true
     }
+
+    return $true
 }
 
 function Get-ProjectVersion()
