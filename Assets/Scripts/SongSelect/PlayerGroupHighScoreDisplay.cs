@@ -25,6 +25,11 @@ public class PlayerGroupHighScoreDisplay : MonoBehaviour
 
     private void ShowHighScoreDisplays()
     {
+        if (_playerManager == null)
+        {
+            Awake();
+        }
+
         for (int x = 0; x < PlayerHighScoreDisplays.Length; x++)
         {
             var display = PlayerHighScoreDisplays[x];
