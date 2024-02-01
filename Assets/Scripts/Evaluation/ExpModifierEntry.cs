@@ -17,7 +17,7 @@ public class ExpModifierEntry : MonoBehaviour
     }
 
     public Color PositiveValueColor = Color.white;
-    public Color NegativeValueColor = new Color(1.0f,0.5f,0.5f, 1.0f);
+    public Color NegativeValueColor = new Color(1.0f, 0.5f, 0.5f, 1.0f);
 
     public void Display(string label, float value)
     {
@@ -34,7 +34,7 @@ public class ExpModifierEntry : MonoBehaviour
     {
         amount--;
         var prefix = amount < 0 ? "" : "+";
-        var result = $"{prefix}{amount:P0} EXP".Replace(" %", "");
+        var result = $"{prefix}{amount:P0} EXP".Replace(" %", "%");
         return result;
     }
 

@@ -23,7 +23,7 @@ public class ExpModifierList : MonoBehaviour
 
     public int GetTotalExpGain(Player player)
     {
-        return (int) (player.GetBaseExpGain() * TotalExpModifier);
+        return (int)(player.GetBaseExpGain() * TotalExpModifier);
     }
 
     private readonly Dictionary<int, float> _starsExpModifiers = new()
@@ -64,7 +64,7 @@ public class ExpModifierList : MonoBehaviour
 
     private void AddDifficultyResult(Player player)
     {
-        var label = $"{player.Difficulty} Diff";
+        var label = $"{Helpers.GetDisplayName(player.Difficulty)} Diff";
         var value = HitJudge.DifficultyExpValues[player.Difficulty];
         Add(label, value);
     }
@@ -76,11 +76,11 @@ public class ExpModifierList : MonoBehaviour
             return;
         }
 
-        var goalMet = player.PerfPoints  >= player.GoalPerfPoints.GetValueOrDefault();
+        var goalMet = player.PerfPoints >= player.GoalPerfPoints.GetValueOrDefault();
         var label = goalMet ? "Goal Passed!" : "Goal Failed!";
         var value = goalMet ? HitJudge.GoalExpValues[player.GetGoalGrade().GetValueOrDefault()] : 0.5f;
 
-        Add(label,value);
+        Add(label, value);
     }
 
     private void AddStarsResult(double stars)
@@ -94,7 +94,7 @@ public class ExpModifierList : MonoBehaviour
         {
             return;
         }
-        
+
         Add(label, value);
     }
 
@@ -108,7 +108,7 @@ public class ExpModifierList : MonoBehaviour
         {
             return;
         }
-        
+
         Add(label, value);
     }
 

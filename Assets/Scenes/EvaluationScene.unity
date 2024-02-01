@@ -3272,6 +3272,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -7166871409661841802, guid: 5d4e11f679c48bf46a1057fb50f5eb1e, type: 3}
     - target: {fileID: 3741837746334578561, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
+      propertyPath: _value
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741837746334578561, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
       propertyPath: ProgressBarVisible
       value: 1
       objectReference: {fileID: 0}
@@ -4140,6 +4144,10 @@ PrefabInstance:
     - target: {fileID: 6325784407716665189, guid: e607e30b376202641898fbbb83ec1bcf, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7277078435964905181, guid: e607e30b376202641898fbbb83ec1bcf, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7527123752690348533, guid: e607e30b376202641898fbbb83ec1bcf, type: 3}
       propertyPath: m_AnchorMax.y

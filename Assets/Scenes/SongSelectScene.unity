@@ -4065,6 +4065,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -7166871409661841802, guid: 5d4e11f679c48bf46a1057fb50f5eb1e, type: 3}
     - target: {fileID: 3741837746334578561, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
+      propertyPath: _value
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741837746334578561, guid: efb6bc990681e4d49825774b37c67eff, type: 3}
       propertyPath: ProgressBarVisible
       value: 0
       objectReference: {fileID: 0}
@@ -5353,7 +5357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2050489905
 MonoBehaviour:
   m_ObjectHideFlags: 0
