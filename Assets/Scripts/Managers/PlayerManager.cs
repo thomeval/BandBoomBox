@@ -250,19 +250,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void RemovePlayersByNetId(ulong id)
-    {
-        var playersToRemove = Players.Where(e => e.NetId == id).ToList();
-
-        foreach (var player in playersToRemove)
-        {
-            Players.Remove(player);
-            GameObject.Destroy(player.gameObject);
-        }
-
-        _coreManager.OnNetPlayerListUpdated(false, true);
-    }
-
     public void RegisterNetPlayer(PlayerDto serverPlayer)
     {
 
@@ -384,7 +371,6 @@ public class PlayerManager : MonoBehaviour
         }
         toPlayer.PlayerState = fromPlayer.PlayerState;
 
-
         toPlayer.Difficulty = fromPlayer.Difficulty;
         toPlayer.Exp = fromPlayer.Exp;
         toPlayer.Momentum = fromPlayer.Momentum;
@@ -409,6 +395,27 @@ public class PlayerManager : MonoBehaviour
         foreach (var player in GetLocalPlayers())
         {
             player.PlayerState = state;
+        }
+    }
+
+    public void UpdateNetPlayerList(PlayerDto[] newPlayerList)
+    {
+        bool playerJoined = false;
+        bool playerLeft = false;
+        foreach (var player in newPlayerList)
+        {
+            if (!HasNetPlayer(player))
+            {
+                RegisterNetPlayer(player);
+            }
+        }
+
+        foreach (var player in this.Players)
+        {
+            if (!newPlayerList.Any(e => e.NetId == player.NetId && e.Slot == player.Slot))
+            {
+                RemoveNetPlayer(player.NetId, player.Slot);
+            }
         }
     }
 }

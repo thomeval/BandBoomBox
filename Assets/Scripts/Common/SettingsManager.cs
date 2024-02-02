@@ -46,6 +46,15 @@ public class SettingsManager : MonoBehaviour
     public bool EditorAllowAllNotes = false;
     public int EditorScrollSpeed = 500;
 
+    [Header("Network Settings")]
+    public int NetGameHostMaxPlayers = 8;
+    public NetSongSelectRules NetGameHostSongSelectRules = NetSongSelectRules.AnyonePicks;
+    public int NetGameHostPort = 3334;
+    public string NetGameJoinIpAddress = "127.0.0.1";
+    public int NetGameJoinPort = 3334;
+
+    public const int DEFAULT_PORT = 3334;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -110,6 +119,29 @@ public class SettingsManager : MonoBehaviour
                 return this.EnableNerfDifficulty;
             default:
                 return true;
+        }
+    }
+
+    public void EnsureDefaultsForNetGame()
+    {
+        if (NetGameHostMaxPlayers == 0)
+        {
+            NetGameHostMaxPlayers = 8;
+        }
+
+        if (NetGameJoinIpAddress == null)
+        {
+            NetGameJoinIpAddress = "127.0.0.1";
+        }
+
+        if (NetGameJoinPort == 0)
+        {
+            NetGameJoinPort = DEFAULT_PORT;
+        }
+
+        if (NetGameHostPort == 0)
+        {
+            NetGameHostPort = DEFAULT_PORT;
         }
     }
 }

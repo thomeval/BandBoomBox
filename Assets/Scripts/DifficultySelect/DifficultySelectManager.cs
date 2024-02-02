@@ -192,4 +192,10 @@ public class DifficultySelectManager : ScreenManager
         OnlinePlayerList.RefreshAll();
         TryStartSong();
     }
+
+    public override void OnNetShutdown()
+    {
+        CoreManager.SongPreviewManager.StopPreviews();
+        base.OnNetShutdown();
+    }
 }

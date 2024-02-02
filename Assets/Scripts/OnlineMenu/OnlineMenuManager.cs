@@ -20,12 +20,63 @@ public class OnlineMenuManager : ScreenManager
     public InputField TxtJoinPassword;
     public Text LblJoinMessage;
 
-
-
-
     public GameObject MainMenu;
     public GameObject HostMenu;
     public GameObject JoinMenu;
+
+    public const int DEFAULT_PORT = 3334;
+
+    public UInt16 HostPort
+    {
+        get
+        {
+            var result = GetValueOrDefault(TxtHostPort.text, DEFAULT_PORT);
+            return Convert.ToUInt16(result);
+        }
+        set
+        {
+            TxtHostPort.text = value.ToString();
+        }
+    }
+
+    public UInt16 JoinPort
+    {
+        get
+        {
+            var result = GetValueOrDefault(TxtJoinPort.text, DEFAULT_PORT);
+            return Convert.ToUInt16(result);
+        }
+        set
+        {
+            TxtJoinPort.text = value.ToString();
+        }
+    }
+
+    public int MaxPlayers
+    {
+        get
+        {
+            var result = GetValueOrDefault(TxtHostMaxPlayers.text, 8);
+            result = Math.Clamp(result, 2, 32);
+            return result;
+        }
+        set
+        {
+            TxtHostMaxPlayers.text = value.ToString();
+        }
+    }
+
+    public string JoinIpAddress
+    {
+        get
+        {
+            return TxtJoinIpAddress.text;
+        }
+        set
+        {
+            TxtJoinIpAddress.text = value;
+        }
+    }
 
     [SerializeField]
     private OnlineMenuState _onlineMenuState = OnlineMenuState.MainMenu;
@@ -46,17 +97,19 @@ public class OnlineMenuManager : ScreenManager
     }
 
     private UnityTransport UnityTransport => CoreManager.NetworkManager.GetComponent<UnityTransport>();
+    private SettingsManager _settingsManager;
 
     private void Awake()
     {
         FindCoreManager();
+        Helpers.AutoAssign(ref _settingsManager);
     }
 
     private void Start()
     {
+        LoadFromSettings();
         OnlineMenuState = OnlineMenuState.MainMenu;
     }
-
 
     public void BtnHostGame_OnClick()
     {
@@ -77,30 +130,26 @@ public class OnlineMenuManager : ScreenManager
 
         var ip = TxtJoinIpAddress.text.Trim();
 
-        var port = GetValueOrDefault(TxtJoinPort.text, 3334);
-        var port2 = Convert.ToUInt16(port);
-
         CoreManager.IsNetGame = true;
         CoreManager.IsHost = false;
 
         var passwordHash = ComputeHash(TxtJoinPassword.text);
 
-        UnityTransport.SetConnectionData(ip, port2);
+        UnityTransport.SetConnectionData(ip, JoinPort);
         var bytes = System.Text.Encoding.UTF8.GetBytes(passwordHash);
         CoreManager.NetworkManager.NetworkConfig.ConnectionData = bytes;
 
-        Debug.Log($"Starting client on port {port2}.");
+        Debug.Log($"Starting client on port {JoinPort}.");
         var result = CoreManager.NetworkManager.StartClient();
 
         if (!result)
         {
             Debug.LogError("Failed to start client.");
+            return;
         }
 
-        if (result)
-        {
-            LblJoinMessage.text = "Connecting...";
-        }
+        LblJoinMessage.text = "Connecting...";
+        SaveToSettings();
 
     }
 
@@ -113,23 +162,19 @@ public class OnlineMenuManager : ScreenManager
 
     public void BtnStartHosting_OnClick()
     {
-        var port = GetValueOrDefault(TxtHostPort.text, 3334);
-        var port2 = Convert.ToUInt16(port);
 
-        UnityTransport.SetConnectionData("127.0.0.1", port2, "0.0.0.0");
+        UnityTransport.SetConnectionData("127.0.0.1", HostPort, "0.0.0.0");
         CoreManager.IsNetGame = true;
         CoreManager.IsHost = true;
 
-        var maxPlayers = GetValueOrDefault(TxtHostMaxPlayers.text, 8);
-        maxPlayers = Math.Clamp(maxPlayers, 2, 32);
-        CoreManager.ServerNetApi.MaxNetPlayers = maxPlayers;
+        CoreManager.ServerNetApi.MaxNetPlayers = MaxPlayers;
         CoreManager.ServerNetApi.SongSelectRules = GetSongSelectRules();
 
         var passwordHash = ComputeHash(TxtHostPassword.text);
         CoreManager.ServerNetApi.ServerPasswordHash = passwordHash;
 
         CoreManager.NetworkManager.ConnectionApprovalCallback = CoreManager.ServerNetApi.ConnectionApprovalCallback;
-        Debug.Log($"Starting server on port {port}.");
+        Debug.Log($"Starting server on port {HostPort}.");
         var result = CoreManager.NetworkManager.StartHost();
 
         if (!result)
@@ -137,6 +182,8 @@ public class OnlineMenuManager : ScreenManager
             Debug.LogError("Failed to start host.");
             return;
         }
+
+        SaveToSettings();
     }
 
     private NetSongSelectRules GetSongSelectRules()
@@ -198,5 +245,27 @@ public class OnlineMenuManager : ScreenManager
         }
 
         return result.ToString();
+    }
+
+    public void LoadFromSettings()
+    {
+        _settingsManager.EnsureDefaultsForNetGame();
+        MaxPlayers = _settingsManager.NetGameHostMaxPlayers;
+        HostPort = (ushort)_settingsManager.NetGameHostPort;
+        JoinPort = (ushort)_settingsManager.NetGameJoinPort;
+        JoinIpAddress = _settingsManager.NetGameJoinIpAddress;
+        CmbSongSelectRules.value = (int)_settingsManager.NetGameHostSongSelectRules;
+    }
+
+    public void SaveToSettings()
+    {
+        var serverApi = CoreManager.ServerNetApi;
+        _settingsManager.NetGameHostMaxPlayers = serverApi.MaxNetPlayers;
+        _settingsManager.NetGameHostSongSelectRules = serverApi.SongSelectRules;
+        _settingsManager.NetGameHostPort = HostPort;
+        _settingsManager.NetGameJoinIpAddress = JoinIpAddress;
+        _settingsManager.NetGameJoinPort = JoinPort;
+        _settingsManager.Save();
+
     }
 }

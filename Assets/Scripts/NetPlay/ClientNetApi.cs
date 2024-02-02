@@ -79,11 +79,8 @@ public class ClientNetApi : NetworkBehaviour
     public void ReceivePlayerListClientRpc(PlayerDto[] players, ClientRpcParams param = default)
     {
         Debug.Log($"(Client) Received Player List with {players.Length} players");
-        _playerManager.ClearNetPlayers();
-        foreach (var player in players)
-        {
-            _playerManager.RegisterNetPlayer(player);
-        }
+
+        _playerManager.UpdateNetPlayerList(players);
 
     }
 
