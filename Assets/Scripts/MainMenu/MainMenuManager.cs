@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
-
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class MainMenuManager : ScreenManager
 {
@@ -131,7 +128,7 @@ public class MainMenuManager : ScreenManager
                 CoreManager.IsNetGame = false;
                 SceneTransition(GameScene.PlayerJoin);
                 break;
-            case "Play Online":
+            case "Network Play":
                 if (CheckNoSongsLoaded())
                 {
                     return;
@@ -156,7 +153,6 @@ public class MainMenuManager : ScreenManager
                 Application.Quit(0);
                 break;
         }
-
     }
 
     private bool CheckNoSongsLoaded()

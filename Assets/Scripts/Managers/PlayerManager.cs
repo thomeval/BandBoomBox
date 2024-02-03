@@ -400,8 +400,6 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdateNetPlayerList(PlayerDto[] newPlayerList)
     {
-        bool playerJoined = false;
-        bool playerLeft = false;
         foreach (var player in newPlayerList)
         {
             if (!HasNetPlayer(player))

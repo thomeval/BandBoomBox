@@ -1097,7 +1097,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 153292442386111879, guid: 1f472bb04073d7140952b6e25965e0b8, type: 3}
       propertyPath: m_Text
-      value: Play Online
+      value: Network Play
       objectReference: {fileID: 0}
     - target: {fileID: 2469635307327926564, guid: 1f472bb04073d7140952b6e25965e0b8, type: 3}
       propertyPath: m_Pivot.x
@@ -1185,11 +1185,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5463956871627602516, guid: 1f472bb04073d7140952b6e25965e0b8, type: 3}
       propertyPath: m_Name
-      value: Mit-PlayOnline
+      value: Mit-NetworkPlay
       objectReference: {fileID: 0}
     - target: {fileID: 5521492879070094478, guid: 1f472bb04073d7140952b6e25965e0b8, type: 3}
       propertyPath: Text
-      value: Play Online
+      value: Network Play
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f472bb04073d7140952b6e25965e0b8, type: 3}

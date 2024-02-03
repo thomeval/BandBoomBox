@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Common\GameScene.cs" />
     <Compile Include="Assets\Scripts\Common\OnlinePlayerList.cs" />
+    <Compile Include="Assets\Scripts\OnlineMenu\Submenus\OnlineMainSubmenu.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorOptions.cs" />
     <Compile Include="Assets\Scripts\Credits\CreditsManager.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteTrimmer.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMeasureBpmPage.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorPlaybackManager.cs" />
+    <Compile Include="Assets\Scripts\OnlineMenu\Submenus\OnlineJoinSubmenu.cs" />
     <Compile Include="Assets\Scripts\Songs\SongChart.cs" />
     <Compile Include="Assets\Scripts\Songs\ChartValidator.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinFrame.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Assets\Scripts\Input\HitResult.cs" />
     <Compile Include="Assets\Scripts\Common\SectionProgressMeter.cs" />
     <Compile Include="Assets\Scripts\Misc\ObjectEventArgs.cs" />
+    <Compile Include="Assets\Scripts\OnlineMenu\Submenus\OnlineSubmenuBase.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
     <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteBase.cs" />
@@ -124,6 +127,7 @@
     <Compile Include="Assets\Scripts\Managers\CoreManager.cs" />
     <Compile Include="Assets\Scripts\Input\DeviceLostArgs.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorChartListPage.cs" />
+    <Compile Include="Assets\Scripts\OnlineMenu\Submenus\OnlineHostSubmenu.cs" />
     <Compile Include="Assets\Scripts\Notes\SjsonUtils.cs" />
     <Compile Include="Assets\Scripts\Gameplay\LaneFlasher.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GoalMeter.cs" />

@@ -49,11 +49,11 @@ public class SettingsManager : MonoBehaviour
     [Header("Network Settings")]
     public int NetGameHostMaxPlayers = 8;
     public NetSongSelectRules NetGameHostSongSelectRules = NetSongSelectRules.AnyonePicks;
-    public int NetGameHostPort = 3334;
+    public ushort NetGameHostPort = 3334;
     public string NetGameJoinIpAddress = "127.0.0.1";
-    public int NetGameJoinPort = 3334;
+    public ushort NetGameJoinPort = 3334;
 
-    public const int DEFAULT_PORT = 3334;
+    public const ushort DEFAULT_PORT = 3334;
 
     // Start is called before the first frame update
     void Awake()

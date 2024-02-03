@@ -125,6 +125,35 @@ public static class Helpers
         return (Difficulty)result;
     }
 
+    /// <summary>
+    /// Adds the provided amount to the provided enum, and returns the enum associated with the resulting integer.
+    /// If the result is outside of the enum's valid values, it will be either clamped or wrapped, based on the [wrap] parameter.
+    /// </summary>
+    /// <param name="enumToAdd">The enum to be added.</param>
+    /// <param name="delta">The amount to add (or subtract) to the provided enum.</param>
+    /// <param name="wrap">If true, the result will be wrapped. Otherwise it will be clamped.</param>
+    /// <returns>The enum  associated with the resulting sum. It will be clamped or wrapped, depending on the [wrap] parameter, if necessary.</returns>
+    public static T EnumAdd<T>(T enumToAdd, int delta, bool wrap)
+        where T : Enum
+    {
+
+        var max = Enum.GetValues(typeof(T)).Length - 1;
+
+        var result = Convert.ToInt32(enumToAdd);
+        result += delta;
+        Enum.ToObject(typeof(T), result);
+        if (wrap)
+        {
+            result = Wrap(result, max);
+        }
+        else
+        {
+            result = Clamp(result, max);
+        }
+
+        return (T)Enum.ToObject(typeof(T), result);
+    }
+
     public static float[] GradePercentages =
     {
         0.96f, 0.93f, 0.9f, // SS, S+ and S grades

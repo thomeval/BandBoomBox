@@ -1,82 +1,33 @@
-using System;
-using Unity.Netcode;
+using System.Linq;
+using System.Net;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class OnlineMenuManager : ScreenManager
 {
+    public OnlineMainSubmenu MainMenu;
+    public OnlineHostSubmenu HostMenu;
+    public OnlineJoinSubmenu JoinMenu;
 
-    [Header("Hosting")]
-    public InputField TxtHostPort;
-    public InputField TxtHostMaxPlayers;
-    public InputField TxtHostPassword;
-    public Dropdown CmbSongSelectRules;
-    public Text LblHostMessage;
-
-    [Header("Joining")]
-    public InputField TxtJoinIpAddress;
-    public InputField TxtJoinPort;
-    public InputField TxtJoinPassword;
-    public Text LblJoinMessage;
-
-    public GameObject MainMenu;
-    public GameObject HostMenu;
-    public GameObject JoinMenu;
-
-    public const int DEFAULT_PORT = 3334;
-
-    public UInt16 HostPort
+    public OnlineSubmenuBase CurrentSubmenu
     {
         get
         {
-            var result = GetValueOrDefault(TxtHostPort.text, DEFAULT_PORT);
-            return Convert.ToUInt16(result);
-        }
-        set
-        {
-            TxtHostPort.text = value.ToString();
-        }
-    }
-
-    public UInt16 JoinPort
-    {
-        get
-        {
-            var result = GetValueOrDefault(TxtJoinPort.text, DEFAULT_PORT);
-            return Convert.ToUInt16(result);
-        }
-        set
-        {
-            TxtJoinPort.text = value.ToString();
+            switch (OnlineMenuState)
+            {
+                case OnlineMenuState.MainMenu:
+                    return MainMenu;
+                case OnlineMenuState.HostMenu:
+                    return HostMenu;
+                case OnlineMenuState.JoinMenu:
+                    return JoinMenu;
+                default:
+                    return MainMenu;
+            }
         }
     }
 
-    public int MaxPlayers
-    {
-        get
-        {
-            var result = GetValueOrDefault(TxtHostMaxPlayers.text, 8);
-            result = Math.Clamp(result, 2, 32);
-            return result;
-        }
-        set
-        {
-            TxtHostMaxPlayers.text = value.ToString();
-        }
-    }
-
-    public string JoinIpAddress
-    {
-        get
-        {
-            return TxtJoinIpAddress.text;
-        }
-        set
-        {
-            TxtJoinIpAddress.text = value;
-        }
-    }
+    public const ushort DEFAULT_PORT = 3334;
 
     [SerializeField]
     private OnlineMenuState _onlineMenuState = OnlineMenuState.MainMenu;
@@ -90,9 +41,10 @@ public class OnlineMenuManager : ScreenManager
         set
         {
             _onlineMenuState = value;
-            MainMenu.SetActive(_onlineMenuState == OnlineMenuState.MainMenu);
-            HostMenu.SetActive(_onlineMenuState == OnlineMenuState.HostMenu);
-            JoinMenu.SetActive(_onlineMenuState == OnlineMenuState.JoinMenu);
+            MainMenu.gameObject.SetActive(_onlineMenuState == OnlineMenuState.MainMenu);
+            HostMenu.gameObject.SetActive(_onlineMenuState == OnlineMenuState.HostMenu);
+            JoinMenu.gameObject.SetActive(_onlineMenuState == OnlineMenuState.JoinMenu);
+            CurrentSubmenu.UpdateDisplayedValues();
         }
     }
 
@@ -109,37 +61,26 @@ public class OnlineMenuManager : ScreenManager
     {
         LoadFromSettings();
         OnlineMenuState = OnlineMenuState.MainMenu;
+        MainMenu.GetLocalIps();
     }
 
-    public void BtnHostGame_OnClick()
+    public void Connect(string passwordHash)
     {
-        this.OnlineMenuState = OnlineMenuState.HostMenu;
-    }
-
-    public void BtnJoinGame_OnClick()
-    {
-        this.OnlineMenuState = OnlineMenuState.JoinMenu;
-    }
-
-    public void BtnConnect_OnClick()
-    {
-        if (string.IsNullOrEmpty(TxtJoinIpAddress.text))
+        if (string.IsNullOrEmpty(JoinMenu.JoinIpAddress))
         {
-            LblJoinMessage.text = "Please enter a valid IP address.";
+            JoinMenu.Message = "Please enter a valid IP address.";
         }
 
-        var ip = TxtJoinIpAddress.text.Trim();
+        JoinMenu.JoinIpAddress = JoinMenu.JoinIpAddress.Trim();
 
         CoreManager.IsNetGame = true;
         CoreManager.IsHost = false;
 
-        var passwordHash = ComputeHash(TxtJoinPassword.text);
-
-        UnityTransport.SetConnectionData(ip, JoinPort);
+        UnityTransport.SetConnectionData(JoinMenu.JoinIpAddress, JoinMenu.JoinPort);
         var bytes = System.Text.Encoding.UTF8.GetBytes(passwordHash);
         CoreManager.NetworkManager.NetworkConfig.ConnectionData = bytes;
 
-        Debug.Log($"Starting client on port {JoinPort}.");
+        Debug.Log($"Starting client on port {JoinMenu.JoinPort}.");
         var result = CoreManager.NetworkManager.StartClient();
 
         if (!result)
@@ -148,33 +89,24 @@ public class OnlineMenuManager : ScreenManager
             return;
         }
 
-        LblJoinMessage.text = "Connecting...";
+        JoinMenu.Message = "Connecting...";
         SaveToSettings();
 
     }
 
-    private int GetValueOrDefault(string text, int defaultValue)
-    {
-        var result = defaultValue;
-        int.TryParse(text, out result);
-        return result;
-    }
-
-    public void BtnStartHosting_OnClick()
+    public void StartHosting(string passwordHash)
     {
 
-        UnityTransport.SetConnectionData("127.0.0.1", HostPort, "0.0.0.0");
+        UnityTransport.SetConnectionData("127.0.0.1", HostMenu.HostPort, "0.0.0.0");
         CoreManager.IsNetGame = true;
         CoreManager.IsHost = true;
 
-        CoreManager.ServerNetApi.MaxNetPlayers = MaxPlayers;
-        CoreManager.ServerNetApi.SongSelectRules = GetSongSelectRules();
-
-        var passwordHash = ComputeHash(TxtHostPassword.text);
+        CoreManager.ServerNetApi.MaxNetPlayers = HostMenu.MaxPlayers;
+        CoreManager.ServerNetApi.SongSelectRules = HostMenu.SongSelectRules;
         CoreManager.ServerNetApi.ServerPasswordHash = passwordHash;
 
         CoreManager.NetworkManager.ConnectionApprovalCallback = CoreManager.ServerNetApi.ConnectionApprovalCallback;
-        Debug.Log($"Starting server on port {HostPort}.");
+        Debug.Log($"Starting server on port {HostMenu.HostPort}.");
         var result = CoreManager.NetworkManager.StartHost();
 
         if (!result)
@@ -186,25 +118,7 @@ public class OnlineMenuManager : ScreenManager
         SaveToSettings();
     }
 
-    private NetSongSelectRules GetSongSelectRules()
-    {
-        switch (CmbSongSelectRules.GetSelectedText())
-        {
-            case "Anyone picks":
-                return NetSongSelectRules.AnyonePicks;
-            case "Host picks":
-                return NetSongSelectRules.HostPicks;
-            default:
-                return NetSongSelectRules.AnyonePicks;
-        }
-    }
-
-    public void BtnBackToOnlineMenu_OnClick()
-    {
-        this.OnlineMenuState = OnlineMenuState.MainMenu;
-    }
-
-    public void BtnBackToMainMenu_OnClick()
+    public void ReturnToMainMenu()
     {
         CoreManager.IsNetGame = false;
         CoreManager.IsHost = true;
@@ -225,47 +139,27 @@ public class OnlineMenuManager : ScreenManager
 
         if (!CoreManager.NetworkManager.IsHost)
         {
-            LblJoinMessage.text = "Disconnected from server: " + CoreManager.NetworkManager.DisconnectReason;
+            JoinMenu.Message = "Disconnected from server: " + CoreManager.NetworkManager.DisconnectReason;
         }
     }
 
-    public string ComputeHash(string password)
+    public override void OnPlayerInput(InputEvent inputEvent)
     {
-        if (string.IsNullOrEmpty(password))
-        {
-            return "";
-        }
-
-        var crypt = new System.Security.Cryptography.SHA256Managed();
-        var result = new System.Text.StringBuilder();
-        var hashBytes = crypt.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password), 0, System.Text.Encoding.UTF8.GetByteCount(password));
-        foreach (byte theByte in hashBytes)
-        {
-            result.Append(theByte.ToString("x2"));
-        }
-
-        return result.ToString();
+        CurrentSubmenu.HandleInput(inputEvent);
     }
 
     public void LoadFromSettings()
     {
         _settingsManager.EnsureDefaultsForNetGame();
-        MaxPlayers = _settingsManager.NetGameHostMaxPlayers;
-        HostPort = (ushort)_settingsManager.NetGameHostPort;
-        JoinPort = (ushort)_settingsManager.NetGameJoinPort;
-        JoinIpAddress = _settingsManager.NetGameJoinIpAddress;
-        CmbSongSelectRules.value = (int)_settingsManager.NetGameHostSongSelectRules;
+        HostMenu.LoadFromSettings(_settingsManager);
+        JoinMenu.LoadFromSettings(_settingsManager);
     }
 
     public void SaveToSettings()
     {
-        var serverApi = CoreManager.ServerNetApi;
-        _settingsManager.NetGameHostMaxPlayers = serverApi.MaxNetPlayers;
-        _settingsManager.NetGameHostSongSelectRules = serverApi.SongSelectRules;
-        _settingsManager.NetGameHostPort = HostPort;
-        _settingsManager.NetGameJoinIpAddress = JoinIpAddress;
-        _settingsManager.NetGameJoinPort = JoinPort;
+        HostMenu.SaveToSettings(_settingsManager);
+        JoinMenu.SaveToSettings(_settingsManager);
         _settingsManager.Save();
-
     }
+
 }
