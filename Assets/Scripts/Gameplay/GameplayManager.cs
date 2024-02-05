@@ -178,7 +178,7 @@ public class GameplayManager : ScreenManager
         this.DisableAllTurbos();
 
         StateValues.Energy = 0.0f;
-        StateValues.MaxEnergy = _playerManager.Players.Count;
+        StateValues.MaxEnergy = _playerManager.Players.Count(e => e.IsParticipating);
         HudManager.EnergyMeter.MaxEnergy = StateValues.MaxEnergy;
     }
 
@@ -563,7 +563,7 @@ public class GameplayManager : ScreenManager
             NumPlayers = _playerManager.Players.Count,
             Category = StateValues.TeamScoreCategory,
             Score = StateValues.Score,
-            Stars = SongStarScoreValues.GetStarFraction(StateValues.Score)
+            Stars = StateValues.Stars
         };
     }
 
@@ -597,6 +597,11 @@ public class GameplayManager : ScreenManager
         base.OnNetGameplayStateValuesUpdated(dto);
         StateValues.CopyValues(dto);
         HudManager.UpdateEnergyMeter(_playerManager.AnyTurboActive());
+
+        if (CoreManager.IsHost)
+        {
+            return;
+        }
         HudManager.StarMeter.Value = StateValues.Stars;
     }
 

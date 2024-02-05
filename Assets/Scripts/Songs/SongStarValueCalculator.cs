@@ -41,7 +41,7 @@ public class SongStarValueCalculator : MonoBehaviour
     {
 
         var result = new List<SongStarCalculatorChart>();
-        foreach (var player in _playerManager.Players.Where(e => IsInGameplay(e.PlayerState)))
+        foreach (var player in _playerManager.Players.Where(e => e.IsParticipating))
         {
             var chart = _chartCache.FirstOrDefault(e => e.ChartGroup == player.ChartGroup && e.Difficulty == player.Difficulty);
             if (chart == null)
@@ -61,7 +61,7 @@ public class SongStarValueCalculator : MonoBehaviour
     {
         _chartCache.Clear();
 
-        foreach (var player in _playerManager.Players.Where(e => IsInGameplay(e.PlayerState)))
+        foreach (var player in _playerManager.Players.Where(e => e.IsParticipating))
         {
             if (_chartCache.Any(e => e.ChartGroup == player.ChartGroup && e.Difficulty == player.Difficulty))
             {
@@ -78,11 +78,6 @@ public class SongStarValueCalculator : MonoBehaviour
                 Notes = notes
             });
         }
-    }
-
-    private bool IsInGameplay(PlayerState playerState)
-    {
-        return playerState == PlayerState.Gameplay_ReadyToStart || playerState == PlayerState.Gameplay_Playing || playerState == PlayerState.Gameplay_Loading;
     }
 
     private void Awake()

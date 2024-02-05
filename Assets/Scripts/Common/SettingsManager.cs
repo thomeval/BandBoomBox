@@ -98,8 +98,16 @@ public class SettingsManager : MonoBehaviour
             return;
         }
 
-        var json = File.ReadAllText(SettingsFilePath);
-        JsonUtility.FromJsonOverwrite(json, this);
+        try
+        {
+            var json = File.ReadAllText(SettingsFilePath);
+            JsonUtility.FromJsonOverwrite(json, this);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to load settings file: {ex.Message}");
+            return;
+        }
 
         if (ScreenResolution.IndexOf("x") == -1)
         {

@@ -173,6 +173,8 @@ public class Player : MonoBehaviour
         }
     }
 
+    public bool IsParticipating;
+
     #region Profile Data Properties
 
     public string ProfileId

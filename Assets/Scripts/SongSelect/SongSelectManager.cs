@@ -71,6 +71,7 @@ public class SongSelectManager : ScreenManager
         SelectLastPlayedSong();
         ShowSelectedSong();
         UpdatePlayersState(PlayerState.SelectSong);
+        CoreManager.PlayerManager.ClearParticipation();
         OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
         OnlinePlayerList.Refresh();
     }

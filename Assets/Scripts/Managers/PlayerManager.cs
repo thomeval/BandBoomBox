@@ -416,4 +416,20 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
+
+    public void ClearParticipation()
+    {
+        foreach (var player in Players)
+        {
+            player.IsParticipating = false;
+        }
+    }
+
+    public void AddParticipation(PlayerState playerState)
+    {
+        foreach (var player in Players.Where(e => e.PlayerState == playerState))
+        {
+            player.IsParticipating = true;
+        }
+    }
 }
