@@ -560,7 +560,7 @@ public class GameplayManager : ScreenManager
             DateTime = DateTime.Now,
             MaxMultiplier = StateValues.MaxMultiplier,
             MaxTeamCombo = StateValues.MaxTeamCombo,
-            NumPlayers = _playerManager.Players.Count,
+            NumPlayers = _playerManager.Players.Count(e => e.IsParticipating),
             Category = StateValues.TeamScoreCategory,
             Score = StateValues.Score,
             Stars = StateValues.Stars
