@@ -140,9 +140,25 @@ namespace Assets
             return Songs.Any(e => e.ID == songId);
         }
 
+        public bool Contains(string songId, int version)
+        {
+            if (string.IsNullOrEmpty(songId))
+            {
+                return false;
+            }
+
+            return Songs.Any(e => e.ID == songId && e.Version == version);
+        }
+
+        public bool Contains(NetSongChoiceRequest request)
+        {
+            return Contains(request.SongId, request.SongVersion);
+        }
+
         public void Add(SongData songData)
         {
             Songs.Add(songData);
         }
+
     }
 }

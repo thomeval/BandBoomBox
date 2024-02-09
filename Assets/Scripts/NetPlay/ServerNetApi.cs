@@ -178,6 +178,13 @@ public class ServerNetApi : NetworkBehaviour
         _clientNetApi.ShutdownNetGameClientRpc();
     }
 
+    [ServerRpc(RequireOwnership = true)]
+    public void SetNextSongSelectTurnServerRpc(ulong nextTurn)
+    {
+        Debug.Log($"(Server) Setting next song select turn to {nextTurn}");
+        _clientNetApi.SetNextSongSelectTurnClientRpc(nextTurn);
+    }
+
     #endregion
 
     public override void OnNetworkSpawn()
@@ -203,43 +210,41 @@ public class ServerNetApi : NetworkBehaviour
     /// <returns></returns>
     private NetSongChoiceResponse GetChooseSongResponse(NetSongChoiceRequest request, ulong netId)
     {
+        var response = new NetSongChoiceResponse
+        {
+            SongId = request.SongId,
+            SongVersion = request.SongVersion,
+            ResponseMessage = "",
+            ResponseType = NetSongChoiceResponseType.Ok
+        };
+
         var playersWithoutSong = FindPlayersWithoutSong(request);
         if (playersWithoutSong.Any())
         {
-            return new NetSongChoiceResponse
-            {
-                ResponseType = NetSongChoiceResponseType.SongNotInLibrary,
-                ResponseMessage = $"{playersWithoutSong.Count} player(s) don't have the selected song."
-            };
+            response.ResponseType = NetSongChoiceResponseType.SongNotInLibrary;
+            response.ResponseMessage = $"{playersWithoutSong.Count} player(s) don't have the selected song.";
+            return response;
         }
 
         var turnResponse = GetChooseSongTurnResponse(netId);
 
         if (turnResponse != "")
         {
-            return new NetSongChoiceResponse
-            {
-                ResponseType = NetSongChoiceResponseType.NotAllowed,
-                ResponseMessage = turnResponse
-            };
+            response.ResponseType = NetSongChoiceResponseType.NotAllowed;
+            response.ResponseMessage = turnResponse;
+            return response;
         }
 
         var playersNotReady = _playerManager.Players.Count(e => e.PlayerState != PlayerState.SelectSong);
         if (playersNotReady > 0)
         {
-            return new NetSongChoiceResponse
-            {
-                ResponseType = NetSongChoiceResponseType.PlayersNotReady,
-                ResponseMessage = $"{playersNotReady} player(s) are not ready."
-            };
+
+            response.ResponseType = NetSongChoiceResponseType.PlayersNotReady;
+            response.ResponseMessage = $"{playersNotReady} player(s) are not ready.";
+            return response;
         }
 
-        return new NetSongChoiceResponse
-        {
-            ResponseType = NetSongChoiceResponseType.Ok,
-            ResponseMessage = ""
-        };
-
+        return response;
     }
 
     private string GetChooseSongTurnResponse(ulong netId)
@@ -254,6 +259,13 @@ public class ServerNetApi : NetworkBehaviour
                     return "Only the host can choose the song.";
                 }
                 return "";
+            case NetSongSelectRules.Turns:
+                var currentTurn = _coreManager.NetSongSelectTurnManager.CurrentTurn;
+                if (currentTurn != netId)
+                {
+                    return "It's not your turn to choose a song.";
+                }
+                return "";
             default:
                 throw new NotImplementedException();
 
@@ -262,8 +274,15 @@ public class ServerNetApi : NetworkBehaviour
 
     private List<string> FindPlayersWithoutSong(NetSongChoiceRequest request)
     {
-        // TODO: Implement this
-        return new List<string>();
+        var result = new List<string>();
+
+        if (!_coreManager.SongLibrary.Contains(request))
+        {
+            result.Add(Helpers.NumberToNetIdLetter(_coreManager.NetId));
+        }
+
+        // TODO: Check clients as well.
+        return result;
     }
 
     private ClientRpcParams GetSingleClientParams(ulong netId)

@@ -460,5 +460,28 @@ public static class Helpers
         var result = value.ToString("P1", CultureInfo.InvariantCulture);
         return result.Replace(" %", "%");
     }
+
+    public static string NumberToNetIdLetter(ulong netId)
+    {
+        if (netId == 0)
+        {
+            return "A";
+        }
+
+        if (netId == 26)
+        {
+            return "AA";
+        }
+
+        var result = "";
+        while (netId > 0)
+        {
+            var remainder = netId % 26;
+            result = (char)('A' + remainder) + result;
+            netId /= 26;
+        }
+
+        return result;
+    }
 }
 

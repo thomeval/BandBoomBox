@@ -24,6 +24,7 @@ public class CoreManager : MonoBehaviour
     public NetworkManager NetworkManager;
     public ClientNetApi ClientNetApi;
     public ServerNetApi ServerNetApi;
+    public NetSongSelectTurnManager NetSongSelectTurnManager;
 
     public string SelectedSong;
 

@@ -52,11 +52,6 @@ public class ClientNetApi : NetworkBehaviour
         _playerManager.UpdateRankings();
     }
 
-    [ClientRpc]
-    public void UpdateTeamScoreClientRpc(ClientRpcParams param = default)
-    {
-        throw new System.NotImplementedException();
-    }
 
     /// <summary>
     /// Called by the server once all players have finished loading the selected song. This starts playback on the GameplayScene.
@@ -117,6 +112,12 @@ public class ClientNetApi : NetworkBehaviour
     public void ReceiveNetGameplayStateValuesClientRpc(GameplayStateValuesDto dto)
     {
         _coreManager.OnNetGameplayStateValuesUpdated(dto);
+    }
+
+    [ClientRpc]
+    public void SetNextSongSelectTurnClientRpc(ulong nextTurn)
+    {
+        _coreManager.ActiveMainManager.OnNetNextTurnUpdated(nextTurn);
     }
 
     [ClientRpc]

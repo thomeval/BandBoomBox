@@ -125,6 +125,7 @@
     <Compile Include="Assets\Scripts\Notes\NoteBase.cs" />
     <Compile Include="Assets\BackgroundManager.cs" />
     <Compile Include="Assets\Scripts\Managers\CoreManager.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\NetSongSelectTurnManager.cs" />
     <Compile Include="Assets\Scripts\Input\DeviceLostArgs.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorChartListPage.cs" />
     <Compile Include="Assets\Scripts\OnlineMenu\Submenus\OnlineHostSubmenu.cs" />

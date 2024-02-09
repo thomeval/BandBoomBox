@@ -28,7 +28,7 @@ public class SongList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -64,7 +64,7 @@ public class SongList : MonoBehaviour
         for (int x = 0; x < itemsCount; x++)
         {
             var obj = Instantiate(SongListItemPrefab);
-            obj.transform.SetParent(InnerContainer.transform,false);
+            obj.transform.SetParent(InnerContainer.transform, false);
             var listItem = obj.GetComponent<SongListItem>();
             _songListItems.Add(listItem);
         }
@@ -77,7 +77,7 @@ public class SongList : MonoBehaviour
     {
         var listIdx = 0;
         var songCount = _songSelectManager.OrderedSongs.Count;
-        var songIdx = Helpers.Wrap(_songSelectManager.SelectedSongIndex - DisplayedAdjacentSongs, songCount -1);
+        var songIdx = Helpers.Wrap(_songSelectManager.SelectedSongIndex - DisplayedAdjacentSongs, songCount - 1);
 
         try
         {
@@ -88,7 +88,7 @@ public class SongList : MonoBehaviour
                 var teamScore = _songSelectManager.GetTeamScore(listItem.SongData);
                 listItem.DisplayTeamScore(teamScore);
                 listIdx++;
-                songIdx = Helpers.Wrap(songIdx + 1, songCount-1);
+                songIdx = Helpers.Wrap(songIdx + 1, songCount - 1);
             }
 
             _songListItems[DisplayedAdjacentSongs].IsSelected = true;
@@ -98,5 +98,14 @@ public class SongList : MonoBehaviour
             Debug.LogError(e);
         }
 
+    }
+
+    public void SetSongSelectable(string songId, bool isSelectable)
+    {
+        var listItem = _songListItems.Find(e => e.SongData.ID == songId);
+        if (listItem != null)
+        {
+            listItem.IsSelectable = isSelectable;
+        }
     }
 }

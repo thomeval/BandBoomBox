@@ -695,7 +695,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5028737456429115076, guid: 4e7f30dca0349d146b12cdf28006373d, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5028737456429115076, guid: 4e7f30dca0349d146b12cdf28006373d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1557,6 +1557,51 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Loading...
+--- !u!1 &1887147677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887147679}
+  - component: {fileID: 1887147678}
+  m_Layer: 0
+  m_Name: NetSongSelectTurnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1887147678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887147677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df959842f31951142b2120a9921e9916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentTurn: 0
+--- !u!4 &1887147679
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887147677}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1910463115700770861}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1994407695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,6 +1883,7 @@ MonoBehaviour:
   NetworkManager: {fileID: 374259201}
   ClientNetApi: {fileID: 553200925}
   ServerNetApi: {fileID: 364898357}
+  NetSongSelectTurnManager: {fileID: 1887147678}
   SelectedSong: 
   AudioMixer: {fileID: 24100000, guid: 6dfb45b200e18cb40ac79e7a256945a7, type: 2}
   Settings: {fileID: 0}
@@ -1885,6 +1931,7 @@ Transform:
   - {fileID: 644680046380860243}
   - {fileID: 721834045935941392}
   - {fileID: 5093772559801414793}
+  - {fileID: 1887147679}
   - {fileID: 634172048}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1927,6 +1974,11 @@ MonoBehaviour:
   EditorAutoStepForward: 0
   EditorAllowAllNotes: 0
   EditorScrollSpeed: 500
+  NetGameHostMaxPlayers: 8
+  NetGameHostSongSelectRules: 0
+  NetGameHostPort: 3334
+  NetGameJoinIpAddress: 127.0.0.1
+  NetGameJoinPort: 3334
 --- !u!4 &2171638095752426403
 Transform:
   m_ObjectHideFlags: 0

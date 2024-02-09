@@ -18,9 +18,13 @@ public class SongSelectManager : ScreenManager
     public Text TxtSongCount;
     public Text TxtStarCount;
     public Text TxtSortMode;
+    public Text TxtNextSongSelectTurn;
 
     public SongList SongList;
     public SongSelectOnlinePlayerList OnlinePlayerList;
+
+    public Color NormalMessageColor = Color.white;
+    public Color ErrorMessageColor = new Color(255, 128, 128);
 
     public List<SongData> OrderedSongs { get; private set; } = new List<SongData>();
 
@@ -74,6 +78,24 @@ public class SongSelectManager : ScreenManager
         CoreManager.PlayerManager.ClearParticipation();
         OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
         OnlinePlayerList.Refresh();
+        AdvanceNetSongSelectTurn();
+    }
+
+    private void AdvanceNetSongSelectTurn()
+    {
+        if (!CoreManager.IsNetGame)
+        {
+            TxtNextSongSelectTurn.text = "";
+            return;
+        }
+
+        if (!CoreManager.IsHost)
+        {
+            return;
+        }
+
+        var nextTurn = CoreManager.NetSongSelectTurnManager.NextTurn();
+        CoreManager.ServerNetApi.SetNextSongSelectTurnServerRpc(nextTurn);
     }
 
     private void SortSongs()
@@ -301,6 +323,13 @@ public class SongSelectManager : ScreenManager
         if (response.ResponseType != NetSongChoiceResponseType.Ok)
         {
             PlaySfx(SoundEvent.Mistake);
+            TxtNextSongSelectTurn.text = response.ResponseMessage;
+            TxtNextSongSelectTurn.color = ErrorMessageColor;
+
+            if (response.ResponseType == NetSongChoiceResponseType.SongNotInLibrary)
+            {
+                SongList.SetSongSelectable(response.SongId, false);
+            }
         }
     }
 
@@ -308,5 +337,12 @@ public class SongSelectManager : ScreenManager
     {
         CoreManager.SongPreviewManager.StopPreviews();
         base.OnNetShutdown();
+    }
+
+    public override void OnNetNextTurnUpdated(ulong nextTurn)
+    {
+        base.OnNetNextTurnUpdated(nextTurn);
+        TxtNextSongSelectTurn.text = CoreManager.NetSongSelectTurnManager.GetTurnMessage();
+        TxtNextSongSelectTurn.color = NormalMessageColor;
     }
 }

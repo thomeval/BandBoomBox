@@ -378,6 +378,7 @@ public class PlayerManager : MonoBehaviour
         toPlayer.ChartGroup = fromPlayer.ChartGroup;
         toPlayer.ScrollSpeed = fromPlayer.ScrollSpeed;
         toPlayer.TurboActive = fromPlayer.TurboActive;
+        toPlayer.IsParticipating = fromPlayer.IsParticipating;
     }
 
     public void CopyValues(PlayerScoreDto fromPlayer, Player toPlayer)
@@ -432,4 +433,5 @@ public class PlayerManager : MonoBehaviour
             player.IsParticipating = true;
         }
     }
+
 }

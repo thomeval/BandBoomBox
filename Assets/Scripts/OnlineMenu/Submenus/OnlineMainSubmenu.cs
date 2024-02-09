@@ -37,7 +37,7 @@ public class OnlineMainSubmenu : OnlineSubmenuBase
                 TxtLocalIps.text += address.ToString() + ", ";
             }
         }
-        catch (System.Exception e)
+        catch
         {
             TxtLocalIps.text += "[Unknown]";
         }

@@ -303,7 +303,10 @@ MonoBehaviour:
   StarCountDisplay: {fileID: 500274706564047681}
   FrameSpriteResolver: {fileID: 3518868134191339612}
   StarIconSpriteResolver: {fileID: 985008210989979606}
+  SelectableColor: {r: 1, g: 1, b: 1, a: 1}
+  NotSelectableColor: {r: 1, g: 0.5882353, b: 0.5919258, a: 1}
   _isSelected: 0
+  _isSelectable: 1
   _songData:
     ID: 
     Title: 

@@ -38,6 +38,12 @@ public class EvaluationOnlinePlayerListItem : OnlinePlayerListItem
             TxtDifficulty.text = result;
         }
 
+        if (!Player.IsParticipating)
+        {
+            SetTextSafe(TxtRanking, "-");
+            return;
+        }
+
         SetTextSafe(TxtRanking, Helpers.FormatRanking(Player.Ranking));
     }
 }

@@ -32,7 +32,15 @@ public class GameplayOnlinePlayerListItem : OnlinePlayerListItem
 
         SetTextSafe(TxtPerfPercent, Helpers.FormatPercent(Player.PerfPercent));
         SetTextSafe(TxtCombo, $"{Player.Combo:000}");
-        SetTextSafe(TxtRanking, Helpers.FormatRanking(Player.Ranking));
+
+        if (!Player.IsParticipating)
+        {
+            SetTextSafe(TxtRanking, "-");
+        }
+        else
+        {
+            SetTextSafe(TxtRanking, Helpers.FormatRanking(Player.Ranking));
+        }
 
         if (TurboBackground != null)
         {

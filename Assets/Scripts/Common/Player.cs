@@ -54,8 +54,9 @@ public class Player : MonoBehaviour
                 return "-";
             }
 
-            var result = (int)'A' + (int)NetId;
-            return "" + (char)result;
+            return Helpers.NumberToNetIdLetter(NetId);
+
+
         }
     }
 

@@ -13,6 +13,9 @@ public class SongListItem : MonoBehaviour
     public SpriteResolver FrameSpriteResolver;
     public SpriteResolver StarIconSpriteResolver;
 
+    public Color SelectableColor = Color.white;
+    public Color NotSelectableColor = Color.gray;
+
     public void DisplayTeamScore(TeamScore teamScore)
     {
         var starsText = teamScore == null ? "" : ((int)teamScore.Stars) + "";
@@ -33,7 +36,21 @@ public class SongListItem : MonoBehaviour
         set
         {
             _isSelected = value;
+            ResolveSprite();
+        }
+    }
 
+    [SerializeField]
+    private bool _isSelectable = true;
+    public bool IsSelectable
+    {
+        get
+        {
+            return _isSelectable;
+        }
+        set
+        {
+            _isSelectable = value;
             ResolveSprite();
         }
     }
@@ -42,6 +59,8 @@ public class SongListItem : MonoBehaviour
     {
         var label = _isSelected ? "Selected" : "NotSelected";
         FrameSpriteResolver.SetCategoryAndLabel("SongListItem", label);
+        TxtArtist.color = _isSelectable ? SelectableColor : NotSelectableColor;
+        TxtTitle.color = _isSelectable ? SelectableColor : NotSelectableColor;
     }
 
     [SerializeField]

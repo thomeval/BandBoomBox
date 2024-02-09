@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
 
 public class ExpModifierList : MonoBehaviour
 {
@@ -36,19 +38,11 @@ public class ExpModifierList : MonoBehaviour
         { 5, 1.15f },
         { 6, 1.25f },
         { 7, 1.35f },
-        { 8, 1.5f },
+        { 8, 1.45f },
         { 9, 1.5f },
         { 10, 1.5f }
     };
 
-    private readonly Dictionary<int, float> _numPlayersExpModifiers = new()
-    {
-        { 0, 1.0f },
-        { 1, 1.0f },
-        { 2, 1.1f },
-        { 3, 1.2f },
-        { 4, 1.3f },
-    };
 
     public void DisplayExpModifier(Player player, double stars, int numPlayers)
     {
@@ -101,7 +95,7 @@ public class ExpModifierList : MonoBehaviour
     private void AddNumPlayersResult(int numPlayers)
     {
         var label = $"{numPlayers} Players Bonus";
-        var value = _numPlayersExpModifiers[numPlayers];
+        var value = GetNumPlayersBonus(numPlayers);
 
         // ReSharper disable once CompareOfFloatsByEqualityOperator
         if (value == 1.0f)
@@ -110,6 +104,17 @@ public class ExpModifierList : MonoBehaviour
         }
 
         Add(label, value);
+    }
+
+    private float GetNumPlayersBonus(int numPlayers)
+    {
+        if (numPlayers < 2)
+        {
+            return 1.0f;
+        }
+
+        var result = Mathf.Clamp((numPlayers - 1) * 0.1f, 0.0f, 1.0f);
+        return result + 1;
     }
 
     private void AddFullComboResult(Player player)
