@@ -13,6 +13,8 @@ namespace Assets
 
         public string[] SongFolders;
 
+        public List<string> UnavailableSongs { get; internal set; } = new();
+
         public event EventHandler LoadSongsCompleted;
 
         public SongData this[string id]

@@ -6,7 +6,7 @@ public class PlayerJoinManager : ScreenManager
     public PlayerJoinFrame[] PlayerJoinFrames = new PlayerJoinFrame[4];
     public OnlinePlayerList OnlinePlayerList;
 
-    public int MaxAllowedPlayers = 4;
+    private PlayerManager _playerManager;
     public virtual int ReadyPlayerCount
     {
         get { return PlayerJoinFrames.Count(e => e.State == PlayerJoinState.Ready); }
@@ -27,7 +27,7 @@ public class PlayerJoinManager : ScreenManager
             return;
         }
 
-        MaxAllowedPlayers = CoreManager.IsNetGame ? 2 : 4;
+        Helpers.AutoAssign(ref _playerManager);
         OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
 
         foreach (var frame in PlayerJoinFrames)
@@ -39,11 +39,10 @@ public class PlayerJoinManager : ScreenManager
     private void HandlePlayerLeft(object sender, EventArgs e)
     {
         var player = ((PlayerJoinFrame)sender).Player;
-        var manager = CoreManager.PlayerManager;
         if (player.Slot > 1)
         {
-            manager.RemovePlayer(player.Slot);
-            manager.AllowPlayerJoining = CoreManager.PlayerManager.GetLocalPlayers().Count < MaxAllowedPlayers;
+            _playerManager.RemovePlayer(player.Slot);
+            _playerManager.UpdateAllowPlayerJoining();
             RefreshPlayerList();
 
             if (CoreManager.IsNetGame)
@@ -90,11 +89,10 @@ public class PlayerJoinManager : ScreenManager
             frame.gameObject.SetActive(false);
         }
 
-        var players = CoreManager.PlayerManager.Players;
-        for (int x = 1; x <= MaxAllowedPlayers; x++)
+        for (int x = 1; x <= _playerManager.MaxLocalPlayers; x++)
         {
 
-            var player = players.SingleOrDefault(e => e.Slot == x && e.IsLocalPlayer);
+            var player = _playerManager.GetLocalPlayer(x);
             var frame = PlayerJoinFrames[x - 1];
             frame.gameObject.SetActive(true);
 
@@ -142,7 +140,7 @@ public class PlayerJoinManager : ScreenManager
         player.AutoSetLabelSkin();
         var frame = PlayerJoinFrames[player.Slot - 1];
         AssignFrameToPlayer(frame, player, true);
-        CoreManager.PlayerManager.AllowPlayerJoining = CoreManager.PlayerManager.GetLocalPlayers().Count < MaxAllowedPlayers;
+        CoreManager.PlayerManager.UpdateAllowPlayerJoining();
 
         SendNetPlayerUpdate(player);
         RefreshPlayerList();

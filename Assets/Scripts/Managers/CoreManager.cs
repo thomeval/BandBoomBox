@@ -45,15 +45,6 @@ public class CoreManager : MonoBehaviour
     public bool TitleScreenShown;
     public bool IsNetGame;
     public bool IsHost = true;
-    public int MaxNetPlayers = 8;
-
-    public int MaxLocalPlayers
-    {
-        get
-        {
-            return IsNetGame ? 2 : 4;
-        }
-    }
 
     public ulong NetId
     {
@@ -67,8 +58,6 @@ public class CoreManager : MonoBehaviour
 
         }
     }
-
-
 
     public Dictionary<string, object> SceneLoadArgs = new();
 

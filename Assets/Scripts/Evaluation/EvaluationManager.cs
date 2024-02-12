@@ -97,7 +97,7 @@ public class EvaluationManager : ScreenManager
 
     public override void OnPlayerInput(InputEvent inputEvent)
     {
-        var player = CoreManager.PlayerManager.GetPlayer(inputEvent.Player);
+        var player = CoreManager.PlayerManager.GetLocalPlayer(inputEvent.Player);
 
         switch (player.PlayerState)
         {

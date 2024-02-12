@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SongList : MonoBehaviour
 {
 
     private SongSelectManager _songSelectManager;
-    private readonly List<SongListItem> _songListItems = new List<SongListItem>();
+    private readonly List<SongListItem> _songListItems = new();
 
     [SerializeField]
     private float _yOffset;
@@ -24,11 +25,6 @@ public class SongList : MonoBehaviour
     {
         _songSelectManager = FindObjectOfType<SongSelectManager>();
         GenerateSongListItems();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
     void FixedUpdate()
@@ -87,6 +83,7 @@ public class SongList : MonoBehaviour
                 _songListItems[listIdx].SongData = _songSelectManager.OrderedSongs[songIdx];
                 var teamScore = _songSelectManager.GetTeamScore(listItem.SongData);
                 listItem.DisplayTeamScore(teamScore);
+                listItem.IsSelectable = IsSongSelectable(listItem.SongData.ID);
                 listIdx++;
                 songIdx = Helpers.Wrap(songIdx + 1, songCount - 1);
             }
@@ -100,12 +97,8 @@ public class SongList : MonoBehaviour
 
     }
 
-    public void SetSongSelectable(string songId, bool isSelectable)
+    private bool IsSongSelectable(string songId)
     {
-        var listItem = _songListItems.Find(e => e.SongData.ID == songId);
-        if (listItem != null)
-        {
-            listItem.IsSelectable = isSelectable;
-        }
+        return !_songSelectManager.UnavailableSongs.Any(e => e == songId);
     }
 }

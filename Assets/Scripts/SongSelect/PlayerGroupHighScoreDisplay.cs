@@ -11,7 +11,6 @@ public class PlayerGroupHighScoreDisplay : MonoBehaviour
     {
         _playerManager = FindObjectOfType<PlayerManager>();
         _profileManager = FindObjectOfType<ProfileManager>();
-
     }
 
     public void FetchHighScores(string songId, int songVersion)
@@ -35,7 +34,7 @@ public class PlayerGroupHighScoreDisplay : MonoBehaviour
             var display = PlayerHighScoreDisplays[x];
 
             display.Clear();
-            var player = _playerManager.GetPlayer(x +1);
+            var player = _playerManager.GetLocalPlayer(x + 1);
 
             if (player != null)
             {
@@ -51,7 +50,7 @@ public class PlayerGroupHighScoreDisplay : MonoBehaviour
     private void FetchHighScore(int slot, string songId, int songVersion)
     {
         var display = PlayerHighScoreDisplays[slot];
-        var player = _playerManager.GetPlayer(slot+1);
+        var player = _playerManager.GetLocalPlayer(slot + 1);
         if (player == null)
         {
             return;

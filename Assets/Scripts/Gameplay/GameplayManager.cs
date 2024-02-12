@@ -306,7 +306,7 @@ public class GameplayManager : ScreenManager
         }
         if (inputEvent.IsPressed)
         {
-            var player = _playerManager.GetPlayer(inputEvent.Player);
+            var player = _playerManager.GetLocalPlayer(inputEvent.Player);
             if (inputEvent.Action == InputAction.Pause || inputEvent.Action == InputAction.Back)
             {
                 PauseGame(inputEvent.Player, true);
@@ -342,7 +342,7 @@ public class GameplayManager : ScreenManager
 
             if (note != null)
             {
-                var allowCrit = _playerManager.GetPlayer(inputEvent.Player).TurboActive;
+                var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
 
                 // Note was hit. Apply a hit result.
                 var deviation = SongPosition - note.AbsoluteTime;
@@ -412,7 +412,7 @@ public class GameplayManager : ScreenManager
             return;
         }
 
-        var player = _playerManager.GetPlayer(inputEvent.Player);
+        var player = _playerManager.GetLocalPlayer(inputEvent.Player);
         var playerHudManager = HudManager.GetPlayerHudManager(inputEvent.Player);
         var lane = NoteUtils.GetNoteLane(noteType.Value);
 
@@ -422,7 +422,7 @@ public class GameplayManager : ScreenManager
 
         if (releaseNote != null)
         {
-            var allowCrit = _playerManager.GetPlayer(inputEvent.Player).TurboActive;
+            var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
             var deviation = SongPosition - releaseNote.AbsoluteTime;
             var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, releaseNote.NoteType, releaseNote.NoteClass, allowCrit);
             ApplyHitResult(hitResult);
@@ -510,7 +510,7 @@ public class GameplayManager : ScreenManager
 
     private void ApplyHitResult(HitResult hitResult)
     {
-        var player = _playerManager.GetPlayer(hitResult.PlayerSlot);
+        var player = _playerManager.GetLocalPlayer(hitResult.PlayerSlot);
         _playerManager.ApplyHitResult(hitResult, hitResult.PlayerSlot);
         _playerManager.UpdateRankings();
         SendNetPlayerScoreUpdate(player);
@@ -544,7 +544,7 @@ public class GameplayManager : ScreenManager
 
     public void OnNoteMissed(Note note, int player)
     {
-        var diff = _playerManager.GetPlayer(player).Difficulty;
+        var diff = _playerManager.GetLocalPlayer(player).Difficulty;
         var result = _hitJudge.GetMissResult(note.Lane, player, diff);
         ApplyHitResult(result);
     }

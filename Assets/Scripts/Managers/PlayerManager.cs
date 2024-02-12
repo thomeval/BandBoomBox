@@ -31,6 +31,14 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public int MaxLocalPlayers
+    {
+        get
+        {
+            return _coreManager.IsNetGame ? 2 : 4;
+        }
+    }
+
     private PlayerInputManager _playerInputManager;
     private CoreManager _coreManager;
     private ControlsManager _controlsManager;
@@ -72,7 +80,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public Player GetPlayer(int slot)
+    public Player GetLocalPlayer(int slot)
     {
         return Players.FirstOrDefault(e => e.Slot == slot && e.IsLocalPlayer);
     }
@@ -434,4 +442,15 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void UpdateAllowPlayerJoining()
+    {
+        AllowPlayerJoining = GetLocalPlayers().Count < MaxLocalPlayers;
+
+        if (!_coreManager.IsNetGame)
+        {
+            return;
+        }
+
+        AllowPlayerJoining &= Players.Count < _coreManager.ServerNetApi.MaxNetPlayers;
+    }
 }

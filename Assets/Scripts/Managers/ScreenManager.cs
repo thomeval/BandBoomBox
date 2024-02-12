@@ -93,7 +93,7 @@ public class ScreenManager : MonoBehaviour
 
     protected Player GetPlayer(int slot)
     {
-        return CoreManager.PlayerManager.GetPlayer(slot);
+        return CoreManager.PlayerManager.GetLocalPlayer(slot);
     }
 
     protected void SceneTransition(GameScene gameScene, Dictionary<string, object> sceneLoadArgs = null, bool withTransition = true)

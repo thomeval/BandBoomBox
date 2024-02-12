@@ -54,6 +54,8 @@ public class SongSelectManager : ScreenManager
             return OrderedSongs[SelectedSongIndex];
         }
     }
+
+    public List<string> UnavailableSongs { get { return CoreManager.SongLibrary.UnavailableSongs; } }
     void Awake()
     {
         if (!FindCoreManager())
@@ -153,7 +155,7 @@ public class SongSelectManager : ScreenManager
     {
         for (int x = 0; x < PlayerOptionsFrames.Length; x++)
         {
-            PlayerOptionsFrames[x].Player = CoreManager.PlayerManager.GetPlayer(x + 1);
+            PlayerOptionsFrames[x].Player = CoreManager.PlayerManager.GetLocalPlayer(x + 1);
             PlayerOptionsFrames[x].Refresh();
         }
     }
@@ -328,7 +330,8 @@ public class SongSelectManager : ScreenManager
 
             if (response.ResponseType == NetSongChoiceResponseType.SongNotInLibrary)
             {
-                SongList.SetSongSelectable(response.SongId, false);
+                UnavailableSongs.Add(response.SongId);
+                SongList.PopulateSongListItems();
             }
         }
     }

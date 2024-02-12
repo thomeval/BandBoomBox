@@ -61,6 +61,7 @@ public class ServerNetApi : NetworkBehaviour
     public void RemoveNetPlayerServerRpc(int slot, ServerRpcParams serverParams = default)
     {
         var netId = serverParams.Receive.SenderClientId;
+        _playerManager.RemoveNetPlayer(netId, slot);
         Debug.Log($"(Server) Removing Player from client ID {netId}, slot {slot}");
         _clientNetApi.ReceivePlayerListClientRpc(GetPlayerList());
     }
