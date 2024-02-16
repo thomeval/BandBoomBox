@@ -27,6 +27,51 @@ Band BoomBox is a free, open source rhythm game built using the Unity engine. Th
 ### Keyboard
 ![Keyboard-Layout-Bg](https://github.com/thomeval/BandBoomBox/assets/11618454/0586b62a-4efe-4a85-a3bc-97dea9e24aab)
 
+
+<table>
+<tr>
+    <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-A.png" height="50"/> </td>
+  <td>S</td>
+      <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Down.png" height="50"/> </td>
+    <td>Down / Numpad 2</td>
+      <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-LB.png" height="50"/> </td>
+    <td>Q</td>
+</tr>
+  <tr>
+    <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-B.png" height="50"/> </td>
+      <td>D</td>
+        <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Right.png" height="50"/> </td>
+           <td>Right / Numpad 6</td>
+        <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-RB.png" height="50"/> </td>
+      <td>Numpad 7</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-X.png" height="50"/> </td>
+      <td>A</td>
+        <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Left.png" height="50"/> </td>
+      <td>Left / Numpad 4</td>
+  </tr>
+  <tr>
+        <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Y.png" height="50"/> </td>
+      <td>W</td>
+        <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Up.png" height="50"/> </td>
+      <td>Up / Numpad 8</td>
+  </tr>
+
+<tr>
+      <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-AnyB.png" height="50"/> </td>
+    <td>Any of the above</td>
+      <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-AnyD.png" height="50"/> </td>
+    <td>Any of the above</td>
+</tr>
+<tr>
+      <td>Start / Pause </td>
+    <td>Enter</td>
+      <td>Turbo</td>
+    <td>Space</td>
+</tr>
+</table>
+
 ### Controller
 ![Controller-LayoutDiagram-Bg](https://github.com/thomeval/BandBoomBox/assets/11618454/ca4d5b13-bbf6-475e-a504-61fef24b1aae)
 
