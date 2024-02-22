@@ -72,7 +72,7 @@ public class DifficultySelectFrame : MonoBehaviour
         set
         {
             _displayedSongData = value;
-            Refresh();
+            Init();
         }
     }
 
@@ -97,11 +97,12 @@ public class DifficultySelectFrame : MonoBehaviour
         }
     }
 
-    private void Refresh()
+    private void Init()
     {
 
         _chartGroups = DisplayedSongData.SongCharts.Select(e => e.Group).Distinct().ToArray();
         ChartGroupSelector.SetActive(_chartGroups.Length > 1);
+        SelectedChartGroup = _chartGroups.Contains("Main") ? "Main" : _chartGroups[0];
         RefreshText();
         RefreshMenu();
         FetchHighScore();
