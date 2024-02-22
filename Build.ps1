@@ -3,7 +3,7 @@ param(
     [Parameter(Mandatory=$true)]
     [string] $OutputPath = "D:\Writable Folder\Band BoomBox\",
     [Parameter(Mandatory=$false)]
-    [string] $UnityPath = "C:\Program Files\Unity\2021.2.12f1\Editor\Unity.exe"
+    [string] $UnityPath = "C:\Program Files\Unity\2022.3.20f1\Editor\Unity.exe"
 )
 
 function Clean-TargetFolder($target)
@@ -42,8 +42,8 @@ function Get-ProjectVersion()
     }
 
     
-    $versionLine = get-content $projectJsonPath | select-string "bundleVersion:"
-    $versionLine = $versionLine.Line.Trim().Replace("bundleVersion: ","")
+    $versionLine = get-content $projectJsonPath | select-string " bundleVersion:"
+    $versionLine = $versionLine.Line.Trim().Replace(" bundleVersion: ","")
 
     Write-Host "Found Version: $versionLine"
     return $versionLine
