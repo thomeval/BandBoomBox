@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Assets;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -15,7 +12,7 @@ public class SongManager : MonoBehaviour
         get { return _audioSource.isPlaying; }
     }
 
-    public float EngineOffset = 0.05f;
+    public float EngineOffset = 0.025f;
     private AudioSource _audioSource;
 
     public float UserAudioLatency
