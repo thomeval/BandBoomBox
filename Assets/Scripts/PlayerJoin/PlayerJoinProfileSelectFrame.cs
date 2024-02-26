@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -87,6 +88,11 @@ public class PlayerJoinProfileSelectFrame : MonoBehaviour
 
     public void HandleInput(InputEvent inputEvent)
     {
+        if (inputEvent.Action == InputAction.Y)
+        {
+            Parent.TrySetProfileToPlayer(_profileManager.GuestProfile);
+            return;
+        }
         ProfilesMenu.HandleInput(inputEvent);
     }
 
@@ -97,7 +103,7 @@ public class PlayerJoinProfileSelectFrame : MonoBehaviour
             _profileManager = FindObjectOfType<ProfileManager>();
         }
         ProfilesMenu.ClearItems();
-        foreach (var profile in _profileManager.Profiles)
+        foreach (var profile in _profileManager.Profiles.OrderByDescending(e => e.LastPlayed))
         {
             AddToMenu(profile);
         }

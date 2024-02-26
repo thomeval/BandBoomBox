@@ -56,6 +56,7 @@ public class ProfileManager : MonoBehaviour
         var result = GuestProfile;
         result.ID = Guid.NewGuid().ToString();
         result.Name = profileName;
+        result.LastPlayed = DateTime.Now;
         this[result.ID] = result;
         return result;
     }

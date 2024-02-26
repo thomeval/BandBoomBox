@@ -251,6 +251,12 @@ public class Player : MonoBehaviour
         set { ProfileData.TimingDisplayType = value; }
     }
 
+    public DateTime LastPlayed
+    {
+        get { return ProfileData.LastPlayed; }
+        set { ProfileData.LastPlayed = value; }
+    }
+
     #endregion
 
 

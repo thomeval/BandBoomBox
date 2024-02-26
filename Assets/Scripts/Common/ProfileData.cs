@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Unity.Netcode;
 
 public class ProfileData
 {
@@ -14,6 +14,7 @@ public class ProfileData
     public bool MistakeSfxEnabled { get; set; } = true;
     public bool RumbleEnabled { get; set; } = true;
     public bool SeenNerfWarning { get; set; } = false;
+    public DateTime LastPlayed { get; set; }
 
     public List<PlayerScore> PlayerScores { get; set; } = new();
     public int Momentum { get; set; }
@@ -50,11 +51,6 @@ public class ProfileData
             .ToList();
 
         return scores.FirstOrDefault();
-    }
-
-    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-    {
-        throw new System.NotImplementedException();
     }
 }
 

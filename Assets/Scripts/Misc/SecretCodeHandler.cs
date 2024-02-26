@@ -8,12 +8,14 @@ public class SecretCodeHandler : MonoBehaviour
         {
             { SecretCode.EnableNerfDifficulty, new [] { InputAction.Left, InputAction.Left, InputAction.Left, InputAction.Right, InputAction.Right, InputAction.Right, InputAction.Left, InputAction.Right, InputAction.Pause } },
             { SecretCode.EnableMomentumOption, new [] { InputAction.B, InputAction.X, InputAction.Down, InputAction.A, InputAction.B, InputAction.X, InputAction.Down, InputAction.A, InputAction.Pause  } },
+            { SecretCode.EnableExtraDifficulty, new [] { InputAction.Down, InputAction.Down, InputAction.Down } }
         };
 
     private readonly Dictionary<SecretCode, int> _inputCodeProgress = new();
 
     private Dictionary<SecretCode, string> _activationMessages = new()
     {
+        { SecretCode.EnableExtraDifficulty, "Extra difficulty unlocked!" },
         { SecretCode.EnableNerfDifficulty, "N.E.R.F. difficulty unlocked!" },
         { SecretCode.EnableMomentumOption, "Momentum scroll speed option unlocked!" },
     };
@@ -77,6 +79,11 @@ public class SecretCodeHandler : MonoBehaviour
 
         switch (ActivatedCode.Value)
         {
+            // Extra difficulty should be enabled by default, but this is a failsafe to allow it to be enabled without manually editing the settings file.
+            case SecretCode.EnableExtraDifficulty:
+                _coreManager.Settings.EnableExtraDifficulty = true;
+                _coreManager.Settings.Save();
+                break;
             case SecretCode.EnableNerfDifficulty:
                 _coreManager.Settings.EnableNerfDifficulty = true;
                 _coreManager.Settings.Save();
