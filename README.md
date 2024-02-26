@@ -19,7 +19,8 @@ Band BoomBox is a free, open source rhythm game built using the Unity engine. Th
 - CPU: Intel Core i5 6600K
 - RAM: 8GB (Mainly for the OS itself, not the game. Band BoomBox actively uses around 512 MB of RAM)
 - GPU: Nvidia GeForce GTX 960
-  - Note: Many newer integrated GPUs will be able to run Band BoomBox with decent performance, but having a discrete one is recommended for higher resolutions and frame rates.
+  - Note: Many newer integrated GPUs will be able to run Band BoomBox with decent performance, but having a discrete one is recommended for higher resolutions, frame rates and frame pacing consistency.
+- Display: 16:9 Aspect Ratio display recommended, with a minimum resolution of 1280x720 (720p). The game will run on other aspect ratios, but this may result in a stretched image.
 - HDD: At least 500 MB of free space
 - One XInput compatible controller per player (alternatively, one player can play using a keyboard)
 
