@@ -209,7 +209,7 @@ public class NoteManager : MonoBehaviour
             return;
         }
 
-        ScrollingBackground.position = new Vector3(newX, ScrollingBackground.position.y);
+        ScrollingBackground.localPosition = new Vector3(newX, ScrollingBackground.localPosition.y);
 
         // var speedScale = this._displayedScrollSpeed / 500.0f;
         // ScrollingBackground.localScale = new Vector3(speedScale, 1.0f);

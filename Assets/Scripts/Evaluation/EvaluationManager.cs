@@ -66,9 +66,7 @@ public class EvaluationManager : ScreenManager
 
     private void DisplayPlayerResultFrame(Player player, bool isPersonalBest)
     {
-        var frame = UseWidePlayerResultFrames
-            ? WidePlayerResultFrames[player.Slot - 1]
-            : PlayerResultFrames[player.Slot - 1];
+        var frame = GetFrameForPlayer(player.Slot);
 
         var stars = CoreManager.LastTeamScore.Stars;
         var numPlayers = CoreManager.PlayerManager.GetLocalPlayers().Count;
@@ -77,6 +75,13 @@ public class EvaluationManager : ScreenManager
 
         var totalModifier = frame.ExpModifierList.TotalExpModifier;
         player.ApplyExpGain(totalModifier);
+    }
+
+    private PlayerResultFrame GetFrameForPlayer(int slot)
+    {
+        return UseWidePlayerResultFrames
+            ? WidePlayerResultFrames[slot - 1]
+            : PlayerResultFrames[slot - 1];
     }
 
     private IEnumerator DisplayContinueAfterDelay()
@@ -160,12 +165,14 @@ public class EvaluationManager : ScreenManager
 
     private void ChangeResultPage(int player, int amount)
     {
-        PlayerResultFrames[player - 1].DisplayedPage += amount;
+        var frame = GetFrameForPlayer(player);
+        frame.DisplayedPage += amount;
     }
 
     private void ShowReadyPage(int player)
     {
-        PlayerResultFrames[player - 1].DisplayReady();
+        var frame = GetFrameForPlayer(player);
+        frame.DisplayReady();
     }
 
     public void RefreshPlayerList()

@@ -93,7 +93,7 @@ public class PlayerResultFrame : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         TxtPlayerName.text = player.Name;
-        TxtDifficulty.text = player.Difficulty.ToString();
+        TxtDifficulty.text = player.GroupAndDifficulty;
 
 
         TxtIsNewPb.gameObject.SetActive(isNewPb);

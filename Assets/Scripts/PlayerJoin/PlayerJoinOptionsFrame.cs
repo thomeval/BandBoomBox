@@ -64,7 +64,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
             case "Controller Rumble":
                 Parent.Player.RumbleEnabled = !Parent.Player.RumbleEnabled;
                 break;
-            case "Momentum":
+            case "Momentum Speed":
                 var newMomentum = Helpers.GetNextValue(MomentumAmounts, Parent.Player.Momentum, amount, false);
                 Parent.Player.Momentum = newMomentum;
                 break;

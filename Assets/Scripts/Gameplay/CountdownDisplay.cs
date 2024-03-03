@@ -6,7 +6,7 @@ public class CountdownDisplay : MonoBehaviour
     public GameObject ReadySprite;
     public CountdownNumber CountdownNumber;
     public Text PlayerNameText;
-    
+
     public string PlayerName
     {
         get
@@ -21,18 +21,22 @@ public class CountdownDisplay : MonoBehaviour
 
     public void DisplayBeat(float songTimeInBeats)
     {
-        ReadySprite.SetActive(songTimeInBeats < -4.0f);
-        PlayerNameText.gameObject.SetActive(songTimeInBeats < 0.0f);
-
-        var opacity = -0.25f * songTimeInBeats; 
-        opacity = Mathf.Clamp(opacity, 0.0f, 1.0f);
-        PlayerNameText.color = new Color(1.0f, 1.0f, 1.0f, opacity);
-
-        CountdownNumber.DisplayBeat(songTimeInBeats);
-        
         if (songTimeInBeats > 0.0f)
         {
-            this.gameObject.SetActive(false);
+            return;
         }
+
+        DisplayPlayerName(songTimeInBeats);
+
+        ReadySprite.SetActive(songTimeInBeats < -4.0f);
+        CountdownNumber.DisplayBeat(songTimeInBeats);
+    }
+
+    private void DisplayPlayerName(float songTimeInBeats)
+    {
+
+        var opacity = -0.25f * songTimeInBeats;
+        opacity = Mathf.Clamp(opacity, 0.0f, 1.0f);
+        PlayerNameText.color = new Color(1.0f, 1.0f, 1.0f, opacity);
     }
 }

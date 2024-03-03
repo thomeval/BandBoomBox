@@ -313,7 +313,8 @@ public class Player : MonoBehaviour
         get { return _inputManager.ControllerConnected; }
     }
 
-    public string ChartGroup = "Main";
+    public const string DEFAULT_CHART_GROUP = "Main";
+    public string ChartGroup = DEFAULT_CHART_GROUP;
 
     public Dictionary<JudgeResult, int> EarlyHits = new();
     public Dictionary<JudgeResult, int> LateHits = new();
@@ -363,6 +364,17 @@ public class Player : MonoBehaviour
     }
     public float HitDeviationTotal { get; set; }
 
+    public string GroupAndDifficulty
+    {
+        get
+        {
+            if (ChartGroup == DEFAULT_CHART_GROUP)
+            {
+                return Helpers.GetDisplayName(this.Difficulty);
+            }
+            return ChartGroup + ": " + Helpers.GetDisplayName(this.Difficulty);
+        }
+    }
     #endregion
 
     public void ApplyHitResult(HitResult result)
