@@ -42,8 +42,8 @@ function Get-ProjectVersion()
     }
 
     
-    $versionLine = get-content $projectJsonPath | select-string " bundleVersion:"
-    $versionLine = $versionLine.Line.Trim().Replace(" bundleVersion: ","")
+    $versionLine = get-content $projectJsonPath | select-string -Pattern "^\W*bundleVersion:"
+    $versionLine = $versionLine.Line.Trim().Replace("bundleVersion: ","")
 
     Write-Host "Found Version: $versionLine"
     return $versionLine
