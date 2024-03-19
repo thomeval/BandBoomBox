@@ -179,7 +179,7 @@ public class GameplayManager : ScreenManager
 
         StateValues.Energy = 0.0f;
         StateValues.MaxEnergy = _playerManager.Players.Count(e => e.IsParticipating);
-        HudManager.EnergyMeter.MaxEnergy = StateValues.MaxEnergy;
+        HudManager.EnergyMeter.SetMaxEnergy(StateValues.MaxEnergy);
     }
 
     private void CalculateStarScoresFromSongData()

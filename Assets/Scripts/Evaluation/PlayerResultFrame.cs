@@ -45,6 +45,7 @@ public class PlayerResultFrame : MonoBehaviour
     public GameObject[] Pages;
     public bool DisplayAllPages;
     public GameObject ReadyPage;
+    public MenuSoundEventHandler SoundEventHandler;
 
     [SerializeField]
     private int _displayedPage;
@@ -183,6 +184,11 @@ public class PlayerResultFrame : MonoBehaviour
     public void Hide()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void PlaySfx(SoundEvent soundEvent)
+    {
+        SoundEventHandler.PlaySfx(soundEvent);
     }
 }
 

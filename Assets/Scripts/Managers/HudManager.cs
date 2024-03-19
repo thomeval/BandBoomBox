@@ -116,7 +116,7 @@ public class HudManager : MonoBehaviour
     public void UpdateEnergyMeter(bool turboActive)
     {
         EnergyMeter.Energy = StateValues.Energy;
-        EnergyMeter.MaxEnergy = StateValues.MaxEnergy;
+        EnergyMeter.SetMaxEnergy(StateValues.MaxEnergy);
         EnergyMeter.TurboActive = turboActive;
     }
 

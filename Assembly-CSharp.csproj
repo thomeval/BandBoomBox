@@ -127,6 +127,7 @@
     <Compile Include="Assets\Scripts\Common\OnlinePlayerListSortMode.cs" />
     <Compile Include="Assets\Scripts\Common\SoundEvent.cs" />
     <Compile Include="Assets\Scripts\OnlineMenu\Submenus\OnlineSubmenuBase.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\EnergyMeterScaleManager.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorOptions.cs" />
     <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
     <Compile Include="Assets\Scripts\Misc\SecretCodeHandler.cs" />

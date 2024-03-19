@@ -6,6 +6,7 @@ public class EnergyMeter : MonoBehaviour
 {
     public SpriteMeter SpriteMeter;
     public SpriteResolver SpriteResolver;
+    public EnergyMeterScaleManager ScaleManager;
 
     private string _lastSprite = "Inactive";
 
@@ -50,6 +51,17 @@ public class EnergyMeter : MonoBehaviour
 
         SpriteResolver.SetCategoryAndLabel("EnergyMeter", spriteLabel);
         _lastSprite = spriteLabel;
+    }
+
+    public void SetMaxEnergy(double maxEnergy)
+    {
+        if (maxEnergy == MaxEnergy)
+        {
+            return;
+        }
+
+        MaxEnergy = maxEnergy;
+        ScaleManager.DrawScaleLines();
     }
 }
 

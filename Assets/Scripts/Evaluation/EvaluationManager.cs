@@ -122,7 +122,7 @@ public class EvaluationManager : ScreenManager
             case InputAction.B:
                 UpdatePlayerState(player, PlayerState.Evaluation_NotReady);
                 ChangeResultPage(inputEvent.Player, 0);
-                PlaySfx(SoundEvent.SelectionCancelled);
+                PlaySfx(player.Slot, SoundEvent.SelectionCancelled);
                 RefreshPlayerList();
                 break;
         }
@@ -147,7 +147,7 @@ public class EvaluationManager : ScreenManager
                 {
                     UpdatePlayerState(player, PlayerState.Evaluation_Ready);
                     ShowReadyPage(inputEvent.Player);
-                    PlaySfx(SoundEvent.SelectionConfirmed);
+                    PlaySfx(player.Slot, SoundEvent.SelectionConfirmed);
                     RefreshPlayerList();
                     TryToContinue();
                 }
@@ -191,5 +191,10 @@ public class EvaluationManager : ScreenManager
     {
         base.OnNetPlayerUpdated(player);
         RefreshPlayerList();
+    }
+
+    public void PlaySfx(int playerId, SoundEvent soundEvent)
+    {
+        GetFrameForPlayer(playerId)?.PlaySfx(soundEvent);
     }
 }
