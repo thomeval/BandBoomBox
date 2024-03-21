@@ -32,6 +32,17 @@
       "Group": "Main",
       "Difficulty": 0,
       "DifficultyLevel": 1,
+      "NoteCounts": {
+        "TapNotes": 107,
+        "HoldNotes": 37,
+        "LaneNotes": [
+          0,
+          89,
+          92,
+          0
+        ],
+        "TotalNotes": 181
+      },
       "Notes": [
         "0010",
         "0000",
@@ -432,6 +443,17 @@
       "Group": "Main",
       "Difficulty": 1,
       "DifficultyLevel": 4,
+      "NoteCounts": {
+        "TapNotes": 207,
+        "HoldNotes": 61,
+        "LaneNotes": [
+          0,
+          162,
+          167,
+          0
+        ],
+        "TotalNotes": 329
+      },
       "Notes": [
         "0080",
         "00G0",
@@ -832,6 +854,17 @@
       "Group": "Main",
       "Difficulty": 2,
       "DifficultyLevel": 8,
+      "NoteCounts": {
+        "TapNotes": 299,
+        "HoldNotes": 92,
+        "LaneNotes": [
+          0,
+          240,
+          243,
+          0
+        ],
+        "TotalNotes": 483
+      },
       "Notes": [
         "0080",
         "0000 04G0",
@@ -1232,6 +1265,17 @@
       "Group": "Main",
       "Difficulty": 3,
       "DifficultyLevel": 14,
+      "NoteCounts": {
+        "TapNotes": 416,
+        "HoldNotes": 86,
+        "LaneNotes": [
+          185,
+          200,
+          203,
+          0
+        ],
+        "TotalNotes": 588
+      },
       "Notes": [
         "0080",
         "0000 04G0",
@@ -1632,6 +1676,17 @@
       "Group": "Main",
       "Difficulty": 4,
       "DifficultyLevel": 18,
+      "NoteCounts": {
+        "TapNotes": 477,
+        "HoldNotes": 129,
+        "LaneNotes": [
+          236,
+          245,
+          254,
+          0
+        ],
+        "TotalNotes": 735
+      },
       "Notes": [
         "0080 0400",
         "D000 04G0",

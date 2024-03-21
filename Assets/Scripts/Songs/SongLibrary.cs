@@ -93,9 +93,35 @@ namespace Assets
             song.SjsonFilePath = path;
             song.AudioPath = Path.Combine(folder, song.AudioFile);
             song.Sections = song.Sections.OrderBy(e => e.Key).ToDictionary(e => e.Key, e => e.Value);
-
+            CheckSongChartNoteCounts(song);
             this[song.ID] = song;
             return song;
+        }
+
+        private void CheckSongChartNoteCounts(SongData songData)
+        {
+            bool changed = false;
+            foreach (var chart in songData.SongCharts)
+            {
+                changed |= CheckSongChartNoteCounts(chart);
+            }
+
+            if (changed)
+            {
+                Debug.Log($"Updated note counts for song ({songData.ID}) - {songData.Artist} - {songData.Title}");
+                this.SaveSongToDisk(songData);
+            }
+        }
+
+        private bool CheckSongChartNoteCounts(SongChart chart)
+        {
+            if (chart.NoteCounts.TotalNotes != 0)
+            {
+                return false;
+            }
+
+            chart.NoteCounts = NoteCounter.CountNotes(chart);
+            return true;
         }
 
         public void SaveSongToDisk(SongData songData)

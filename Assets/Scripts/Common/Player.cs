@@ -566,7 +566,8 @@ public class Player : MonoBehaviour
             SongVersion = songVersion,
             DateTime = DateTime.Now,
             ChartGroup = this.ChartGroup,
-            MaxCombo = this.MaxCombo
+            MaxCombo = this.MaxCombo,
+            FullComboType = this.GetFullComboType()
         };
         return result;
     }

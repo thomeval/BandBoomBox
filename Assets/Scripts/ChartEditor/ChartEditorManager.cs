@@ -38,6 +38,7 @@ public class ChartEditorManager : ScreenManager
     public SongManager SongManager;
     public SongProgressMeter SongProgressMeter;
     public SectionProgressMeter SectionProgressMeter;
+    public SongChartNoteCountDisplay NoteCountDisplay;
 
     [SerializeField]
     private ChartEditorState _chartEditorState;
@@ -183,12 +184,14 @@ public class ChartEditorManager : ScreenManager
         CurrentSongData = Helpers.TryGetArg<SongData>(args, "SelectedSongData") ?? CoreManager.SongLibrary.Songs[0];
         CurrentChart = Helpers.TryGetArg<SongChart>(args, "SelectedSongChart") ?? CurrentSongData.GetChart("Main", Difficulty.Hard);
         TxtChartDifficulty.text = CurrentChart.Difficulty.GetDisplayName();
+        CurrentChart.NoteCounts = NoteCounter.CountNotes(CurrentChart);
         NoteGenerator.GenerateBeatLines(CurrentSongData, this.NoteManager);
         var temp = NoteGenerator.LoadSongNotes(CurrentChart);
         var notes = NoteGenerator.InstantiateNotes(temp);
         NoteManager.AttachNotes(notes);
         NoteManager.CalculateAbsoluteTimes(CurrentSongData.Bpm);
         ShowNotePalette();
+        NoteCountDisplay.UpdateNoteCountDisplay(CurrentChart.NoteCounts);
         ApplyNoteSkin();
     }
 
@@ -461,6 +464,8 @@ public class ChartEditorManager : ScreenManager
 
             var sjson = SjsonUtils.ToSjson(NoteManager.Notes);
             CurrentChart.Notes = sjson;
+            CurrentChart.NoteCounts = NoteCounter.CountNotes(CurrentChart);
+            NoteCountDisplay.UpdateNoteCountDisplay(CurrentChart.NoteCounts);
 
             CoreManager.SongLibrary.SaveSongToDisk(CurrentSongData);
             PlaySfx(SoundEvent.Editor_SaveComplete);

@@ -26,14 +26,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157745011721723449}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 25, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 739966935146378611}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7806892630655366199
 MonoBehaviour:
@@ -47,16 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3560f4b3717146f458306421eea98d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Position: 0
-  AbsoluteTime: 0
-  NoteType: 0
-  NoteClass: 0
   EndNote: {fileID: 0}
   LabelObject: {fileID: 1538420174517230784}
   HoldTailSprite: {fileID: 0}
   HoldSpriteHeight: 100
-  Lane: 0
-  MxValue: 0
 --- !u!114 &7806892630655366192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +66,7 @@ MonoBehaviour:
   m_CategoryHash: 0
   m_labelHash: 0
   m_SpriteKey: -0.000021324122
+  m_SpriteHash: 0
 --- !u!212 &7806892630655366193
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -149,13 +144,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538420174517230784}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3002741384211044361}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9117357304727996035
 MonoBehaviour:
@@ -172,6 +167,7 @@ MonoBehaviour:
   m_CategoryHash: 0
   m_labelHash: 0
   m_SpriteKey: 0
+  m_SpriteHash: 0
 --- !u!212 &1045633231963110545
 SpriteRenderer:
   m_ObjectHideFlags: 0

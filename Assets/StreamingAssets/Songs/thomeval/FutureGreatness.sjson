@@ -5,6 +5,7 @@
   "Artist": "thomeval",
   "ChartAuthor": "thomeval",
   "Issues": "",
+  "Url": null,
   "AudioFile": "FutureGreatness.ogg",
   "Version": 1,
   "Bpm": 80.0,
@@ -22,12 +23,34 @@
       "Group": "Main",
       "Difficulty": 0,
       "DifficultyLevel": 1,
+      "NoteCounts": {
+        "TapNotes": 0,
+        "HoldNotes": 0,
+        "LaneNotes": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "TotalNotes": 0
+      },
       "Notes": []
     },
     {
       "Group": "Main",
       "Difficulty": 1,
       "DifficultyLevel": 3,
+      "NoteCounts": {
+        "TapNotes": 66,
+        "HoldNotes": 36,
+        "LaneNotes": [
+          0,
+          70,
+          68,
+          0
+        ],
+        "TotalNotes": 138
+      },
       "Notes": [
         "0080",
         "0000",
@@ -164,6 +187,17 @@
       "Group": "Main",
       "Difficulty": 10,
       "DifficultyLevel": 4,
+      "NoteCounts": {
+        "TapNotes": 66,
+        "HoldNotes": 36,
+        "LaneNotes": [
+          0,
+          70,
+          68,
+          0
+        ],
+        "TotalNotes": 138
+      },
       "Notes": [
         "00B0",
         "0000",
@@ -300,6 +334,17 @@
       "Group": "Main",
       "Difficulty": 2,
       "DifficultyLevel": 6,
+      "NoteCounts": {
+        "TapNotes": 131,
+        "HoldNotes": 37,
+        "LaneNotes": [
+          0,
+          104,
+          101,
+          0
+        ],
+        "TotalNotes": 205
+      },
       "Notes": [
         "0080 0000 0000 0700",
         "0000",
@@ -436,6 +481,17 @@
       "Group": "Main",
       "Difficulty": 3,
       "DifficultyLevel": 11,
+      "NoteCounts": {
+        "TapNotes": 192,
+        "HoldNotes": 46,
+        "LaneNotes": [
+          89,
+          93,
+          102,
+          0
+        ],
+        "TotalNotes": 284
+      },
       "Notes": [
         "0080 0000 0000 0700",
         "0000 4000",

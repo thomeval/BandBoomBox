@@ -128,53 +128,53 @@ public class InputManager : MonoBehaviour
 
     void OnEditor_NoteA(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteA, InputAction.Editor_NoteReleaseAnyB);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteA, InputAction.Editor_NoteReleaseAnyB, InputAction.Editor_NoteAnyB);
     }
     void OnEditor_NoteB(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteB, InputAction.Editor_NoteReleaseAnyB);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteB, InputAction.Editor_NoteReleaseAnyB, InputAction.Editor_NoteAnyB);
     }
     void OnEditor_NoteX(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteX, InputAction.Editor_NoteReleaseAnyB);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteX, InputAction.Editor_NoteReleaseAnyB, InputAction.Editor_NoteAnyB);
     }
     void OnEditor_NoteY(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteY, InputAction.Editor_NoteReleaseAnyB);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteY, InputAction.Editor_NoteReleaseAnyB, InputAction.Editor_NoteAnyB);
     }
 
     void OnEditor_NoteDown(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteDown, InputAction.Editor_NoteReleaseAnyD);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteDown, InputAction.Editor_NoteReleaseAnyD, InputAction.Editor_NoteAnyD);
     }
     void OnEditor_NoteRight(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteRight, InputAction.Editor_NoteReleaseAnyD);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteRight, InputAction.Editor_NoteReleaseAnyD, InputAction.Editor_NoteAnyD);
     }
     void OnEditor_NoteLeft(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteLeft, InputAction.Editor_NoteReleaseAnyD);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteLeft, InputAction.Editor_NoteReleaseAnyD, InputAction.Editor_NoteAnyD);
     }
     void OnEditor_NoteUp(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteUp, InputAction.Editor_NoteReleaseAnyD);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteUp, InputAction.Editor_NoteReleaseAnyD, InputAction.Editor_NoteAnyD);
     }
 
     void OnEditor_NoteLB(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteLB, InputAction.Editor_NoteReleaseAnyT);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteLB, InputAction.Editor_NoteReleaseAnyT, InputAction.Editor_NoteLT);
     }
     void OnEditor_NoteRB(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteRB, InputAction.Editor_NoteReleaseAnyT);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteRB, InputAction.Editor_NoteReleaseAnyT, InputAction.Editor_NoteRT);
     }
     void OnEditor_NoteLT(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteLT, InputAction.Editor_NoteReleaseAnyT);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteLT, InputAction.Editor_NoteReleaseAnyT, InputAction.Editor_NoteAnyT);
     }
     void OnEditor_NoteRT(InputValue value)
     {
-        ChooseAndRegisterInput(value, InputAction.Editor_NoteRT, InputAction.Editor_NoteReleaseAnyT);
+        ChooseAndRegisterInput(value, InputAction.Editor_NoteRT, InputAction.Editor_NoteReleaseAnyT, InputAction.Editor_NoteAnyT);
     }
 
     void OnEditor_Confirm(InputValue value)

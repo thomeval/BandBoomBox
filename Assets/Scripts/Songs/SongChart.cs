@@ -9,6 +9,7 @@ public class SongChart
     public string Group;
     public Difficulty Difficulty;
     public int DifficultyLevel;
+    public SongChartNoteCounts NoteCounts = new();
 
     [HideInInspector]
     public string[] Notes;
@@ -31,7 +32,9 @@ public class SongChart
 
         var result = new SongChart
         {
-            Difficulty = this.Difficulty, Group = this.Group, DifficultyLevel = this.DifficultyLevel,
+            Difficulty = this.Difficulty,
+            Group = this.Group,
+            DifficultyLevel = this.DifficultyLevel,
         };
 
         if (Notes != null)
@@ -49,4 +52,3 @@ public class SongChart
         return result;
     }
 }
-

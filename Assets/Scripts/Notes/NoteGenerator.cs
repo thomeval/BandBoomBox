@@ -396,5 +396,4 @@ public class NoteGenerator : MonoBehaviour
 
         return result;
     }
-
 }

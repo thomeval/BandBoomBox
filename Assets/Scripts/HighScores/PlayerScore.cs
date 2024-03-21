@@ -21,6 +21,7 @@ public class PlayerScore
     public int MaxCombo { get; set; }
 
     public DateTime DateTime { get; set; }
+    public FullComboType FullComboType { get; set; }
 
     public override string ToString()
     {

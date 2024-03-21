@@ -60,6 +60,7 @@
     <Analyzer Include="C:\Program Files\Unity\2022.3.20f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\SongChartNoteCountDisplay.cs" />
     <Compile Include="Assets\Scripts\Managers\ScreenManager.cs" />
     <Compile Include="Assets\Scripts\Notes\SjsonUtils.cs" />
     <Compile Include="Assets\Scripts\Common\GameScene.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorDetailsPage.cs" />
     <Compile Include="Assets\Scripts\NetPlay\ServerNetApi.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteItem.cs" />
+    <Compile Include="Assets\Scripts\Songs\SongChartNoteCounts.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorChartListPage.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorPageManager.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="Assets\Scripts\Common\MenuEventArgs.cs" />
     <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayOnlinePlayerListItem.cs" />
+    <Compile Include="Assets\Scripts\Notes\NoteCounter.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectOnlinePlayerListItem.cs" />
     <Compile Include="Assets\Scripts\Common\Player.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongPreviewManager.cs" />

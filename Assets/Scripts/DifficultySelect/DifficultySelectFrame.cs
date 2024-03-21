@@ -15,6 +15,7 @@ public class DifficultySelectFrame : MonoBehaviour
     public Menu ConfirmDisconnectMenu;
     public GameObject DifficultyMenuItemPrefab;
     public PlayerHighScoreDisplay PlayerHighScoreDisplay;
+    public SongChartNoteCountDisplay NoteCountDisplay;
     public DifficultySelectManager Parent;
 
     [Header("Pages")]
@@ -106,6 +107,7 @@ public class DifficultySelectFrame : MonoBehaviour
         RefreshText();
         RefreshMenu();
         FetchHighScore();
+        UpdateNoteCountDisplay();
         UpdateShownPage();
     }
 
@@ -182,9 +184,15 @@ public class DifficultySelectFrame : MonoBehaviour
             case InputAction.RB:
                 ChangeScrollSpeed(1);
                 break;
+            case InputAction.X:
+                NoteCountDisplay.ToggleVisibility();
+                PlayerHighScoreDisplay.ToggleVisibility();
+                SoundEventHandler.PlaySfx(SoundEvent.SelectionShifted);
+                break;
             default:
                 DifficultyMenu.HandleInput(inputEvent);
                 FetchHighScore();
+                UpdateNoteCountDisplay();
                 break;
         }
     }
@@ -215,6 +223,11 @@ public class DifficultySelectFrame : MonoBehaviour
         PlayerHighScoreDisplay.DisplayedScore = score;
     }
 
+    private void UpdateNoteCountDisplay()
+    {
+        NoteCountDisplay.UpdateNoteCountDisplay(SelectedSongChart.NoteCounts);
+    }
+
     private void ChangeScrollSpeed(int delta)
     {
         Player.ChangeScrollSpeed(delta);
@@ -239,6 +252,7 @@ public class DifficultySelectFrame : MonoBehaviour
         RefreshMenu();
         RefreshText();
         FetchHighScore();
+        UpdateNoteCountDisplay();
     }
 }
 
