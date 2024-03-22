@@ -14,6 +14,7 @@ public class PlayerResultFrame : MonoBehaviour
     public Text TxtPercentage;
     public SpriteResolver GradeSprite;
     public Text TxtRanking;
+    public Text LblMaxCombo;
     public Text TxtMaxCombo;
     public Text TxtExpGain;
     public Text TxtIsLevelUp;
@@ -100,6 +101,14 @@ public class PlayerResultFrame : MonoBehaviour
         TxtIsNewPb.gameObject.SetActive(isNewPb);
         var grade = player.GetCurrentGrade().ToString();
         GradeSprite.SetCategoryAndLabel("Grades", grade);
+
+        var fullComboType = player.GetFullComboType();
+        if (LblMaxCombo != null)
+        {
+            LblMaxCombo.text = PlayerHighScoreDisplay.GetFcCode(fullComboType);
+            LblMaxCombo.color = PlayerHighScoreDisplay.GetFcColor(fullComboType);
+        }
+        TxtMaxCombo.color = PlayerHighScoreDisplay.GetFcColor(fullComboType);
         TxtMaxCombo.text = string.Format("{0:000}", player.MaxCombo);
         TxtPercentage.text = string.Format(CultureInfo.InvariantCulture, "{0:P1}", player.PerfPercent);
         TxtRanking.text = Helpers.FormatRanking(player.Ranking);

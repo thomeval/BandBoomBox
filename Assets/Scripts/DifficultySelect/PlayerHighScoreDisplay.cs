@@ -54,7 +54,7 @@ public class PlayerHighScoreDisplay : MonoBehaviour
     }
 
 
-    private Color GetFcColor(FullComboType fullComboType)
+    public static Color GetFcColor(FullComboType fullComboType)
     {
         switch (fullComboType)
         {
@@ -71,7 +71,7 @@ public class PlayerHighScoreDisplay : MonoBehaviour
         }
     }
 
-    private string GetFcCode(FullComboType fullComboType)
+    public static string GetFcCode(FullComboType fullComboType)
     {
         switch (fullComboType)
         {

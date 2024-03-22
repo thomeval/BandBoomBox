@@ -2360,6 +2360,7 @@ MonoBehaviour:
   TxtPercentage: {fileID: 7018751980166220104}
   GradeSprite: {fileID: 2836715732212035617}
   TxtRanking: {fileID: 283930658969072275}
+  LblMaxCombo: {fileID: 4189736162681077813}
   TxtMaxCombo: {fileID: 7018751979552519909}
   TxtExpGain: {fileID: 7018751980860582074}
   TxtIsLevelUp: {fileID: 7018751980350524307}
