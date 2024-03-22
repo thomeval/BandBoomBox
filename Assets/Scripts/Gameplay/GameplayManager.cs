@@ -63,7 +63,7 @@ public class GameplayManager : ScreenManager
     private BackgroundManager _backgroundManager;
 
     private HitJudge _hitJudge;
-    DateTime _lastUpdate = DateTime.Now;
+    private DateTime _lastUpdate = DateTime.Now;
     private DateTime _outroTime;
     private bool _isSongLoading;
     private bool _startSignalReceived = false;
@@ -101,8 +101,8 @@ public class GameplayManager : ScreenManager
 
     private void AssignManagers()
     {
-        int num = 0;
-        bool multiplayer = _playerManager.Players.Count > 1;
+        var num = 0;
+        var multiplayer = _playerManager.Players.Count > 1;
         foreach (var noteManager in NoteManagers)
         {
             noteManager.ParentEnabled = false;
@@ -478,7 +478,7 @@ public class GameplayManager : ScreenManager
 
     }
 
-    void PauseMenuItemSelected(MenuEventArgs args)
+    private void PauseMenuItemSelected(MenuEventArgs args)
     {
         switch (args.SelectedItem)
         {

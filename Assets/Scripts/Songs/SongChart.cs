@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
-using Newtonsoft.Json;
 using UnityEngine;
 
 [Serializable]
@@ -22,6 +22,7 @@ public class SongChart
             return Notes == null || Notes.Length == 0 || Notes.All(e => e == "0000");
         }
     }
+
     public override string ToString()
     {
         return string.Format("{0} - {1}({2})", Group, Difficulty, DifficultyLevel);
@@ -41,7 +42,7 @@ public class SongChart
         {
             var newNotes = new string[Notes.Length];
 
-            for (int x = 0; x < Notes.Length; x++)
+            for (var x = 0; x < Notes.Length; x++)
             {
                 newNotes[x] = this.Notes[x];
             }

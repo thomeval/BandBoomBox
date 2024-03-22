@@ -40,7 +40,7 @@ public class ChartEditorPlaybackManager : MonoBehaviour
 
             return;
         }
-        
+
         switch (inputEvent.Action)
         {
             case InputAction.Pause:
@@ -59,7 +59,7 @@ public class ChartEditorPlaybackManager : MonoBehaviour
         var lane = NoteUtils.GetNoteLane(noteType);
         LaneFlasher.LaneButtonPressed(lane);
 
-        var note = _parent.NoteManager.FindNearestNote(noteType);
+        var note = _parent.NoteManager.FindNearestNote(noteType, true, true);
         ProcessNote(note);
     }
 
@@ -103,7 +103,7 @@ public class ChartEditorPlaybackManager : MonoBehaviour
     public void PausePlayback()
     {
         StopPlayback();
-        var newPosition =  Math.Min(_parent.CursorPosition, _parent.CurrentSongData.LengthInBeats);
+        var newPosition = Math.Min(_parent.CursorPosition, _parent.CurrentSongData.LengthInBeats);
         _parent.CursorPosition = newPosition;
 
         _parent.ClampCursorToLimits();

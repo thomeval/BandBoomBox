@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class NoteManager : MonoBehaviour
 {
@@ -146,7 +146,7 @@ public class NoteManager : MonoBehaviour
         _lastSeenPosition = SongPosition;
         UpdateBackgroundOpacity();
 
-        bool speedChanged = UpdateScrollSpeed();
+        var speedChanged = UpdateScrollSpeed();
 
         if (!speedChanged)
         {
@@ -344,7 +344,7 @@ public class NoteManager : MonoBehaviour
 
     private float CalculateRenderPosition(float notePosition)
     {
-        float newX = ((notePosition - SongPosition) * _displayedScrollSpeed) + ImpactZoneCenter;
+        var newX = ((notePosition - SongPosition) * _displayedScrollSpeed) + ImpactZoneCenter;
         return newX;
     }
 
@@ -397,11 +397,23 @@ public class NoteManager : MonoBehaviour
         return notes.FirstOrDefault();
     }
 
-    public Note FindNearestNote(NoteType noteType, bool enforceCutoffs = true)
+    public Note FindNearestNote(NoteType noteType, bool enforceCutoffs = true, bool includeAnyType = false)
     {
         var noteAnyType = NoteUtils.GetLaneAnyNote(noteType);
-        var result = Notes.OrderBy(e => e.DistanceTo(SongPosition))
-            .FirstOrDefault(e => e.NoteType == noteType && e.NoteClass != NoteClass.Release);
+        var orderedNotes = Notes.OrderBy(e => e.DistanceTo(SongPosition));
+
+        Note result;
+
+        if (includeAnyType)
+        {
+            result = orderedNotes
+                .FirstOrDefault(e => (e.NoteType == noteType || e.NoteType == noteAnyType) && e.NoteClass != NoteClass.Release);
+        }
+        else
+        {
+            result = orderedNotes
+                .FirstOrDefault(e => e.NoteType == noteType && e.NoteClass != NoteClass.Release);
+        }
 
         if (enforceCutoffs)
         {
@@ -544,7 +556,7 @@ public class NoteManager : MonoBehaviour
 
     public void ClearNotes()
     {
-        for (int x = 0; x < _pendingReleases.Length; x++)
+        for (var x = 0; x < _pendingReleases.Length; x++)
         {
             _pendingReleases[x] = null;
         }
