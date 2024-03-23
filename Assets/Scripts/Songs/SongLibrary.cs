@@ -100,7 +100,7 @@ namespace Assets
 
         private void CheckSongChartNoteCounts(SongData songData)
         {
-            bool changed = false;
+            var changed = false;
             foreach (var chart in songData.SongCharts)
             {
                 changed |= CheckSongChartNoteCounts(chart);
@@ -121,7 +121,7 @@ namespace Assets
             }
 
             chart.NoteCounts = NoteCounter.CountNotes(chart);
-            return true;
+            return chart.NoteCounts.TotalNotes > 0;
         }
 
         public void SaveSongToDisk(SongData songData)
