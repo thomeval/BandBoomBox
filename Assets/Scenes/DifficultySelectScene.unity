@@ -516,6 +516,10 @@ PrefabInstance:
       propertyPath: m_SpriteKey
       value: 1.44515495e-27
       objectReference: {fileID: 0}
+    - target: {fileID: 1974514154777667723, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
+      propertyPath: m_SpriteHash
+      value: 316997235
+      objectReference: {fileID: 0}
     - target: {fileID: 2235587735062216666, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: Player
       value: 2
@@ -699,7 +703,7 @@ PrefabInstance:
     - target: {fileID: 8737112037404968733, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 7936265252671662889, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+      objectReference: {fileID: -3612827306860660423, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
     - target: {fileID: 9032603920073966088, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -808,6 +812,10 @@ PrefabInstance:
     - target: {fileID: 1974514154777667723, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_SpriteKey
       value: 0.0041307537
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974514154777667723, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
+      propertyPath: m_SpriteHash
+      value: 998726470
       objectReference: {fileID: 0}
     - target: {fileID: 2235587735062216666, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: Player
@@ -992,7 +1000,7 @@ PrefabInstance:
     - target: {fileID: 8737112037404968733, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 7936265252671662889, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+      objectReference: {fileID: 4536834274596570524, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
     - target: {fileID: 9032603920073966088, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1493,6 +1501,10 @@ PrefabInstance:
       propertyPath: m_SpriteKey
       value: 3.951842e-16
       objectReference: {fileID: 0}
+    - target: {fileID: 1974514154777667723, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
+      propertyPath: m_SpriteHash
+      value: 635686629
+      objectReference: {fileID: 0}
     - target: {fileID: 2235587735062216666, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: Player
       value: 3
@@ -1676,7 +1688,7 @@ PrefabInstance:
     - target: {fileID: 8737112037404968733, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 7936265252671662889, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+      objectReference: {fileID: 6685501487919365077, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
     - target: {fileID: 9032603920073966088, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

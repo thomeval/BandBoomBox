@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerJoinProfileCreateFrame : MonoBehaviour
@@ -9,22 +8,36 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
     public string EnteredText = "";
 
     public int SelectedLetterIndex = 0;
+    public int SelectedNonLetterIndex = 0;
     public Menu Menu;
     public Text TxtEnteredText;
     public Text TxtCurrentLetter;
+    public Text TxtCurrentNonLetter;
     public Text TxtMessage;
     public MenuItem MitUpperLowerCase;
 
     public int MaxLength = 12;
 
-    private string _letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-";
+    private string _letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private string _nonLetters = "0123456789_-.,";
     private ProfileManager _profileManager;
 
     public char CurrentLetter
     {
-        get { return _letters[SelectedLetterIndex]; }
-    }
 
+        get
+        {
+            switch (Menu.SelectedIndex)
+            {
+                case 0:
+                    return _letters[SelectedLetterIndex];
+                case 1:
+                    return _nonLetters[SelectedNonLetterIndex];
+                default:
+                    return ' ';
+            }
+        }
+    }
 
     public string DefaultMessage = "Enter a name for the new profile. It can be up to 12 characters long.";
     public string Error
@@ -70,15 +83,22 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
         switch (inputEvent.Action)
         {
             case InputAction.B:
-                if (Menu.SelectedIndex == 0)
+                if (EnteredText.Length == 0)
                 {
-                    MenuItemSelected(new MenuEventArgs { SelectedItem = "Backspace" });
+                    MenuItemSelected(new MenuEventArgs { SelectedItem = "Cancel" });
                     Parent.PlaySfx(SoundEvent.SelectionCancelled);
+                    return;
                 }
+
+                MenuItemSelected(new MenuEventArgs { SelectedItem = "Backspace" });
+                Parent.PlaySfx(SoundEvent.SelectionCancelled);
                 return;
+            case InputAction.Y:
+                MenuItemSelected(new MenuEventArgs { SelectedItem = "Space" });
+                Parent.PlaySfx(SoundEvent.SelectionConfirmed);
+                break;
             case InputAction.Back:
                 MenuItemSelected(new MenuEventArgs { SelectedItem = "Cancel" });
-
                 break;
         }
         Menu.HandleInput(inputEvent);
@@ -89,6 +109,12 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
         if (args.SelectedIndex == 0)
         {
             ChangeSelectedLetter(args.ShiftAmount);
+            return;
+        }
+        if (args.SelectedIndex == 1)
+        {
+            ChangeSelectedNonLetter(args.ShiftAmount);
+            return;
         }
     }
 
@@ -98,10 +124,17 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
         Refresh();
     }
 
+    private void ChangeSelectedNonLetter(int delta)
+    {
+        SelectedNonLetterIndex = Helpers.Wrap(SelectedNonLetterIndex + delta, _nonLetters.Length - 1);
+        Refresh();
+    }
+
     private void Refresh()
     {
         TxtEnteredText.text = EnteredText + "_";
-        TxtCurrentLetter.text = "" + CurrentLetter;
+        TxtCurrentLetter.text = "" + _letters[SelectedLetterIndex];
+        TxtCurrentNonLetter.text = "" + _nonLetters[SelectedNonLetterIndex];
     }
 
     void MenuItemSelected(MenuEventArgs args)
@@ -142,7 +175,7 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
 
     private void AddLetter(MenuEventArgs args)
     {
-        if (args.SelectedIndex == 0)
+        if (args.SelectedIndex == 0 || args.SelectedIndex == 1)
         {
             AddLetter(CurrentLetter);
         }
