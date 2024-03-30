@@ -11,6 +11,8 @@ public class EvaluationManager : ScreenManager
     public SongResultFrame SongResultFrame;
     public GameObject PbContinue;
     public OnlinePlayerList OnlinePlayerList;
+    public BarChart MxBarChart;
+
     public bool UseWidePlayerResultFrames;
 
     private DateTime _screenStartTime;
@@ -57,11 +59,21 @@ public class EvaluationManager : ScreenManager
         var isTeamBest = CoreManager.HighScoreManager.AddTeamScore(CoreManager.LastTeamScore);
 
         SongResultFrame.DisplayResult(CoreManager.LastTeamScore, isTeamBest);
+        DisplayMxHistoryBarChart(CoreManager.GameplayStateRecorder.GetMultipliers());
+
         CoreManager.SaveAllActiveProfiles();
         StartCoroutine(DisplayContinueAfterDelay());
         StartCoroutine(PlayGradeSfx());
         UpdatePlayersState(PlayerState.Evaluation_NotReady);
         RefreshPlayerList();
+    }
+
+    private void DisplayMxHistoryBarChart(float[] mxHistoryValues)
+    {
+        var maxY = Mathf.Ceil(mxHistoryValues.Max());
+        maxY = Mathf.Max(2, maxY);
+        MxBarChart.SetYAxis(1, maxY);
+        MxBarChart.DisplayValues(mxHistoryValues);
     }
 
     private void DisplayPlayerResultFrame(Player player, bool isPersonalBest)

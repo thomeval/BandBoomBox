@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class GameplayStateValues : MonoBehaviour
 {
+    public float SongPosition;
+
     public long Score;
     public int TeamCombo;
     public int MaxTeamCombo;
@@ -21,6 +23,7 @@ public class GameplayStateValues : MonoBehaviour
     {
         return new GameplayStateValuesDto
         {
+            SongPosition = SongPosition,
             Score = Score,
             TeamCombo = TeamCombo,
             MaxTeamCombo = MaxTeamCombo,
@@ -36,6 +39,7 @@ public class GameplayStateValues : MonoBehaviour
 
     public void CopyValues(GameplayStateValuesDto dto)
     {
+        SongPosition = dto.SongPosition;
         Score = dto.Score;
         TeamCombo = dto.TeamCombo;
         MaxTeamCombo = dto.MaxTeamCombo;

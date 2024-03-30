@@ -197,7 +197,17 @@ public class GameplayManager : ScreenManager
         CheckOutroState();
         UpdateBackground();
         UpdateScrollSpeeds();
+        UpdateGameplayStateRecorder();
         _lastUpdate = DateTime.Now;
+    }
+
+    private void UpdateGameplayStateRecorder()
+    {
+        var recorder = CoreManager.GameplayStateRecorder;
+        if (recorder.NeedsUpdate(SongPositionInBeats))
+        {
+            recorder.Add(SongPositionInBeats, StateValues);
+        }
     }
 
     private void UpdateScrollSpeeds()
@@ -262,6 +272,7 @@ public class GameplayManager : ScreenManager
         var songLoadTime = DateTime.Now - _songLoadStart;
         Debug.Log(string.Format("Song loaded in {0:F0}ms", songLoadTime.TotalMilliseconds));
         CalculateStarScoresFromSongData();
+        CoreManager.GameplayStateRecorder.Init(_songManager.GetSongEndInBeats());
 
         // Send the max possible base score (calculated above) to each client so that they can calculate stars earned correctly.
         SendNetGameplayStateValuesUpdate(StateValues.AsDto());

@@ -2,6 +2,7 @@
 
 public class GameplayStateValuesDto : INetworkSerializable
 {
+    public float SongPosition;
     public long Score;
     public int TeamCombo;
     public int MaxTeamCombo;
@@ -18,6 +19,7 @@ public class GameplayStateValuesDto : INetworkSerializable
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
+        serializer.SerializeValue(ref SongPosition);
         serializer.SerializeValue(ref Score);
         serializer.SerializeValue(ref TeamCombo);
         serializer.SerializeValue(ref MaxTeamCombo);

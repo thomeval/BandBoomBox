@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Assets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets;
-using System.Runtime.CompilerServices;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Audio;
-using Unity.Netcode;
 
 public class CoreManager : MonoBehaviour
 {
@@ -25,6 +24,7 @@ public class CoreManager : MonoBehaviour
     public ClientNetApi ClientNetApi;
     public ServerNetApi ServerNetApi;
     public NetSongSelectTurnManager NetSongSelectTurnManager;
+    public GameplayStateRecorder GameplayStateRecorder;
 
     public string SelectedSong;
 
