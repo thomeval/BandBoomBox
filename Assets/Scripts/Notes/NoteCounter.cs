@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -5,6 +6,40 @@ public static class NoteCounter
 {
 
     private const int LINE_SIZE = 4;
+
+    public static SongChartNoteCounts CountNotes(IEnumerable<Note> notes)
+    {
+        var result = new SongChartNoteCounts();
+
+        if (notes == null || notes.Count() == 0)
+        {
+            return result;
+        }
+
+        foreach (var note in notes)
+        {
+            if (note.Lane < 0 || note.Lane >= LINE_SIZE)
+            {
+                Debug.LogWarning($"Invalid note lane: {note.Lane}.");
+                continue;
+            }
+
+            result.LaneNotes[note.Lane]++;
+
+            switch (note.NoteClass)
+            {
+                case NoteClass.Tap:
+                    result.TapNotes++;
+                    break;
+                case NoteClass.Hold:
+                    result.HoldNotes++;
+                    break;
+            }
+        }
+
+        return result;
+
+    }
 
     public static SongChartNoteCounts CountNotes(SongChart chart)
     {
@@ -37,7 +72,7 @@ public static class NoteCounter
             return result;
         }
 
-        for (int lane = 0; lane < LINE_SIZE; lane++)
+        for (var lane = 0; lane < LINE_SIZE; lane++)
         {
             if (line[lane] == '0')
             {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ChartEditorMenuManager : MonoBehaviour
 {
@@ -220,6 +219,7 @@ public class ChartEditorMenuManager : MonoBehaviour
             case "Paste":
                 _parent.ChartEditorState = ChartEditorState.Edit;
                 _parent.Clipboard.OnPlayerInput(InputAction.Editor_Paste);
+                _parent.RefreshNoteCounts();
                 break;
             case "Save":
                 _parent.ChartEditorState = ChartEditorState.Edit;
@@ -279,6 +279,8 @@ public class ChartEditorMenuManager : MonoBehaviour
             default:
                 throw new Exception("Unknown menu item selected: " + args.SelectedItem);
         }
+
+        _parent.RefreshNoteCounts();
     }
 
     void MenuItemSelectedExitConfirm(MenuEventArgs args)

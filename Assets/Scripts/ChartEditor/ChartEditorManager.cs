@@ -184,15 +184,22 @@ public class ChartEditorManager : ScreenManager
         CurrentSongData = Helpers.TryGetArg<SongData>(args, "SelectedSongData") ?? CoreManager.SongLibrary.Songs[0];
         CurrentChart = Helpers.TryGetArg<SongChart>(args, "SelectedSongChart") ?? CurrentSongData.GetChart("Main", Difficulty.Hard);
         TxtChartDifficulty.text = CurrentChart.Difficulty.GetDisplayName();
-        CurrentChart.NoteCounts = NoteCounter.CountNotes(CurrentChart);
+
         NoteGenerator.GenerateBeatLines(CurrentSongData, this.NoteManager);
         var temp = NoteGenerator.LoadSongNotes(CurrentChart);
         var notes = NoteGenerator.InstantiateNotes(temp);
         NoteManager.AttachNotes(notes);
         NoteManager.CalculateAbsoluteTimes(CurrentSongData.Bpm);
+        RefreshNoteCounts();
         ShowNotePalette();
-        NoteCountDisplay.UpdateNoteCountDisplay(CurrentChart.NoteCounts);
+
         ApplyNoteSkin();
+    }
+
+    public void RefreshNoteCounts()
+    {
+        CurrentChart.NoteCounts = NoteCounter.CountNotes(NoteManager.Notes);
+        NoteCountDisplay.UpdateNoteCountDisplay(CurrentChart.NoteCounts);
     }
 
     public void ApplyNoteSkin()
@@ -409,7 +416,7 @@ public class ChartEditorManager : ScreenManager
 
     private void ChangeZoom(int delta)
     {
-        var newValue = Helpers.GetNextValue<int>(Player.ScrollSpeeds, (int)NoteManager.ScrollSpeed, delta, false);
+        var newValue = Helpers.GetNextValue<int>(Player.ScrollSpeeds, NoteManager.ScrollSpeed, delta, false);
         NoteManager.ScrollSpeed = newValue;
         UpdateHud();
     }
