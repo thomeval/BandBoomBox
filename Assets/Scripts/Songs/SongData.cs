@@ -1,11 +1,8 @@
-﻿
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using Newtonsoft.Json;
 using UnityEngine;
-
 
 [Serializable]
 public class SongData
@@ -19,11 +16,13 @@ public class SongData
     public string Issues;
     public string Url;
 
-    [JsonIgnore] [NonSerialized]
+    [JsonIgnore]
+    [NonSerialized]
     public string SjsonFilePath;
     public string AudioFile;
 
-    [JsonIgnore] [NonSerialized]
+    [JsonIgnore]
+    [NonSerialized]
     public string AudioPath;
     public int Version = 1;
 
@@ -105,7 +104,7 @@ public class SongData
         }
 
         var currentSection = this.Sections.Last(e => e.Key <= position);
-        return currentSection;   
+        return currentSection;
     }
 
     public string GetSectionName(double position)

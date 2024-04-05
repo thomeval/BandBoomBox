@@ -36,6 +36,7 @@ public class SongChart
             Difficulty = this.Difficulty,
             Group = this.Group,
             DifficultyLevel = this.DifficultyLevel,
+            NoteCounts = this.NoteCounts.Clone(),
         };
 
         if (Notes != null)

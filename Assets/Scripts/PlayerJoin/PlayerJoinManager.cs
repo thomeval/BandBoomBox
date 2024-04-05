@@ -9,14 +9,14 @@ public class PlayerJoinManager : ScreenManager
     private PlayerManager _playerManager;
     public virtual int ReadyPlayerCount
     {
-        get { return PlayerJoinFrames.Count(e => e.State == PlayerJoinState.Ready); }
+        get { return PlayerJoinFrames.Count(e => e.State == PlayerState.PlayerJoin_Ready); }
     }
 
     public virtual int JoinedPlayerCount
     {
         get
         {
-            return PlayerJoinFrames.Count(e => e.State != PlayerJoinState.NotJoined);
+            return PlayerJoinFrames.Count(e => e.State != PlayerState.NotPlaying);
         }
     }
 
@@ -89,7 +89,7 @@ public class PlayerJoinManager : ScreenManager
             frame.gameObject.SetActive(false);
         }
 
-        for (int x = 1; x <= _playerManager.MaxLocalPlayers; x++)
+        for (var x = 1; x <= _playerManager.MaxLocalPlayers; x++)
         {
 
             var player = _playerManager.GetLocalPlayer(x);
@@ -107,7 +107,7 @@ public class PlayerJoinManager : ScreenManager
             }
             else
             {
-                frame.State = PlayerJoinState.NotJoined;
+                frame.State = PlayerState.NotPlaying;
             }
             frame.Refresh();
         }

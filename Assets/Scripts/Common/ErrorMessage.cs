@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Mime;
 using UnityEngine;
 using UnityEngine.UI;
 
 [ExecuteAlways]
 public class ErrorMessage : MonoBehaviour
 {
-    public Color ErrorTextColor = new Color(1.0f,0.5f,0.5f);
+    public Color ErrorTextColor = new Color(1.0f, 0.5f, 0.5f);
     public Color DefaultTextColor = Color.white;
 
     private Text _txtMessage;
@@ -38,10 +35,8 @@ public class ErrorMessage : MonoBehaviour
         _txtMessage = GetComponent<Text>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         Error = null;
     }
-
 }

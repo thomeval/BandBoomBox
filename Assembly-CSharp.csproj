@@ -78,7 +78,6 @@
     <Compile Include="Assets\Scripts\Managers\SceneTransitionManager.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenuState.cs" />
     <Compile Include="Assets\BackgroundManager.cs" />
-    <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinState.cs" />
     <Compile Include="Assets\Scripts\Evaluation\EvaluationOnlinePlayerListItem.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNotePlacer.cs" />
     <Compile Include="Assets\Scripts\Notes\BeatLine.cs" />

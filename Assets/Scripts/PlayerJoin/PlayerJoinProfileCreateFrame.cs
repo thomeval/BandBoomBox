@@ -162,7 +162,7 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
                 AddLetter(' ');
                 break;
             case "Cancel":
-                Parent.State = PlayerJoinState.ProfileSelect;
+                Parent.State = PlayerState.PlayerJoin_SelectProfile;
                 break;
             case "Confirm":
                 CreateProfile();
@@ -210,6 +210,6 @@ public class PlayerJoinProfileCreateFrame : MonoBehaviour
         var newProfile = _profileManager.Create(EnteredText);
         _profileManager.Save(newProfile);
         Parent.ProfileSelectFrame.PopulateProfileList();
-        Parent.State = PlayerJoinState.ProfileSelect;
+        Parent.State = PlayerState.PlayerJoin_SelectProfile;
     }
 }

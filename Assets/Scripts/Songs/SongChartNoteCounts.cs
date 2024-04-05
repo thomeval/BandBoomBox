@@ -16,4 +16,14 @@ public class SongChartNoteCounts
     public int HoldNotes;
 
     public int[] LaneNotes = new int[4];
+
+    public SongChartNoteCounts Clone()
+    {
+        return new SongChartNoteCounts
+        {
+            TapNotes = this.TapNotes,
+            HoldNotes = this.HoldNotes,
+            LaneNotes = this.LaneNotes.ToArray()
+        };
+    }
 }

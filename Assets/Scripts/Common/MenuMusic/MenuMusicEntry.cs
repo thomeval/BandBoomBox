@@ -11,4 +11,5 @@ public class MenuMusicEntry : MonoBehaviour
 
     // TODO: Should be nullable, but this breaks Unity's inspector.
     public float Bpm;
+
 }

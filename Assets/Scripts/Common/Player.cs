@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -407,16 +405,19 @@ public class Player : MonoBehaviour
         if (result.JudgeResult == JudgeResult.Wrong || result.JudgeResult == JudgeResult.Miss)
         {
             Mistakes[result.JudgeResult]++;
+            return;
         }
-        else switch (result.DeviationResult)
-            {
-                case DeviationResult.Early:
-                    EarlyHits[result.JudgeResult]++;
-                    break;
-                case DeviationResult.Late:
-                    LateHits[result.JudgeResult]++;
-                    break;
-            }
+
+        switch (result.DeviationResult)
+        {
+            case DeviationResult.Early:
+                EarlyHits[result.JudgeResult]++;
+                break;
+            case DeviationResult.Late:
+                LateHits[result.JudgeResult]++;
+                break;
+        }
+
     }
 
     private void UpdateCombo(JudgeResult result)

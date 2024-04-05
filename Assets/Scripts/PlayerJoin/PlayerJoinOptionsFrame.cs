@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -76,19 +75,15 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         switch (args.SelectedItem)
         {
             case "Ready":
-                Parent.Player.PlayerState = PlayerState.PlayerJoin_Ready;
-                Parent.State = PlayerJoinState.Ready;
-                Parent.SendNetUpdate();
+                Parent.State = PlayerState.PlayerJoin_Ready;
                 break;
             case "Select Profile":
                 Parent.ProfileSelectFrame.PopulateProfileList();
                 Parent.ProfileSelectFrame.Refresh();
-                Parent.Player.PlayerState = PlayerState.PlayerJoin_SelectProfile;
-                Parent.State = PlayerJoinState.ProfileSelect;
-                Parent.SendNetUpdate();
+                Parent.State = PlayerState.PlayerJoin_SelectProfile;
                 break;
             case "Leave":
-                Parent.State = PlayerJoinState.NotJoined;
+                Parent.State = PlayerState.NotPlaying;
                 Parent.RemovePlayer();
                 break;
         }
@@ -144,7 +139,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
             return;
         }
 
-        int x = 0;
+        var x = 0;
         foreach (var note in NotePreviews)
         {
             note.NoteBase.NoteType = _noteTypesInPreview[x];

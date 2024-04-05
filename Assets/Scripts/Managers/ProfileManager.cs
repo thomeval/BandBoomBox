@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -68,12 +68,12 @@ public class ProfileManager : MonoBehaviour
             return true;
         }
 
-        return Profiles.Any(e => String.Equals(e.Name, profileName, StringComparison.InvariantCultureIgnoreCase));
+        return Profiles.Any(e => string.Equals(e.Name, profileName, StringComparison.InvariantCultureIgnoreCase));
     }
 
     public ProfileData GetProfileWithName(string profileName)
     {
-        return Profiles.SingleOrDefault(e => String.Equals(e.Name, profileName, StringComparison.InvariantCultureIgnoreCase));
+        return Profiles.SingleOrDefault(e => string.Equals(e.Name, profileName, StringComparison.InvariantCultureIgnoreCase));
     }
 
     public ProfileData GetLeadRhythmist()

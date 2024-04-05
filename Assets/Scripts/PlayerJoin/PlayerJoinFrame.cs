@@ -1,5 +1,4 @@
 ﻿using System;
-using Assets;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,35 +11,39 @@ public class PlayerJoinFrame : MonoBehaviour
 
     public Text TxtPlayerName;
 
+    public PlayerState[] PageStates = { PlayerState.NotPlaying, PlayerState.PlayerJoin_SelectProfile, PlayerState.PlayerJoin_CreateProfile, PlayerState.PlayerJoin_Options, PlayerState.PlayerJoin_Ready };
     public GameObject[] Pages;
 
     public Player Player;
     public ExpMeter ExpMeter;
 
-    [SerializeField]
-    private PlayerJoinState _state;
-
-    public PlayerJoinState State
+    public PlayerState State
     {
-        get { return _state; }
+        get
+        {
+            return Player?.PlayerState ?? PlayerState.NotPlaying;
+        }
         set
         {
-            _state = value;
-
-            foreach (var page in Pages)
+            if (Player == null)
             {
-                page.SetActive(false);
+                return;
             }
 
-            Pages[(int)value].SetActive(true);
+            var valueChanged = Player.PlayerState != value;
+
+            Player.PlayerState = value;
             _playerJoinManager.RefreshPlayerList();
+
+            DisplayCurrentPage(value);
+
+            if (valueChanged)
+            {
+                SendNetUpdate();
+            }
         }
     }
 
-    public void ShowMomentumOption()
-    {
-        OptionsFrame.ShowMomentumOption();
-    }
     private PlayerManager _playerManager;
     private PlayerJoinManager _playerJoinManager;
     public Color ErrorMessageColor = new Color(1.0f, 0.5f, 0.5f);
@@ -54,6 +57,7 @@ public class PlayerJoinFrame : MonoBehaviour
     {
         _playerManager = FindObjectOfType<PlayerManager>();
         _playerJoinManager = FindObjectOfType<PlayerJoinManager>();
+        DisplayCurrentPage(PlayerState.NotPlaying);
     }
 
     public void Refresh()
@@ -66,7 +70,7 @@ public class PlayerJoinFrame : MonoBehaviour
         }
         TxtPlayerName.text = Player.Name;
 
-        if (State == PlayerJoinState.Options || State == PlayerJoinState.Ready)
+        if (State == PlayerState.PlayerJoin_Options || State == PlayerState.PlayerJoin_Ready)
         {
             TxtPlayerName.Show();
             ExpMeter.Show();
@@ -88,25 +92,47 @@ public class PlayerJoinFrame : MonoBehaviour
         _playerJoinManager.SendNetPlayerUpdate(this.Player);
     }
 
+    private void DisplayCurrentPage(PlayerState state)
+    {
+        foreach (var page in Pages)
+        {
+            page.SetActive(false);
+        }
+
+        var idx = Array.IndexOf(PageStates, state);
+
+        if (idx == -1)
+        {
+            return;
+        }
+        Pages[idx].SetActive(true);
+    }
+
+    public void ShowMomentumOption()
+    {
+        OptionsFrame.ShowMomentumOption();
+    }
+
+
     public void HandleInput(InputEvent inputEvent)
     {
         switch (State)
         {
-            case PlayerJoinState.Ready:
+            case PlayerState.PlayerJoin_Ready:
                 if (inputEvent.Action == InputAction.B || inputEvent.Action == InputAction.Back)
                 {
                     Player.PlayerState = PlayerState.PlayerJoin_Options;
-                    State = PlayerJoinState.Options;
+                    State = PlayerState.PlayerJoin_Options;
                     SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
                 }
                 break;
-            case PlayerJoinState.Options:
+            case PlayerState.PlayerJoin_Options:
                 HandleInputOptionsPage(inputEvent);
                 break;
-            case PlayerJoinState.ProfileSelect:
+            case PlayerState.PlayerJoin_SelectProfile:
                 HandleInputProfileSelectPage(inputEvent);
                 break;
-            case PlayerJoinState.ProfileCreate:
+            case PlayerState.PlayerJoin_CreateProfile:
                 ProfileCreateFrame.HandleInput(inputEvent);
                 break;
         }
@@ -132,13 +158,11 @@ public class PlayerJoinFrame : MonoBehaviour
     {
         this.Player = player;
         this.ProfileSelectFrame.PopulateProfileList();
-        this.Player.PlayerState = string.IsNullOrEmpty(player.ProfileId) ? PlayerState.PlayerJoin_SelectProfile : PlayerState.PlayerJoin_Options;
-        this.State = string.IsNullOrEmpty(player.ProfileId) ? PlayerJoinState.ProfileSelect : PlayerJoinState.Options;
+        this.State = string.IsNullOrEmpty(player.ProfileId) ? PlayerState.PlayerJoin_SelectProfile : PlayerState.PlayerJoin_Options;
 
         if (withSfx)
         {
             PlayConfirmedSfx();
-
         }
 
         this.Refresh();
@@ -156,8 +180,7 @@ public class PlayerJoinFrame : MonoBehaviour
 
         ProfileSelectFrame.Error = null;
         this.Player.ProfileData = profileData;
-        this.Player.PlayerState = PlayerState.PlayerJoin_Options;
-        State = PlayerJoinState.Options;
+        State = PlayerState.PlayerJoin_Options;
         PlayConfirmedSfx();
         Refresh();
     }

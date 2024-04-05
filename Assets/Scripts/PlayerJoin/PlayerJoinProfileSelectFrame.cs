@@ -53,7 +53,7 @@ public class PlayerJoinProfileSelectFrame : MonoBehaviour
     {
         if (args.SelectedItem == "##CANCEL##")
         {
-            Parent.State = PlayerJoinState.NotJoined;
+            Parent.State = PlayerState.NotPlaying;
             Parent.RemovePlayer();
             return;
         }
@@ -61,8 +61,7 @@ public class PlayerJoinProfileSelectFrame : MonoBehaviour
         if (SelectedProfile.ID == "##NEW##")
         {
             Parent.ProfileCreateFrame.EnteredText = "";
-            Parent.State = PlayerJoinState.ProfileCreate;
-            Parent.Player.PlayerState = PlayerState.PlayerJoin_CreateProfile;
+            Parent.State = PlayerState.PlayerJoin_CreateProfile;
         }
         else
         {

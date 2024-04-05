@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -70,7 +69,7 @@ public class SectionProgressMeter : MonoBehaviour
         }
 
         value = Math.Clamp(value, 0, 1);
-        Meter.Value = (float) value;    
+        Meter.Value = (float)value;
     }
 
     private double GetStartPosition(double currentPosition)
