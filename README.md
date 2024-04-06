@@ -35,22 +35,24 @@ Band BoomBox is a free, open source rhythm game built using the Unity engine. Th
   <td>S</td>
       <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Down.png" height="50"/> </td>
     <td>Down / Numpad 2</td>
-      <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-LB.png" height="50"/> </td>
-    <td>Q</td>
+  <td colspan="2">(Expert Difficulty Only)</td>
 </tr>
   <tr>
     <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-B.png" height="50"/> </td>
       <td>D</td>
         <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Right.png" height="50"/> </td>
            <td>Right / Numpad 6</td>
-        <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-RB.png" height="50"/> </td>
-      <td>Numpad 7</td>
+          <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-LB.png" height="50"/> </td>
+    <td>Q</td>
+
   </tr>
   <tr>
     <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-X.png" height="50"/> </td>
       <td>A</td>
         <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Left.png" height="50"/> </td>
       <td>Left / Numpad 4</td>
+            <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-RB.png" height="50"/> </td>
+      <td>Numpad 7</td>
   </tr>
   <tr>
         <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Y.png" height="50"/> </td>
