@@ -1,4 +1,3 @@
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
@@ -8,6 +7,7 @@ public class EvaluationOnlinePlayerListItem : OnlinePlayerListItem
     [Header("Evaluation")]
     public Text TxtPerfPercent;
     public SpriteResolver GradeSprite;
+    public Text LblMaxCombo;
     public Text TxtMaxCombo;
     public Text TxtDifficulty;
     public Text TxtRanking;
@@ -28,22 +28,23 @@ public class EvaluationOnlinePlayerListItem : OnlinePlayerListItem
             GradeSprite.SetCategoryAndLabel("Grades", Player.GetCurrentGrade().ToString());
         }
 
-        SetTextSafe(TxtMaxCombo, $"{Player.MaxCombo:000}");
+        var fullComboType = Player.GetFullComboType();
+
+        // TODO: Consider refactoring into separate class
+        if (TxtMaxCombo != null)
+        {
+            SetTextSafe(TxtMaxCombo, $"{Player.MaxCombo:000}");
+            TxtMaxCombo.color = PlayerHighScoreDisplay.GetFcColor(fullComboType);
+        }
+
         SetTextSafe(TxtPlayerLevel, $"{ExpLevelUtils.GetLevel(Player.Exp)}");
 
         if (TxtDifficulty != null)
         {
-            var diff = Helpers.GetDisplayName(Player.Difficulty);
-            var result = Player.ChartGroup == "Main" ? diff : Player.ChartGroup + " - " + diff;
-            TxtDifficulty.text = result;
+            TxtDifficulty.text = Player.GroupAndDifficulty;
         }
 
-        if (!Player.IsParticipating)
-        {
-            SetTextSafe(TxtRanking, "-");
-            return;
-        }
-
-        SetTextSafe(TxtRanking, Helpers.FormatRanking(Player.Ranking));
+        var ranking = Player.IsParticipating ? Helpers.FormatRanking(Player.Ranking) : "-";
+        SetTextSafe(TxtRanking, ranking);
     }
 }
