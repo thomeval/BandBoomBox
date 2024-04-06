@@ -7,7 +7,6 @@ public class EvaluationOnlinePlayerListItem : OnlinePlayerListItem
     [Header("Evaluation")]
     public Text TxtPerfPercent;
     public SpriteResolver GradeSprite;
-    public Text LblMaxCombo;
     public Text TxtMaxCombo;
     public Text TxtDifficulty;
     public Text TxtRanking;
