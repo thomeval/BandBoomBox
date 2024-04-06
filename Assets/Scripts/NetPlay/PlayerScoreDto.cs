@@ -11,6 +11,7 @@ public class PlayerScoreDto : INetworkSerializable
     public int Combo;
     public int MaxCombo;
     public bool TurboActive;
+    public FullComboType FullComboType;
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
@@ -22,6 +23,7 @@ public class PlayerScoreDto : INetworkSerializable
         serializer.SerializeValue(ref Combo);
         serializer.SerializeValue(ref MaxCombo);
         serializer.SerializeValue(ref TurboActive);
+        serializer.SerializeValue(ref FullComboType);
     }
 
     public static PlayerScoreDto FromPlayer(Player player)
@@ -36,6 +38,7 @@ public class PlayerScoreDto : INetworkSerializable
             Combo = player.Combo,
             MaxCombo = player.MaxCombo,
             TurboActive = player.TurboActive,
+            FullComboType = player.GetFullComboType(),
         };
 
     }

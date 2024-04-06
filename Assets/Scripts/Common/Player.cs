@@ -592,7 +592,10 @@ public class Player : MonoBehaviour
                                                               + this.EarlyHits[JudgeResult.Crit] +
                                                               this.LateHits[JudgeResult.Crit];
 
-
+        if (totalNotes == 0)
+        {
+            return FullComboType.None;
+        }
         if (perfectHits == totalNotes)
         {
             return FullComboType.PerfectFullCombo;

@@ -182,7 +182,7 @@ public class ServerNetApi : NetworkBehaviour
     [ServerRpc(RequireOwnership = true)]
     public void SetNextSongSelectTurnServerRpc(ulong nextTurn)
     {
-        Debug.Log($"(Server) Setting next song select turn to {nextTurn}");
+        Debug.Log($"(Server) Setting next song select turn to client ID {nextTurn}");
         _clientNetApi.SetNextSongSelectTurnClientRpc(nextTurn);
     }
 
