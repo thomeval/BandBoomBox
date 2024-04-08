@@ -100,6 +100,7 @@
     <Compile Include="Assets\Scripts\Gameplay\MxMeter.cs" />
     <Compile Include="Assets\Scripts\Input\ActionMapType.cs" />
     <Compile Include="Assets\Scripts\Common\TextPulser.cs" />
+    <Compile Include="Assets\Scripts\Common\SettingsHelper.cs" />
     <Compile Include="Assets\Scripts\Songs\ChartValidator.cs" />
     <Compile Include="Assets\Scripts\Misc\AudioCrossFader.cs" />
     <Compile Include="Assets\Scripts\Common\PlayerState.cs" />

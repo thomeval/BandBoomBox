@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -123,7 +122,6 @@ public class ScreenManager : MonoBehaviour
         CoreManager?.MenuMusicManager?.PlaySceneMusic(gameScene);
         SceneManager.LoadScene(sceneName);
         yield return CoreManager.SceneTransitionManager.RunTransitionEnd();
-
     }
 
     public void PlaySfx(SoundEvent soundEvent)

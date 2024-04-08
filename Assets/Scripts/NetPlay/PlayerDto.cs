@@ -21,6 +21,7 @@ public class PlayerDto : INetworkSerializable
     public int Momentum;
     public bool TurboActive;
     public bool IsParticipating;
+    public FullComboType NetFullComboType;
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
@@ -42,6 +43,7 @@ public class PlayerDto : INetworkSerializable
         serializer.SerializeValue(ref Momentum);
         serializer.SerializeValue(ref TurboActive);
         serializer.SerializeValue(ref IsParticipating);
+        serializer.SerializeValue(ref NetFullComboType);
     }
 
     public static PlayerDto FromPlayer(Player player)
@@ -65,7 +67,8 @@ public class PlayerDto : INetworkSerializable
             MaxCombo = player.MaxCombo,
             Momentum = player.Momentum,
             TurboActive = player.TurboActive,
-            IsParticipating = player.IsParticipating
+            IsParticipating = player.IsParticipating,
+            NetFullComboType = player.NetFullComboType
         };
 
     }

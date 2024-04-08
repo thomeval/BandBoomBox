@@ -53,8 +53,6 @@ public class Player : MonoBehaviour
             }
 
             return Helpers.NumberToNetIdLetter(NetId);
-
-
         }
     }
 
@@ -94,6 +92,9 @@ public class Player : MonoBehaviour
 
     public int Slot;
 
+    /// <summary>
+    /// For local players, gets this player's slot (1 to 4, with 1 being P1). For remote players, always returns 0.
+    /// </summary>
     public int LocalSlot
     {
         get
@@ -129,6 +130,22 @@ public class Player : MonoBehaviour
         set
         {
             _maxCombo = value;
+            RefreshHud();
+        }
+    }
+
+    [SerializeField]
+    private FullComboType _netFullComboType;
+
+    /// <summary>
+    /// For remote players, gets or sets the full combo type that this player has achieved. Not used for local players.
+    /// </summary>
+    public FullComboType NetFullComboType
+    {
+        get { return _netFullComboType; }
+        set
+        {
+            _netFullComboType = value;
             RefreshHud();
         }
     }
@@ -584,6 +601,11 @@ public class Player : MonoBehaviour
 
     public FullComboType GetFullComboType()
     {
+        if (!IsLocalPlayer)
+        {
+            return NetFullComboType;
+        }
+
         var totalNotes = this.EarlyHits.Sum(e => e.Value)
                          + this.LateHits.Sum(e => e.Value)
                          + this.Mistakes[JudgeResult.Miss];     // Include misses, but not wrongs.

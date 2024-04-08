@@ -1,7 +1,5 @@
 ﻿
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,8 +24,8 @@ public class OptionsManager : ScreenManager
     public Text TxtSaveDataLocation;
     public Text TxtLogsFolderLocation;
 
-    private readonly int[] _targetFrameRateChoices = {20, 30, 60, 90, 120, 144, 180, 240, -1};
-    private readonly string[] _resolutionChoices = {"1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440", "3840x2160"};
+    private readonly int[] _targetFrameRateChoices = { 20, 30, 60, 90, 120, 144, 180, 240, -1 };
+    private readonly string[] _resolutionChoices = { "1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440", "3840x2160" };
 
     private readonly FullScreenMode[] _fullScreenModeChoices =
         {FullScreenMode.Windowed, FullScreenMode.FullScreenWindow, FullScreenMode.ExclusiveFullScreen};
@@ -153,7 +151,7 @@ public class OptionsManager : ScreenManager
 
         if (MainMenu.SelectedText == "Audio")
         {
-            CoreManager.ApplyAudioSettings();
+            CoreManager.SettingsHelper.ApplyAudioSettings();
         }
     }
 
@@ -179,7 +177,7 @@ public class OptionsManager : ScreenManager
             case "MainMenu":
                 CoreManager.Settings.Save();
                 CoreManager.ControlsManager.SaveInputActions();
-                CoreManager.ApplySettings();
+                CoreManager.SettingsHelper.ApplySettings();
                 SceneTransition(GameScene.MainMenu);
                 break;
             case "Open Logs Folder":
@@ -208,7 +206,7 @@ public class OptionsManager : ScreenManager
     {
         UnhighlightAllMenus();
 
-        Menu menuToShow = MainMenu;
+        var menuToShow = MainMenu;
 
         if (menuName != "MainOptions")
         {

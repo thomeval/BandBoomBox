@@ -39,6 +39,8 @@ public class CoreManager : MonoBehaviour
 
     [HideInInspector]
     public SettingsManager Settings;
+    public SettingsHelper SettingsHelper;
+
     public ControlsManager ControlsManager;
     public InputManager InputManager;
 
@@ -59,9 +61,15 @@ public class CoreManager : MonoBehaviour
         }
     }
 
-    public Dictionary<string, object> SceneLoadArgs = new();
+    public bool TransitionInProgress
+    {
+        get
+        {
+            return SceneTransitionManager.TransitionInProgress;
+        }
+    }
 
-    private const double FLOAT_TOLERANCE = 0.000001;
+    public Dictionary<string, object> SceneLoadArgs = new();
 
     void Awake()
     {
@@ -102,64 +110,9 @@ public class CoreManager : MonoBehaviour
     {
         Settings.Load();
         ControlsManager.LoadInputActions();
-        ApplySettings();
+        SettingsHelper.ApplySettings();
     }
 
-    public void ApplySettings()
-    {
-        SongLibrary.SongFolders = Settings.SongFolders;
-
-        ApplyAudioSettings();
-        ApplyGraphicsSettings();
-        //  PlayerManager.ApplyInputActions();
-    }
-
-    public void ApplyAudioSettings()
-    {
-        ApplyAudioVolume("MasterVolume", Settings.MasterVolume);
-        ApplyAudioVolume("GameplaySfxVolume", Settings.GameplaySfxVolume);
-        ApplyAudioVolume("GameplayMusicVolume", Settings.GameplayMusicVolume);
-        ApplyAudioVolume("MistakeSfxVolume", Settings.MistakeVolume);
-        ApplyAudioVolume("MenuSfxVolume", Settings.MenuSfxVolume);
-        ApplyAudioVolume("MenuMusicVolume", Settings.MenuMusicVolume);
-    }
-
-    private void ApplyAudioVolume(string mixerParam, float volume)
-    {
-        volume = Mathf.Max(volume, 0.00001f);
-        var temp = Mathf.Log10(volume) * 20;
-        AudioMixer.SetFloat(mixerParam, temp);
-    }
-
-    private void ApplyGraphicsSettings()
-    {
-        var resolution = Settings.ScreenResolution;
-        const int DEFAULT_HEIGHT = 720;
-        const int DEFAULT_WIDTH = 1280;
-
-        if (string.IsNullOrWhiteSpace(resolution))
-        {
-            resolution = Screen.currentResolution.width + "x" + Screen.currentResolution.height;
-        }
-
-        var resParts = resolution.Trim().Split('x');
-        var width = Convert.ToInt32(resParts[0]);
-        var height = Convert.ToInt32(resParts[1]);
-
-        var aspectRatio = 1.0 * width / height;
-        var expectedAspectRatio = 1.0 * 16 / 9;
-
-        if (Math.Abs(aspectRatio - expectedAspectRatio) > FLOAT_TOLERANCE)
-        {
-            Debug.LogWarning($"Unsupported aspect ratio detected: {width}x{height}. Using default resolution of {DEFAULT_WIDTH}x{DEFAULT_HEIGHT} instead. ");
-            width = DEFAULT_WIDTH;
-            height = DEFAULT_HEIGHT;
-        }
-
-        Screen.SetResolution(width, height, Settings.FullScreenMode);
-        Application.targetFrameRate = Settings.TargetFrameRate;
-        QualitySettings.vSyncCount = Settings.VSyncEnabled ? 1 : 0;
-    }
 
     void OnPlayerInput(InputEvent inputEvent)
     {
@@ -186,6 +139,8 @@ public class CoreManager : MonoBehaviour
         Debug.Log($"Player {player.Slot} joined.");
         ActiveMainManager.OnPlayerJoined(player);
     }
+
+    #region Netplay Events
 
     public void OnNetPlayerUpdated(Player player)
     {
@@ -214,18 +169,6 @@ public class CoreManager : MonoBehaviour
         ActiveMainManager.OnNetPlayerListUpdated(playerJoined, playerLeft);
     }
 
-    public void SaveAllActiveProfiles()
-    {
-        foreach (var player in PlayerManager.GetLocalPlayers().Where(e => !string.IsNullOrEmpty(e.ProfileId)))
-        {
-
-            var data = player.ProfileData;
-            var scores = ProfileManager[player.ProfileId]?.PlayerScores;
-            data.PlayerScores = scores ?? new List<PlayerScore>();
-            data.LastPlayed = DateTime.Now;
-            ProfileManager.Save(data);
-        }
-    }
 
     public void ShutdownNetPlay()
     {
@@ -268,6 +211,21 @@ public class CoreManager : MonoBehaviour
         }
 
         ActiveMainManager.OnNetGameplayStateValuesUpdated(dto);
+    }
+
+    #endregion
+
+    public void SaveAllActiveProfiles()
+    {
+        foreach (var player in PlayerManager.GetLocalPlayers().Where(e => !string.IsNullOrEmpty(e.ProfileId)))
+        {
+
+            var data = player.ProfileData;
+            var scores = ProfileManager[player.ProfileId]?.PlayerScores;
+            data.PlayerScores = scores ?? new List<PlayerScore>();
+            data.LastPlayed = DateTime.Now;
+            ProfileManager.Save(data);
+        }
     }
 
     private void OnApplicationQuit()

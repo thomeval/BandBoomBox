@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -87,7 +85,7 @@ public class PlayerManager : MonoBehaviour
 
     public void ApplyHitResult(HitResult hitResult, int playerNum)
     {
-        Player player = Players.FirstOrDefault(e => e.Slot == playerNum);
+        var player = Players.FirstOrDefault(e => e.Slot == playerNum);
         if (player == null)
         {
             return;
@@ -98,7 +96,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetMaxPerfPoints(int maxPerfPoints, int playerNum)
     {
-        Player player = Players.FirstOrDefault(e => e.Slot == playerNum);
+        var player = Players.FirstOrDefault(e => e.Slot == playerNum);
         if (player == null)
         {
             return;
@@ -229,7 +227,7 @@ public class PlayerManager : MonoBehaviour
         var orderedPlayers = Players.OrderByDescending(e => e.PerfPercent).ToList();
         var count = 0;
         var last = 1000.0f;
-        for (int x = 0; x < orderedPlayers.Count; x++)
+        for (var x = 0; x < orderedPlayers.Count; x++)
         {
             var perc = orderedPlayers[x].PerfPercent;
             if (perc < last)
@@ -387,6 +385,7 @@ public class PlayerManager : MonoBehaviour
         toPlayer.ScrollSpeed = fromPlayer.ScrollSpeed;
         toPlayer.TurboActive = fromPlayer.TurboActive;
         toPlayer.IsParticipating = fromPlayer.IsParticipating;
+        toPlayer.NetFullComboType = fromPlayer.NetFullComboType;
     }
 
     public void CopyValues(PlayerScoreDto fromPlayer, Player toPlayer)
@@ -397,6 +396,7 @@ public class PlayerManager : MonoBehaviour
         toPlayer.MaxCombo = fromPlayer.MaxCombo;
         toPlayer.PlayerState = fromPlayer.PlayerState;
         toPlayer.TurboActive = fromPlayer.TurboActive;
+        toPlayer.NetFullComboType = fromPlayer.FullComboType;
     }
 
     public void SetPlayerState(PlayerState state)

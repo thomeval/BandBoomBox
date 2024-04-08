@@ -153,7 +153,7 @@ public class SongSelectManager : ScreenManager
 
     private void SetupPlayerOptionsFrames()
     {
-        for (int x = 0; x < PlayerOptionsFrames.Length; x++)
+        for (var x = 0; x < PlayerOptionsFrames.Length; x++)
         {
             PlayerOptionsFrames[x].Player = CoreManager.PlayerManager.GetLocalPlayer(x + 1);
             PlayerOptionsFrames[x].Refresh();
@@ -239,6 +239,11 @@ public class SongSelectManager : ScreenManager
 
     private void MoveSelection(int delta)
     {
+        if (CoreManager.TransitionInProgress)
+        {
+            return;
+        }
+
         var songCount = OrderedSongs.Count;
 
         if (songCount == 0)
