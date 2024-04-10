@@ -7,7 +7,7 @@ public static class NoteCounter
 
     private const int LINE_SIZE = 4;
 
-    public static SongChartNoteCounts CountNotes(IEnumerable<Note> notes)
+    public static SongChartNoteCounts CountNotes(IEnumerable<Note> notes, float songLength)
     {
         var result = new SongChartNoteCounts();
 
@@ -37,16 +37,20 @@ public static class NoteCounter
             }
         }
 
+        if (songLength > 0.0f)
+        {
+            result.Nps = result.TotalNotes / songLength;
+        }
         return result;
 
     }
 
-    public static SongChartNoteCounts CountNotes(SongChart chart)
+    public static SongChartNoteCounts CountNotes(SongChart chart, float songLength)
     {
-        return CountNotes(chart.Notes);
+        return CountNotes(chart.Notes, songLength);
     }
 
-    public static SongChartNoteCounts CountNotes(string[] notes)
+    public static SongChartNoteCounts CountNotes(string[] notes, float songLength)
     {
         var result = new SongChartNoteCounts();
 
@@ -60,6 +64,11 @@ public static class NoteCounter
         foreach (var line in lines)
         {
             CountNotesInLine(line, ref result);
+        }
+
+        if (songLength > 0.0f)
+        {
+            result.Nps = result.TotalNotes / songLength;
         }
         return result;
     }

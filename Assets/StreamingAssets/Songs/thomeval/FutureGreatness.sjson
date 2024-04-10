@@ -26,6 +26,7 @@
       "NoteCounts": {
         "TapNotes": 0,
         "HoldNotes": 0,
+        "Nps": 0.0,
         "LaneNotes": [
           0,
           0,
@@ -43,6 +44,7 @@
       "NoteCounts": {
         "TapNotes": 66,
         "HoldNotes": 36,
+        "Nps": 1.43094146,
         "LaneNotes": [
           0,
           70,
@@ -190,6 +192,7 @@
       "NoteCounts": {
         "TapNotes": 66,
         "HoldNotes": 36,
+        "Nps": 1.43094146,
         "LaneNotes": [
           0,
           70,
@@ -337,6 +340,7 @@
       "NoteCounts": {
         "TapNotes": 131,
         "HoldNotes": 37,
+        "Nps": 2.125674,
         "LaneNotes": [
           0,
           104,
@@ -484,6 +488,7 @@
       "NoteCounts": {
         "TapNotes": 192,
         "HoldNotes": 46,
+        "Nps": 2.94483614,
         "LaneNotes": [
           89,
           93,

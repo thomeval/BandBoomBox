@@ -106,6 +106,7 @@
     <Compile Include="Assets\Scripts\Common\PlayerState.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileSelectFrame.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteTrimResult.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\NetGameJoinParams.cs" />
     <Compile Include="Assets\Scripts\HighScores\HighScoreManager.cs" />
     <Compile Include="Assets\Scripts\Common\SpriteMeter.cs" />
     <Compile Include="Assets\Scripts\Input\JudgeResult.cs" />

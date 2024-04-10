@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -299,21 +300,26 @@ public class ServerNetApi : NetworkBehaviour
     public void ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
     {
         Debug.Log("(Server) Verifying connection for client ID " + request.ClientNetworkId);
-        var hash = System.Text.Encoding.UTF8.GetString(request.Payload);
 
-        if (ServerPasswordHash != null && hash != ServerPasswordHash)
+
+        var json = System.Text.Encoding.UTF8.GetString(request.Payload);
+        var joinParams = JsonConvert.DeserializeObject<NetGameJoinParams>(json);
+
+        if (joinParams.ClientGameVersion != Application.version)
         {
-            response.Approved = false;
-            response.Pending = false;
-            response.Reason = "Invalid password.";
+            DeclineClient(response, $"Server is running a different version of the game. Yours: {joinParams.ClientGameVersion}, Server: {Application.version}.");
+            return;
+        }
+
+        if (ServerPasswordHash != null && joinParams.PasswordHash != ServerPasswordHash)
+        {
+            DeclineClient(response, "Invalid password.");
             return;
         }
 
         if (_playerManager.Players.Count == _netGameSettings.MaxNetPlayers)
         {
-            response.Approved = false;
-            response.Pending = false;
-            response.Reason = "Server is full.";
+            DeclineClient(response, "Server is full.");
             return;
         }
 
@@ -321,6 +327,14 @@ public class ServerNetApi : NetworkBehaviour
         response.Approved = true;
         response.Pending = false;
         response.Reason = "";
+    }
+
+    private void DeclineClient(NetworkManager.ConnectionApprovalResponse response, string reason)
+    {
+        Debug.Log("Connection declined for client. " + reason);
+        response.Approved = false;
+        response.Pending = false;
+        response.Reason = reason;
     }
 
     public void TryToStartPlayback(bool force)

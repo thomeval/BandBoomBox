@@ -101,9 +101,10 @@ namespace Assets
         private void CheckSongChartNoteCounts(SongData songData)
         {
             var changed = false;
+            var songLength = songData.Length - songData.Offset;
             foreach (var chart in songData.SongCharts)
             {
-                changed |= CheckSongChartNoteCounts(chart);
+                changed |= CheckSongChartNoteCounts(chart, songLength);
             }
 
             if (changed)
@@ -113,14 +114,14 @@ namespace Assets
             }
         }
 
-        private bool CheckSongChartNoteCounts(SongChart chart)
+        private bool CheckSongChartNoteCounts(SongChart chart, float songLength)
         {
             if (chart.NoteCounts.TotalNotes != 0)
             {
                 return false;
             }
 
-            chart.NoteCounts = NoteCounter.CountNotes(chart);
+            chart.NoteCounts = NoteCounter.CountNotes(chart, songLength);
             return chart.NoteCounts.TotalNotes > 0;
         }
 

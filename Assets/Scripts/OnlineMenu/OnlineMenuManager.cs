@@ -1,5 +1,4 @@
-using System.Linq;
-using System.Net;
+using Newtonsoft.Json;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 
@@ -77,8 +76,7 @@ public class OnlineMenuManager : ScreenManager
         CoreManager.IsHost = false;
 
         UnityTransport.SetConnectionData(JoinMenu.JoinIpAddress, JoinMenu.JoinPort);
-        var bytes = System.Text.Encoding.UTF8.GetBytes(passwordHash);
-        CoreManager.NetworkManager.NetworkConfig.ConnectionData = bytes;
+        CoreManager.NetworkManager.NetworkConfig.ConnectionData = GetJoinParams(passwordHash);
 
         Debug.Log($"Starting client on port {JoinMenu.JoinPort}.");
         var result = CoreManager.NetworkManager.StartClient();
@@ -94,6 +92,18 @@ public class OnlineMenuManager : ScreenManager
 
     }
 
+    private static byte[] GetJoinParams(string passwordHash)
+    {
+        var request = new NetGameJoinParams
+        {
+            PasswordHash = passwordHash,
+            ClientGameVersion = Application.version
+        };
+        var json = JsonConvert.SerializeObject(request);
+        var bytes = System.Text.Encoding.UTF8.GetBytes(json);
+        return bytes;
+    }
+
     public void StartHosting(string passwordHash)
     {
 
@@ -106,6 +116,8 @@ public class OnlineMenuManager : ScreenManager
         CoreManager.ServerNetApi.ServerPasswordHash = passwordHash;
 
         CoreManager.NetworkManager.ConnectionApprovalCallback = CoreManager.ServerNetApi.ConnectionApprovalCallback;
+        CoreManager.NetworkManager.NetworkConfig.ConnectionData = GetJoinParams(passwordHash);
+
         Debug.Log($"Starting server on port {HostMenu.HostPort}.");
         var result = CoreManager.NetworkManager.StartHost();
 

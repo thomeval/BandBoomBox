@@ -11,7 +11,6 @@ public class OnlineHostSubmenu : OnlineSubmenuBase
     public Text LblMaxPlayers;
     public Text LblSongSelectRules;
 
-
     public string Message
     {
         get => LblHostMessage.text;
@@ -66,7 +65,7 @@ public class OnlineHostSubmenu : OnlineSubmenuBase
         {
 
             case "Max Players":
-                MaxPlayers = Math.Clamp(MaxPlayers + delta, 2, 32);
+                MaxPlayers = Math.Clamp(MaxPlayers + delta, 2, 16);
                 break;
             case "Song Selection":
                 SongSelectRules = Helpers.EnumAdd(SongSelectRules, delta, true);
