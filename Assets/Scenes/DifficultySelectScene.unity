@@ -517,6 +517,10 @@ PrefabInstance:
       value: 1.44515495e-27
       objectReference: {fileID: 0}
     - target: {fileID: 1974514154777667723, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
+      propertyPath: m_labelHash
+      value: 0.00000008433957
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974514154777667723, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_SpriteHash
       value: 316997235
       objectReference: {fileID: 0}
@@ -812,6 +816,10 @@ PrefabInstance:
     - target: {fileID: 1974514154777667723, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_SpriteKey
       value: 0.0041307537
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974514154777667723, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
+      propertyPath: m_labelHash
+      value: 8.881063e-23
       objectReference: {fileID: 0}
     - target: {fileID: 1974514154777667723, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_SpriteHash
@@ -1502,6 +1510,10 @@ PrefabInstance:
       value: 3.951842e-16
       objectReference: {fileID: 0}
     - target: {fileID: 1974514154777667723, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
+      propertyPath: m_labelHash
+      value: 4.189052e-36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974514154777667723, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_SpriteHash
       value: 635686629
       objectReference: {fileID: 0}
@@ -1881,6 +1893,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2974291627532279396, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3211333553904251556, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2056,6 +2072,10 @@ PrefabInstance:
     - target: {fileID: 8737112036571880079, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_Name
       value: SelectDifficultyFrame (P1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963769520581100971, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
+      propertyPath: m_Name
+      value: HighwayBackground
       objectReference: {fileID: 0}
     - target: {fileID: 9032603920073966088, guid: 4393f31257d602b4fb5780dcd33edc8f, type: 3}
       propertyPath: m_AnchorMax.y
