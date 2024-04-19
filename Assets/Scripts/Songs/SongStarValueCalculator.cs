@@ -89,10 +89,11 @@ public class SongStarValueCalculator : MonoBehaviour
     private SongStarScoreValues CalculateSuggestedScores(List<SongStarCalculatorChart> charts)
     {
         var maxScore = CalculateMaxScore(charts);
-        return CalculateSuggestedScores(maxScore, charts.Count);
+        var totalNotes = charts.SelectMany(e => e.Notes).Count();
+        return CalculateSuggestedScores(maxScore, charts.Count, totalNotes);
     }
 
-    public SongStarScoreValues CalculateSuggestedScores(long maxBaseScore, int playerCount)
+    public SongStarScoreValues CalculateSuggestedScores(long maxBaseScore, int playerCount, int totalNotes)
     {
         var values = new List<long>();
         var category = HighScoreManager.GetScoreCategory(playerCount);
@@ -112,7 +113,8 @@ public class SongStarValueCalculator : MonoBehaviour
             ScoreCategory = category,
             Scores = values.ToArray(),
             MaxPossibleBaseScore = maxBaseScore,
-            ActivePlayers = playerCount
+            ActivePlayers = playerCount,
+            TotalNotes = totalNotes
         };
     }
     public long CalculateMaxScore(List<SongStarCalculatorChart> charts)

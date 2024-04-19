@@ -189,6 +189,7 @@
     <Compile Include="Assets\Scripts\Common\BarChart.cs" />
     <Compile Include="Assets\Scripts\NetPlay\NetGameSettings.cs" />
     <Compile Include="Assets\Scripts\Common\MenuSoundEventHandler.cs" />
+    <Compile Include="Assets\Scripts\Common\ComboUtils.cs" />
     <Compile Include="Assets\Scripts\Gameplay\NoteHitFlasher.cs" />
     <Compile Include="Assets\Scripts\Util\SpriteFader.cs" />
     <Compile Include="Assets\Scripts\Managers\PlayerHudManager.cs" />
@@ -249,7 +250,6 @@
     <Compile Include="Assets\Scripts\DifficultySelect\PlayerHighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\NetPlay\ClientNetApi.cs" />
     <Compile Include="Assets\Scripts\Common\ExpLevelUtils.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\EditorStarScoresColumn.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\StreamingAssets\Songs\Readme.txt" />

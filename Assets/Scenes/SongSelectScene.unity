@@ -2862,6 +2862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b8edb849291f9246bd357a3aae9c117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LblMaxCombo: {fileID: 1255666679}
   TxtMaxCombo: {fileID: 1975609065}
   TxtMaxMultiplier: {fileID: 1137858449}
   TxtScore: {fileID: 1758098449}
@@ -3536,7 +3537,7 @@ GameObject:
   - component: {fileID: 1255666680}
   - component: {fileID: 1255666679}
   m_Layer: 5
-  m_Name: LblMax1
+  m_Name: LblMaxCombo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

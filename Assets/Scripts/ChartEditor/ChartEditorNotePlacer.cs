@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -192,6 +191,8 @@ public class ChartEditorNotePlacer : MonoBehaviour
         _noteManager.CalculateAbsoluteTimes(_parent.CurrentSongData.Bpm);
         note.RefreshSprites();
         _parent.PlaySfx(SoundEvent.Editor_NotePlaced);
+        IncrementNoteCount(note);
+
         return note;
     }
 
@@ -208,9 +209,13 @@ public class ChartEditorNotePlacer : MonoBehaviour
         // Remove a Hold note from its beginning.
         if (existing.EndNote != null)
         {
+            DecrementNoteCount(existing.EndNote);
             _noteManager.RemoveNote(existing.EndNote);
         }
+
+        DecrementNoteCount(existing);
         _noteManager.RemoveNote(existing);
+
     }
 
     private void RemoveReleaseNote(Note existing)
@@ -220,6 +225,7 @@ public class ChartEditorNotePlacer : MonoBehaviour
         // Should not happen. This is a failsafe in case a Hold Release note ends up separated from its Start note.
         if (noteStart == null)
         {
+            DecrementNoteCount(existing);
             _noteManager.RemoveNote(existing);
             return;
         }
@@ -294,6 +300,40 @@ public class ChartEditorNotePlacer : MonoBehaviour
         }
 
         _parent.PlaySfx(SoundEvent.Editor_NoteRemoved);
+    }
+
+    private void IncrementNoteCount(Note note)
+    {
+        var noteCounts = _parent.CurrentChart.NoteCounts;
+
+        noteCounts.LaneNotes[note.Lane]++;
+        switch (note.NoteClass)
+        {
+            case NoteClass.Tap:
+                noteCounts.TapNotes++;
+                break;
+            case NoteClass.Hold:
+                noteCounts.HoldNotes++;
+                break;
+        }
+        _parent.UpdateNoteCountDisplay();
+    }
+
+    private void DecrementNoteCount(Note note)
+    {
+        var noteCounts = _parent.CurrentChart.NoteCounts;
+
+        noteCounts.LaneNotes[note.Lane]--;
+        switch (note.NoteClass)
+        {
+            case NoteClass.Tap:
+                noteCounts.TapNotes--;
+                break;
+            case NoteClass.Hold:
+                noteCounts.HoldNotes--;
+                break;
+        }
+        _parent.UpdateNoteCountDisplay();
     }
 }
 

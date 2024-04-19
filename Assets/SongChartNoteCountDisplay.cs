@@ -22,5 +22,4 @@ public class SongChartNoteCountDisplay : MonoBehaviour
         TxtTotalNoteCount.text = counts.TotalNotes.ToString();
         TxtNps.text = string.Format(CultureInfo.InvariantCulture, "{0:N2}", counts.Nps);
     }
-
 }

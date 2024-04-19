@@ -33,7 +33,7 @@ public class EvaluationOnlinePlayerListItem : OnlinePlayerListItem
         if (TxtMaxCombo != null)
         {
             SetTextSafe(TxtMaxCombo, $"{Player.MaxCombo:000}");
-            TxtMaxCombo.color = PlayerHighScoreDisplay.GetFcColor(fullComboType);
+            TxtMaxCombo.color = ComboUtils.GetFcColor(fullComboType);
         }
 
         SetTextSafe(TxtPlayerLevel, $"{ExpLevelUtils.GetLevel(Player.Exp)}");

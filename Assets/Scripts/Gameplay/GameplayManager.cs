@@ -571,11 +571,26 @@ public class GameplayManager : ScreenManager
             DateTime = DateTime.Now,
             MaxMultiplier = StateValues.MaxMultiplier,
             MaxTeamCombo = StateValues.MaxTeamCombo,
+            FullComboType = GetTeamFullComboType(),
             NumPlayers = _playerManager.Players.Count(e => e.IsParticipating),
             Category = StateValues.TeamScoreCategory,
             Score = StateValues.Score,
             Stars = StateValues.Stars
         };
+    }
+
+    private FullComboType GetTeamFullComboType()
+    {
+        var maxPossibleCombo = SongStarScoreValues.TotalNotes;
+        if (StateValues.MaxTeamCombo == maxPossibleCombo)
+        {
+            return FullComboType.FullCombo;
+        }
+        if (StateValues.MaxTeamCombo >= maxPossibleCombo / 2)
+        {
+            return FullComboType.SemiFullCombo;
+        }
+        return FullComboType.None;
     }
 
     public override void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)

@@ -103,10 +103,10 @@ public class PlayerResultFrame : MonoBehaviour
         var fullComboType = player.GetFullComboType();
         if (LblMaxCombo != null)
         {
-            LblMaxCombo.text = PlayerHighScoreDisplay.GetFcCode(fullComboType);
-            LblMaxCombo.color = PlayerHighScoreDisplay.GetFcColor(fullComboType);
+            LblMaxCombo.text = ComboUtils.GetFcCode(fullComboType);
+            LblMaxCombo.color = ComboUtils.GetFcColor(fullComboType);
         }
-        TxtMaxCombo.color = PlayerHighScoreDisplay.GetFcColor(fullComboType);
+        TxtMaxCombo.color = ComboUtils.GetFcColor(fullComboType);
         TxtMaxCombo.text = string.Format("{0:000}", player.MaxCombo);
         TxtPercentage.text = string.Format(CultureInfo.InvariantCulture, "{0:P1}", player.PerfPercent);
         TxtRanking.text = Helpers.FormatRanking(player.Ranking);

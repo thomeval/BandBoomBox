@@ -2088,6 +2088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TxtScore: {fileID: 599542636}
+  LblMaxTeamCombo: {fileID: 1546696238}
   TxtMaxTeamCombo: {fileID: 1331662081}
   TxtMaxMultiplier: {fileID: 1514287814}
   TxtSongName: {fileID: 152138879}
@@ -3045,7 +3046,7 @@ GameObject:
   - component: {fileID: 1546696239}
   - component: {fileID: 1546696238}
   m_Layer: 5
-  m_Name: LblMax
+  m_Name: LblMaxTeamCombo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

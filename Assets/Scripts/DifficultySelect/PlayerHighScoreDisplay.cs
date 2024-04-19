@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
@@ -16,7 +15,6 @@ public class PlayerHighScoreDisplay : MonoBehaviour
     public GameObject InnerObject;
 
     private PlayerScore _displayedScore;
-
 
     public PlayerScore DisplayedScore
     {
@@ -41,51 +39,16 @@ public class PlayerHighScoreDisplay : MonoBehaviour
         InnerObject.SetActive(true);
         TxtMaxCombo.text = "" + DisplayedScore.MaxCombo;
         TxtPercentage.text = DisplayedScore.PerfPercent.AsPercent(1);
-        TxtDifficulty.text = DisplayedScore.Difficulty.ToString();
+        TxtDifficulty.text = DisplayedScore.Difficulty.GetDisplayName();
 
         if (LblMaxCombo != null)
         {
-            LblMaxCombo.text = GetFcCode(DisplayedScore.FullComboType);
-            LblMaxCombo.color = GetFcColor(DisplayedScore.FullComboType);
+            LblMaxCombo.text = ComboUtils.GetFcCode(DisplayedScore.FullComboType);
+            LblMaxCombo.color = ComboUtils.GetFcColor(DisplayedScore.FullComboType);
         }
-        TxtMaxCombo.color = GetFcColor(DisplayedScore.FullComboType);
+        TxtMaxCombo.color = ComboUtils.GetFcColor(DisplayedScore.FullComboType);
         var grade = Helpers.PercentToGrade(DisplayedScore.PerfPercent).ToString();
         GradeSprite.SetCategoryAndLabel("Grades", grade);
-    }
-
-
-    public static Color GetFcColor(FullComboType fullComboType)
-    {
-        switch (fullComboType)
-        {
-            case FullComboType.None:
-                return Color.white;
-            case FullComboType.FullCombo:
-                return Color.green;
-            case FullComboType.PerfectFullCombo:
-                return Color.cyan;
-            case FullComboType.SemiFullCombo:
-                return new Color(1.0f, 0.5f, 0.5f);
-            default:
-                throw new ArgumentOutOfRangeException("fullComboType", fullComboType, null);
-        }
-    }
-
-    public static string GetFcCode(FullComboType fullComboType)
-    {
-        switch (fullComboType)
-        {
-            case FullComboType.None:
-                return "MAX";
-            case FullComboType.FullCombo:
-                return "FC";
-            case FullComboType.PerfectFullCombo:
-                return "PFC";
-            case FullComboType.SemiFullCombo:
-                return "SFC";
-            default:
-                throw new ArgumentOutOfRangeException("fullComboType", fullComboType, null);
-        }
     }
 
     public void Clear()

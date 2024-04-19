@@ -1,5 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 public class SongStarScoreValues
 {
@@ -17,6 +17,7 @@ public class SongStarScoreValues
         get { return this.Scores.Length; }
     }
 
+    public int TotalNotes;
     public long MaxPossibleBaseScore;
     public int ActivePlayers;
 
@@ -27,8 +28,8 @@ public class SongStarScoreValues
             return 0.0;
         }
 
-        double result = 0.0;
-        int star = 0;
+        var result = 0.0;
+        var star = 0;
         for (star = 0; star < this.Length; star++)
         {
             if (this[star] > score)

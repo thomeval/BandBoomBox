@@ -57,16 +57,16 @@ public class ChartEditorManager : ScreenManager
 
     public const Difficulty DEFAULT_PALETTE = Difficulty.Expert;
 
-    private readonly int[] _stepSizes = new[] { 1, 2, 3, 4, 6, 8 };
+    private readonly float[] _stepSizes = new[] { 0.25f, 0.5f, 1, 2, 3, 4, 6, 8 };
 
     #region Properties
 
-    [SerializeField] private int _cursorStepSize = 1;
+    [SerializeField] private float _cursorStepSize = 1;
 
     /// <summary>
     /// Gets or sets the amount that the cursor position should change when moving left or right, represented as 1 / beats. Higher numbers result in smaller steps.
     /// </summary>
-    public int CursorStepSize
+    public float CursorStepSize
     {
         get
         {
@@ -117,7 +117,12 @@ public class ChartEditorManager : ScreenManager
     private void UpdateHud()
     {
         TxtCursorPosition.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", CursorPosition);
-        TxtStepSize.text = $"Step: 1/{CursorStepSize} beats";
+
+        var stepText = CursorStepSize < 1
+            ? $"Step: {1 / CursorStepSize}/1 beats"
+            : $"Step: 1/{CursorStepSize} beats";
+
+        TxtStepSize.text = stepText;
         TxtScrollSpeed.text = $"Speed: {NoteManager.ScrollSpeed}";
         UpdateHudSelectedRegion();
         SongProgressMeter.CurrentPosition = CursorPosition;
@@ -199,6 +204,11 @@ public class ChartEditorManager : ScreenManager
     public void RefreshNoteCounts()
     {
         CurrentChart.NoteCounts = NoteCounter.CountNotes(NoteManager.Notes, CurrentSongData.Length - CurrentSongData.Offset);
+        UpdateNoteCountDisplay();
+    }
+
+    public void UpdateNoteCountDisplay()
+    {
         NoteCountDisplay.UpdateNoteCountDisplay(CurrentChart.NoteCounts);
     }
 
@@ -240,7 +250,7 @@ public class ChartEditorManager : ScreenManager
 
     public void ChangeStepSize(int delta)
     {
-        CursorStepSize = Helpers.GetNextValue<int>(_stepSizes, CursorStepSize, delta, false);
+        CursorStepSize = Helpers.GetNextValue<float>(_stepSizes, CursorStepSize, delta, false);
 
         // Round to nearest step that falls within the new step size.
         SnapCursorToStep();

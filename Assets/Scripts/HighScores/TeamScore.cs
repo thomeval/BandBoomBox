@@ -11,6 +11,7 @@ public class TeamScore
     public int SongVersion { get; set; }
     public DateTime DateTime { get; set; }
     public int MaxTeamCombo { get; set; }
+    public FullComboType FullComboType { get; set; }
     public long Score { get; set; }
     public double MaxMultiplier { get; set; }
 
