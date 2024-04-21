@@ -352,8 +352,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 364898356}
-  - component: {fileID: 364898357}
   - component: {fileID: 364898358}
+  - component: {fileID: 364898357}
   m_Layer: 0
   m_Name: ServerNetApi
   m_TagString: Untagged
@@ -2070,14 +2070,14 @@ MonoBehaviour:
   LastPlayedSong: 
   LastSortSongMode: TITLE
   EnableNerfDifficulty: 0
-  EnableExtraDifficulty: 0
+  EnableExtraDifficulty: 1
   EnableMomentumOption: 0
   MasterVolume: 0.5
   GameplaySfxVolume: 1
-  GameplayMusicVolume: 1
+  GameplayMusicVolume: 0.8
   MistakeVolume: 1
   MenuSfxVolume: 1
-  MenuMusicVolume: 1
+  MenuMusicVolume: 0.8
   AudioLatency: 0
   TargetFrameRate: 120
   ScreenResolution: 
