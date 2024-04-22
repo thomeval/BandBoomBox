@@ -1,13 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-public class OnlineSubmenuBase : MonoBehaviour
+public class NetPlaySubmenuBase : MonoBehaviour
 {
     public Menu Menu;
 
-    public OnlineMenuManager ParentManager;
+    public NetPlayMenuManager ParentManager;
 
-    public virtual OnlineMenuState OnlineMenuState { get => throw new NotImplementedException(); }
+    public virtual NetPlayMenuState NetPlayMenuState { get => throw new NotImplementedException(); }
 
     public virtual void HandleInput(InputEvent inputEvent)
     {
@@ -67,7 +67,7 @@ public class OnlineSubmenuBase : MonoBehaviour
         var crypt = new System.Security.Cryptography.SHA256Managed();
         var result = new System.Text.StringBuilder();
         var hashBytes = crypt.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password), 0, System.Text.Encoding.UTF8.GetByteCount(password));
-        foreach (byte theByte in hashBytes)
+        foreach (var theByte in hashBytes)
         {
             result.Append(theByte.ToString("x2"));
         }

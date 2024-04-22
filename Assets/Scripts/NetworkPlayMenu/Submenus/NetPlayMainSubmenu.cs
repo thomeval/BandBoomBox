@@ -2,9 +2,9 @@ using System.Linq;
 using System.Net;
 using UnityEngine.UI;
 
-public class OnlineMainSubmenu : OnlineSubmenuBase
+public class NetPlayMainSubmenu : NetPlaySubmenuBase
 {
-    public override OnlineMenuState OnlineMenuState => OnlineMenuState.MainMenu;
+    public override NetPlayMenuState NetPlayMenuState => NetPlayMenuState.MainMenu;
     public Text TxtLocalIps;
 
     public override void MenuItemSelected(MenuEventArgs args)
@@ -12,10 +12,10 @@ public class OnlineMainSubmenu : OnlineSubmenuBase
         switch (args.SelectedItem)
         {
             case "Host Game":
-                ParentManager.OnlineMenuState = OnlineMenuState.HostMenu;
+                ParentManager.NetPlayMenuState = NetPlayMenuState.HostMenu;
                 break;
             case "Join Game":
-                ParentManager.OnlineMenuState = OnlineMenuState.JoinMenu;
+                ParentManager.NetPlayMenuState = NetPlayMenuState.JoinMenu;
                 break;
             case "Back To Main Menu":
                 ParentManager.ReturnToMainMenu();

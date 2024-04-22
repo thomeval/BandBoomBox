@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1315107602500133140}
   - component: {fileID: 8745452216092655462}
   m_Layer: 0
-  m_Name: GameplayOnlinePlayerListItem
+  m_Name: GameplayNetworkPlayerListItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

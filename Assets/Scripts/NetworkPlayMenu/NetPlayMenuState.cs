@@ -1,4 +1,4 @@
-﻿public enum OnlineMenuState
+﻿public enum NetPlayMenuState
 {
     MainMenu,
     JoinMenu,

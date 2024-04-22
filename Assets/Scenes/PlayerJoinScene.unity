@@ -1429,7 +1429,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51434c04b7370c94290ae87ef592d0b5, type: 3}
+  m_Script: {fileID: 11500000, guid: bbc0efb7ecd0c6b4088ed317fedca929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &745734921
@@ -2222,7 +2222,7 @@ MonoBehaviour:
   - {fileID: 354546988}
   - {fileID: 1142356577}
   - {fileID: 1380624941}
-  OnlinePlayerList: {fileID: 723657315}
+  NetworkPlayerList: {fileID: 723657315}
 --- !u!4 &1187378298
 Transform:
   m_ObjectHideFlags: 0
@@ -3015,9 +3015,13 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8278763240872352145, guid: 5171399d539fcde408ba7cb264a37f4d, type: 3}
+      propertyPath: ListItemPrefab
+      value: 
+      objectReference: {fileID: 3843104748119524259, guid: 1b2f04736a3af0b41a31670684ccec51, type: 3}
     - target: {fileID: 8278763240872352146, guid: 5171399d539fcde408ba7cb264a37f4d, type: 3}
       propertyPath: m_Name
-      value: OnlinePlayerList
+      value: NetworkPlayerList
       objectReference: {fileID: 0}
     - target: {fileID: 8278763240872352147, guid: 5171399d539fcde408ba7cb264a37f4d, type: 3}
       propertyPath: m_Pivot.x

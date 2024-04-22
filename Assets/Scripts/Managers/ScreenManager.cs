@@ -145,20 +145,12 @@ public class ScreenManager : MonoBehaviour
 
     public virtual void OnNetClientConnected(ulong id)
     {
-
-        Debug.Log($"Client connected. ID: {id}, Host: {CoreManager.IsHost}");
-        CoreManager.PlayerManager.SetNetId();
-        foreach (var player in CoreManager.PlayerManager.GetLocalPlayers())
-        {
-            var dto = PlayerDto.FromPlayer(player);
-            CoreManager.ServerNetApi.RegisterNetPlayerServerRpc(dto);
-        }
-
         if (!CoreManager.IsHost)
         {
-            CoreManager.ServerNetApi.RequestPlayerListServerRpc();
-            CoreManager.ServerNetApi.RequestNetGameSettingsServerRpc();
+            return;
         }
+
+        Debug.Log($"Client connected. ID: {id}, Host: {CoreManager.IsHost}");
     }
 
     public virtual void OnNetGameplayStateValuesUpdated(GameplayStateValuesDto dto)

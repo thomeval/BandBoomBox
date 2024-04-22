@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerJoinOnlinePlayerListItem : OnlinePlayerListItem
+public class PlayerJoinNetworkPlayerListItem : NetworkPlayerListItem
 {
     [Header("Player Join")]
     public Text TxtNoteLabels;

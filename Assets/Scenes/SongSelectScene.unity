@@ -2286,7 +2286,7 @@ MonoBehaviour:
   TxtSortMode: {fileID: 654208506113734304}
   TxtNextSongSelectTurn: {fileID: 1209084376}
   SongList: {fileID: 1839536954}
-  OnlinePlayerList: {fileID: 1973316512}
+  NetworkPlayerList: {fileID: 1973316512}
   NormalMessageColor: {r: 1, g: 1, b: 1, a: 1}
   ErrorMessageColor: {r: 1, g: 0.5882353, b: 0.5919258, a: 1}
   _songSortMode: TITLE
@@ -4976,7 +4976,7 @@ GameObject:
   - component: {fileID: 1973316513}
   - component: {fileID: 1973316512}
   m_Layer: 0
-  m_Name: OnlinePlayerList
+  m_Name: NetworkPlayerList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

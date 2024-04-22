@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 
-public class EvaluationOnlinePlayerListItem : OnlinePlayerListItem
+public class EvaluationNetworkPlayerListItem : NetworkPlayerListItem
 {
     [Header("Evaluation")]
     public Text TxtPerfPercent;

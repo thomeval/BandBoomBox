@@ -1,10 +1,9 @@
-using System;
 using System.Linq;
 
 public class DifficultySelectManager : ScreenManager
 {
     public DifficultySelectFrame[] DifficultySelectFrames;
-    public OnlinePlayerList OnlinePlayerList;
+    public NetworkPlayerList NetworkPlayerList;
 
     private PlayerManager _playerManager;
 
@@ -26,7 +25,7 @@ public class DifficultySelectManager : ScreenManager
     // Start is called before the first frame update
     void Start()
     {
-        OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
+        NetworkPlayerList.gameObject.SetActive(CoreManager.IsNetGame);
 
         foreach (var frame in DifficultySelectFrames)
         {
@@ -178,19 +177,19 @@ public class DifficultySelectManager : ScreenManager
     public override void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)
     {
         base.OnNetPlayerListUpdated(playerJoined, playerLeft);
-        OnlinePlayerList.RefreshAll();
+        NetworkPlayerList.RefreshAll();
     }
 
     public override void OnNetPlayerUpdated(Player player)
     {
         base.OnNetPlayerUpdated(player);
-        OnlinePlayerList.RefreshAll();
+        NetworkPlayerList.RefreshAll();
         TryStartSong();
     }
 
     public void RefreshPlayerList()
     {
-        OnlinePlayerList.RefreshAll();
+        NetworkPlayerList.RefreshAll();
         TryStartSong();
     }
 

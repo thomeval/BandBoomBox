@@ -520,7 +520,7 @@ GameObject:
   - component: {fileID: 8897607168921459569}
   - component: {fileID: 3843104748119524259}
   m_Layer: 0
-  m_Name: PlayerJoinOnlinePlayerListItem
+  m_Name: PlayerJoinNetworkPlayerListItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2,23 +2,23 @@ using Newtonsoft.Json;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 
-public class OnlineMenuManager : ScreenManager
+public class NetPlayMenuManager : ScreenManager
 {
-    public OnlineMainSubmenu MainMenu;
-    public OnlineHostSubmenu HostMenu;
-    public OnlineJoinSubmenu JoinMenu;
+    public NetPlayMainSubmenu MainMenu;
+    public NetPlayHostSubmenu HostMenu;
+    public NetPlayJoinSubmenu JoinMenu;
 
-    public OnlineSubmenuBase CurrentSubmenu
+    public NetPlaySubmenuBase CurrentSubmenu
     {
         get
         {
-            switch (OnlineMenuState)
+            switch (NetPlayMenuState)
             {
-                case OnlineMenuState.MainMenu:
+                case NetPlayMenuState.MainMenu:
                     return MainMenu;
-                case OnlineMenuState.HostMenu:
+                case NetPlayMenuState.HostMenu:
                     return HostMenu;
-                case OnlineMenuState.JoinMenu:
+                case NetPlayMenuState.JoinMenu:
                     return JoinMenu;
                 default:
                     return MainMenu;
@@ -29,20 +29,20 @@ public class OnlineMenuManager : ScreenManager
     public const ushort DEFAULT_PORT = 3334;
 
     [SerializeField]
-    private OnlineMenuState _onlineMenuState = OnlineMenuState.MainMenu;
+    private NetPlayMenuState _netPlayMenuState = NetPlayMenuState.MainMenu;
 
-    public OnlineMenuState OnlineMenuState
+    public NetPlayMenuState NetPlayMenuState
     {
         get
         {
-            return _onlineMenuState;
+            return _netPlayMenuState;
         }
         set
         {
-            _onlineMenuState = value;
-            MainMenu.gameObject.SetActive(_onlineMenuState == OnlineMenuState.MainMenu);
-            HostMenu.gameObject.SetActive(_onlineMenuState == OnlineMenuState.HostMenu);
-            JoinMenu.gameObject.SetActive(_onlineMenuState == OnlineMenuState.JoinMenu);
+            _netPlayMenuState = value;
+            MainMenu.gameObject.SetActive(_netPlayMenuState == NetPlayMenuState.MainMenu);
+            HostMenu.gameObject.SetActive(_netPlayMenuState == NetPlayMenuState.HostMenu);
+            JoinMenu.gameObject.SetActive(_netPlayMenuState == NetPlayMenuState.JoinMenu);
             CurrentSubmenu.UpdateDisplayedValues();
         }
     }
@@ -59,7 +59,7 @@ public class OnlineMenuManager : ScreenManager
     private void Start()
     {
         LoadFromSettings();
-        OnlineMenuState = OnlineMenuState.MainMenu;
+        NetPlayMenuState = NetPlayMenuState.MainMenu;
         MainMenu.GetLocalIps();
     }
 
@@ -141,6 +141,25 @@ public class OnlineMenuManager : ScreenManager
     public override void OnNetClientConnected(ulong id)
     {
         base.OnNetClientConnected(id);
+        Debug.Log("Connection to host successful. Client ID: " + id);
+
+        CoreManager.PlayerManager.SetNetId();
+
+        foreach (var player in CoreManager.PlayerManager.AsDto())
+        {
+            CoreManager.ServerNetApi.RegisterNetPlayerServerRpc(player);
+        }
+
+        JoinMenu.Message = "Requesting game settings...";
+
+        CoreManager.ClientNetApi.NetSettingsUpdated += ClientNetApi_NetSettingsUpdated;
+        CoreManager.ServerNetApi.RequestNetGameSettingsServerRpc();
+
+    }
+
+    private void ClientNetApi_NetSettingsUpdated(object sender, System.EventArgs e)
+    {
+        CoreManager.ClientNetApi.NetSettingsUpdated -= ClientNetApi_NetSettingsUpdated;
         this.SceneTransition(GameScene.PlayerJoin);
     }
 

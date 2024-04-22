@@ -69,6 +69,11 @@ public class PlayerManager : MonoBehaviour
         UpdateRankings();
     }
 
+    public PlayerDto[] AsDto()
+    {
+        return this.Players.Select(e => PlayerDto.FromPlayer(e)).ToArray();
+    }
+
     public void ApplyInputActions(string json)
     {
         foreach (var player in GetLocalPlayers())
@@ -266,7 +271,7 @@ public class PlayerManager : MonoBehaviour
             CopyValues(serverPlayer, myPlayer);
             var gameObj = myPlayer.gameObject;
             gameObj.transform.parent = this.transform;
-            gameObj.name = $"Online Player {serverPlayer.NetId}-{serverPlayer.Slot}";
+            gameObj.name = $"Network Player {serverPlayer.NetId}-{serverPlayer.Slot}";
             Players.Add(myPlayer);
             _coreManager.OnNetPlayerListUpdated(true, false);
 

@@ -1,4 +1,4 @@
-public enum OnlinePlayerListSortMode
+public enum NetworkPlayerListSortMode
 {
     Name,
     PerfPoints,

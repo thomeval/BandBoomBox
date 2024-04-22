@@ -4,7 +4,7 @@ using System.Linq;
 public class PlayerJoinManager : ScreenManager
 {
     public PlayerJoinFrame[] PlayerJoinFrames = new PlayerJoinFrame[4];
-    public OnlinePlayerList OnlinePlayerList;
+    public NetworkPlayerList NetworkPlayerList;
 
     private PlayerManager _playerManager;
     public virtual int ReadyPlayerCount
@@ -28,7 +28,7 @@ public class PlayerJoinManager : ScreenManager
         }
 
         Helpers.AutoAssign(ref _playerManager);
-        OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
+        NetworkPlayerList.gameObject.SetActive(CoreManager.IsNetGame);
 
         foreach (var frame in PlayerJoinFrames)
         {
@@ -103,6 +103,8 @@ public class PlayerJoinManager : ScreenManager
 
             if (player != null)
             {
+                player.Reset();
+                player.IsParticipating = false;
                 AssignFrameToPlayer(frame, player, false);
             }
             else
@@ -138,6 +140,8 @@ public class PlayerJoinManager : ScreenManager
     {
         player.NetId = CoreManager.NetId;
         player.AutoSetLabelSkin();
+        player.Reset();
+        player.IsParticipating = false;
         var frame = PlayerJoinFrames[player.Slot - 1];
         AssignFrameToPlayer(frame, player, true);
         CoreManager.PlayerManager.UpdateAllowPlayerJoining();
@@ -150,17 +154,16 @@ public class PlayerJoinManager : ScreenManager
     {
         base.OnNetPlayerListUpdated(playerJoined, playerLeft);
         _playerManager.UpdateAllowPlayerJoining();
-        OnlinePlayerList.RefreshAll();
+        NetworkPlayerList.RefreshAll();
     }
 
     public override void OnNetPlayerUpdated(Player player)
     {
-        OnlinePlayerList.Refresh(player);
-
+        NetworkPlayerList.Refresh(player);
     }
 
     public void RefreshPlayerList()
     {
-        OnlinePlayerList.RefreshAll();
+        NetworkPlayerList.RefreshAll();
     }
 }

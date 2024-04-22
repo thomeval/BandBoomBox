@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameplayOnlinePlayerListItem : OnlinePlayerListItem
+public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
 {
     [Header("Gameplay")]
     public Text TxtChartGroupDifficulty;
@@ -30,16 +30,18 @@ public class GameplayOnlinePlayerListItem : OnlinePlayerListItem
             }
         }
 
-        SetTextSafe(TxtPerfPercent, Helpers.FormatPercent(Player.PerfPercent));
+
         SetTextSafe(TxtCombo, $"{Player.Combo:000}");
 
         if (!Player.IsParticipating)
         {
             SetTextSafe(TxtRanking, "-");
+            SetTextSafe(TxtPerfPercent, "");
         }
         else
         {
             SetTextSafe(TxtRanking, Helpers.FormatRanking(Player.Ranking));
+            SetTextSafe(TxtPerfPercent, Helpers.FormatPercent(Player.PerfPercent));
         }
 
         if (TurboBackground != null)

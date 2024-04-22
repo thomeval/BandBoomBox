@@ -12,7 +12,7 @@ public class GameplayManager : ScreenManager
     public HudManager HudManager;
     public PauseMenu PauseMenu;
     public SongStarScoreValues SongStarScoreValues = new();
-    public OnlinePlayerList OnlinePlayerList;
+    public NetworkPlayerList NetworkPlayerList;
     public GameplayStateHelper StateHelper;
     public GameplayStateValues StateValues;
 
@@ -134,8 +134,8 @@ public class GameplayManager : ScreenManager
 
         SetNoteHighwayScale();
 
-        OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
-        OnlinePlayerList.RefreshAll();
+        NetworkPlayerList.gameObject.SetActive(CoreManager.IsNetGame);
+        NetworkPlayerList.RefreshAll();
         HudManager.UpdateStarsWithScore = CoreManager.IsHost;
 
         AssignManagers();
@@ -596,19 +596,19 @@ public class GameplayManager : ScreenManager
     public override void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)
     {
         base.OnNetPlayerListUpdated(playerJoined, playerLeft);
-        OnlinePlayerList.RefreshAll();
+        NetworkPlayerList.RefreshAll();
     }
 
     public override void OnNetPlayerUpdated(Player player)
     {
         base.OnNetPlayerUpdated(player);
-        OnlinePlayerList.Refresh(player);
+        NetworkPlayerList.Refresh(player);
     }
 
     public override void OnNetPlayerScoreUpdated(Player player)
     {
         base.OnNetPlayerScoreUpdated(player);
-        OnlinePlayerList.Refresh(player);
+        NetworkPlayerList.Refresh(player);
     }
 
     public override void OnNetStartSongSignal()

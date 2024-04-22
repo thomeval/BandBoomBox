@@ -30,6 +30,8 @@ public class MainMenuManager : ScreenManager
         TxtVersion.text = Application.version;
 
         CoreManager.ShutdownNetPlay();
+        CoreManager.PlayerManager.ClearParticipation();
+
         if (CoreManager.TitleScreenShown)
         {
             LogoAnimator.Play("MainMenuFastShown");
@@ -136,7 +138,7 @@ public class MainMenuManager : ScreenManager
                 this.ErrorMessage.Error = null;
 
                 CoreManager.PlayerManager.AutoSetNoteSkin();
-                SceneTransition(GameScene.OnlineMenu);
+                SceneTransition(GameScene.NetPlayMenu);
                 break;
             case "Options":
                 SceneTransition(GameScene.Options);

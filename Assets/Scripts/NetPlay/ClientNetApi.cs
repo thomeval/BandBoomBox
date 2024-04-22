@@ -8,6 +8,8 @@ public class ClientNetApi : NetworkBehaviour
     private CoreManager _coreManager;
     private NetGameSettings _netGameSettings;
 
+    public event EventHandler NetSettingsUpdated;
+
     void Awake()
     {
         Helpers.AutoAssign(ref _playerManager);
@@ -106,6 +108,7 @@ public class ClientNetApi : NetworkBehaviour
     public void ReceiveNetGameSettingsClientRpc(NetGameSettings serverSettings, ClientRpcParams param)
     {
         _netGameSettings.CopyFrom(serverSettings);
+        NetSettingsUpdated?.Invoke(this, null);
     }
 
     [ClientRpc]

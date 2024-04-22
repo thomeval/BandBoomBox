@@ -1,8 +1,8 @@
 using UnityEngine.UI;
 
-public class OnlineJoinSubmenu : OnlineSubmenuBase
+public class NetPlayJoinSubmenu : NetPlaySubmenuBase
 {
-    public override OnlineMenuState OnlineMenuState => OnlineMenuState.JoinMenu;
+    public override NetPlayMenuState NetPlayMenuState => NetPlayMenuState.JoinMenu;
 
     public InputField TxtJoinIpAddress;
     public InputField TxtJoinPort;
@@ -49,7 +49,7 @@ public class OnlineJoinSubmenu : OnlineSubmenuBase
                 ParentManager.Connect(hash);
                 break;
             case "Back":
-                ParentManager.OnlineMenuState = OnlineMenuState.MainMenu;
+                ParentManager.NetPlayMenuState = NetPlayMenuState.MainMenu;
                 break;
         }
     }

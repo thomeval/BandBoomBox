@@ -28,7 +28,7 @@ public class HitResult : INetworkSerializable
     public float MxPoints;
 
     /// <summary>
-    /// In online games, this gets or sets the Net ID of the player who hit (or missed) this note.
+    /// In Network games, this gets or sets the Net ID of the player who hit (or missed) this note.
     /// </summary>
     public int NetId;
 
@@ -51,7 +51,7 @@ public class HitResult : INetworkSerializable
     {
         serializer.SerializeValue(ref JudgeResult);
         serializer.SerializeValue(ref DeviationResult);
-        serializer.SerializeValue(ref PerfPoints); 
+        serializer.SerializeValue(ref PerfPoints);
         serializer.SerializeValue(ref ScorePoints);
         serializer.SerializeValue(ref MxPoints);
         serializer.SerializeValue(ref NetId);

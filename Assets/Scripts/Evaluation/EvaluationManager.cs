@@ -10,7 +10,7 @@ public class EvaluationManager : ScreenManager
     public PlayerResultFrame[] WidePlayerResultFrames = new PlayerResultFrame[4];
     public SongResultFrame SongResultFrame;
     public GameObject PbContinue;
-    public OnlinePlayerList OnlinePlayerList;
+    public NetworkPlayerList NetworkPlayerList;
     public BarChart MxBarChart;
 
     public bool UseWidePlayerResultFrames;
@@ -189,8 +189,8 @@ public class EvaluationManager : ScreenManager
 
     public void RefreshPlayerList()
     {
-        OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
-        OnlinePlayerList.RefreshAll();
+        NetworkPlayerList.gameObject.SetActive(CoreManager.IsNetGame);
+        NetworkPlayerList.RefreshAll();
     }
 
     public override void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)

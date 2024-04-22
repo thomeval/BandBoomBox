@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 
-public class OnlinePlayerListItem : MonoBehaviour
+public class NetworkPlayerListItem : MonoBehaviour
 {
     [Header("Common")]
     public Text TxtPlayerName;

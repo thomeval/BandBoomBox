@@ -1,9 +1,9 @@
 using System;
 using UnityEngine.UI;
 
-public class OnlineHostSubmenu : OnlineSubmenuBase
+public class NetPlayHostSubmenu : NetPlaySubmenuBase
 {
-    public override OnlineMenuState OnlineMenuState => OnlineMenuState.HostMenu;
+    public override NetPlayMenuState NetPlayMenuState => NetPlayMenuState.HostMenu;
 
     public InputField TxtHostPort;
     public InputField TxtHostPassword;
@@ -21,7 +21,7 @@ public class OnlineHostSubmenu : OnlineSubmenuBase
 
     public ushort HostPort
     {
-        get => GetValueOrDefault(TxtHostPort.text, OnlineMenuManager.DEFAULT_PORT);
+        get => GetValueOrDefault(TxtHostPort.text, NetPlayMenuManager.DEFAULT_PORT);
         set => TxtHostPort.text = value.ToString();
     }
 
@@ -48,7 +48,7 @@ public class OnlineHostSubmenu : OnlineSubmenuBase
                 TxtHostPassword.Select();
                 break;
             case "Back":
-                ParentManager.OnlineMenuState = OnlineMenuState.MainMenu;
+                ParentManager.NetPlayMenuState = NetPlayMenuState.MainMenu;
                 break;
         }
     }

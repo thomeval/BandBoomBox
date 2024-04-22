@@ -1524,7 +1524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315107602500133141, guid: 3e1ac6eb4711cdf48870691f47ad4d43, type: 3}
       propertyPath: m_Name
-      value: GameplayOnlinePlayerListItem (4)
+      value: GameplayNetworkPlayerListItem (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1774,7 +1774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315107602500133141, guid: 3e1ac6eb4711cdf48870691f47ad4d43, type: 3}
       propertyPath: m_Name
-      value: GameplayOnlinePlayerListItem (1)
+      value: GameplayNetworkPlayerListItem (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2444,7 +2444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315107602500133141, guid: 3e1ac6eb4711cdf48870691f47ad4d43, type: 3}
       propertyPath: m_Name
-      value: GameplayOnlinePlayerListItem (2)
+      value: GameplayNetworkPlayerListItem (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3020,7 +3020,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315107602500133141, guid: 3e1ac6eb4711cdf48870691f47ad4d43, type: 3}
       propertyPath: m_Name
-      value: GameplayOnlinePlayerListItem (7)
+      value: GameplayNetworkPlayerListItem (7)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3242,7 +3242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315107602500133141, guid: 3e1ac6eb4711cdf48870691f47ad4d43, type: 3}
       propertyPath: m_Name
-      value: GameplayOnlinePlayerListItem (5)
+      value: GameplayNetworkPlayerListItem (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3301,7 +3301,7 @@ MonoBehaviour:
   NoteGenerator: {fileID: 1847403176}
   HudManager: {fileID: 1223415358}
   PauseMenu: {fileID: 186211379}
-  OnlinePlayerList: {fileID: 2687824984457592139}
+  NetworkPlayerList: {fileID: 2687824984457592139}
   StateHelper: {fileID: 1345223266}
   StateValues: {fileID: 1345223265}
   GameplayState: 1
@@ -3334,6 +3334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 985329517549eb144acf76085ad73bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SongPosition: 0
   Score: 0
   TeamCombo: 0
   MaxTeamCombo: 0
@@ -3742,7 +3743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315107602500133141, guid: 3e1ac6eb4711cdf48870691f47ad4d43, type: 3}
       propertyPath: m_Name
-      value: GameplayOnlinePlayerListItem (6)
+      value: GameplayNetworkPlayerListItem (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4679,7 +4680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315107602500133141, guid: 3e1ac6eb4711cdf48870691f47ad4d43, type: 3}
       propertyPath: m_Name
-      value: GameplayOnlinePlayerListItem (3)
+      value: GameplayNetworkPlayerListItem (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4981,7 +4982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315107602500133141, guid: 3e1ac6eb4711cdf48870691f47ad4d43, type: 3}
       propertyPath: m_Name
-      value: GameplayOnlinePlayerListItem (8)
+      value: GameplayNetworkPlayerListItem (8)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5503,7 +5504,7 @@ GameObject:
   - component: {fileID: 2687824984457592138}
   - component: {fileID: 6669180574888946070}
   m_Layer: 0
-  m_Name: OnlinePlayerList
+  m_Name: NetworkPlayerList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5562,7 +5563,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2687824984457592136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51434c04b7370c94290ae87ef592d0b5, type: 3}
+  m_Script: {fileID: 11500000, guid: bbc0efb7ecd0c6b4088ed317fedca929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ListItemPrefab: {fileID: 8745452216092655462, guid: 3e1ac6eb4711cdf48870691f47ad4d43, type: 3}
@@ -5570,7 +5571,8 @@ MonoBehaviour:
   ListContainer: {fileID: 2687824984902583525}
   TxtPlayerCount: {fileID: 0}
   ShowRemotePlayersOnly: 1
-  SortMode: 2
+  SortMode: 3
+  VisibleEntries: 9
 --- !u!1 &2687824984902583525
 GameObject:
   m_ObjectHideFlags: 0
@@ -5822,7 +5824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315107602500133141, guid: 3e1ac6eb4711cdf48870691f47ad4d43, type: 3}
       propertyPath: m_Name
-      value: GameplayOnlinePlayerListItem
+      value: GameplayNetworkPlayerListItem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

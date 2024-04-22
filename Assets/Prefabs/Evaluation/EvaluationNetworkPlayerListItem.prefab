@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 7738796095930715411}
   - component: {fileID: 5851269095807766398}
   m_Layer: 0
-  m_Name: EvaluationOnlinePlayerListItem
+  m_Name: EvaluationNetworkPlayerListItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

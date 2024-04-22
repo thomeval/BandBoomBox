@@ -404,6 +404,18 @@ PrefabInstance:
       propertyPath: TxtDifficulty
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_labelHash
+      value: 2.3460774e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 543651467
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_CategoryHash
+      value: 0.05063262
+      objectReference: {fileID: 0}
     - target: {fileID: 7738796095930715410, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
       propertyPath: m_Name
       value: EvaluationOnlinePlayerListItem (5)
@@ -718,6 +730,18 @@ PrefabInstance:
     - target: {fileID: 6191109816539823614, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
       propertyPath: TxtDifficulty
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_labelHash
+      value: 2.3460774e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 543651467
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_CategoryHash
+      value: 0.05063262
       objectReference: {fileID: 0}
     - target: {fileID: 7738796095930715410, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
       propertyPath: m_Name
@@ -1226,6 +1250,18 @@ PrefabInstance:
       propertyPath: TxtDifficulty
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_labelHash
+      value: 2.3460774e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 543651467
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_CategoryHash
+      value: 0.05063262
+      objectReference: {fileID: 0}
     - target: {fileID: 7738796095930715410, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
       propertyPath: m_Name
       value: EvaluationOnlinePlayerListItem (3)
@@ -1704,6 +1740,18 @@ PrefabInstance:
       propertyPath: TxtDifficulty
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_labelHash
+      value: 2.3460774e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 543651467
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_CategoryHash
+      value: 0.05063262
+      objectReference: {fileID: 0}
     - target: {fileID: 7738796095930715410, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
       propertyPath: m_Name
       value: EvaluationOnlinePlayerListItem (4)
@@ -1892,6 +1940,18 @@ PrefabInstance:
     - target: {fileID: 6191109816539823614, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
       propertyPath: TxtDifficulty
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_labelHash
+      value: 2.3460774e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 543651467
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_CategoryHash
+      value: 0.05063262
       objectReference: {fileID: 0}
     - target: {fileID: 7738796095930715410, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
       propertyPath: m_Name
@@ -2531,7 +2591,7 @@ MonoBehaviour:
   - {fileID: 1292218958}
   SongResultFrame: {fileID: 1011740030}
   PbContinue: {fileID: 189759109}
-  OnlinePlayerList: {fileID: 8278763241355587983}
+  NetworkPlayerList: {fileID: 8278763241355587983}
   MxBarChart: {fileID: 182098544}
   UseWidePlayerResultFrames: 0
 --- !u!4 &1321224084
@@ -2639,6 +2699,18 @@ PrefabInstance:
     - target: {fileID: 6191109816539823614, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
       propertyPath: TxtDifficulty
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_labelHash
+      value: 2.3460774e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 543651467
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_CategoryHash
+      value: 0.05063262
       objectReference: {fileID: 0}
     - target: {fileID: 7738796095930715410, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
       propertyPath: m_Name
@@ -4012,6 +4084,18 @@ PrefabInstance:
       propertyPath: TxtDifficulty
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_labelHash
+      value: 2.3460774e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 543651467
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_CategoryHash
+      value: 0.05063262
+      objectReference: {fileID: 0}
     - target: {fileID: 7738796095930715410, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
       propertyPath: m_Name
       value: EvaluationOnlinePlayerListItem (2)
@@ -4601,6 +4685,18 @@ PrefabInstance:
       propertyPath: TxtDifficulty
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_labelHash
+      value: 2.3460774e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_SpriteHash
+      value: 543651467
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334561084966659798, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
+      propertyPath: m_CategoryHash
+      value: 0.05063262
+      objectReference: {fileID: 0}
     - target: {fileID: 7738796095930715410, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
       propertyPath: m_Name
       value: EvaluationOnlinePlayerListItem
@@ -4707,7 +4803,7 @@ GameObject:
   - component: {fileID: 8278763241355587982}
   - component: {fileID: 802962067085387090}
   m_Layer: 0
-  m_Name: EvaluationOnlinePlayerList
+  m_Name: EvaluationNetworkPlayerList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4766,7 +4862,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8278763241355587980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51434c04b7370c94290ae87ef592d0b5, type: 3}
+  m_Script: {fileID: 11500000, guid: bbc0efb7ecd0c6b4088ed317fedca929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ListItemPrefab: {fileID: 5851269095807766398, guid: 4f69874abe3998d42becc462d6c42ad9, type: 3}
@@ -4775,6 +4871,7 @@ MonoBehaviour:
   TxtPlayerCount: {fileID: 0}
   ShowRemotePlayersOnly: 0
   SortMode: 3
+  VisibleEntries: 8
 --- !u!1 &8278763242009476244
 GameObject:
   m_ObjectHideFlags: 0

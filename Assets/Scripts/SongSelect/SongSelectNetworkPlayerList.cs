@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SongSelectOnlinePlayerList : MonoBehaviour
+public class SongSelectNetworkPlayerList : MonoBehaviour
 {
     public Text TxtPlayerCount;
     public Text TxtNotReadyCount;

@@ -13,6 +13,6 @@
     DifficultySelect,
     Editor,
     ChartEditor,
-    OnlineMenu,
+    NetPlayMenu,
     All
 }

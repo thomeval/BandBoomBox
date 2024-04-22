@@ -21,7 +21,7 @@ public class SongSelectManager : ScreenManager
     public Text TxtNextSongSelectTurn;
 
     public SongList SongList;
-    public SongSelectOnlinePlayerList OnlinePlayerList;
+    public SongSelectNetworkPlayerList NetworkPlayerList;
 
     public Color NormalMessageColor = Color.white;
     public Color ErrorMessageColor = new Color(255, 128, 128);
@@ -78,8 +78,8 @@ public class SongSelectManager : ScreenManager
         ShowSelectedSong();
         UpdatePlayersState(PlayerState.SelectSong);
         CoreManager.PlayerManager.ClearParticipation();
-        OnlinePlayerList.gameObject.SetActive(CoreManager.IsNetGame);
-        OnlinePlayerList.Refresh();
+        NetworkPlayerList.gameObject.SetActive(CoreManager.IsNetGame);
+        NetworkPlayerList.Refresh();
         AdvanceNetSongSelectTurn();
     }
 
@@ -294,13 +294,13 @@ public class SongSelectManager : ScreenManager
     public override void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)
     {
         base.OnNetPlayerListUpdated(playerJoined, playerLeft);
-        OnlinePlayerList.Refresh();
+        NetworkPlayerList.Refresh();
     }
 
     public override void OnNetPlayerUpdated(Player player)
     {
         base.OnNetPlayerUpdated(player);
-        OnlinePlayerList.Refresh();
+        NetworkPlayerList.Refresh();
     }
 
     public override void OnNetSongSelected(NetSongChoiceRequest request)

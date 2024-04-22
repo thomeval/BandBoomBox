@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DifficultySelectOnlinePlayerListItem : OnlinePlayerListItem
+public class DifficultySelectNetworkPlayerListItem : NetworkPlayerListItem
 {
     [Header("Difficulty Select")]
     public Text TxtChartGroup;
