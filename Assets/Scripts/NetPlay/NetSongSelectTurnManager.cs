@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,21 +5,33 @@ using UnityEngine;
 public class NetSongSelectTurnManager : MonoBehaviour
 {
     private PlayerManager _playerManager;
-    private ServerNetApi _serverNetApi;
+    private NetGameSettings _netGameSettings;
 
     private readonly List<ulong> _spentTurns = new();
 
     [SerializeField]
-    private ulong _currentTurn;
-    public ulong CurrentTurn
+    private ulong _currentTurnId;
+    public ulong CurrentTurnId
     {
         get
         {
-            return _currentTurn;
+            return _currentTurnId;
         }
         set
         {
-            _currentTurn = value;
+            _currentTurnId = value;
+        }
+    }
+
+    public NetSongSelectTurnResponse CurrentTurn
+    {
+        get
+        {
+            return new NetSongSelectTurnResponse
+            {
+                SongSelectRules = _netGameSettings.SongSelectRules,
+                NetId = _currentTurnId
+            };
         }
     }
 
@@ -31,20 +42,20 @@ public class NetSongSelectTurnManager : MonoBehaviour
             return 0;
         }
 
-        if (_serverNetApi.SongSelectRules != NetSongSelectRules.Turns)
+        if (_netGameSettings.SongSelectRules != NetSongSelectRules.Turns)
         {
             return 0;
         }
 
-        foreach (var player in _playerManager.Players)
+        foreach (var player in _playerManager.Players.OrderByDescending(e => e.NetId))
         {
             if (_spentTurns.Contains(player.NetId))
             {
                 continue;
             }
-            _currentTurn = player.NetId;
+            _currentTurnId = player.NetId;
             _spentTurns.Add(player.NetId);
-            return CurrentTurn;
+            return CurrentTurnId;
         }
 
         // If we reach here, we've looped through all players. Reset the list and try again.
@@ -55,18 +66,18 @@ public class NetSongSelectTurnManager : MonoBehaviour
     public void Reset()
     {
         _spentTurns.Clear();
-        _currentTurn = 0;
+        _currentTurnId = 0;
     }
 
     private void Start()
     {
         Helpers.AutoAssign(ref _playerManager);
-        Helpers.AutoAssign(ref _serverNetApi);
+        Helpers.AutoAssign(ref _netGameSettings);
     }
 
     public string GetTurnMessage()
     {
-        switch (_serverNetApi.SongSelectRules)
+        switch (_netGameSettings.SongSelectRules)
         {
             case NetSongSelectRules.AnyonePicks:
                 return "Anyone can choose the next song.";
@@ -81,7 +92,7 @@ public class NetSongSelectTurnManager : MonoBehaviour
 
     private string GetTurnMessageForCurrentPlayer()
     {
-        var currentPlayers = _playerManager.Players.Where(p => p.NetId == CurrentTurn);
+        var currentPlayers = _playerManager.Players.Where(p => p.NetId == CurrentTurnId);
 
         Debug.Assert(currentPlayers.Any(), "Current song select turn is invalid: " + CurrentTurn);
 
@@ -91,8 +102,9 @@ public class NetSongSelectTurnManager : MonoBehaviour
             return "It's your turn to choose the next song.";
         }
 
-        var displayId = Helpers.NumberToNetIdLetter(CurrentTurn);
+        var displayId = Helpers.NumberToNetIdLetter(CurrentTurnId);
+        var displayName = currentPlayers.Select(p => p.Name).Aggregate((a, b) => $"{a}, {b}");
 
-        return $"Waiting for machine {displayId} to choose the next song.";
+        return $"Waiting for machine {displayId} ({displayName}) to choose the next song.";
     }
 }

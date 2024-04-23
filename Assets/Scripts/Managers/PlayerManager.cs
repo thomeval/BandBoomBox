@@ -229,7 +229,7 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdateRankings()
     {
-        var orderedPlayers = Players.OrderByDescending(e => e.PerfPercent).ToList();
+        var orderedPlayers = Players.Where(e => e.IsParticipating).OrderByDescending(e => e.PerfPercent).ToList();
         var count = 0;
         var last = 1000.0f;
         for (var x = 0; x < orderedPlayers.Count; x++)
@@ -243,6 +243,10 @@ public class PlayerManager : MonoBehaviour
             orderedPlayers[x].Ranking = count;
         }
 
+        foreach (var player in Players.Where(e => !e.IsParticipating))
+        {
+            player.Ranking = 99;
+        }
     }
 
     public void SetNetId()

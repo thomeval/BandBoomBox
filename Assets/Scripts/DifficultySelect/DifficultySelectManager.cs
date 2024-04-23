@@ -144,6 +144,7 @@ public class DifficultySelectManager : ScreenManager
         if (this.JoinedPlayers == this.ReadyPlayers)
         {
             CoreManager.PlayerManager.AddParticipation(PlayerState.DifficultySelect_Ready);
+            CoreManager.NetSongSelectTurnManager.NextTurn();
             UpdatePlayersState(PlayerState.Gameplay_Loading);
             SceneTransition(GameScene.Gameplay);
         }

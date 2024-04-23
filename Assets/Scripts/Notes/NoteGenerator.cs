@@ -46,7 +46,7 @@ public class NoteGenerator : MonoBehaviour
 
     public List<NoteBase> LoadOrGenerateSongNotes(SongChart chart, float lengthInBeats)
     {
-        var result = new List<NoteBase>();
+        List<NoteBase> result;
         if (chart.Notes == null || chart.Notes.Length == 0)
         {
             result = GenerateNotes(chart.Difficulty, (int)lengthInBeats);
@@ -82,7 +82,7 @@ public class NoteGenerator : MonoBehaviour
     public List<NoteBase> GenerateNotes(Difficulty difficulty, int endBeat)
     {
         var result = new List<NoteBase>();
-        for (int x = 0; x <= endBeat; x++)
+        for (var x = 0; x <= endBeat; x++)
         {
             GenerateNotesAtBeat(difficulty, x, ref result);
         }
@@ -93,7 +93,7 @@ public class NoteGenerator : MonoBehaviour
     public List<Note> GenerateTestNotes(int endBeat)
     {
         var result = new List<Note>();
-        for (int x = 0; x <= endBeat; x++)
+        for (var x = 0; x <= endBeat; x++)
         {
             result.Add(GenerateTestNotesAtBeat(x));
         }
@@ -105,7 +105,7 @@ public class NoteGenerator : MonoBehaviour
     {
         var result = new List<NoteType>();
 
-        for (int x = 0; x < filledLanes.Length; x++)
+        for (var x = 0; x < filledLanes.Length; x++)
         {
             if (!filledLanes[x])
             {
@@ -169,7 +169,7 @@ public class NoteGenerator : MonoBehaviour
 
     public void ResolveHoldsWithReleases(List<Note> notes)
     {
-        for (int x = 0; x < LINE_SIZE; x++)
+        for (var x = 0; x < LINE_SIZE; x++)
         {
             var notesInLane = notes.Where(n => n.Lane == x).OrderBy(n => n.Position).ToList();
 
@@ -321,7 +321,7 @@ public class NoteGenerator : MonoBehaviour
             return result;
         }
 
-        for (int beat = 0; beat < noteArray.Length; beat++)
+        for (var beat = 0; beat < noteArray.Length; beat++)
         {
             result.AddRange(LoadNoteBlock(noteArray[beat], beat));
         }
@@ -347,13 +347,13 @@ public class NoteGenerator : MonoBehaviour
 
         var lines = new List<string>();
 
-        for (int x = 0; x < notes.Length; x += LINE_SIZE)
+        for (var x = 0; x < notes.Length; x += LINE_SIZE)
         {
             lines.Add(notes.Substring(x, LINE_SIZE));
         }
 
-        float beatFraction = 1.0f / lines.Count;
-        float currentBeatFraction = 0.0f;
+        var beatFraction = 1.0f / lines.Count;
+        var currentBeatFraction = 0.0f;
         foreach (var line in lines)
         {
             var lineNotes = LoadNoteLine(line, beat + currentBeatFraction);
@@ -375,7 +375,7 @@ public class NoteGenerator : MonoBehaviour
             return result;
         }
 
-        for (int lane = 0; lane < LINE_SIZE; lane++)
+        for (var lane = 0; lane < LINE_SIZE; lane++)
         {
             if (line[lane] == '0')
             {

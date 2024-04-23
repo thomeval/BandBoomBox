@@ -118,14 +118,15 @@ public class ClientNetApi : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void SetNextSongSelectTurnClientRpc(ulong nextTurn)
-    {
-        _coreManager.ActiveMainManager.OnNetNextTurnUpdated(nextTurn);
-    }
-
-    [ClientRpc]
     public void ShutdownNetGameClientRpc()
     {
         _coreManager.ActiveMainManager.OnNetShutdown();
+    }
+
+    [ClientRpc]
+    public void SetCurrentSongSelectTurnClientRpc(NetSongSelectTurnResponse currentTurn, ClientRpcParams param)
+    {
+        _coreManager.NetSongSelectTurnManager.CurrentTurnId = currentTurn.NetId;
+        _coreManager.ActiveMainManager.OnNetCurrentTurnUpdated(currentTurn);
     }
 }

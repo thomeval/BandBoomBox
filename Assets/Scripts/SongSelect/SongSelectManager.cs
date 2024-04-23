@@ -80,10 +80,10 @@ public class SongSelectManager : ScreenManager
         CoreManager.PlayerManager.ClearParticipation();
         NetworkPlayerList.gameObject.SetActive(CoreManager.IsNetGame);
         NetworkPlayerList.Refresh();
-        AdvanceNetSongSelectTurn();
+        GetSongSelectTurn();
     }
 
-    private void AdvanceNetSongSelectTurn()
+    private void GetSongSelectTurn()
     {
         if (!CoreManager.IsNetGame)
         {
@@ -91,13 +91,7 @@ public class SongSelectManager : ScreenManager
             return;
         }
 
-        if (!CoreManager.IsHost)
-        {
-            return;
-        }
-
-        var nextTurn = CoreManager.NetSongSelectTurnManager.NextTurn();
-        CoreManager.ServerNetApi.SetNextSongSelectTurnServerRpc(nextTurn);
+        CoreManager.ServerNetApi.RequestCurrentSongSelectTurnServerRpc();
     }
 
     private void SortSongs()
@@ -347,9 +341,9 @@ public class SongSelectManager : ScreenManager
         base.OnNetShutdown();
     }
 
-    public override void OnNetNextTurnUpdated(ulong nextTurn)
+    public override void OnNetCurrentTurnUpdated(NetSongSelectTurnResponse currentTurn)
     {
-        base.OnNetNextTurnUpdated(nextTurn);
+        base.OnNetCurrentTurnUpdated(currentTurn);
         TxtNextSongSelectTurn.text = CoreManager.NetSongSelectTurnManager.GetTurnMessage();
         TxtNextSongSelectTurn.color = NormalMessageColor;
     }

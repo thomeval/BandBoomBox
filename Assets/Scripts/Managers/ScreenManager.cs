@@ -156,9 +156,9 @@ public class ScreenManager : MonoBehaviour
     public virtual void OnNetGameplayStateValuesUpdated(GameplayStateValuesDto dto)
     {
     }
-    public virtual void OnNetNextTurnUpdated(ulong nextTurn)
+    public virtual void OnNetCurrentTurnUpdated(NetSongSelectTurnResponse currentTurn)
     {
-        CoreManager.NetSongSelectTurnManager.CurrentTurn = nextTurn;
+        CoreManager.NetSongSelectTurnManager.CurrentTurnId = currentTurn.NetId;
     }
 
     public virtual void OnNetHitResult(HitResult hitResult)

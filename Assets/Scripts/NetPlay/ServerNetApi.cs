@@ -166,6 +166,16 @@ public class ServerNetApi : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
+    public void RequestCurrentSongSelectTurnServerRpc(ServerRpcParams serverParams = default)
+    {
+        var netId = serverParams.Receive.SenderClientId;
+        Debug.Log($"(Server) Sending current song select turn to client ID {netId}");
+        var param = GetSingleClientParams(netId);
+        var response = _coreManager.NetSongSelectTurnManager.CurrentTurn;
+        _clientNetApi.SetCurrentSongSelectTurnClientRpc(_coreManager.NetSongSelectTurnManager.CurrentTurn, param);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
     public void ApplyHitResultServerRpc(HitResult hitResult, ServerRpcParams serverParams = default)
     {
         // var netId = serverParams.Receive.SenderClientId;
@@ -178,13 +188,6 @@ public class ServerNetApi : NetworkBehaviour
     {
         Debug.Log("(Server) Shutting down game.");
         _clientNetApi.ShutdownNetGameClientRpc();
-    }
-
-    [ServerRpc(RequireOwnership = true)]
-    public void SetNextSongSelectTurnServerRpc(ulong nextTurn)
-    {
-        Debug.Log($"(Server) Setting next song select turn to client ID {nextTurn}");
-        _clientNetApi.SetNextSongSelectTurnClientRpc(nextTurn);
     }
 
     #endregion
@@ -262,7 +265,7 @@ public class ServerNetApi : NetworkBehaviour
                 }
                 return "";
             case NetSongSelectRules.Turns:
-                var currentTurn = _coreManager.NetSongSelectTurnManager.CurrentTurn;
+                var currentTurn = _coreManager.NetSongSelectTurnManager.CurrentTurnId;
                 if (currentTurn != netId)
                 {
                     return "It's not your turn to choose a song.";
