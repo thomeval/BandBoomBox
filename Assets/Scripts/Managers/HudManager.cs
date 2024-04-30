@@ -58,9 +58,6 @@ public class HudManager : MonoBehaviour
 
     void Update()
     {
-        var beat = _songManager.GetSongPositionInBeats();
-
-        MxMeter.BeatFraction = beat - (int)beat;
         MxMeter.Multiplier = (float)StateValues.Multiplier;
 
         TxtTeamCombo.text = string.Format(CultureInfo.InvariantCulture, "{0:000}", StateValues.TeamCombo);

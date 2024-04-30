@@ -618,6 +618,11 @@ public class GameplayManager : ScreenManager
         TryToStartSong();
     }
 
+    public override void OnNetPlayerTurboStarted(Player player)
+    {
+        PlaySfx(SoundEvent.Gameplay_TurboOnNetwork);
+    }
+
     public override void OnNetGameplayStateValuesUpdated(GameplayStateValuesDto dto)
     {
         base.OnNetGameplayStateValuesUpdated(dto);

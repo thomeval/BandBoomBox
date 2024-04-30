@@ -8,6 +8,8 @@ public class SoundEventHandler : MenuSoundEventHandler
     [Header("Gameplay")]
     public AudioSource SfxGameplayTurboOff;
     public AudioSource SfxGameplayTurboOn;
+    public AudioSource SfxGameplayTurboOnNetwork;
+
     public AudioSource[] SfxGameplayStars = new AudioSource[5];
 
     [Header("Editor")]
@@ -45,6 +47,7 @@ public class SoundEventHandler : MenuSoundEventHandler
 
         _sfxEntries.Add(SoundEvent.Gameplay_TurboOff, SfxGameplayTurboOff);
         _sfxEntries.Add(SoundEvent.Gameplay_TurboOn, SfxGameplayTurboOn);
+        _sfxEntries.Add(SoundEvent.Gameplay_TurboOnNetwork, SfxGameplayTurboOnNetwork);
 
         _sfxEntries.Add(SoundEvent.Net_PlayerJoined, SfxNetPlayerJoined);
         _sfxEntries.Add(SoundEvent.Net_PlayerLeft, SfxNetPlayerLeft);

@@ -7,8 +7,11 @@ public class EnergyMeter : MonoBehaviour
     public SpriteMeter SpriteMeter;
     public SpriteResolver SpriteResolver;
     public EnergyMeterScaleManager ScaleManager;
+    public GameObject GlowSprite;
+    public BeatFractionProvider BeatFractionProvider;
 
     private string _lastSprite = "Inactive";
+    private SpriteRenderer _glowRend;
 
     [SerializeField]
     private double _energy;
@@ -37,6 +40,28 @@ public class EnergyMeter : MonoBehaviour
             _turboActive = value;
             SetSprite();
         }
+    }
+
+    private void Awake()
+    {
+        _glowRend = GlowSprite.GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        UpdateGlow();
+    }
+
+    private void UpdateGlow()
+    {
+        if (!TurboActive)
+        {
+            _glowRend.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+            return;
+        }
+
+        var fraction = BeatFractionProvider.InverseBeatFraction;
+        _glowRend.color = new Color(1.0f, 1.0f, 1.0f, fraction);
     }
 
     private void SetSprite()

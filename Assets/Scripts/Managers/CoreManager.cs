@@ -213,6 +213,15 @@ public class CoreManager : MonoBehaviour
         ActiveMainManager.OnNetGameplayStateValuesUpdated(dto);
     }
 
+    public void OnNetPlayerTurboStarted(Player myPlayer)
+    {
+        if (!IsNetGame)
+        {
+            return;
+        }
+
+        ActiveMainManager.OnNetPlayerTurboStarted(myPlayer);
+    }
     #endregion
 
     public void SaveAllActiveProfiles()

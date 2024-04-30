@@ -175,11 +175,17 @@ public class ServerNetApi : NetworkBehaviour
         _clientNetApi.SetCurrentSongSelectTurnClientRpc(_coreManager.NetSongSelectTurnManager.CurrentTurn, param);
     }
 
+    [ServerRpc(RequireOwnership = true)]
+    public void ForceNextSongSelectTurnServerRpc(ServerRpcParams serverParams = default)
+    {
+        Debug.Log("(Server) Forcing next song select turn.");
+        _coreManager.NetSongSelectTurnManager.NextTurn();
+        _clientNetApi.SetCurrentSongSelectTurnClientRpc(_coreManager.NetSongSelectTurnManager.CurrentTurn);
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void ApplyHitResultServerRpc(HitResult hitResult, ServerRpcParams serverParams = default)
     {
-        // var netId = serverParams.Receive.SenderClientId;
-        //      Debug.Log($"(Server) Applying {hitResult.JudgeResult} Hit Result from client ID {netId}");
         _coreManager.ActiveMainManager.OnNetHitResult(hitResult);
     }
 

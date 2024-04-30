@@ -10,6 +10,8 @@ public class NoteManager : MonoBehaviour
     public List<RegionMarker> RegionMarkers = new();
     public SongChart Chart;
     public RectTransform ScrollingBackground;
+    public BeatFractionProvider BeatFractionProvider;
+
     public RegionMarker SelectedRegionMarker
     {
         get
@@ -176,14 +178,13 @@ public class NoteManager : MonoBehaviour
 
         _scrollingBackgroundRenderer ??= ScrollingBackground.GetComponent<SpriteRenderer>();
 
-        var opacity = CalculateBackgroundOpacity(ScrollingBackgroundOpacity, SongPositionInBeats);
+        var opacity = CalculateBackgroundOpacity(ScrollingBackgroundOpacity);
         _scrollingBackgroundRenderer.color = new Color(1.0f, 1.0f, 1.0f, opacity);
     }
 
-    private float CalculateBackgroundOpacity(float scrollingBackgroundOpacity, float songPositionInBeats)
+    private float CalculateBackgroundOpacity(float scrollingBackgroundOpacity)
     {
-        var beatFraction = songPositionInBeats - (int)songPositionInBeats;
-        beatFraction = 1 - beatFraction;
+        var beatFraction = BeatFractionProvider?.InverseBeatFraction ?? 0;
 
         var result = MIN_BACKGROUND_OPACITY;
 

@@ -277,7 +277,6 @@ public class SongSelectManager : ScreenManager
         SceneTransition(GameScene.DifficultySelect);
     }
 
-
     public TeamScore GetTeamScore(SongData songData)
     {
         var playerCount = CoreManager.PlayerManager.Players.Count;
@@ -289,12 +288,31 @@ public class SongSelectManager : ScreenManager
     {
         base.OnNetPlayerListUpdated(playerJoined, playerLeft);
         NetworkPlayerList.Refresh();
+        EnsureValidCurrentTurn();
+        ShowHighScores(SelectedSong);
+        SongList.DisplayTeamScores();
     }
 
     public override void OnNetPlayerUpdated(Player player)
     {
         base.OnNetPlayerUpdated(player);
         NetworkPlayerList.Refresh();
+    }
+
+    private void EnsureValidCurrentTurn()
+    {
+        // If the current player is no longer in the game, skip their turn.
+        if (!CoreManager.IsHost)
+        {
+            return;
+        }
+
+        if (CoreManager.NetSongSelectTurnManager.IsCurrentTurnValid())
+        {
+            return;
+        }
+
+        CoreManager.ServerNetApi.ForceNextSongSelectTurnServerRpc();
     }
 
     public override void OnNetSongSelected(NetSongChoiceRequest request)

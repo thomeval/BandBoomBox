@@ -57,7 +57,7 @@ public class SongList : MonoBehaviour
         _songListItems.Clear();
         var itemsCount = (2 * DisplayedAdjacentSongs) + 1;
 
-        for (int x = 0; x < itemsCount; x++)
+        for (var x = 0; x < itemsCount; x++)
         {
             var obj = Instantiate(SongListItemPrefab);
             obj.transform.SetParent(InnerContainer.transform, false);
@@ -81,20 +81,28 @@ public class SongList : MonoBehaviour
             {
                 var listItem = _songListItems[listIdx];
                 _songListItems[listIdx].SongData = _songSelectManager.OrderedSongs[songIdx];
-                var teamScore = _songSelectManager.GetTeamScore(listItem.SongData);
-                listItem.DisplayTeamScore(teamScore);
                 listItem.IsSelectable = IsSongSelectable(listItem.SongData.ID);
                 listIdx++;
                 songIdx = Helpers.Wrap(songIdx + 1, songCount - 1);
             }
 
             _songListItems[DisplayedAdjacentSongs].IsSelected = true;
+            DisplayTeamScores();
         }
         catch (Exception e)
         {
             Debug.LogError(e);
         }
 
+    }
+
+    public void DisplayTeamScores()
+    {
+        foreach (var listItem in _songListItems)
+        {
+            var teamScore = _songSelectManager.GetTeamScore(listItem.SongData);
+            listItem.DisplayTeamScore(teamScore);
+        }
     }
 
     private bool IsSongSelectable(string songId)

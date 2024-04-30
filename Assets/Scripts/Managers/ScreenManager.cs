@@ -177,6 +177,10 @@ public class ScreenManager : MonoBehaviour
         SceneTransition(GameScene.MainMenu);
     }
 
+    public virtual void OnNetPlayerTurboStarted(Player player)
+    {
+    }
+
     public void SendNetPlayerUpdate(Player player)
     {
         if (!CoreManager.IsNetGame)
@@ -213,6 +217,5 @@ public class ScreenManager : MonoBehaviour
         player.PlayerState = playerState;
         SendNetPlayerUpdate(player);
     }
-
 }
 

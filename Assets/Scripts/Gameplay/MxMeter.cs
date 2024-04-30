@@ -12,6 +12,8 @@ public class MxMeter : MonoBehaviour
     public Text TextWhole;
     public Text TextFraction;
 
+    public BeatFractionProvider BeatFractionProvider;
+
     private SpriteRenderer _frontRend;
     private SpriteRenderer _backRend;
     private SpriteRenderer _glowRend;
@@ -48,8 +50,6 @@ public class MxMeter : MonoBehaviour
         }
     }
 
-    public float BeatFraction;
-
     void Awake()
     {
         _frontRend = FrontSprite.GetComponent<SpriteRenderer>();
@@ -75,7 +75,7 @@ public class MxMeter : MonoBehaviour
     {
         var badFraction = 1.0f - Multiplier;
         var goodFraction = Math.Min(1.0f, (Multiplier - 1) / 20);
-        goodFraction *= (1 - BeatFraction);
+        goodFraction *= BeatFractionProvider.InverseBeatFraction;
         var color = Multiplier < 1.0f
             ? new Color(1.0f, 0.0f, 0.0f, badFraction)
             : new Color(1.0f, 1.0f, 1.0f, goodFraction);

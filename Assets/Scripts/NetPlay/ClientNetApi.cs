@@ -124,7 +124,7 @@ public class ClientNetApi : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void SetCurrentSongSelectTurnClientRpc(NetSongSelectTurnResponse currentTurn, ClientRpcParams param)
+    public void SetCurrentSongSelectTurnClientRpc(NetSongSelectTurnResponse currentTurn, ClientRpcParams param = default)
     {
         _coreManager.NetSongSelectTurnManager.CurrentTurnId = currentTurn.NetId;
         _coreManager.ActiveMainManager.OnNetCurrentTurnUpdated(currentTurn);

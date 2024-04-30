@@ -329,9 +329,19 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
+        var previousTurboState = myPlayer.TurboActive;
         CopyValues(player, myPlayer);
 
         _coreManager.OnNetPlayerUpdated(myPlayer);
+        CheckTurboStarted(myPlayer, previousTurboState);
+    }
+
+    private void CheckTurboStarted(Player myPlayer, bool previousTurboState)
+    {
+        if (myPlayer.TurboActive && !previousTurboState)
+        {
+            _coreManager.OnNetPlayerTurboStarted(myPlayer);
+        }
     }
 
     public void UpdateNetPlayer(PlayerScoreDto player)
@@ -342,8 +352,10 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
+        var previousTurboState = myPlayer.TurboActive;
         CopyValues(player, myPlayer);
         _coreManager.OnNetPlayerUpdated(myPlayer);
+        CheckTurboStarted(myPlayer, previousTurboState);
     }
 
     public void ClearNetPlayers()

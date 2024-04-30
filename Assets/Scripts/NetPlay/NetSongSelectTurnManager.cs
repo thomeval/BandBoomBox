@@ -30,9 +30,19 @@ public class NetSongSelectTurnManager : MonoBehaviour
             return new NetSongSelectTurnResponse
             {
                 SongSelectRules = _netGameSettings.SongSelectRules,
-                NetId = _currentTurnId
+                NetId = _currentTurnId,
             };
         }
+    }
+
+    public bool IsCurrentTurnValid()
+    {
+        if (_netGameSettings.SongSelectRules != NetSongSelectRules.Turns)
+        {
+            return true;
+        }
+
+        return _playerManager.Players.Any(p => p.NetId == CurrentTurnId);
     }
 
     public ulong NextTurn()
