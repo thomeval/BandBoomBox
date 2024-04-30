@@ -64,7 +64,8 @@ MonoBehaviour:
   IsSelectable: 0
   IsShiftable: 1
   Text: Timing Display
-  Explanation: Change how timing results (Perfect, Miss, etc) are displayed
+  Explanation: Change how timing results (Perfect, Miss, etc) are displayed on the
+    left edge of the Note Highway during gameplay.
 --- !u!114 &420360686843834065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +201,7 @@ MonoBehaviour:
   ProfileSelectFrame: {fileID: 321922880569021949}
   ProfileCreateFrame: {fileID: 7563622551569176587}
   TxtPlayerName: {fileID: 5014254438469241275}
+  PageStates: 0100000006000000070000000800000009000000
   Pages:
   - {fileID: 5155852167923262489}
   - {fileID: 7788550139001296905}
@@ -208,7 +210,6 @@ MonoBehaviour:
   - {fileID: 8666062895255921250}
   Player: {fileID: 0}
   ExpMeter: {fileID: 208817176282614316}
-  _state: 0
   ErrorMessageColor: {r: 1, g: 0.5, b: 0.5, a: 1}
   SoundEventHandler: {fileID: 2466622145899297917}
 --- !u!1 &99468441615552420
@@ -627,8 +628,8 @@ MonoBehaviour:
   IsSelectable: 0
   IsShiftable: 1
   Text: Goal
-  Explanation: The higher your goal, the more EXP you will earn per song if you succeed.
-    You will only gain half as much EXP if you fail.
+  Explanation: (Optional) The higher your goal, the more EXP you will earn per song
+    if you succeed. You will only gain half as much EXP if you fail.
 --- !u!114 &9112437866448163735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1520,7 +1521,7 @@ MonoBehaviour:
   IsSelectable: 0
   IsShiftable: 1
   Text: Momentum Speed
-  Explanation: Dynamically Increases Scroll Speed based on the current score multiplier.
+  Explanation: Dynamically increases Scroll Speed based on the current score multiplier.
 --- !u!114 &2305845158170802446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4319,7 +4320,8 @@ MonoBehaviour:
   IsSelectable: 0
   IsShiftable: 1
   Text: Note Labels
-  Explanation: Change the appearance of the notes.
+  Explanation: Change the appearance of the notes. This should be set to match the
+    controller you are using.
 --- !u!114 &5808791511866229817
 MonoBehaviour:
   m_ObjectHideFlags: 0
