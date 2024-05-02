@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &1
 MonoBehaviour:
-  m_ObjectHideFlags: 36
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Library:
   - m_Name: PlayerIdentifiers
-    m_Hash: 0
+    m_Hash: 584032422
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: P1
@@ -45,7 +45,7 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 5
   - m_Name: TimingIcons
-    m_Hash: 0
+    m_Hash: 795569582
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: PerfectEarly
@@ -111,7 +111,7 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 12
   - m_Name: TimingWords
-    m_Hash: 0
+    m_Hash: 343679836
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: PerfectEarly
@@ -177,7 +177,7 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 12
   - m_Name: TimingEarlyLate
-    m_Hash: -1441023722
+    m_Hash: 706459926
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: CritEarly
@@ -243,7 +243,7 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 12
   - m_Name: Countdowns
-    m_Hash: -697543783
+    m_Hash: 376198041
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: 4
@@ -268,4 +268,37 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: -1818382726867662917, guid: 565cb51f97abb384c9b6811ffcb47bf2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 4
+  - m_Name: ImpactZoneGlyphs
+    m_Hash: 281134145
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: None
+      m_Hash: 530755569
+      m_Sprite: {fileID: 21300000, guid: 1b46ea2c816a8f744bbfd904c89a872e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1b46ea2c816a8f744bbfd904c89a872e, type: 3}
+    - m_Name: Top-Default
+      m_Hash: 542315224
+      m_Sprite: {fileID: 21300000, guid: fa351efea1a29f447b24a0a2fecec801, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: fa351efea1a29f447b24a0a2fecec801, type: 3}
+    - m_Name: Mid-Beginner
+      m_Hash: 434535638
+      m_Sprite: {fileID: 21300000, guid: 80333aba74765ff439f8cdf6cc133824, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 80333aba74765ff439f8cdf6cc133824, type: 3}
+    - m_Name: Mid-Default
+      m_Hash: 165317548
+      m_Sprite: {fileID: 21300000, guid: ef335ca0c75371d4c8aa4f3bcbc5c794, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ef335ca0c75371d4c8aa4f3bcbc5c794, type: 3}
+    - m_Name: Bot-Default
+      m_Hash: 1006390620
+      m_Sprite: {fileID: 21300000, guid: ee32213b01694ee429eae6fb922211ce, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ee32213b01694ee429eae6fb922211ce, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 5
   m_PrimaryLibraryGUID: 
+  m_ModificationHash: 638502406668677777
+  m_Version: 1
