@@ -80,3 +80,20 @@ Band BoomBox is a free, open source rhythm game built using the Unity engine. Th
 
 ## Songs
 The current version of Band BoomBox includes three playable songs. More songs can be added by using the built-in editor to import audio files (.mp3, .ogg and .flac formats are supported), then composing note sequences for them (called Charts).
+
+## Development
+Compiling Band BoomBox requires the following tools:
+
+- Unity 2022.3 LTS, which can be downloaded from here: https://unity.com/releases/editor/qa/lts-releases . The free Unity Personal Edition will suffice.
+- A suitable C# IDE, such as the latest version of Visual Studio or Visual Studio Code. If using Visual Studio, ensure that the "Game development with Unity" component is installed. The free Community Edition will suffice.
+
+Once the above are installed, clone the source code using your preferred git client. The project can then be opened through Unity Hub, by first adding its root folder to the Projects tab. Once Band BoomBox is open in the Unity Editor, it should not require any special configuration to compile. 
+
+To build the project using the command line instead, try using the `Build.ps1` Powershell script, located in the project's root folder. Usage:
+
+    ./Build.ps1 -OutputPath "D:\Projects\Band BoomBox\Build"
+
+Note that building the Linux version of the game does **not** require a Linux machine. It can be compiled on Windows, provided that the appropriate toolchain components are installed. The above build script will attempt to compile for both Windows and Linux.
+
+## Contributing
+Contributions to fix bugs or add features are welcome, as are contributions to provide additional songs to the game. If you are interested, please submit a Pull Request. Note that all contributions must be compatible with the MIT licence.
