@@ -112,6 +112,14 @@ public class ChartEditorManager : ScreenManager
         get { return SelectedRegionStart != null && SelectedRegionEnd != null; }
     }
 
+    public bool CurrentDifficultyUsesTopLane
+    {
+        get
+        {
+            return CurrentDifficulty == Difficulty.Expert || CurrentDifficulty == Difficulty.Nerf || CurrentDifficulty == Difficulty.Extra;
+        }
+    }
+
     #endregion
 
     private void UpdateHud()
@@ -195,11 +203,13 @@ public class ChartEditorManager : ScreenManager
         var notes = NoteGenerator.InstantiateNotes(temp);
         NoteManager.AttachNotes(notes);
         NoteManager.CalculateAbsoluteTimes(CurrentSongData.Bpm);
+        NoteManager.SetImpactZoneSprites(CurrentChart.Difficulty, CurrentDifficultyUsesTopLane);
         RefreshNoteCounts();
         ShowNotePalette();
 
         ApplyNoteSkin();
     }
+
 
     public void RefreshNoteCounts()
     {

@@ -99,6 +99,7 @@ public class EditorFineTunePage : EditorPageManager
         var notes = NoteGenerator.GenerateTestNotes(endBeat);
         NoteManager.AttachNotes(notes);
         NoteManager.ApplyNoteSkin("Default", "None");
+        NoteManager.SetImpactZoneSprites(false);
 
         NoteGenerator.GenerateBeatLines(Parent.CurrentSong, NoteManager);
         NoteManager.CalculateAbsoluteTimes(Parent.CurrentSong.Bpm);

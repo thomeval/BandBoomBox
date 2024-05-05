@@ -28,7 +28,6 @@ public class ClientNetApi : NetworkBehaviour
     {
         if (!_playerManager.HasNetPlayer(updatedPlayer))
         {
-            _playerManager.RegisterNetPlayer(updatedPlayer);
             return;
         }
 

@@ -88,9 +88,14 @@ public class PlayerManager : MonoBehaviour
         return Players.FirstOrDefault(e => e.Slot == slot && e.IsLocalPlayer);
     }
 
+    public List<Player> GetLocalPlayers()
+    {
+        return Players.Where(e => e.IsLocalPlayer).ToList();
+    }
+
     public void ApplyHitResult(HitResult hitResult, int playerNum)
     {
-        var player = Players.FirstOrDefault(e => e.Slot == playerNum);
+        var player = GetLocalPlayer(playerNum);
         if (player == null)
         {
             return;
@@ -101,7 +106,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetMaxPerfPoints(int maxPerfPoints, int playerNum)
     {
-        var player = Players.FirstOrDefault(e => e.Slot == playerNum);
+        var player = GetLocalPlayer(playerNum);
         if (player == null)
         {
             return;
@@ -113,11 +118,6 @@ public class PlayerManager : MonoBehaviour
     public void SortPlayers()
     {
         Players = Players.OrderBy(e => e.Slot).ToList();
-    }
-
-    public List<Player> GetLocalPlayers()
-    {
-        return Players.Where(e => e.IsLocalPlayer).ToList();
     }
 
     public void SetPlayerCount(int players)
@@ -306,6 +306,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (netId == _coreManager.NetId)
         {
+            // Don't remove local players through ClientRpc. This is handled locally instead.
             return;
         }
 

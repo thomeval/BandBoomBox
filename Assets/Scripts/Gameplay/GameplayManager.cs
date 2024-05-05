@@ -96,6 +96,7 @@ public class GameplayManager : ScreenManager
             noteManager.ScrollSpeed = player.ScrollSpeed;
             _playerManager.SetMaxPerfPoints(noteManager.MaxPerfPoints, player.Slot);
             noteManager.ScrollingBackgroundOpacity = 0.0f;
+            noteManager.SetImpactZoneSprites(false);
         }
     }
 
@@ -108,6 +109,8 @@ public class GameplayManager : ScreenManager
             noteManager.ParentEnabled = false;
         }
 
+
+        // TODO: Suspicious
         foreach (var player in _playerManager.Players.Where(e => e.Slot == 0))
         {
             player.gameObject.SetActive(false);

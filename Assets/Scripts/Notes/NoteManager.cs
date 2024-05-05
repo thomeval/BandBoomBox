@@ -11,6 +11,7 @@ public class NoteManager : MonoBehaviour
     public SongChart Chart;
     public RectTransform ScrollingBackground;
     public BeatFractionProvider BeatFractionProvider;
+    public NoteHighwayImpactZone ImpactZone;
 
     public RegionMarker SelectedRegionMarker
     {
@@ -53,6 +54,7 @@ public class NoteManager : MonoBehaviour
     private GameplayManager _gameplayManager;
     private NoteTrimmer _noteTrimmer;
     private SpriteRenderer _scrollingBackgroundRenderer;
+
 
     private readonly Note[] _pendingReleases = new Note[4];
 
@@ -332,6 +334,15 @@ public class NoteManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void SetImpactZoneSprites(Difficulty difficulty, bool overrideTopLane)
+    {
+        ImpactZone.SetSprites(difficulty, overrideTopLane || Notes.Any(e => e.Lane == 0));
+    }
+    public void SetImpactZoneSprites(bool overrideTopLane)
+    {
+        SetImpactZoneSprites(this.Chart.Difficulty, overrideTopLane);
     }
 
     public void TrimNotes()

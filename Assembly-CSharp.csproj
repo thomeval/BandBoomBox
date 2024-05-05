@@ -185,6 +185,7 @@
     <Compile Include="Assets\Scripts\SongEditor\EditorSectionListItem.cs" />
     <Compile Include="Assets\Scripts\Common\HighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\Common\BarChart.cs" />
+    <Compile Include="Assets\NoteHighwayImpactZone.cs" />
     <Compile Include="Assets\Scripts\NetPlay\NetGameSettings.cs" />
     <Compile Include="Assets\Scripts\Common\MenuSoundEventHandler.cs" />
     <Compile Include="Assets\Scripts\Common\ComboUtils.cs" />
