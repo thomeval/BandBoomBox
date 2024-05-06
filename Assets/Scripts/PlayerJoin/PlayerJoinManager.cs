@@ -146,8 +146,18 @@ public class PlayerJoinManager : ScreenManager
         AssignFrameToPlayer(frame, player, true);
         CoreManager.PlayerManager.UpdateAllowPlayerJoining();
 
-        SendNetPlayerUpdate(player);
+        SendNetPlayerJoined(player);
         RefreshPlayerList();
+    }
+
+    private void SendNetPlayerJoined(Player player)
+    {
+        if (!CoreManager.IsNetGame)
+        {
+            return;
+        }
+
+        CoreManager.ServerNetApi.RegisterNetPlayerServerRpc(PlayerDto.FromPlayer(player));
     }
 
     public override void OnNetPlayerListUpdated(bool playerJoined, bool playerLeft)
