@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class HitJudge
 {
+    /// <summary>
+    /// These values control the amount of performance points gained from each note successfully hit. Performance points are used to calculate a player's individual score percentage.
+    /// </summary>
     public static readonly Dictionary<JudgeResult, int> JudgePerfPointValues = new()
     {
         {JudgeResult.Crit, 3},
@@ -15,6 +18,10 @@ public class HitJudge
         {JudgeResult.Miss, 0}
     };
 
+    /// <summary>
+    /// These values control the amount of time a player has to hit a Tap note, and what result they will receive. 0.03f indicates a 30ms window, either early or late. 
+    /// Note that Crit hits are only possible if the player has their Turbo active.
+    /// </summary>
     public static readonly Dictionary<JudgeResult, float> JudgeTimings = new()
     {
         {JudgeResult.Crit, 0.020f},
@@ -25,6 +32,26 @@ public class HitJudge
         {JudgeResult.Wrong, 1.0f }
     };
 
+    /// <summary>
+    /// These values control the amount of time a player has to hit a Tap note when playing on Beginner difficulty, and what result they will receive. 0.03f indicates a 30ms window, either early or late.
+    /// These values are used instead of the default values, to make the game more forgiving for new players.
+    /// Note that Crit hits are only possible if the player has their Turbo active.
+    /// </summary>
+    public static readonly Dictionary<JudgeResult, float> BeginnerJudgeTimings = new()
+    {
+        {JudgeResult.Crit, 0.020f},
+        {JudgeResult.Perfect, 0.0375f},
+        {JudgeResult.Cool, 0.075f},
+        {JudgeResult.Ok, 0.15f},
+        {JudgeResult.Bad, 0.4f},
+        {JudgeResult.Wrong, 1.0f }
+    };
+
+    /// <summary>
+    /// These values control the amount of time a player has to let go at the end of a Hold note (known as a Release note), and what result they will receive. 0.03f indicates a 30ms window, either early or late.
+    /// These values are used instead of the default values, to make the game more forgiving for Release notes, as these are generally harder to time correctly.
+    /// Note that Crit hits are only possible if the player has their Turbo active.
+    /// </summary>
     public static readonly Dictionary<JudgeResult, float> JudgeReleaseTimings = new()
     {
         {JudgeResult.Crit, 0.030f},
@@ -35,6 +62,25 @@ public class HitJudge
         {JudgeResult.Miss, 10000.0f},
     };
 
+    /// <summary>
+    /// These values control the amount of time a player has to let go at the end of a Hold note (known as a Release note), when playing on Beginner difficulty, and what result they will receive. 
+    /// 0.03f indicates a 30ms window, either early or late.
+    /// These values are used instead of the default values, to make the game more forgiving for new players.
+    /// Note that Crit hits are only possible if the player has their Turbo active.
+    /// </summary>
+    public static readonly Dictionary<JudgeResult, float> BeginnerJudgeReleaseTimings = new()
+    {
+        {JudgeResult.Crit, 0.030f},
+        {JudgeResult.Perfect, 0.0525f},
+        {JudgeResult.Cool, 0.105f},
+        {JudgeResult.Ok, 0.21f},
+        {JudgeResult.Bad, 0.4f},
+        {JudgeResult.Miss, 10000.0f},
+    };
+
+    /// <summary>
+    /// These values control the amount of Team score gained from each note successfully hit. This value is multiplied by the current Team Multiplier (AKA Momentum) to determine the final score value.
+    /// </summary>
     public static Dictionary<JudgeResult, int> JudgeScoreValues = new()
     {
         { JudgeResult.Crit, 50 },
@@ -46,6 +92,9 @@ public class HitJudge
         { JudgeResult.Miss, 0 }
     };
 
+    /// <summary>
+    /// These values control the amount of score multiplier (AKA Momentum) gained from each note successfully hit, or lost when a note is missed.
+    /// </summary>
     public static Dictionary<JudgeResult, float> JudgeMxValues = new()
     {
         { JudgeResult.Crit, 0.065f},
@@ -57,6 +106,9 @@ public class HitJudge
         { JudgeResult.Miss, -0.25f }
     };
 
+    /// <summary>
+    /// These values apply a bonus or reduction to the amount of score multiplier (AKA Momentum) gained from each note successfully hit, based on the player's selected difficulty. 1.0 indicates no change.
+    /// </summary>
     public static Dictionary<Difficulty, float> DifficultyMxValues = new()
     {
         {Difficulty.Beginner, 0.8f},
@@ -67,6 +119,10 @@ public class HitJudge
         {Difficulty.Extra, 1.0f}
     };
 
+    /// <summary>
+    /// These values adjust the amount of score multiplier (AKA Momentum) lost when a note is missed, based on the player's selected difficulty. 1.0 indicates no change. 
+    /// This is used to make the game more forgiving on lower difficulties.
+    /// </summary>
     public static Dictionary<Difficulty, float> DifficultyMissMxValues = new()
     {
         {Difficulty.Beginner, 0.5f},
@@ -77,6 +133,10 @@ public class HitJudge
         {Difficulty.Extra, 1.0f}
     };
 
+
+    /// <summary>
+    /// These values apply a bonus or reduction to the amount of experience a player receives at the end of each song, based on the player's selected difficulty. 1.0 indicates no change.
+    /// </summary>
     public static Dictionary<Difficulty, float> DifficultyExpValues = new()
     {
         {Difficulty.Beginner, 0.5f},
@@ -87,6 +147,10 @@ public class HitJudge
         {Difficulty.Nerf, 1.2f}
     };
 
+    /// <summary>
+    /// These values apply a bonus or reduction to the amount of experience a player receives at the end of each song, based on the player's selected goal. 1.0 indicates no change. Note that
+    /// these bonuses are only applied if the player actually meets the goal. If the player fails to meet the goal, they will instead receive a -50% penalty to their experience.
+    /// </summary>
     public static Dictionary<Grade, float> GoalExpValues = new()
     {
         {Grade.D, 1.0f},        // D
@@ -101,6 +165,9 @@ public class HitJudge
         {Grade.SPlus, 1.45f},   // S+
     };
 
+    /// <summary>
+    /// These values apply a bonus to the amount of experience a player receives at the end of each song if they manage to complete a Full Combo. 1.0 indicates no change.
+    /// </summary>
     public static Dictionary<FullComboType, float> FullComboExpValues = new()
     {
         { FullComboType.None , 1.0f},
@@ -116,7 +183,7 @@ public class HitJudge
         result.DeviationResult = deviation > 0.0f ? DeviationResult.Late : DeviationResult.Early;
 
         var absDeviation = Mathf.Abs(deviation);
-        var judgeResult = GetBestTiming(absDeviation, noteClass);
+        var judgeResult = GetBestTiming(absDeviation, noteClass, difficulty);
 
         if (!allowCrit && judgeResult == JudgeResult.Crit)
         {
@@ -171,6 +238,7 @@ public class HitJudge
 
     private static readonly JudgeResult[] _comboBreakResults = { JudgeResult.Miss, JudgeResult.Wrong, JudgeResult.Bad };
     private static readonly JudgeResult[] _comboAddResults = { JudgeResult.Crit, JudgeResult.Perfect, JudgeResult.Cool, JudgeResult.Ok };
+
     public static bool? IsComboBreak(JudgeResult result)
     {
 
@@ -184,12 +252,13 @@ public class HitJudge
             return true;
         }
 
+        // This will neither break nor add to the current combo. Supported, but not currently used.
         return null;
     }
 
-    private JudgeResult GetBestTiming(float absDeviation, NoteClass noteClass)
+    private JudgeResult GetBestTiming(float absDeviation, NoteClass noteClass, Difficulty difficulty)
     {
-        Dictionary<JudgeResult, float> timings = noteClass == NoteClass.Release ? JudgeReleaseTimings : JudgeTimings;
+        var timings = GetTimings(noteClass, difficulty);
         foreach (var timing in timings)
         {
             if (timing.Value >= absDeviation)
@@ -199,5 +268,17 @@ public class HitJudge
         }
 
         return JudgeResult.Miss;
+    }
+
+    public Dictionary<JudgeResult, float> GetTimings(NoteClass noteClass, Difficulty difficulty)
+    {
+        return noteClass == NoteClass.Release ? JudgeReleaseTimings : JudgeTimings;
+        if (noteClass == NoteClass.Release)
+        {
+            return difficulty == Difficulty.Beginner ? BeginnerJudgeReleaseTimings : JudgeReleaseTimings;
+        }
+
+        return difficulty == Difficulty.Beginner ? BeginnerJudgeTimings : JudgeTimings;
+
     }
 }
