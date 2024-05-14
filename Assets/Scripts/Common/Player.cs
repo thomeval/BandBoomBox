@@ -323,6 +323,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public string ControllerType
+    {
+        get { return _inputManager?.ControllerType ?? "None"; }
+    }
+
     public bool ControllerConnected
     {
         get { return _inputManager.ControllerConnected; }
@@ -588,15 +593,6 @@ public class Player : MonoBehaviour
             FullComboType = this.GetFullComboType()
         };
         return result;
-    }
-
-    public void ApplyInputActions(string json)
-    {
-        /*
-        var playerInput = GetComponent<PlayerInput>();
-        //  asset.devices = playerInput.devices;
-        playerInput.actions.LoadFromJson(json);
-        */
     }
 
     public FullComboType GetFullComboType()

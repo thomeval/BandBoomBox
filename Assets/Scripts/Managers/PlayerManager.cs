@@ -74,15 +74,6 @@ public class PlayerManager : MonoBehaviour
         return this.Players.Select(e => PlayerDto.FromPlayer(e)).ToArray();
     }
 
-    public void ApplyInputActions(string json)
-    {
-        foreach (var player in GetLocalPlayers())
-        {
-            Debug.Log(_controlsManager.InputActionAsset.GetInstanceID());
-            player.ApplyInputActions(json);
-        }
-    }
-
     public Player GetLocalPlayer(int slot)
     {
         return Players.FirstOrDefault(e => e.Slot == slot && e.IsLocalPlayer);
@@ -149,7 +140,7 @@ public class PlayerManager : MonoBehaviour
         gameObj.name = $"Player{playerInput.playerIndex + 1}";
         player.Slot = playerInput.playerIndex + 1;
         Players.Add(player);
-        player.ApplyInputActions(_controlsManager.InputActionAsset.ToJson());
+        _controlsManager.ApplyCustomBindings();
 
         _coreManager.OnPlayerJoined(player);
     }
@@ -219,12 +210,6 @@ public class PlayerManager : MonoBehaviour
     public TeamScoreCategory GetScoreCategory()
     {
         return HighScoreManager.GetScoreCategory(this.Players.Count);
-    }
-
-    public void SetControlsActionMap(ActionMapType actionMap)
-    {
-        var x = GameObject.FindObjectOfType<PlayerInput>();
-        x.SwitchCurrentActionMap("aaa");
     }
 
     public void UpdateRankings()

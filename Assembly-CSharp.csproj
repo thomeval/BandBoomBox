@@ -173,7 +173,9 @@
     <Compile Include="Assets\Scripts\Notes\NoteBase.cs" />
     <Compile Include="Assets\Scripts\Input\InputManager.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenuManager.cs" />
+    <Compile Include="Assets\Scripts\Input\CustomBindingSet.cs" />
     <Compile Include="Assets\Scripts\HighScores\TeamScoreCategory.cs" />
+    <Compile Include="Assets\Scripts\Input\CustomBinding.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayStateHelper.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayScreenState.cs" />

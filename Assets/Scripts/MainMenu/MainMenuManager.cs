@@ -40,6 +40,7 @@ public class MainMenuManager : ScreenManager
         else
         {
             CoreManager.MenuMusicManager.PlaySceneMusic(GameScene.MainMenu_Title);
+            CoreManager.ControlsManager.ApplyCustomBindings();
         }
     }
 

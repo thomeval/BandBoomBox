@@ -272,7 +272,6 @@ public class HitJudge
 
     public Dictionary<JudgeResult, float> GetTimings(NoteClass noteClass, Difficulty difficulty)
     {
-        return noteClass == NoteClass.Release ? JudgeReleaseTimings : JudgeTimings;
         if (noteClass == NoteClass.Release)
         {
             return difficulty == Difficulty.Beginner ? BeginnerJudgeReleaseTimings : JudgeReleaseTimings;

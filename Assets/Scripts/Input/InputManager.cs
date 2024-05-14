@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -303,8 +303,10 @@ public class InputManager : MonoBehaviour
             return;
         }
         var preferredController = GetPreferredControllerType();
-        _coreManager.SendMessage("OnPlayerControlsChanged",
-                new ControlsChangedArgs { Player = _player.Slot, ControllerType = preferredController, Device = _playerInput.devices[0]?.name });
+
+        // TODO: This event fires if the controller used by the player changes OR when any of the InputBindings change. Keep track of the previous device, and only fire the event if it changes.
+        // _coreManager.SendMessage("OnPlayerControlsChanged",
+        //        new ControlsChangedArgs { Player = _player.Slot, ControllerType = preferredController, Device = _playerInput.devices[0]?.name });
     }
 
     void OnDeviceLost(PlayerInput input)
@@ -312,17 +314,26 @@ public class InputManager : MonoBehaviour
         _coreManager.SendMessage("OnDeviceLost", new DeviceLostArgs { Player = _player.Slot });
     }
 
+    public string ControllerType
+    {
+        get
+        {
+
+            return _playerInput.devices.FirstOrDefault()?.name ?? "None";
+        }
+    }
+
     public string GetPreferredControllerType()
     {
         _playerInput ??= GetComponent<PlayerInput>();
-        if (!_playerInput.devices.Any())
+        if (ControllerType == "None") // No controller connected
         {
             Debug.LogWarning("Controller Disconnected for Player: " + _player.Slot);
             return null;
         }
 
-        var newDeviceName = _playerInput.devices[0].name;
-        var match = _devices.Keys.FirstOrDefault(e => newDeviceName.StartsWith(e));
+
+        var match = _devices.Keys.FirstOrDefault(e => this.ControllerType.StartsWith(e));
 
         string result;
         if (match != null)
@@ -331,7 +342,7 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Unknown Device on Player {_player.Slot}: {newDeviceName}");
+            Debug.LogWarning($"Unknown Device on Player {_player.Slot}: {this.ControllerType}");
             result = DEFAULT_DEVICE;
         }
 

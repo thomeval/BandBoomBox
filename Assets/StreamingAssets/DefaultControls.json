@@ -1,0 +1,26 @@
+{
+	"Version" : 1,
+	"Bindings" :
+	[
+{"Action": "Up", "Path":"<Keyboard>/numpad8"},
+{"Action": "Down","Path":"<Keyboard>/numpad2"},
+{"Action": "Left","Path":"<Keyboard>/numpad4"},
+{"Action": "Right","Path":"<Keyboard>/numpad6"},
+{"Action": "Up","Path":"<Keyboard>/upArrow"},
+{"Action": "Down","Path":"<Keyboard>/downArrow"},
+{"Action": "Left","Path":"<Keyboard>/leftArrow"},
+{"Action": "Right","Path":"<Keyboard>/rightArrow"},
+{"Action": "Y","Path":"<Keyboard>/w"},
+{"Action": "X","Path":"<Keyboard>/a"},
+{"Action": "A","Path":"<Keyboard>/s"},
+{"Action": "B","Path":"<Keyboard>/d"},
+{"Action": "LB","Path":"<Keyboard>/q"},
+{"Action": "LT","Path":"<Keyboard>/e"},
+{"Action": "RB","Path":"<Keyboard>/numpad7"},
+{"Action": "RT","Path":"<Keyboard>/numpad9"},
+{"Action": "Pause","Path":"<Keyboard>/enter"},
+{"Action": "Pause","Path":"<Keyboard>/pause"},
+{"Action": "Turbo","Path":"<Keyboard>/space"},
+{"Action": "Back","Path":"<Keyboard>/escape"}
+]
+}
