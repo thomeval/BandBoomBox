@@ -165,6 +165,7 @@
     <Compile Include="Assets\Scripts\Common\BarChartItem.cs" />
     <Compile Include="Assets\Scripts\Gameplay\HeldNoteDisplay.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMainMenuPage.cs" />
+    <Compile Include="Assets\Scripts\Options\CustomBindingDisplayItem.cs" />
     <Compile Include="Assets\Scripts\Misc\CompressedFileHelper.cs" />
     <Compile Include="Assets\Scripts\Common\MenuItem.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplay.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Assets\Scripts\Common\Difficulty.cs" />
     <Compile Include="Assets\Scripts\Common\ErrorMessage.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteManager.cs" />
+    <Compile Include="Assets\Scripts\Options\CustomBindingDisplay.cs" />
     <Compile Include="Assets\Scripts\Notes\Note.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorPage.cs" />
     <Compile Include="Assets\Scripts\NetPlay\PlayerDto.cs" />

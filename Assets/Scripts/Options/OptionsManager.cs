@@ -9,7 +9,9 @@ public class OptionsManager : ScreenManager
     public Menu[] Submenus = new Menu[5];
     public Menu ActiveMenu;
     public Menu MainMenu;
+    public CustomBindingDisplay CustomBindingDisplay;
 
+    [Header("Audio")]
     public Text TxtAudioLatency;
     public Text TxtMasterVolume;
     public Text TxtGameplaySfxVolume;
@@ -17,10 +19,14 @@ public class OptionsManager : ScreenManager
     public Text TxtMistakeVolume;
     public Text TxtMenuSfxVolume;
     public Text TxtMenuMusicVolume;
+
+    [Header("Graphics")]
     public Text TxtScreenResolution;
     public Text TxtFullScreenMode;
     public Text TxtVSync;
     public Text TxtTargetFrameRate;
+
+    [Header("Advanced")]
     public Text TxtSaveDataLocation;
     public Text TxtLogsFolderLocation;
 
@@ -40,6 +46,12 @@ public class OptionsManager : ScreenManager
         SetActiveMenu("MainOptions");
         UpdateText();
         DisplayMenuPage();
+        UpdateDisplayedKeyBindings();
+    }
+
+    private void UpdateDisplayedKeyBindings()
+    {
+        CustomBindingDisplay.Display(CoreManager.ControlsManager.CustomBindings);
     }
 
     private void UpdateText()
