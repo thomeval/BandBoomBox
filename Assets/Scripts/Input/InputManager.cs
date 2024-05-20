@@ -35,9 +35,9 @@ public class InputManager : MonoBehaviour
     private Player _player;
     // Start is called before the first frame update
 
-    private readonly Dictionary<string, string> _devices = new()
+    private readonly Dictionary<string, string> _deviceLabelsLookup = new()
     {
-        {"Keyboard", "WASD"},
+        {"Keyboard", "#KEYBOARD#"},
         {"XInputController", "ABXY"},
         {"SwitchProControllerHID", "BAYX" },
         {"PS4", "Symbols" },
@@ -47,6 +47,7 @@ public class InputManager : MonoBehaviour
     private const string DEFAULT_DEVICE = "None";
 
     private PlayerInput _playerInput;
+    private SettingsManager _settingsManager;
 
     void Awake()
     {
@@ -54,6 +55,7 @@ public class InputManager : MonoBehaviour
 
         _coreManager = GameObject.Find("CoreManager");
         _player = this.GetComponentInParent<Player>();
+        _settingsManager = FindObjectOfType<SettingsManager>();
     }
 
     void Start()
@@ -302,7 +304,7 @@ public class InputManager : MonoBehaviour
         {
             return;
         }
-        var preferredController = GetPreferredControllerType();
+        var preferredController = GetPreferredNoteLabels();
 
         // TODO: This event fires if the controller used by the player changes OR when any of the InputBindings change. Keep track of the previous device, and only fire the event if it changes.
         // _coreManager.SendMessage("OnPlayerControlsChanged",
@@ -318,12 +320,11 @@ public class InputManager : MonoBehaviour
     {
         get
         {
-
             return _playerInput.devices.FirstOrDefault()?.name ?? "None";
         }
     }
 
-    public string GetPreferredControllerType()
+    public string GetPreferredNoteLabels()
     {
         _playerInput ??= GetComponent<PlayerInput>();
         if (ControllerType == "None") // No controller connected
@@ -333,12 +334,18 @@ public class InputManager : MonoBehaviour
         }
 
 
-        var match = _devices.Keys.FirstOrDefault(e => this.ControllerType.StartsWith(e));
+        var match = _deviceLabelsLookup.Keys.FirstOrDefault(e => this.ControllerType.StartsWith(e));
 
         string result;
         if (match != null)
         {
-            result = _devices[match];
+            result = _deviceLabelsLookup[match];
+
+            // If the device is a keyboard, get the note labels from Settings, since this can be customized.
+            if (result == "#KEYBOARD#")
+            {
+                result = _settingsManager.DefaultKeyboardNoteLabels;
+            }
         }
         else
         {

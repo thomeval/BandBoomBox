@@ -461,14 +461,31 @@ public class Player : MonoBehaviour
 
     }
 
-    public void AutoSetLabelSkin()
+    public void AutoSetLabelSkin(bool fromController)
     {
         _inputManager ??= this.GetComponent<InputManager>();
-        var labelSkin = _inputManager.GetPreferredControllerType();
-        if (labelSkin != null)
+
+        if (fromController)
         {
-            this.LabelSkin = labelSkin;
+            AutoSetLabelSkinFromController();
         }
+        else
+        {
+            AutoSetLabelSkinFromProfile();
+        }
+    }
+
+    private void AutoSetLabelSkinFromController()
+    {
+        var labelSkin = _inputManager.GetPreferredNoteLabels();
+        this.LabelSkin = labelSkin ?? LabelSkins[0];
+
+    }
+
+    private void AutoSetLabelSkinFromProfile()
+    {
+        var validProfileLabelSkin = LabelSkins.Contains(ProfileData.LastNoteLabels);
+        this.LabelSkin = validProfileLabelSkin ? ProfileData.LastNoteLabels : LabelSkins[0];
     }
 
     public void Reset()

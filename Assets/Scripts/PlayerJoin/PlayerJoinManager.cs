@@ -139,7 +139,8 @@ public class PlayerJoinManager : ScreenManager
     public override void OnPlayerJoined(Player player)
     {
         player.NetId = CoreManager.NetId;
-        player.AutoSetLabelSkin();
+        var useControllerNoteLabels = CoreManager.Settings.AutoSetNoteLabelsFromController;
+        player.AutoSetLabelSkin(useControllerNoteLabels);
         player.Reset();
         player.IsParticipating = false;
         var frame = PlayerJoinFrames[player.Slot - 1];

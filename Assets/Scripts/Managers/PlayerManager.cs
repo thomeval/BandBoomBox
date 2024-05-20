@@ -147,9 +147,10 @@ public class PlayerManager : MonoBehaviour
 
     public void AutoSetNoteSkin()
     {
+        var useControllerNoteLabels = _coreManager.Settings.AutoSetNoteLabelsFromController;
         foreach (var player in GetLocalPlayers())
         {
-            player.AutoSetLabelSkin();
+            player.AutoSetLabelSkin(useControllerNoteLabels);
         }
     }
 

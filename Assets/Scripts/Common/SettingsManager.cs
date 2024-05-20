@@ -21,6 +21,8 @@ public class SettingsManager : MonoBehaviour
     public bool EnableNerfDifficulty = false;
     public bool EnableExtraDifficulty = false;
     public bool EnableMomentumOption = false;
+    public bool AutoSetNoteLabelsFromController = true;
+    public string DefaultKeyboardNoteLabels = "WASD";
 
     [Header("Audio Settings")]
     public float MasterVolume = 0.5f;
