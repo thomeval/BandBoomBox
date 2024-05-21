@@ -333,7 +333,6 @@ public class InputManager : MonoBehaviour
             return null;
         }
 
-
         var match = _deviceLabelsLookup.Keys.FirstOrDefault(e => this.ControllerType.StartsWith(e));
 
         string result;

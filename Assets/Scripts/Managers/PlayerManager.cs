@@ -142,6 +142,7 @@ public class PlayerManager : MonoBehaviour
         Players.Add(player);
         _controlsManager.ApplyCustomBindings();
 
+        Debug.Log($"Player {player.Slot} joined with device {playerInput.devices[0]}");
         _coreManager.OnPlayerJoined(player);
     }
 

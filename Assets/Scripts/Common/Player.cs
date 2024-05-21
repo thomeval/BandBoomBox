@@ -479,13 +479,14 @@ public class Player : MonoBehaviour
     {
         var labelSkin = _inputManager.GetPreferredNoteLabels();
         this.LabelSkin = labelSkin ?? LabelSkins[0];
-
+        Debug.Log("Using label skin based on current device: " + this.LabelSkin);
     }
 
     private void AutoSetLabelSkinFromProfile()
     {
         var validProfileLabelSkin = LabelSkins.Contains(ProfileData.LastNoteLabels);
         this.LabelSkin = validProfileLabelSkin ? ProfileData.LastNoteLabels : LabelSkins[0];
+        Debug.Log("Loaded label skin from profile: " + this.LabelSkin);
     }
 
     public void Reset()

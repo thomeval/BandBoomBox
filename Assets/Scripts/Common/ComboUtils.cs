@@ -33,7 +33,7 @@ public static class ComboUtils
             case FullComboType.PerfectFullCombo:
                 return Color.cyan;
             case FullComboType.SemiFullCombo:
-                return new Color(1.0f, 0.5f, 0.5f);
+                return new Color(1.0f, 0.6f, 0.3f);
             default:
                 throw new ArgumentOutOfRangeException("fullComboType", fullComboType, null);
         }

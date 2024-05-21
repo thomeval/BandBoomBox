@@ -130,13 +130,11 @@ public class CoreManager : MonoBehaviour
 
     void OnPlayerControlsChanged(ControlsChangedArgs args)
     {
-        Debug.Log($"Applying controls for player {args.Player}. Preferred Labels: {args.ControllerType}, Device: {args.Device ?? "[None]"}");
         ActiveMainManager.OnPlayerControlsChanged(args);
     }
 
     public void OnPlayerJoined(Player player)
     {
-        Debug.Log($"Player {player.Slot} joined.");
         ActiveMainManager.OnPlayerJoined(player);
     }
 
