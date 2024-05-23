@@ -28,6 +28,9 @@ public class DifficultySelectFrame : MonoBehaviour
     private string[] _chartGroups;
     public string SelectedChartGroup;
 
+    [Header("Other")]
+    public Text TxtDisconnectMessage;
+
     public Difficulty SelectedDifficulty
     {
         get

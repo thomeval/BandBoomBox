@@ -128,4 +128,10 @@ public class ClientNetApi : NetworkBehaviour
         _coreManager.NetSongSelectTurnManager.CurrentTurnId = currentTurn.NetId;
         _coreManager.ActiveMainManager.OnNetCurrentTurnUpdated(currentTurn);
     }
+
+    [ClientRpc]
+    public void CancelSelectedSongClientRpc()
+    {
+        _coreManager.ActiveMainManager.OnSongSelectCancelled();
+    }
 }

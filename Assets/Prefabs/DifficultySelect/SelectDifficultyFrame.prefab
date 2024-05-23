@@ -3251,6 +3251,7 @@ MonoBehaviour:
   TxtChartGroup: {fileID: 3168573167731411840}
   TxtChartSelectedIndex: {fileID: 412001379554330568}
   SelectedChartGroup: Main
+  TxtDisconnectMessage: {fileID: 4246518210675771260}
   SoundEventHandler: {fileID: 1248346891851416966}
   _displayedSongData:
     ID: 

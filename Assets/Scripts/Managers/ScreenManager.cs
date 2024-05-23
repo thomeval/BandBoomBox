@@ -181,6 +181,10 @@ public class ScreenManager : MonoBehaviour
     {
     }
 
+    public virtual void OnSongSelectCancelled()
+    {
+    }
+
     public void SendNetPlayerUpdate(Player player)
     {
         if (!CoreManager.IsNetGame)

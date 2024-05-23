@@ -89,11 +89,13 @@ public class DifficultySelectManager : ScreenManager
     {
         if (args.SelectedItem == "Yes")
         {
+            System.Diagnostics.Debug.Assert(CoreManager.IsNetGame);
+
             CoreManager.SongPreviewManager.StopPreviews();
-            if (CoreManager.IsNetGame && CoreManager.IsHost)
+            if (CoreManager.IsHost)
             {
                 // Send shutdown RPC to all clients.
-                CoreManager.ServerNetApi.ShutdownNetGameServerRpc();
+                CoreManager.ServerNetApi.CancelSelectedSongServerRpc();
             }
             else
             {
@@ -165,6 +167,9 @@ public class DifficultySelectManager : ScreenManager
             return;
         }
 
+        var message = CoreManager.IsHost ? "Leaving this screen will return everyone to the Song Select Screen." : "Leaving this screen will disconnect you from the current game.";
+        frame.TxtDisconnectMessage.text = message;
+
         UpdateFrameState(frame, PlayerState.DifficultySelect_ConfirmDisconnect);
     }
 
@@ -186,6 +191,20 @@ public class DifficultySelectManager : ScreenManager
         base.OnNetPlayerUpdated(player);
         NetworkPlayerList.RefreshAll();
         TryStartSong();
+    }
+
+    public override void OnNetClientDisconnected(ulong id)
+    {
+        base.OnNetClientDisconnected(id);
+        NetworkPlayerList.RefreshAll();
+        TryStartSong();
+    }
+
+    public override void OnSongSelectCancelled()
+    {
+        base.OnSongSelectCancelled();
+        UpdatePlayersState(PlayerState.SelectSong);
+        SceneTransition(GameScene.SongSelect);
     }
 
     public void RefreshPlayerList()

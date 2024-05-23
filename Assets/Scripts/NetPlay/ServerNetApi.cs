@@ -196,6 +196,13 @@ public class ServerNetApi : NetworkBehaviour
         _clientNetApi.ShutdownNetGameClientRpc();
     }
 
+    [ServerRpc(RequireOwnership = true)]
+    public void CancelSelectedSongServerRpc()
+    {
+        Debug.Log("(Server) Cancelling selected song.");
+        _clientNetApi.CancelSelectedSongClientRpc();
+    }
+
     #endregion
 
     public override void OnNetworkSpawn()
