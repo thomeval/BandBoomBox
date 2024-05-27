@@ -180,6 +180,9 @@ public class PlayerJoinFrame : MonoBehaviour
 
         ProfileSelectFrame.Error = null;
         this.Player.ProfileData = profileData;
+
+        var useControllerNoteLabels = _playerJoinManager.CoreManager.Settings.AutoSetNoteLabelsFromController;
+        this.Player.AutoSetLabelSkin(useControllerNoteLabels);
         State = PlayerState.PlayerJoin_Options;
         PlayConfirmedSfx();
         Refresh();

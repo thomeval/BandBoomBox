@@ -231,6 +231,7 @@ public class CoreManager : MonoBehaviour
             var scores = ProfileManager[player.ProfileId]?.PlayerScores;
             data.PlayerScores = scores ?? new List<PlayerScore>();
             data.LastPlayed = DateTime.Now;
+            data.LastNoteLabels = player.LabelSkin;
             ProfileManager.Save(data);
         }
     }
