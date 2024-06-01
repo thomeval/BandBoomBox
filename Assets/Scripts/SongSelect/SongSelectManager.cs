@@ -41,7 +41,7 @@ public class SongSelectManager : ScreenManager
         }
     }
 
-    private readonly string[] _availableSortModes = { "TITLE", "ARTIST", "BPM", "LENGTH", "STARS" };
+    private readonly string[] _availableSortModes = { "TITLE", "ARTIST", "BPM", "LENGTH", "STARS", "BEG DIFF", "MED DIFF", "HRD DIFF", "EXP DIFF" };
 
     public SongData SelectedSong
     {
@@ -116,6 +116,18 @@ public class SongSelectManager : ScreenManager
                 break;
             case "STARS":
                 OrderedSongs = songs.OrderBy(e => GetHighScoreStars(e, playerCount)).ToList();
+                break;
+            case "BEG DIFF":
+                OrderedSongs = songs.OrderBy(e => e.GetDifficultyRange(Difficulty.Beginner).Min).ToList();
+                break;
+            case "MED DIFF":
+                OrderedSongs = songs.OrderBy(e => e.GetDifficultyRange(Difficulty.Medium).Min).ToList();
+                break;
+            case "HRD DIFF":
+                OrderedSongs = songs.OrderBy(e => e.GetDifficultyRange(Difficulty.Hard).Min).ToList();
+                break;
+            case "EXP DIFF":
+                OrderedSongs = songs.OrderBy(e => e.GetDifficultyRange(Difficulty.Expert).Min).ToList();
                 break;
         }
 

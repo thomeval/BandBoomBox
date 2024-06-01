@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Band BoomBox
+Comment=Co-op Multiplayer Rhythm Game
+GenericName=Band BoomBox
+
+# Change the two lines below to point to your Band BoomBox install folder.
+Exec="/path/to/Band BoomBox/Band BoomBox.x86_64"
+Icon=/path/to/Band BoomBox/Band BoomBox_Data/StreamingAssets/Icons/DesktopIcon.png
+Type=Application
+Terminal=false
+StartupNotify=true
+Categories=Game
+Keywords=boombox
+
+Name[en_ZA]=Band BoomBox
