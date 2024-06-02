@@ -1,9 +1,9 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
-using System.IO;
-using Newtonsoft.Json;
 
 public class HighScoreManager : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class HighScoreManager : MonoBehaviour
             var json = CompressedFileHelper.DecompressFromFile(path);
             var temp = JsonConvert.DeserializeObject<List<TeamScore>>(json);
             TeamScores = temp;
-            Debug.Log($"Team high scores successfully loaded from {path}");
+            Debug.Log($"Team high scores successfully loaded from {path}. Loaded {TeamScores.Count} entries.");
 
             FixDuplicates();
         }

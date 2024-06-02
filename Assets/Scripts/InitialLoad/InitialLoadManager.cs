@@ -21,7 +21,7 @@ public class InitialLoadManager : ScreenManager
         CoreManager.SongLibrary.LoadSongsCompleted += SongLibrary_LoadSongsCompleted;
         CoreManager.SongLibrary.LoadSongs();
         CoreManager.HighScoreManager.Load();
-
+        CoreManager.ProfileManager.ProfilesPath = CoreManager.Settings.ProfilesPath;
         CoreManager.ProfileManager.Load();
     }
 

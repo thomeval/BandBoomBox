@@ -11,6 +11,7 @@ public class SettingsManager : MonoBehaviour
         Path.Combine("%AppSaveFolder%","Songs")
     };
 
+    public string ProfilesPath = "%AppSaveFolder%/Profiles";
     public string LastPlayedSong;
     public string LastSortSongMode = "TITLE";
 

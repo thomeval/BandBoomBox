@@ -166,7 +166,7 @@ public static class Helpers
 
     public static Grade PercentToGrade(float percent)
     {
-        for (int x = 0; x < GradePercentages.Length; x++)
+        for (var x = 0; x < GradePercentages.Length; x++)
         {
             if (GradePercentages[x] <= percent)
             {
@@ -197,6 +197,12 @@ public static class Helpers
 
     public static string ResolvePath(string path)
     {
+        // Resolve paths starting with "~"
+        if (path.StartsWith("~"))
+        {
+            path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + path.Substring(1);
+        }
+
         foreach (var specialPath in _specialPaths)
         {
             path = path.Replace(specialPath.Key, specialPath.Value);
@@ -210,7 +216,7 @@ public static class Helpers
     {
         get
         {
-            string appFileName = Environment.GetCommandLineArgs()[0];
+            var appFileName = Environment.GetCommandLineArgs()[0];
             return Path.GetDirectoryName(appFileName);
         }
     }
@@ -224,8 +230,7 @@ public static class Helpers
                 Debug.LogWarning($"MyDocuments folder is missing or invalid. Location: [{myDocs}]");
             }
 
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "My Games",
-                "Band BoomBox");
+            return Path.Combine(myDocs, "My Games", "Band BoomBox");
         }
     }
 
@@ -258,7 +263,7 @@ public static class Helpers
 
     public static bool OpenFolderWindow(string folder)
     {
-        folder = CleanPathSeparators(folder);
+        folder = ResolvePath(folder);
 
         if (!Directory.Exists(folder))
         {
@@ -323,7 +328,7 @@ public static class Helpers
         var childCount = gameObject.transform.childCount;
         var result = new GameObject[childCount];
 
-        for (int x = 0; x < childCount; x++)
+        for (var x = 0; x < childCount; x++)
         {
             result[x] = gameObject.transform.GetChild(x).gameObject;
         }
@@ -397,7 +402,7 @@ public static class Helpers
     {
         if (!args.ContainsKey(key) || args[key] is not T)
         {
-            return default(T);
+            return default;
         }
 
         return (T)args[key];

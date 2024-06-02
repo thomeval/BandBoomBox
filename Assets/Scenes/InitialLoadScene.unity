@@ -1397,8 +1397,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163408bcfb0ef6e42b9ad803086a961b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputActionAsset: {fileID: -944628639613478452, guid: a0cb64addd8b2a64c892cc04e0b134b0, type: 3}
-  ControlsFile: Controls.json
+  CustomControlsFile: '%AppSaveFolder%/Controls.json'
+  DefaultControlsFile: '%StreamingAssetsFolder%/DefaultControls.json'
 --- !u!1 &1545127630
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,11 +2067,14 @@ MonoBehaviour:
   SongFolders:
   - '%StreamingAssetsFolder%/Songs'
   - '%AppSaveFolder%/Songs'
+  ProfilesPath: '%AppSaveFolder%/Profiles'
   LastPlayedSong: 
   LastSortSongMode: TITLE
   EnableNerfDifficulty: 0
   EnableExtraDifficulty: 1
   EnableMomentumOption: 0
+  AutoSetNoteLabelsFromController: 1
+  DefaultKeyboardNoteLabels: WASD
   MasterVolume: 0.5
   GameplaySfxVolume: 1
   GameplayMusicVolume: 0.8

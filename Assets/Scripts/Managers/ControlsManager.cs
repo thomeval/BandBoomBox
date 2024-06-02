@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class ControlsManager : MonoBehaviour
 {
     public CustomBindingSet CustomBindings = new();
-    public string CustomControlsFile = Path.Combine(Helpers.AppSaveFolder, "Controls.json");
+    public string CustomControlsFile = "%AppSaveFolder%/Controls.json";
     public string DefaultControlsFile = "%StreamingAssetsFolder%/DefaultControls.json";
     public const int CURRENT_BINDINGSET_VERSION = 1;
 
@@ -61,7 +61,7 @@ public class ControlsManager : MonoBehaviour
 
     public void SaveInputActions()
     {
-        var path = Path.Combine(Helpers.AppSaveFolder, CustomControlsFile);
+        var path = Helpers.ResolvePath(CustomControlsFile);
 
         try
         {
