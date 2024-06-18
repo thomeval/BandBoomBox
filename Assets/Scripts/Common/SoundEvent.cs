@@ -22,4 +22,5 @@ public enum SoundEvent
     Net_PlayerLeft,
     SecretUnlocked,
     Gameplay_TurboOnNetwork,
+    Gameplay_FullCombo
 }

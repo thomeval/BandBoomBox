@@ -299,6 +299,27 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 21300000, guid: ee32213b01694ee429eae6fb922211ce, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
+  - m_Name: FullComboOverlays
+    m_Hash: 192078805
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: SemiFullCombo
+      m_Hash: 833623610
+      m_Sprite: {fileID: 21300000, guid: 2fbe2cf106f0f8046a0a8de2a8cfeb46, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2fbe2cf106f0f8046a0a8de2a8cfeb46, type: 3}
+    - m_Name: FullCombo
+      m_Hash: 718204980
+      m_Sprite: {fileID: 21300000, guid: eb4c2c74e48e71f448d7fe886bca07d8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: eb4c2c74e48e71f448d7fe886bca07d8, type: 3}
+    - m_Name: PerfectFullCombo
+      m_Hash: 988684395
+      m_Sprite: {fileID: 21300000, guid: 82e119e30156a0947a48f1e781eac034, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 82e119e30156a0947a48f1e781eac034, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 3
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638502406668677777
+  m_ModificationHash: 638532027045162122
   m_Version: 1

@@ -260,12 +260,36 @@ public class GameplayManager : ScreenManager
             GameplayState = GameplayScreenState.Outro;
             _outroTime = DateTime.Now.AddSeconds(OUTRO_TIME);
             CoreManager.LastTeamScore = GetTeamScore();
+            DisplayFullComboAnimations();
         }
         else
         {
             GameplayState = GameplayScreenState.Playing;
         }
 
+    }
+
+    private void DisplayFullComboAnimations()
+    {
+        var playSfx = false;
+        foreach (var player in _playerManager.GetLocalPlayers())
+        {
+            var fullComboType = player.GetFullComboType();
+            var noteManager = GetNoteManager(player.Slot);
+
+            if (fullComboType == FullComboType.None)
+            {
+                continue;
+            }
+
+            noteManager.DisplayFullComboAnimation(fullComboType);
+            playSfx = true;
+        }
+
+        if (playSfx)
+        {
+            PlaySfx(SoundEvent.Gameplay_FullCombo);
+        }
     }
 
     private void SongManager_SongLoaded()

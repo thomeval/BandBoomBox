@@ -44,5 +44,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NetPlayMenuScene.unity
     guid: fc332139447af3548b1252524a84c2d3
+  - enabled: 1
+    path: Assets/Scenes/CalibrationScene.unity
+    guid: c2f79dff8708f354c9380a039d08a1b1
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 30b6a00aac5d1d54a8a6024ae502953b, type: 2}

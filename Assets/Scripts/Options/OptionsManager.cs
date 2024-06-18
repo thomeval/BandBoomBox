@@ -210,6 +210,9 @@ public class OptionsManager : ScreenManager
             case "Open Save Data Folder":
                 TryOpenFolder(Helpers.AppSaveFolder);
                 break;
+            case "Calibration":
+                SceneTransition(GameScene.Calibration);
+                break;
             default:
                 SetActiveMenu(args.SelectedItem);
                 break;

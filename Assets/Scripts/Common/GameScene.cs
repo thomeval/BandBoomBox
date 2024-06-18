@@ -14,5 +14,6 @@
     Editor,
     ChartEditor,
     NetPlayMenu,
+    Calibration,
     All
 }

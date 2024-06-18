@@ -1,20 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class EditorFineTunePage : EditorPageManager
+public class CalibrationSceneManager : ScreenManager
 {
-    public override EditorPage EditorPage
-    {
-        get { return EditorPage.FineTune; }
-    }
-
-    public InputField TxtCurrentBpm;
-    public InputField TxtCurrentOffset;
+    public InputField TxtPreviousLatency;
+    public InputField TxtCurrentLatency;
     public InputField TxtCurrentScrollSpeed;
     public InputField TxtLastHit;
     public InputField TxtLastHitTiming;
@@ -22,10 +16,9 @@ public class EditorFineTunePage : EditorPageManager
     public InputField TxtLast10Timing;
     public InputField TxtLast32;
     public InputField TxtLast32Timing;
-    public Toggle ChkAutoAdjustOffset;
+    public Toggle ChkAutoAdjust;
 
     public Text LblCurrentTime;
-    public Button DefaultButton;
     public NoteManager NoteManager;
     public Player Player;
     public PlayerHudManager PlayerHudManager;
@@ -33,7 +26,10 @@ public class EditorFineTunePage : EditorPageManager
 
     public int PerfectTimingCutoff = 15;
     public int GoodTimingCutoff = 30;
+    public float PreviousLatency;
 
+    public SongData CurrentSong;
+    public const string PREFERRED_CALIBRATION_SONG = "ec4a377a-5fce-4896-a9ba-8470ec9fc31b";
     private HitJudge _hitJudge;
 
     [SerializeField]
@@ -46,49 +42,75 @@ public class EditorFineTunePage : EditorPageManager
 
     public int ScrollSpeed
     {
-        get { return Parent.CoreManager.Settings.EditorScrollSpeed; }
-        set { Parent.CoreManager.Settings.EditorScrollSpeed = value; }
+        get { return CoreManager.Settings.EditorScrollSpeed; }
+        set { CoreManager.Settings.EditorScrollSpeed = value; }
     }
 
-    public bool AutoAdjustOffsetEnabled
+    public float AudioLatency
     {
-        get { return ChkAutoAdjustOffset.isOn; }
-        set { ChkAutoAdjustOffset.isOn = value; }
+        get { return CoreManager.Settings.AudioLatency; }
+        set { CoreManager.Settings.AudioLatency = value; }
+    }
+    public bool AutoAdjustEnabled
+    {
+        get { return ChkAutoAdjust.isOn; }
+        set { ChkAutoAdjust.isOn = value; }
     }
 
     private SongManager _songManager;
 
-    public Action OnTuneComplete { get; set; }
-
     void Awake()
     {
+        FindCoreManager();
         _songManager = FindObjectOfType<SongManager>();
         _hitJudge = new HitJudge();
     }
 
+    private void Start()
+    {
+        CoreManager.MenuMusicManager.StopAll();
+        PreviousLatency = CoreManager.Settings.AudioLatency;
+        FindCalibrationSong();
+        BeginCalibration();
+    }
+
+    private void FindCalibrationSong()
+    {
+        CurrentSong = CoreManager.SongLibrary[PREFERRED_CALIBRATION_SONG];
+
+        if (CurrentSong == null)
+        {
+            Debug.LogWarning($"Calibration song with ID {PREFERRED_CALIBRATION_SONG} not found. Using first available song instead.");
+            CurrentSong = CoreManager.SongLibrary.Songs.FirstOrDefault();
+
+            if (CurrentSong == null)
+            {
+                throw new NullReferenceException("No songs loaded. Cannot begin calibration without one!");
+            }
+        }
+    }
+
     void Update()
     {
-        LblCurrentTime.text = string.Format(CultureInfo.InvariantCulture, "{0:F3}", _songManager.GetRawAudioPosition());
         NoteManager.SongPosition = this.SongPosition;
         NoteManager.SongPositionInBeats = _songManager.GetSongPositionInBeats();
         NoteManager.UpdateNotes();
         PlayerHudManager.UpdateHud(Player);
         PlayerHudManager.DisplayBeat(_songManager.GetSongPositionInBeats());
     }
-    public void BeginFineTune()
+    public void BeginCalibration()
     {
-        EventSystem.current.SetSelectedGameObject(DefaultButton.gameObject);
-        _songManager.LoadSong(Parent.CurrentSong, OnSongLoaded);
+        _songManager.LoadSong(CurrentSong, OnSongLoaded);
 
         SetupNoteManager();
-        DisplaySong(Parent.CurrentSong);
+        DisplaySong(CurrentSong);
         ClearHits();
     }
 
     private void OnSongLoaded()
     {
         _songManager.StartSong();
-        _songManager.SetAudioPosition(Parent.CurrentSong.AudioStart);
+        _songManager.SetAudioPosition(CurrentSong.AudioStart);
 
         // If the current song is not playing, SongManager.GetSongPositionInBeats() will return 0, which causes some notes to be visible prematurely.
         // Since the song has started, hide all notes immediately. They will then be positioned correctly as part of NoteManager.UpdateNotes().
@@ -97,7 +119,7 @@ public class EditorFineTunePage : EditorPageManager
 
     private void SetupNoteManager()
     {
-        var endBeat = (int)Parent.CurrentSong.LengthInBeats;
+        var endBeat = (int)CurrentSong.LengthInBeats;
         NoteManager.ClearNotes();
         NoteManager.ScrollSpeed = this.ScrollSpeed;
         var notes = NoteGenerator.GenerateTestNotes(endBeat);
@@ -105,14 +127,15 @@ public class EditorFineTunePage : EditorPageManager
         NoteManager.ApplyNoteSkin("Default", "None");
         NoteManager.SetImpactZoneSprites(false);
 
-        NoteGenerator.GenerateBeatLines(Parent.CurrentSong, NoteManager);
-        NoteManager.CalculateAbsoluteTimes(Parent.CurrentSong.Bpm);
+        NoteGenerator.GenerateBeatLines(CurrentSong, NoteManager);
+        NoteManager.CalculateAbsoluteTimes(CurrentSong.Bpm);
+
     }
 
     private void DisplaySong(SongData song)
     {
-        TxtCurrentBpm.text = string.Format(CultureInfo.InvariantCulture, "{0:F1}", song.Bpm);
-        TxtCurrentOffset.text = string.Format(CultureInfo.InvariantCulture, "{0:F3}", song.Offset);
+        TxtCurrentLatency.text = string.Format(CultureInfo.InvariantCulture, "{0:F0} ms", AudioLatency * 1000);
+        TxtPreviousLatency.text = string.Format(CultureInfo.InvariantCulture, "{0:F0} ms", PreviousLatency * 1000);
         TxtCurrentScrollSpeed.text = string.Format(CultureInfo.InvariantCulture, "{0:F0}", this.ScrollSpeed);
     }
 
@@ -127,7 +150,7 @@ public class EditorFineTunePage : EditorPageManager
         return _hits.Take(count).Average();
     }
 
-    public override void HandleInput(InputEvent inputEvent)
+    public override void OnPlayerInput(InputEvent inputEvent)
     {
         if (inputEvent.IsPressed)
         {
@@ -155,31 +178,35 @@ public class EditorFineTunePage : EditorPageManager
     {
         switch (inputEvent.Action)
         {
-            case InputAction.Y:
-                AutoAdjustOffsetEnabled = !AutoAdjustOffsetEnabled;
-                break;
+
             case InputAction.B:
             case InputAction.X:
                 HitNotes();
                 PlayerHudManager.FlashLane(2);
                 break;
+            case InputAction.Y:
+                AutoAdjustEnabled = !AutoAdjustEnabled;
+                break;
             case InputAction.LB:
-                AdjustOffset(-0.01f);
+                AdjustLatency(-0.005f);
                 break;
             case InputAction.RB:
-                AdjustOffset(0.01f);
+                AdjustLatency(0.005f);
                 break;
             case InputAction.LT:
+            case InputAction.Down:
                 AdjustScrollSpeed(-100);
                 break;
             case InputAction.RT:
+            case InputAction.Up:
                 AdjustScrollSpeed(100);
                 break;
             case InputAction.Turbo:
                 RestartSong();
                 break;
             case InputAction.Back:
-                BtnDone_OnClick();
+            case InputAction.Pause:
+                FinishCalibration();
                 break;
         }
     }
@@ -200,16 +227,16 @@ public class EditorFineTunePage : EditorPageManager
         var hitResult = _hitJudge.GetHitResult(deviation, 1, Difficulty.Beginner, 2, note.NoteType, note.NoteClass, false);
         PlayerHudManager.DisplayHitResult(hitResult);
         DisplayHit(deviation * 1000f);
-        if (AutoAdjustOffsetEnabled)
+        if (AutoAdjustEnabled)
         {
-            AutoAdjustOffset(deviation);
+            AutoAdjustLatency(deviation);
         }
     }
 
-    private void AutoAdjustOffset(float deviation)
+    private void AutoAdjustLatency(float deviation)
     {
         deviation *= 1000;
-        var multiplier = Math.Sign(deviation);
+        var multiplier = Math.Sign(deviation) * -1;
         deviation = Math.Abs(deviation);
 
         var result = 0.0f;
@@ -226,7 +253,7 @@ public class EditorFineTunePage : EditorPageManager
             result = 0.005f;
         }
 
-        AdjustOffset(result * multiplier);
+        AdjustLatency(result * multiplier);
     }
 
     public void ClearHits()
@@ -271,6 +298,7 @@ public class EditorFineTunePage : EditorPageManager
 
         if (Mathf.Abs(deviation.Value) < GoodTimingCutoff)
         {
+            // Returns "Good (E)" or "Good (L)"
             return $"Good ({deviationText[0]})";
         }
 
@@ -278,26 +306,20 @@ public class EditorFineTunePage : EditorPageManager
 
     }
 
-
     #region Button Event Handlers
 
-    public void AdjustBpm(float amount)
+    public void AdjustLatency(float amount)
     {
-        Parent.CurrentSong.Bpm = Mathf.Clamp(Parent.CurrentSong.Bpm + amount, 0.0f, 999.0f);
-        DisplaySong(Parent.CurrentSong);
+        this.AudioLatency = Mathf.Clamp(this.AudioLatency + amount, -0.25f, 0.25f);
+        DisplaySong(CurrentSong);
     }
 
-    public void AdjustOffset(float amount)
-    {
-        Parent.CurrentSong.Offset = Mathf.Clamp(Parent.CurrentSong.Offset + amount, 0.0f, 9999.0f);
-        DisplaySong(Parent.CurrentSong);
-    }
     public void AdjustScrollSpeed(int amount)
     {
         var newValue = Math.Clamp(this.ScrollSpeed + amount, 200, 2000);
         this.ScrollSpeed = newValue;
         NoteManager.ScrollSpeed = newValue;
-        DisplaySong(Parent.CurrentSong);
+        DisplaySong(CurrentSong);
     }
 
     public void AdjustSongPosition(float amount)
@@ -308,16 +330,18 @@ public class EditorFineTunePage : EditorPageManager
 
     public void RestartSong()
     {
-        _songManager.SetAudioPosition(Parent.CurrentSong.AudioStart);
+        _songManager.SetAudioPosition(CurrentSong.AudioStart);
         SetupNoteManager();
     }
-    public void BtnDone_OnClick()
-    {
-        _songManager.StopSong();
-        // Save the current scroll speed.
-        Parent.CoreManager.Settings.Save();
-        OnTuneComplete?.Invoke();
-    }
 
+    public void FinishCalibration()
+    {
+        // TODO: Add a confirmation dialog.
+        _songManager.StopSong();
+        // Save the current Editor scroll speed and Audio Latency.
+        CoreManager.Settings.Save();
+
+        this.SceneTransition(GameScene.Options);
+    }
     #endregion
 }

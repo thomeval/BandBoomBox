@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
@@ -108,7 +107,8 @@ public class PlayerResultFrame : MonoBehaviour
         }
         TxtMaxCombo.color = ComboUtils.GetFcColor(fullComboType);
         TxtMaxCombo.text = string.Format("{0:000}", player.MaxCombo);
-        TxtPercentage.text = string.Format(CultureInfo.InvariantCulture, "{0:P1}", player.PerfPercent);
+
+        TxtPercentage.text = Helpers.FormatPercent(player.PerfPercent);
         TxtRanking.text = Helpers.FormatRanking(player.Ranking);
         PlayerIdentifier.SetCategoryAndLabel("PlayerIdentifiers", player.GetPlayerIdSprite());
 

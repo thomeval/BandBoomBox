@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 public class NoteManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class NoteManager : MonoBehaviour
     public RectTransform ScrollingBackground;
     public BeatFractionProvider BeatFractionProvider;
     public NoteHighwayImpactZone ImpactZone;
+    public Animator FullComboAnimator;
+    public SpriteResolver FullComboSprite;
 
     public RegionMarker SelectedRegionMarker
     {
@@ -54,7 +57,6 @@ public class NoteManager : MonoBehaviour
     private GameplayManager _gameplayManager;
     private NoteTrimmer _noteTrimmer;
     private SpriteRenderer _scrollingBackgroundRenderer;
-
 
     private readonly Note[] _pendingReleases = new Note[4];
 
@@ -702,5 +704,14 @@ public class NoteManager : MonoBehaviour
         SetRenderPosition(this.SelectedRegionMarker);
     }
 
+    public void DisplayFullComboAnimation(FullComboType fullComboType)
+    {
+        if (fullComboType == FullComboType.None || FullComboAnimator == null || FullComboSprite == null)
+        {
+            return;
+        }
 
+        FullComboAnimator.SetTrigger("ShowFullCombo");
+        FullComboSprite.SetCategoryAndLabel("FullComboOverlays", fullComboType.ToString());
+    }
 }

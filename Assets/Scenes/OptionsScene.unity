@@ -1334,6 +1334,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1923562750085487377, guid: 512378adc8e68f540b09378e9117109b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1480054300}
+    - targetCorrespondingSourceObject: {fileID: 1923562750085487377, guid: 512378adc8e68f540b09378e9117109b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1468260600}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 512378adc8e68f540b09378e9117109b, type: 3}
 --- !u!224 &231161679 stripped
@@ -5612,6 +5615,143 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9135089701527953250, guid: 40161d6a5d5405d46b513db4fd3a78e8, type: 3}
   m_PrefabInstance: {fileID: 44013122}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1468260599
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 231161680}
+    m_Modifications:
+    - target: {fileID: 245703775061672570, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_Name
+      value: Mit-Calibration
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477503679798236943, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_Name
+      value: Miv-AudioLatency
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854573089388177270, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: Text
+      value: Calibration
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854573089388177270, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: Explanation
+      value: Go to the Calibration screen to fine tune Audio Latency for your system.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854573089388177270, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: IsShiftable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854573089388177270, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: IsSelectable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5376083206506407337, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_Text
+      value: Calibration
+      objectReference: {fileID: 0}
+    - target: {fileID: 7294553364777722026, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1250
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 625
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -390
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 4687363368292201839, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+    - {fileID: 3477503679798236943, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+    - {fileID: 8805906123945464490, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+--- !u!224 &1468260600 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+  m_PrefabInstance: {fileID: 1468260599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1479888695 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7709843297743128842, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
@@ -6308,6 +6448,14 @@ PrefabInstance:
       value: Adjusts the latency between the gameplay music, and the notes displayed
         on screen. If your note hits are consistently too early, try increasing this
         value. If they are consistently too late, try decreasing this value.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854573089388177270, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: IsShiftable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854573089388177270, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
+      propertyPath: IsSelectable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5376083206506407337, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
       propertyPath: m_Text
