@@ -77,6 +77,9 @@ public class EditorFineTunePage : EditorPageManager
     }
     public void BeginFineTune()
     {
+        // Enable the Timing Display (defaults to Off)
+        Player.TimingDisplayType = TimingDisplayType.EarlyLate;
+
         EventSystem.current.SetSelectedGameObject(DefaultButton.gameObject);
         _songManager.LoadSong(Parent.CurrentSong, OnSongLoaded);
 

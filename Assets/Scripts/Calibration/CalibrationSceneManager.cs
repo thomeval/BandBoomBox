@@ -23,6 +23,8 @@ public class CalibrationSceneManager : ScreenManager
     public Player Player;
     public PlayerHudManager PlayerHudManager;
     public NoteGenerator NoteGenerator;
+    public Menu PauseMenu;
+    public GameObject PauseMenuContainer;
 
     public int PerfectTimingCutoff = 15;
     public int GoodTimingCutoff = 30;
@@ -31,6 +33,7 @@ public class CalibrationSceneManager : ScreenManager
     public SongData CurrentSong;
     public const string PREFERRED_CALIBRATION_SONG = "ec4a377a-5fce-4896-a9ba-8470ec9fc31b";
     private HitJudge _hitJudge;
+
 
     [SerializeField]
     private readonly List<float> _hits = new();
@@ -57,6 +60,12 @@ public class CalibrationSceneManager : ScreenManager
         set { ChkAutoAdjust.isOn = value; }
     }
 
+    public bool PauseMenuShown
+    {
+        get { return PauseMenuContainer.activeSelf; }
+        set { PauseMenuContainer.SetActive(value); }
+    }
+
     private SongManager _songManager;
 
     void Awake()
@@ -68,6 +77,9 @@ public class CalibrationSceneManager : ScreenManager
 
     private void Start()
     {
+        // Enable the Timing Display (defaults to Off)
+        Player.TimingDisplayType = TimingDisplayType.EarlyLate;
+
         CoreManager.MenuMusicManager.StopAll();
         PreviousLatency = CoreManager.Settings.AudioLatency;
         FindCalibrationSong();
@@ -165,6 +177,11 @@ public class CalibrationSceneManager : ScreenManager
 
     private void HandleInputRelease(InputEvent inputEvent)
     {
+        if (PauseMenuShown)
+        {
+            return;
+        }
+
         switch (inputEvent.Action)
         {
             case InputAction.B:
@@ -176,6 +193,12 @@ public class CalibrationSceneManager : ScreenManager
 
     private void HandleInputPress(InputEvent inputEvent)
     {
+        if (PauseMenuShown)
+        {
+            PauseMenu.HandleInput(inputEvent);
+            return;
+        }
+
         switch (inputEvent.Action)
         {
 
@@ -206,7 +229,28 @@ public class CalibrationSceneManager : ScreenManager
                 break;
             case InputAction.Back:
             case InputAction.Pause:
-                FinishCalibration();
+                _songManager.PauseSong(true);
+                PauseMenuShown = true;
+                break;
+        }
+    }
+
+    private void MenuItemSelected(MenuEventArgs args)
+    {
+        switch (args.SelectedItem)
+        {
+            case "Continue":
+                PauseMenuShown = false;
+                RestartSong();
+                break;
+            case "Discard and exit":
+                CoreManager.Settings.AudioLatency = PreviousLatency;
+                CoreManager.Settings.Save();
+                this.SceneTransition(GameScene.Options);
+                break;
+            case "Save and exit":
+                CoreManager.Settings.Save();
+                this.SceneTransition(GameScene.Options);
                 break;
         }
     }
@@ -330,18 +374,10 @@ public class CalibrationSceneManager : ScreenManager
 
     public void RestartSong()
     {
+        _songManager.PauseSong(false);
         _songManager.SetAudioPosition(CurrentSong.AudioStart);
         SetupNoteManager();
     }
 
-    public void FinishCalibration()
-    {
-        // TODO: Add a confirmation dialog.
-        _songManager.StopSong();
-        // Save the current Editor scroll speed and Audio Latency.
-        CoreManager.Settings.Save();
-
-        this.SceneTransition(GameScene.Options);
-    }
     #endregion
 }
