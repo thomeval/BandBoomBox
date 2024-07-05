@@ -31,6 +31,10 @@ public class CalibrationSceneManager : ScreenManager
     public float PreviousLatency;
 
     public SongData CurrentSong;
+
+    /// <summary>
+    /// Gets the ID of the preferred song to use for calibration. This ID refers to "Lightseeker", which is included with the game.
+    /// </summary>
     public const string PREFERRED_CALIBRATION_SONG = "ec4a377a-5fce-4896-a9ba-8470ec9fc31b";
     private HitJudge _hitJudge;
 
