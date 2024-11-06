@@ -37,6 +37,6 @@ public class ErrorMessage : MonoBehaviour
 
     void Start()
     {
-        Error = null;
+       // Error = null;
     }
 }
