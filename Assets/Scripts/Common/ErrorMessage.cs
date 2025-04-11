@@ -7,6 +7,7 @@ public class ErrorMessage : MonoBehaviour
     public Color ErrorTextColor = new Color(1.0f, 0.5f, 0.5f);
     public Color DefaultTextColor = Color.white;
 
+    public GameObject Background;
     private Text _txtMessage;
 
     public string DefaultMessage = "";
@@ -27,7 +28,17 @@ public class ErrorMessage : MonoBehaviour
                 _txtMessage.text = DefaultMessage;
                 _txtMessage.color = DefaultTextColor;
             }
+
+            if (Background != null)
+            {
+                Background.SetActive(!string.IsNullOrEmpty(_txtMessage.text));
+            }
         }
+    }
+
+    void OnEnable()
+    {
+        _txtMessage = GetComponent<Text>();
     }
 
     void Awake()
