@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public Text TxtTimingDisplay;
     public Text TxtLabelSkin;
     public Text TxtGoal;
+    public Text TxtAllyBoostsEnabled;
     public Text TxtMistakeSfxEnabled;
     public Text TxtControllerRumbleEnabled;
     public Text TxtMomentum;
@@ -67,6 +69,9 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
                 var newMomentum = Helpers.GetNextValue(MomentumAmounts, Parent.Player.Momentum, amount, false);
                 Parent.Player.Momentum = newMomentum;
                 break;
+                case "Ally Boosts":
+                Parent.Player.ProfileData.AllyBoostMode = Helpers.GetNextEnumValue(Parent.Player.ProfileData.AllyBoostMode, amount, false);
+                break;
         }
     }
 
@@ -108,6 +113,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         TxtMistakeSfxEnabled.text = BoolToOnOff(player.MistakeSfxEnabled);
         TxtControllerRumbleEnabled.text = BoolToOnOff(player.RumbleEnabled);
         TxtMomentum.text = "" + player.Momentum;
+        TxtAllyBoostsEnabled.text = player.ProfileData.AllyBoostMode.ToString();
     }
 
     private string BoolToOnOff(bool value)

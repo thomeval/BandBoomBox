@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static TreeEditor.TreeEditorHelper;
 
 public class HitJudge
 {
@@ -12,6 +14,7 @@ public class HitJudge
         {JudgeResult.Crit, 3},
         {JudgeResult.Perfect, 3},
         {JudgeResult.Cool, 2},
+        {JudgeResult.CoolWithBoost, 3},
         {JudgeResult.Ok, 1},
         {JudgeResult.Bad, 0},
         {JudgeResult.Wrong, 0},
@@ -86,6 +89,7 @@ public class HitJudge
         { JudgeResult.Crit, 50 },
         { JudgeResult.Perfect, 50},
         { JudgeResult.Cool, 30 },
+        { JudgeResult.CoolWithBoost, 50},
         { JudgeResult.Ok, 15 },
         { JudgeResult.Bad, 0 },
         { JudgeResult.Wrong, 0 },
@@ -100,6 +104,7 @@ public class HitJudge
         { JudgeResult.Crit, 0.065f},
         { JudgeResult.Perfect, 0.05f},
         { JudgeResult.Cool, 0.03f },
+        { JudgeResult.CoolWithBoost, 0.05f },
         { JudgeResult.Ok, 0.01f },
         { JudgeResult.Bad, -0.01f },
         { JudgeResult.Wrong, -0.05f },
@@ -148,6 +153,21 @@ public class HitJudge
     };
 
     /// <summary>
+    /// These values control the amount of Ally Boost Ticks earned per note hit. See <see cref="TICKS_PER_ALLY_BOOST"/> to determine the number of ticks needed to earn one boost.
+    /// </summary>
+    public static Dictionary<JudgeResult, int> JudgeAllyBoostTickValues = new()
+    {
+        { JudgeResult.Crit, 15 },
+        { JudgeResult.Perfect, 10 },
+        { JudgeResult.Cool, 0 },
+        { JudgeResult.CoolWithBoost, 0 },
+        { JudgeResult.Ok, 0 },
+        { JudgeResult.Bad, 0 },
+        { JudgeResult.Wrong, 0 },
+        { JudgeResult.Miss, -5 }
+    };
+
+    /// <summary>
     /// These values apply a bonus or reduction to the amount of experience a player receives at the end of each song, based on the player's selected goal. 1.0 indicates no change. Note that
     /// these bonuses are only applied if the player actually meets the goal. If the player fails to meet the goal, they will instead receive a -50% penalty to their experience.
     /// </summary>
@@ -176,7 +196,7 @@ public class HitJudge
         { FullComboType.PerfectFullCombo , 1.5f},
     };
 
-    public HitResult GetHitResult(float deviation, int player, Difficulty difficulty, int lane, NoteType noteType, NoteClass noteClass, bool allowCrit)
+    public HitResult GetHitResult(float deviation, int player, Difficulty difficulty, int lane, NoteType noteType, NoteClass noteClass, bool allowCrit, bool allowAllyBoost)
     {
         var result = new HitResult();
         var value = NoteUtils.GetNoteValue(noteType, noteClass);
@@ -189,6 +209,11 @@ public class HitJudge
         {
             judgeResult = JudgeResult.Perfect;
         }
+        if (allowAllyBoost && judgeResult == JudgeResult.Cool)
+        {
+            judgeResult = JudgeResult.CoolWithBoost;
+        }
+
         result.JudgeResult = judgeResult;
         if (judgeResult == JudgeResult.Wrong || judgeResult == JudgeResult.Miss)
         {
@@ -200,8 +225,8 @@ public class HitJudge
         result.ScorePoints = (int)(JudgeScoreValues[judgeResult] * value);
         result.MxPoints = JudgeMxValues[judgeResult] * DifficultyMxValues[difficulty];
         result.Deviation = deviation;
-
         result.PlayerSlot = player;
+
         return result;
 
     }
@@ -237,7 +262,7 @@ public class HitJudge
     }
 
     private static readonly JudgeResult[] _comboBreakResults = { JudgeResult.Miss, JudgeResult.Wrong, JudgeResult.Bad };
-    private static readonly JudgeResult[] _comboAddResults = { JudgeResult.Crit, JudgeResult.Perfect, JudgeResult.Cool, JudgeResult.Ok };
+    private static readonly JudgeResult[] _comboAddResults = { JudgeResult.Crit, JudgeResult.Perfect, JudgeResult.Cool, JudgeResult.CoolWithBoost, JudgeResult.Ok };
 
     public static bool? IsComboBreak(JudgeResult result)
     {

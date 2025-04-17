@@ -462,4 +462,27 @@ public class PlayerManager : MonoBehaviour
 
         AllowPlayerJoining &= Players.Count < _coreManager.ServerNetApi.MaxNetPlayers;
     }
+
+    public Player FindAllyBoostForPlayer(Player player)
+    {
+        if (!player.CanReceiveAllyBoosts)
+        {
+            return null;
+        }
+        var ally = Players.Where(e => e != player && e.CanProvideAllyBoosts && e.AllyBoosts > 0).OrderBy(e => e.AllyBoosts).FirstOrDefault();
+
+        return ally;
+    }
+
+    public void ApplyAllyBoost(Player providingPlayer, Player receivingPlayer)
+    {
+        if (providingPlayer == null || receivingPlayer == null || providingPlayer == receivingPlayer)
+        {
+            return;
+        }
+
+        providingPlayer.AllyBoosts--;
+        providingPlayer.AllyBoostsProvided++;
+        receivingPlayer.AllyBoostsReceived++;
+    }
 }

@@ -12,6 +12,9 @@ public class PlayerHudManager : MonoBehaviour
     public Text TxtRanking;
     public Text TxtPerfPercent;
     public Text TxtDifficulty;
+    public Text TxtAllyBoostCount;
+    public Image ImgAllyBoostTickMeter;
+    public SpriteResolver ImgAllyBoostIcon;
     public TimingDisplay TimingDisplay;
     public LaneFlasher LaneFlasher;
     public NoteHitFlasher NoteHitFlasher;
@@ -20,7 +23,9 @@ public class PlayerHudManager : MonoBehaviour
     public GoalMeter GoalMeter;
     public AudioSource AudMistake;
     public HeldNoteDisplay HeldNoteDisplay;
+
     private SpriteResolver _playerIdentifierResolver;
+
     private bool _mistakeSfxEnabled;
 
     public void UpdateHud(Player player)
@@ -40,6 +45,11 @@ public class PlayerHudManager : MonoBehaviour
         TimingDisplay.SpriteCategory = "Timing" + player.TimingDisplayType;
 
         UpdateGoalMeter(player);
+
+        TxtAllyBoostCount.text = player.CanProvideAllyBoosts ? "" + player.AllyBoosts : "--";
+        ImgAllyBoostIcon.SetCategoryAndLabel("AllyBoostIcons", "" + player.ProfileData.AllyBoostMode );
+        ImgAllyBoostTickMeter.fillAmount = 1.0f * player.AllyBoostTicks / player.TicksForNextBoost;
+
         _mistakeSfxEnabled = player.MistakeSfxEnabled;
     }
 

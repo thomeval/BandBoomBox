@@ -6,6 +6,7 @@
     Ok,
     Bad,
     Wrong,
-    Miss
+    Miss,
+    CoolWithBoost
 }
 

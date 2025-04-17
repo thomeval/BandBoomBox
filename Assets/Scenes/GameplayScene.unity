@@ -4269,6 +4269,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 7936265252671662889, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+    - target: {fileID: 5337288200027628429, guid: 54825131424afb0458e542290b1f40f0, type: 3}
+      propertyPath: m_Text
+      value: 99
+      objectReference: {fileID: 0}
     - target: {fileID: 6692964736301940726, guid: 54825131424afb0458e542290b1f40f0, type: 3}
       propertyPath: m_labelHash
       value: 0.0076996516
@@ -4409,6 +4413,10 @@ PrefabInstance:
       propertyPath: m_Library.Array.data[0].m_CategoryList.Array.data[0].m_Sprite
       value: 
       objectReference: {fileID: 914480791195794993, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
+    - target: {fileID: 8985242665169390985, guid: 54825131424afb0458e542290b1f40f0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

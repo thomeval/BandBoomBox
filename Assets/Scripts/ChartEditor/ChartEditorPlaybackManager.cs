@@ -73,7 +73,7 @@ public class ChartEditorPlaybackManager : MonoBehaviour
         var deviation = _parent.SongManager.GetSongPosition() - note.AbsoluteTime;
 
         var result =
-            _hitJudge.GetHitResult(deviation, 1, _parent.CurrentDifficulty, note.Lane, note.NoteType, note.NoteClass, false);
+            _hitJudge.GetHitResult(deviation, 1, _parent.CurrentDifficulty, note.Lane, note.NoteType, note.NoteClass, false, false);
         TimingDisplay.ShowHit(result);
     }
 

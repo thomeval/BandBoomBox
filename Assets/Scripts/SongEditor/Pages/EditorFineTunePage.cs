@@ -200,7 +200,7 @@ public class EditorFineTunePage : EditorPageManager
         // Note was hit. Apply a hit result.
         var deviation = SongPosition - note.AbsoluteTime;
         NoteManager.RemoveNote(note);
-        var hitResult = _hitJudge.GetHitResult(deviation, 1, Difficulty.Beginner, 2, note.NoteType, note.NoteClass, false);
+        var hitResult = _hitJudge.GetHitResult(deviation, 1, Difficulty.Beginner, 2, note.NoteType, note.NoteClass, false, false);
         PlayerHudManager.DisplayHitResult(hitResult);
         DisplayHit(deviation * 1000f);
         if (AutoAdjustOffsetEnabled)
