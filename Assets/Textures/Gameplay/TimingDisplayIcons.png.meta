@@ -33,7 +33,7 @@ TextureImporter:
       213: -4525027279418739305
     second: TimingDisplayIcons_Wrong
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -50,11 +50,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -93,6 +94,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -104,6 +107,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -116,6 +120,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -128,6 +133,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -138,7 +144,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 800
+        y: 1000
         width: 500
         height: 200
       alignment: 0
@@ -159,7 +165,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 800
+        y: 1000
         width: 500
         height: 200
       alignment: 0
@@ -180,7 +186,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 600
+        y: 800
         width: 500
         height: 200
       alignment: 0
@@ -201,7 +207,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 600
+        y: 800
         width: 500
         height: 200
       alignment: 0
@@ -222,7 +228,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 400
+        y: 600
         width: 500
         height: 200
       alignment: 0
@@ -243,7 +249,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 400
+        y: 600
         width: 500
         height: 200
       alignment: 0
@@ -264,7 +270,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 200
+        y: 400
         width: 500
         height: 200
       alignment: 0
@@ -285,7 +291,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 200
+        y: 400
         width: 500
         height: 200
       alignment: 0
@@ -306,7 +312,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 200
         width: 500
         height: 200
       alignment: 0
@@ -327,7 +333,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 0
+        y: 200
         width: 500
         height: 200
       alignment: 0
@@ -348,11 +354,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1000
+        y: 1200
         width: 500
         height: 200
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -369,7 +375,28 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 1000
+        y: 1200
+        width: 500
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72c1743a3d5092440bd5ceec4ea6560d
+      internalID: -115323844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TimingDisplayIcons_CoolWithBoost
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
         width: 500
         height: 200
       alignment: 0
@@ -379,8 +406,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72c1743a3d5092440bd5ceec4ea6560d
-      internalID: -115323844
+      spriteID: c14f14e7949909c40b139979305f29dc
+      internalID: 2083620638
       vertices: []
       indices: 
       edges: []
@@ -396,21 +423,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TimingDisplayIcons_CoolEarly: 8760759539849158703
+      TimingDisplayIcons_1: 1579395609
       TimingDisplayIcons_BadEarly: 914480791195794993
-      TimingDisplayIcons_OkEarly: -7464455131072795060
-      TimingDisplayIcons_PerfectLate: -6323250401836060250
       TimingDisplayIcons_BadLate: 2521575392819623385
-      TimingDisplayIcons_CritEarly: -115323844
-      TimingDisplayIcons_PerfectEarly: -1833894012356933466
-      TimingDisplayIcons_OkLate: -184260342302848432
-      TimingDisplayIcons_Wrong: -4525027279418739305
+      TimingDisplayIcons_CoolEarly: 8760759539849158703
       TimingDisplayIcons_CoolLate: -2918013656738394090
-      TimingDisplayIcons_Miss: -7016602842499520005
+      TimingDisplayIcons_CoolWithBoost: 2083620638
+      TimingDisplayIcons_CritEarly: -115323844
       TimingDisplayIcons_CritLate: 1444958904
-  spritePackingTag: 
+      TimingDisplayIcons_Miss: -7016602842499520005
+      TimingDisplayIcons_OkEarly: -7464455131072795060
+      TimingDisplayIcons_OkLate: -184260342302848432
+      TimingDisplayIcons_PerfectEarly: -1833894012356933466
+      TimingDisplayIcons_PerfectLate: -6323250401836060250
+      TimingDisplayIcons_Wrong: -4525027279418739305
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

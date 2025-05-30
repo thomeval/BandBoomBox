@@ -48,43 +48,43 @@ MonoBehaviour:
     m_Hash: 795569582
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: PerfectEarly_0
-      m_Hash: 149236453
+    - m_Name: PerfectEarly
+      m_Hash: 761506480
       m_Sprite: {fileID: -1833894012356933466, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -1833894012356933466, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
-    - m_Name: PerfectLate_0
-      m_Hash: 830257592
+    - m_Name: PerfectLate
+      m_Hash: 432461469
       m_Sprite: {fileID: -6323250401836060250, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6323250401836060250, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
-    - m_Name: CoolEarly_0
-      m_Hash: 670840227
+    - m_Name: CoolEarly
+      m_Hash: 779648004
       m_Sprite: {fileID: 8760759539849158703, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 8760759539849158703, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
-    - m_Name: CoolLate_0
-      m_Hash: 1031001595
+    - m_Name: CoolLate
+      m_Hash: 888303135
       m_Sprite: {fileID: -2918013656738394090, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -2918013656738394090, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
-    - m_Name: OkEarly_0
-      m_Hash: 218118984
+    - m_Name: OkEarly
+      m_Hash: 695284517
       m_Sprite: {fileID: -7464455131072795060, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -7464455131072795060, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
-    - m_Name: OkLate_0
-      m_Hash: 828230890
+    - m_Name: OkLate
+      m_Hash: 259141873
       m_Sprite: {fileID: -184260342302848432, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -184260342302848432, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
-    - m_Name: BadEarly_0
-      m_Hash: 31447952
+    - m_Name: BadEarly
+      m_Hash: 340985526
       m_Sprite: {fileID: 914480791195794993, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 914480791195794993, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
-    - m_Name: BadLate_0
-      m_Hash: 413543457
+    - m_Name: BadLate
+      m_Hash: 264165867
       m_Sprite: {fileID: 2521575392819623385, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 2521575392819623385, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
@@ -93,8 +93,8 @@ MonoBehaviour:
       m_Sprite: {fileID: -4525027279418739305, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -4525027279418739305, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
-    - m_Name: Miss_0
-      m_Hash: 585172321
+    - m_Name: Miss
+      m_Hash: 35825120
       m_Sprite: {fileID: -7016602842499520005, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -7016602842499520005, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
@@ -110,14 +110,14 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 1444958904, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
     - m_Name: CoolWithBoostEarly
       m_Hash: 233620735
-      m_Sprite: {fileID: 0}
+      m_Sprite: {fileID: 2083620638, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 2083620638, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
     - m_Name: CoolWithBoostLate
       m_Hash: 640044034
-      m_Sprite: {fileID: 0}
+      m_Sprite: {fileID: 2083620638, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 0}
+      m_SpriteOverride: {fileID: 2083620638, guid: 1c0c20b1927e7f74ca005ae624a56545, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 14
   - m_Name: TimingWords
@@ -377,5 +377,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 4
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638803929473195648
+  m_ModificationHash: 638841982299824894
   m_Version: 1

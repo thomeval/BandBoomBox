@@ -33,8 +33,10 @@ public class PlayerResultFrame : MonoBehaviour
     public Text TxtMissPerc;
     public Text TxtWrong;
 
+    public Text LblAccuracyDeviation;
     public Text TxtAccuracy;
     public Text TxtDeviation;
+    public Text TxtBoosts;
 
     [Header("Common")]
     public ExpMeter ExpMeter;
@@ -54,6 +56,20 @@ public class PlayerResultFrame : MonoBehaviour
         {
             _displayedPage = Helpers.Wrap(value, Pages.Length - 1);
             DisplayPage(_displayedPage);
+        }
+    }
+
+    [SerializeField]
+    private bool _showDeviation = true;
+    public bool ShowDeviation
+    {
+        get { return _showDeviation; }
+        set
+        {
+            _showDeviation = value;
+            LblAccuracyDeviation.text = _showDeviation ? "Timing" : "Accuracy";
+            TxtAccuracy.gameObject.SetActive(!value);
+            TxtDeviation.gameObject.SetActive(value);
         }
     }
 
@@ -114,6 +130,10 @@ public class PlayerResultFrame : MonoBehaviour
 
         DisplayHitCount(player);
         DisplayAccuracyDeviation(player);
+        if (TxtBoosts != null)
+        {
+            TxtBoosts.text = string.Format("P:{0}, R:{1}, E:{2}", player.AllyBoostsProvided, player.AllyBoostsReceived, player.AllyBoosts);
+        }
         ExpModifierList.DisplayExpModifier(player, stars, numPlayers);
 
         var totalExpGain = ExpModifierList.GetTotalExpGain(player);
@@ -160,7 +180,7 @@ public class PlayerResultFrame : MonoBehaviour
 
     private void DisplayAccuracyDeviation(Player player)
     {
-        //  TxtAccuracy.text = FormatMilliseconds(player.HitAccuracyAverage);
+        TxtAccuracy.text = $"{player.HitAccuracyAverage:f1} ms";
         TxtDeviation.text = FormatMilliseconds(player.HitDeviationAverage);
     }
 

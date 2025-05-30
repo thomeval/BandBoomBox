@@ -526,14 +526,13 @@ public class Player : MonoBehaviour
         switch (result.DeviationResult)
         {
             case DeviationResult.Early:
-                EarlyHits[result.JudgeResult]++;
+                EarlyHits[effectiveResult]++;
                 break;
             case DeviationResult.Late:
-                LateHits[result.JudgeResult]++;
+                LateHits[effectiveResult]++;
                 break;
         }
 
-        AllyBoostsReceived++;
     }
 
     private void UpdateCombo(JudgeResult result)
@@ -608,7 +607,7 @@ public class Player : MonoBehaviour
         this.MaxCombo = 0;
         this.HitAccuracyTotal = 0.0f;
         this.HitDeviationTotal = 0.0f;
-        this.AllyBoosts = 10;
+        this.AllyBoosts = 0;
         this.AllyBoostTicks = 0;
         this.TicksForNextBoost = TICKS_FOR_FIRST_ALLY_BOOST;
         this.AllyBoostsReceived = 0;
