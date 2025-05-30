@@ -380,11 +380,19 @@ public class GameplayManager : ScreenManager
 
             if (note != null)
             {
+                 // Note was hit. Apply a hit result.
                 var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
+                var allyBoostProvider = _playerManager.FindAllyBoostForPlayer(player);
+                var allowAllyBoost = allyBoostProvider != null;
 
-                // Note was hit. Apply a hit result.
                 var deviation = SongPosition - note.AbsoluteTime;
-                var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass, allowCrit);
+                var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass, allowCrit, allowAllyBoost);
+
+                if (hitResult.JudgeResult == JudgeResult.CoolWithBoost)
+                {
+                    _playerManager.ApplyAllyBoost(allyBoostProvider, player);
+                }
+
                 ApplyHitResult(hitResult);
                 if (note.NoteClass == NoteClass.Hold)
                 {
@@ -461,8 +469,17 @@ public class GameplayManager : ScreenManager
         if (releaseNote != null)
         {
             var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
+            var allyBoostProvider = _playerManager.FindAllyBoostForPlayer(player);
+            var allowAllyBoost = allyBoostProvider != null;
+
             var deviation = SongPosition - releaseNote.AbsoluteTime;
-            var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, releaseNote.NoteType, releaseNote.NoteClass, allowCrit);
+            var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, releaseNote.NoteType, releaseNote.NoteClass, allowCrit, allowAllyBoost);
+
+            if (hitResult.JudgeResult == JudgeResult.CoolWithBoost)
+            {
+                _playerManager.ApplyAllyBoost(allyBoostProvider, player);
+            }
+
             ApplyHitResult(hitResult);
 
             if (hitResult.JudgeResult < JudgeResult.Ok)

@@ -40,7 +40,8 @@ public class ProfileManager : MonoBehaviour
                 ScrollSpeed = 500,
                 TimingDisplayType = TimingDisplayType.Words,
                 MistakeSfxEnabled = true,
-                RumbleEnabled = true
+                RumbleEnabled = true,
+                AllyBoostMode = AllyBoostMode.On
             };
         }
     }

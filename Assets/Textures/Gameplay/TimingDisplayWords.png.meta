@@ -21,7 +21,7 @@ TextureImporter:
       213: 9023914523516516827
     second: TimingDisplayWords_Wrong
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -38,11 +38,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -81,6 +82,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -92,6 +95,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -104,6 +108,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -116,6 +121,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -126,7 +132,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1000
+        y: 1200
         width: 500
         height: 200
       alignment: 0
@@ -147,7 +153,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 800
+        y: 1000
         width: 500
         height: 200
       alignment: 0
@@ -168,7 +174,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 600
+        y: 800
         width: 500
         height: 200
       alignment: 0
@@ -189,7 +195,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 400
+        y: 600
         width: 500
         height: 200
       alignment: 0
@@ -210,7 +216,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 200
+        y: 400
         width: 500
         height: 200
       alignment: 0
@@ -231,7 +237,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 200
         width: 500
         height: 200
       alignment: 0
@@ -252,11 +258,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1200
+        y: 1400
         width: 500
         height: 200
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -264,6 +270,27 @@ TextureImporter:
       bones: []
       spriteID: 6adbea492333dc549bae1face04b6c0d
       internalID: -967482977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TimingDisplayWords_Boost
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 500
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a62b28e6624bb341a5017e9da11c5c6
+      internalID: 1948866072
       vertices: []
       indices: 
       edges: []
@@ -279,16 +306,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TimingDisplayWords_Wrong: 9023914523516516827
-      TimingDisplayWords_Miss: 1663223296520097963
+      TimingDisplayWords_Bad: -4166050681601297713
+      TimingDisplayWords_Boost: 1948866072
       TimingDisplayWords_Cool: -5867869916615719293
       TimingDisplayWords_Crit: -967482977
-      TimingDisplayWords_Bad: -4166050681601297713
-      TimingDisplayWords_Perfect: -1282666702287378285
+      TimingDisplayWords_Miss: 1663223296520097963
       TimingDisplayWords_Ok: -5856258960930111211
-  spritePackingTag: 
+      TimingDisplayWords_Perfect: -1282666702287378285
+      TimingDisplayWords_Wrong: 9023914523516516827
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

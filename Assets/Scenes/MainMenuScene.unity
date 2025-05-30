@@ -2005,7 +2005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2124551013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2020,6 +2020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ErrorTextColor: {r: 1, g: 0.5, b: 0.5, a: 1}
   DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+  Background: {fileID: 0}
   DefaultMessage: 
 --- !u!223 &2124551014
 Canvas:

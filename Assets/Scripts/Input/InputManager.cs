@@ -343,6 +343,7 @@ public class InputManager : MonoBehaviour
             // If the device is a keyboard, get the note labels from Settings, since this can be customized.
             if (result == "#KEYBOARD#")
             {
+                Helpers.AutoAssign(ref _settingsManager);
                 result = _settingsManager.DefaultKeyboardNoteLabels;
             }
         }

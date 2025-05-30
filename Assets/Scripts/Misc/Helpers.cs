@@ -287,6 +287,13 @@ public static class Helpers
         }
     }
 
+    public static T GetNextEnumValue<T>(T value, int delta, bool wrap)
+        where T : Enum
+    {
+        var values = (T[]) Enum.GetValues(typeof(T));
+        return GetNextValue(values, value, delta, wrap);
+    }
+
     /// <summary>
     /// Finds the index of the given <c>value</c> in the given array, adds <c>delta</c> to the result, then returns the element located at that index.
     /// For example, if delta is -1, then this method will return the element before the matching element.

@@ -164,7 +164,16 @@ public class EvaluationManager : ScreenManager
                     TryToContinue();
                 }
                 break;
+                case InputAction.Y:
+                ToggleCurrentFrame(player);
+                    break;
         }
+    }
+
+    private void ToggleCurrentFrame(Player player)
+    {
+        var frame = GetFrameForPlayer(player.Slot);
+        frame.ShowDeviation = !frame.ShowDeviation;
     }
 
     private void TryToContinue()

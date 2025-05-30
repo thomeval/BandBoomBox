@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public const int TICKS_FOR_FIRST_ALLY_BOOST = 200;
+    public const int TICKS_INC_PER_BOOST = 100;
 
     public static readonly int[] ScrollSpeeds = { 200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000 };
 
@@ -189,6 +191,74 @@ public class Player : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private int _allyBoosts;
+    public int AllyBoosts
+    {
+        get { return _allyBoosts; }
+        set
+        {
+            _allyBoosts = value;
+            RefreshHud();
+        }
+    }
+
+    [SerializeField]
+    private int _allyBoostTicks;
+    public int AllyBoostTicks
+    {
+        get { return _allyBoostTicks; }
+        set
+        {
+            _allyBoostTicks = Math.Max(0, value);
+            while (_allyBoostTicks >= TicksForNextBoost)
+            {
+                _allyBoostTicks -= TicksForNextBoost;
+                TicksForNextBoost += TICKS_INC_PER_BOOST;
+                _allyBoosts++;
+            }
+            RefreshHud();
+        }
+    }
+
+
+    [SerializeField]
+    private int _ticksForNextBoost;
+    public int TicksForNextBoost
+    {
+        get { return _ticksForNextBoost; }
+        set
+        {
+            _ticksForNextBoost = value;
+            RefreshHud();
+        }
+    }
+
+    [SerializeField]
+    private int _allyBoostsReceived;
+    public int AllyBoostsReceived
+    {
+        get { return _allyBoostsReceived; }
+        set
+        {
+            _allyBoostsReceived = value;
+            RefreshHud();
+        }
+    }
+
+    [SerializeField]
+    private int _allyBoostsProvided;
+    public int AllyBoostsProvided
+    {
+        get { return _allyBoostsProvided; }
+        set
+        {
+            _allyBoostsProvided = value;
+            RefreshHud();
+        }
+    }
+
+
     public bool IsParticipating;
 
     #region Profile Data Properties
@@ -271,6 +341,17 @@ public class Player : MonoBehaviour
         get { return ProfileData.LastPlayed; }
         set { ProfileData.LastPlayed = value; }
     }
+
+    public bool CanReceiveAllyBoosts
+    {
+        get { return ProfileData.AllyBoostMode == AllyBoostMode.On || ProfileData.AllyBoostMode == AllyBoostMode.ReceiveOnly; }
+    }
+
+    public bool CanProvideAllyBoosts
+    {
+        get { return ProfileData.AllyBoostMode == AllyBoostMode.On || ProfileData.AllyBoostMode == AllyBoostMode.ProvideOnly; }
+    }
+
 
     #endregion
 
@@ -399,15 +480,25 @@ public class Player : MonoBehaviour
 
     public void ApplyHitResult(HitResult result)
     {
+        HudManager.DisplayHitResult(result);
+        ApplyBoost(result);
+
         UpdateCombo(result.JudgeResult);
         UpdateHitCounts(result);
         UpdatePerfPoints(result);
         UpdateAccuracyDeviation(result);
-        HudManager.DisplayHitResult(result);
 
         if (result.JudgeResult == JudgeResult.Wrong && RumbleEnabled)
         {
             TriggerRumbleForWrongInput();
+        }
+    }
+
+    private void ApplyBoost(HitResult result)
+    {
+        if (this.CanProvideAllyBoosts)
+        {
+            this.AllyBoostTicks += HitJudge.JudgeAllyBoostTickValues[result.JudgeResult];
         }
     }
 
@@ -424,7 +515,9 @@ public class Player : MonoBehaviour
 
     private void UpdateHitCounts(HitResult result)
     {
-        if (result.JudgeResult == JudgeResult.Wrong || result.JudgeResult == JudgeResult.Miss)
+        var effectiveResult = result.JudgeResult == JudgeResult.CoolWithBoost ? JudgeResult.Perfect : result.JudgeResult;
+
+        if (effectiveResult == JudgeResult.Wrong || effectiveResult == JudgeResult.Miss)
         {
             Mistakes[result.JudgeResult]++;
             return;
@@ -433,10 +526,10 @@ public class Player : MonoBehaviour
         switch (result.DeviationResult)
         {
             case DeviationResult.Early:
-                EarlyHits[result.JudgeResult]++;
+                EarlyHits[effectiveResult]++;
                 break;
             case DeviationResult.Late:
-                LateHits[result.JudgeResult]++;
+                LateHits[effectiveResult]++;
                 break;
         }
 
@@ -514,6 +607,11 @@ public class Player : MonoBehaviour
         this.MaxCombo = 0;
         this.HitAccuracyTotal = 0.0f;
         this.HitDeviationTotal = 0.0f;
+        this.AllyBoosts = 0;
+        this.AllyBoostTicks = 0;
+        this.TicksForNextBoost = TICKS_FOR_FIRST_ALLY_BOOST;
+        this.AllyBoostsReceived = 0;
+        this.AllyBoostsProvided = 0;
         this.Ranking = 1;
     }
 
