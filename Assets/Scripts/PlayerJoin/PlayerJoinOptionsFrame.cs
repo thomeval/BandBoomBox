@@ -16,8 +16,9 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public Text TxtMistakeSfxEnabled;
     public Text TxtControllerRumbleEnabled;
     public Text TxtMomentum;
-
+    
     public GameObject MomentumMenuItem;
+    public GameObject AllyBoostMenuItem;
 
     public Grade?[] Goals = { null, Grade.D, Grade.DPlus, Grade.C, Grade.CPlus, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus };
     public int[] MomentumAmounts = { 0, 25, 50, 100, 150, 200 };
@@ -157,5 +158,11 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public void ShowMomentumOption()
     {
         MomentumMenuItem.SetActive(true);
+    }
+
+    public void ToggleMenuOptions(bool showMomentum, bool showAllyBoost)
+    {
+        MomentumMenuItem.SetActive(showMomentum);
+        AllyBoostMenuItem.SetActive(showAllyBoost);
     }
 }

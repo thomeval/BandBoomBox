@@ -108,11 +108,6 @@ public class PlayerJoinFrame : MonoBehaviour
         Pages[idx].SetActive(true);
     }
 
-    public void ShowMomentumOption()
-    {
-        OptionsFrame.ShowMomentumOption();
-    }
-
 
     public void HandleInput(InputEvent inputEvent)
     {
@@ -196,5 +191,10 @@ public class PlayerJoinFrame : MonoBehaviour
     public void PlayConfirmedSfx()
     {
         SoundEventHandler.PlaySfx(SoundEvent.SelectionConfirmed);
+    }
+
+    public void ToggleMenuOptions(bool showMomentum, bool showAllyBoost)
+    {
+        OptionsFrame.ToggleMenuOptions(showMomentum, showAllyBoost);
     }
 }

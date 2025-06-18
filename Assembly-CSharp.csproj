@@ -128,6 +128,7 @@
     <Compile Include="Assets\EditorButtonHandler.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorClipboard.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteUtils.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\LrrDisplay.cs" />
     <Compile Include="Assets\Scripts\Common\SoundEvent.cs" />
     <Compile Include="Assets\Scripts\Misc\SecretCodeHandler.cs" />
     <Compile Include="Assets\Scripts\Gameplay\EnergyMeterScaleManager.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Assets\Scripts\Common\PlayerSongSelectFrame.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteSet.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\LrrCalculator.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteGenerator.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayMultiplierUtils.cs" />
     <Compile Include="Assets\Scripts\Common\StarMeter.cs" />
@@ -158,6 +160,7 @@
     <Compile Include="Assets\Scripts\Songs\SongStarScoreValues.cs" />
     <Compile Include="Assets\Scripts\Common\MenuEventArgs.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\NetPlayMenuManager.cs" />
+    <Compile Include="Assets\LrrContainer.cs" />
     <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteCounter.cs" />
     <Compile Include="Assets\Scripts\Common\Player.cs" />
@@ -252,6 +255,7 @@
     <Compile Include="Assets\Scripts\NetPlay\GameplayStateValuesDto.cs" />
     <Compile Include="Assets\Scripts\Misc\SceneTransitionState.cs" />
     <Compile Include="Assets\Scripts\Input\DeviceLostArgs.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\LrrData.cs" />
     <Compile Include="Assets\Scripts\InitialLoad\InitialLoadManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorManager.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayMainSubmenu.cs" />

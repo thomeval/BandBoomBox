@@ -2467,6 +2467,7 @@ MonoBehaviour:
   GoalMeter: {fileID: 2136920486133186128}
   AudMistake: {fileID: 3380623067636679513}
   HeldNoteDisplay: {fileID: 9131606540319237158}
+  LrrDisplay: {fileID: 0}
   _showRankings: 0
 --- !u!1 &7131182824123488397
 GameObject:

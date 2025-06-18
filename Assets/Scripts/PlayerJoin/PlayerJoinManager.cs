@@ -80,6 +80,20 @@ public class PlayerJoinManager : ScreenManager
     {
         CoreManager.PlayerManager.AllowPlayerJoining = true;
         SetupInitialFrameStates();
+        ForceDisableAllyBoost();
+    }
+
+    private void ForceDisableAllyBoost()
+    {
+        if (!CoreManager.IsNetGame)
+        {
+            return;
+        }
+
+        foreach (var player in CoreManager.PlayerManager.GetLocalPlayers())
+        {
+            player.ProfileData.AllyBoostMode = AllyBoostMode.Off;
+        }
     }
 
     private void SetupInitialFrameStates()
@@ -96,10 +110,7 @@ public class PlayerJoinManager : ScreenManager
             var frame = PlayerJoinFrames[x - 1];
             frame.gameObject.SetActive(true);
 
-            if (CoreManager.Settings.EnableMomentumOption)
-            {
-                frame.ShowMomentumOption();
-            }
+            frame.ToggleMenuOptions(CoreManager.Settings.EnableMomentumOption, !CoreManager.IsNetGame);
 
             if (player != null)
             {
@@ -129,6 +140,7 @@ public class PlayerJoinManager : ScreenManager
     {
         if (ReadyPlayerCount > 0 && JoinedPlayerCount == ReadyPlayerCount)
         {
+            ForceDisableAllyBoost();
             CoreManager.PlayerManager.AllowPlayerJoining = false;
             CoreManager.SaveAllActiveProfiles();
             CoreManager.PlayerManager.SortPlayers();

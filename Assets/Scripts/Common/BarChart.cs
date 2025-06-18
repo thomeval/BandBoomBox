@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +8,27 @@ public class BarChart : MonoBehaviour
 
     public float YMin = 0.0f;
     public float YMax = 100.0f;
+    public float BarWidth = 0.0f;
+
+    [SerializeField]
+    private float _xOffset = 0.0f;
+    public float XOffset
+    {
+        get { return _xOffset; }
+        set
+        {
+            _xOffset = value;
+            ChartInner.anchoredPosition = new Vector2(_xOffset * -BarWidth, ChartInner.anchoredPosition.y);
+        }
+    }
+
     public Text TxtYMin;
     public Text TxtYMax;
+    public string AxisFormat = "0.0";
     public RectTransform ChartInner;
 
     private float[] _values;
+
     private List<BarChartItem> _valueBars = new();
 
     public BarChartItem BarItemPrefab;
@@ -29,16 +46,22 @@ public class BarChart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TxtYMax.text = YMax.ToString();
-        TxtYMin.text = YMin.ToString();
+        SetYAxis(YMin, YMax);
     }
 
     public void SetYAxis(float min, float max)
     {
         YMin = min;
         YMax = max;
-        TxtYMin.text = YMin.ToString();
-        TxtYMax.text = YMax.ToString();
+        var format = "{0:" + AxisFormat + "}";
+        if (TxtYMax != null)
+        {
+            TxtYMax.text = string.Format(CultureInfo.InvariantCulture, format, YMax);
+        }
+        if (TxtYMin != null)
+        {
+            TxtYMin.text = string.Format(CultureInfo.InvariantCulture, format, YMin);
+        }
         RefreshBars();
     }
 
@@ -62,7 +85,7 @@ public class BarChart : MonoBehaviour
             return;
         }
 
-        var width = ChartInner.rect.width / _values.Length;
+        var width = BarWidth == 0.0f ? ChartInner.rect.width / _values.Length : BarWidth;
         foreach (var value in _values)
         {
             var barObj = InstantiateBar(value, width);
