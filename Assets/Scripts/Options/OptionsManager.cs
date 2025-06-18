@@ -14,6 +14,7 @@ public class OptionsManager : ScreenManager
     [Header("Gameplay")]
     public Text TxtAutoSetNoteLabels;
     public Text TxtDefaultKeyboardNoteLabels;
+    public Text TxtShowLrr;
 
     [Header("Audio")]
     public Text TxtAudioLatency;
@@ -63,6 +64,7 @@ public class OptionsManager : ScreenManager
         var settings = CoreManager.Settings;
         TxtAutoSetNoteLabels.text = settings.AutoSetNoteLabelsFromController ? "On" : "Off";
         TxtDefaultKeyboardNoteLabels.text = settings.DefaultKeyboardNoteLabels;
+        TxtShowLrr.text = settings.LrrDisplayEnabled ? "On" : "Off";
         TxtAudioLatency.text = $"{settings.AudioLatency * 1000:F0} ms";
         TxtMasterVolume.text = $"{settings.MasterVolume:P0}";
         TxtGameplaySfxVolume.text = $"{settings.GameplaySfxVolume:P0}";
@@ -110,6 +112,9 @@ public class OptionsManager : ScreenManager
                 break;
             case "Default Keyboard Note Labels":
                 settings.DefaultKeyboardNoteLabels = Helpers.GetNextValue(Player.LabelSkins, settings.DefaultKeyboardNoteLabels, delta, true);
+                break;
+                case "Show Long Range Radar":
+                    settings.LrrDisplayEnabled = !settings.LrrDisplayEnabled;
                 break;
             case "Master Volume":
                 AddToOption(ref settings.MasterVolume, VOLUME_CHANGE_TICK * delta, 0.0f, 1.0f);

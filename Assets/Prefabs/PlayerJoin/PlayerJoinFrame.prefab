@@ -1122,6 +1122,7 @@ MonoBehaviour:
   TxtControllerRumbleEnabled: {fileID: 2406244919871378843}
   TxtMomentum: {fileID: 2241837072566996845}
   MomentumMenuItem: {fileID: 1710773955772654775}
+  AllyBoostMenuItem: {fileID: 3519483330826651661}
   MomentumAmounts: 0000000019000000320000006400000096000000c8000000
   NotePreviews:
   - {fileID: 3886581009402966158}

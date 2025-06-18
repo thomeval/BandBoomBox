@@ -23,6 +23,7 @@ public class PlayerHudManager : MonoBehaviour
     public GoalMeter GoalMeter;
     public AudioSource AudMistake;
     public HeldNoteDisplay HeldNoteDisplay;
+    public LrrDisplay LrrDisplay;
 
     private SpriteResolver _playerIdentifierResolver;
 

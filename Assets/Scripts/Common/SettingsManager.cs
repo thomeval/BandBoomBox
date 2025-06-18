@@ -24,6 +24,7 @@ public class SettingsManager : MonoBehaviour
     public bool EnableMomentumOption = false;
     public bool AutoSetNoteLabelsFromController = true;
     public string DefaultKeyboardNoteLabels = "WASD";
+    public bool LrrDisplayEnabled = true;
 
     [Header("Audio Settings")]
     public float MasterVolume = 0.5f;
@@ -57,6 +58,8 @@ public class SettingsManager : MonoBehaviour
     public ushort NetGameJoinPort = 3334;
 
     public const ushort DEFAULT_PORT = 3334;
+
+
 
     // Start is called before the first frame update
     void Awake()
