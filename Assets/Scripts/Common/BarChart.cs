@@ -46,7 +46,7 @@ public class BarChart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetYAxis(YMin, YMax);
+       // SetYAxis(YMin, YMax);
     }
 
     public void SetYAxis(float min, float max)

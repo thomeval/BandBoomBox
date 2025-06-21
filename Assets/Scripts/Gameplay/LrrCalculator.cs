@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class LrrCalculator : MonoBehaviour
 {
-    private NoteGenerator _noteGenerator;
-
     [SerializeField]
     private float _intervalSizeBeats = 8.0f; // Default LRR size in seconds
 
@@ -24,7 +22,6 @@ public class LrrCalculator : MonoBehaviour
             IntervalSizeBeats = _intervalSizeBeats,
             Intervals = new float[totalIntervals] 
         };
-        result.Intervals = new float[(int)Math.Ceiling(notes.Max(e => e.Position) / _intervalSizeBeats)];
         notes = notes.OrderBy(e => e.Position).ToList();
 
         int currentInterval = 0;
@@ -49,8 +46,13 @@ public class LrrCalculator : MonoBehaviour
         return result;
     }
 
-    public void Awake()
+    public float CalculateMaxNps(List<Note> notes, float songLengthInBeats, float bpm)
     {
-        Helpers.AutoAssign(ref _noteGenerator);
+        if (notes == null || notes.Count == 0)
+        {
+            return 0f;
+        }
+        var lrrData = CalculateLrrData(notes, songLengthInBeats, bpm);
+        return lrrData.Intervals.Max();
     }
 }
