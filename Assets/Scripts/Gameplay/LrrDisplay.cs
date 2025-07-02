@@ -37,13 +37,13 @@ public class LrrDisplay : MonoBehaviour
         LrrBarChart.XOffset = currentInterval + lerpPoint;
     }
 
-    public void SetFromData(LrrData lrrData)
+    public void SetFromData(LrrData lrrData, int playerSlot)
     {
         var maxNps = lrrData.Intervals.Max();
         LrrData = lrrData;
         LrrBarChart.SetYAxis(0, maxNps);
-        LrrBarChart.DisplayValues(lrrData.Intervals);
-        var suffix = "P" + (lrrData.PlayerSlot);
+        LrrBarChart.DisplayValues(lrrData.Intervals.ToArray());
+        var suffix = "P" + (playerSlot);
         PlayerIdentifierSprite.SetCategoryAndLabel("PlayerIdentifiers", suffix);
     }
 }

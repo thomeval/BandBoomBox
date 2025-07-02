@@ -504,6 +504,11 @@ public class Player : MonoBehaviour
 
     private void UpdateAccuracyDeviation(HitResult result)
     {
+        if (result.DeviationResult == DeviationResult.NotHit)
+        {
+            return;
+        }
+
         this.HitAccuracyTotal += Math.Abs(result.Deviation);
         this.HitDeviationTotal += result.Deviation;
     }

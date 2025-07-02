@@ -5883,7 +5883,6 @@ GameObject:
   - component: {fileID: 2138174002}
   - component: {fileID: 2138174004}
   - component: {fileID: 2138174003}
-  - component: {fileID: 2138174005}
   m_Layer: 0
   m_Name: Calculator
   m_TagString: Untagged
@@ -5936,19 +5935,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoteBaseValue: 50
---- !u!114 &2138174005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2138174001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e17804127a54fb94fbb266c664211e97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _intervalSizeBeats: 8
 --- !u!1001 &1923562750870817553
 PrefabInstance:
   m_ObjectHideFlags: 0

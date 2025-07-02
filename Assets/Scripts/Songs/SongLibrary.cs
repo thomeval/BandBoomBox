@@ -104,7 +104,7 @@ namespace Assets
             var songLength = songData.Length - songData.Offset;
             foreach (var chart in songData.SongCharts)
             {
-                changed |= CheckSongChartNoteCounts(chart, songLength);
+                changed |= CheckSongChartNoteCounts(chart, songLength, songData.Bpm, songData.BeatsPerMeasure);
             }
 
             if (changed)
@@ -114,14 +114,14 @@ namespace Assets
             }
         }
 
-        private bool CheckSongChartNoteCounts(SongChart chart, float songLength)
-        {
-            if (chart.NoteCounts.TotalNotes != 0)
+        private bool CheckSongChartNoteCounts(SongChart chart, float songLength, float songBpm, float beatsPerMeasure)
+        {          
+            if (chart.NoteCounts.TotalNotes != 0 && chart.NoteCounts.MaxNps != 0)
             {
                 return false;
             }
 
-            chart.NoteCounts = NoteCounter.CountNotes(chart, songLength);
+            chart.NoteCounts = NoteCounter.CountNotes(chart, songLength, songBpm, beatsPerMeasure);
             return chart.NoteCounts.TotalNotes > 0;
         }
 

@@ -147,7 +147,6 @@
     <Compile Include="Assets\Scripts\Common\PlayerSongSelectFrame.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteSet.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\LrrCalculator.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteGenerator.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayMultiplierUtils.cs" />
     <Compile Include="Assets\Scripts\Common\StarMeter.cs" />

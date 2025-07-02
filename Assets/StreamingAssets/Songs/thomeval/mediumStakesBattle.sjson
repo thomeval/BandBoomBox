@@ -35,7 +35,8 @@
       "NoteCounts": {
         "TapNotes": 107,
         "HoldNotes": 37,
-        "Nps": 1.22487664,
+        "AverageNps": 1.22487664,
+        "MaxNps": 1.33333337,
         "LaneNotes": [
           0,
           89,
@@ -447,7 +448,8 @@
       "NoteCounts": {
         "TapNotes": 207,
         "HoldNotes": 61,
-        "Nps": 2.226433,
+        "AverageNps": 2.226433,
+        "MaxNps": 3.33333325,
         "LaneNotes": [
           0,
           162,
@@ -859,7 +861,8 @@
       "NoteCounts": {
         "TapNotes": 299,
         "HoldNotes": 92,
-        "Nps": 3.26859331,
+        "AverageNps": 3.26859331,
+        "MaxNps": 5.33333349,
         "LaneNotes": [
           0,
           240,
@@ -1271,7 +1274,8 @@
       "NoteCounts": {
         "TapNotes": 416,
         "HoldNotes": 86,
-        "Nps": 3.97915721,
+        "AverageNps": 3.97915721,
+        "MaxNps": 6.0,
         "LaneNotes": [
           185,
           200,
@@ -1683,7 +1687,8 @@
       "NoteCounts": {
         "TapNotes": 477,
         "HoldNotes": 129,
-        "Nps": 4.97394657,
+        "AverageNps": 4.97394657,
+        "MaxNps": 7.33333349,
         "LaneNotes": [
           236,
           245,

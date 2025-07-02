@@ -213,7 +213,8 @@ public class ChartEditorManager : ScreenManager
 
     public void RefreshNoteCounts()
     {
-        CurrentChart.NoteCounts = NoteCounter.CountNotes(NoteManager.Notes, CurrentSongData.Length - CurrentSongData.Offset);
+        var intervalSize = CurrentSongData.BeatsPerMeasure * 2;
+        CurrentChart.NoteCounts = NoteCounter.CountNotes(NoteManager.Notes, CurrentSongData.Length - CurrentSongData.Offset, CurrentSongData.Bpm, intervalSize);
         UpdateNoteCountDisplay();
     }
 
@@ -491,8 +492,7 @@ public class ChartEditorManager : ScreenManager
 
             var sjson = SjsonUtils.ToSjson(NoteManager.Notes);
             CurrentChart.Notes = sjson;
-            CurrentChart.NoteCounts = NoteCounter.CountNotes(CurrentChart, CurrentSongData.Length - CurrentSongData.Offset);
-            NoteCountDisplay.UpdateNoteCountDisplay(CurrentChart.NoteCounts);
+            RefreshNoteCounts();
 
             CoreManager.SongLibrary.SaveSongToDisk(CurrentSongData);
             PlaySfx(SoundEvent.Editor_SaveComplete);

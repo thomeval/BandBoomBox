@@ -73,7 +73,6 @@ public class GameplayManager : ScreenManager
     private PlayerManager _playerManager;
     private SongManager _songManager;
     private SongStarValueCalculator _songStarValueCalculator;
-    private LrrCalculator _lrrCalculator;
     private LrrContainer _lrrContainer;
     private BackgroundManager _backgroundManager;
 
@@ -96,7 +95,6 @@ public class GameplayManager : ScreenManager
         _playerManager = CoreManager.PlayerManager;
         _songManager = FindObjectOfType<SongManager>();
         _songStarValueCalculator = FindObjectOfType<SongStarValueCalculator>();
-        _lrrCalculator = FindObjectOfType<LrrCalculator>();
         _lrrContainer = FindObjectOfType<LrrContainer>();
         _backgroundManager = FindObjectOfType<BackgroundManager>();
     }
@@ -218,13 +216,12 @@ public class GameplayManager : ScreenManager
         }
 
         _lrrContainer.EnableDisplayCount(NoteManagers.Count(e => e.ParentEnabled));
-        _lrrCalculator.IntervalSizeBeats = _songManager.CurrentSong.BeatsPerMeasure * 2;
+        var intervalSize = _songManager.CurrentSong.BeatsPerMeasure * 2;
         int lrrIndex = 0;
         foreach (var manager in NoteManagers.Where(e => e.ParentEnabled))
         {
-            var data = _lrrCalculator.CalculateLrrData(manager.Notes, _songManager.GetSongEndInBeats(), _songManager.CurrentSong.Bpm);          
-            data.PlayerSlot = manager.Slot;
-            _lrrContainer.LrrDisplays[lrrIndex].SetFromData(data);
+            var data = NoteCounter.CountNotes(manager.Notes, _songManager.GetSongEndInBeats(), _songManager.CurrentSong.Bpm, intervalSize);    
+            _lrrContainer.LrrDisplays[lrrIndex].SetFromData(data.LrrData, manager.Slot);
             lrrIndex++;
         }
     }

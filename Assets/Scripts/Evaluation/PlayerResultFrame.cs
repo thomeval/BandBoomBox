@@ -180,7 +180,7 @@ public class PlayerResultFrame : MonoBehaviour
 
     private void DisplayAccuracyDeviation(Player player)
     {
-        TxtAccuracy.text = $"{player.HitAccuracyAverage:f1} ms";
+        TxtAccuracy.text = $"{player.HitAccuracyAverage * 1000:f1} ms";
         TxtDeviation.text = FormatMilliseconds(player.HitDeviationAverage);
     }
 

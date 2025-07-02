@@ -7,17 +7,33 @@ public static class NoteCounter
 
     private const int LINE_SIZE = 4;
 
-    public static SongChartNoteCounts CountNotes(IEnumerable<Note> notes, float songLength)
+    public static SongChartNoteCounts CountNotes(IEnumerable<Note> notes, float songLength, float songBpm, float intervalSize)
     {
         var result = new SongChartNoteCounts();
+        result.LrrData.IntervalSizeBeats = intervalSize;
 
         if (notes == null || notes.Count() == 0)
         {
             return result;
         }
 
+        notes = notes.OrderBy(e => e.Position);
+
+        var notesInPhrase = 0;
+        var nextPhrase = intervalSize;
+
         foreach (var note in notes)
         {
+            if (note.Position >= nextPhrase)
+            {
+                nextPhrase += intervalSize;
+                var currentNps = notesInPhrase / intervalSize * songBpm / 60;
+
+                result.LrrData.Intervals.Add(currentNps);
+
+                notesInPhrase = 0;
+            }
+
             if (note.Lane < 0 || note.Lane >= LINE_SIZE)
             {
                 Debug.LogWarning($"Invalid note lane: {note.Lane}.");
@@ -35,22 +51,31 @@ public static class NoteCounter
                     result.HoldNotes++;
                     break;
             }
+
+            notesInPhrase++;
+        }
+
+        if (notesInPhrase > 0)
+        {
+            var currentNps = notesInPhrase / intervalSize * songBpm / 60;;
+            result.LrrData.Intervals.Add(currentNps);
         }
 
         if (songLength > 0.0f)
         {
-            result.Nps = result.TotalNotes / songLength;
+            result.AverageNps = result.TotalNotes / songLength;
+            result.MaxNps = result.LrrData.Intervals.Max();
         }
         return result;
 
     }
 
-    public static SongChartNoteCounts CountNotes(SongChart chart, float songLength)
+    public static SongChartNoteCounts CountNotes(SongChart chart, float songLength, float songBpm, float intervalSize)
     {
-        return CountNotes(chart.Notes, songLength);
+        return CountNotes(chart.Notes, songLength, songBpm, intervalSize);
     }
 
-    public static SongChartNoteCounts CountNotes(string[] notes, float songLength)
+    public static SongChartNoteCounts CountNotes(string[] notes, float songLength, float songBpm, float intervalSize)
     {
         var result = new SongChartNoteCounts();
 
@@ -59,28 +84,54 @@ public static class NoteCounter
             return result;
         }
 
-        var lines = notes.SelectMany(e => e.Split(" ")).ToArray();
+        var notesInPhrase = 0;
+        var nextPhrase = intervalSize;
+        var currentInterval = 0;
 
-        foreach (var line in lines)
+        for (int x = 0; x < notes.Length; x++)
         {
-            CountNotesInLine(line, ref result);
+            if (x >= nextPhrase)
+            {
+                nextPhrase += intervalSize;
+                var currentNps = notesInPhrase / intervalSize * songBpm / 60;
+                result.LrrData.Intervals.Add(currentNps);
+
+                notesInPhrase = 0;
+                currentInterval++;
+            }
+
+            var lines = notes[x].Split(" ");
+
+            foreach (var line in lines)
+            {
+                notesInPhrase += CountNotesInLine(line, ref result);
+            }
+        }
+
+        if (notesInPhrase > 0)
+        {
+            var currentNps = notesInPhrase / intervalSize * songBpm / 60;
+            result.LrrData.Intervals.Add(currentNps);
         }
 
         if (songLength > 0.0f)
         {
-            result.Nps = result.TotalNotes / songLength;
+            result.AverageNps = result.TotalNotes / songLength;
+            result.MaxNps = result.LrrData.Intervals.Max();
         }
+
         return result;
     }
 
-    private static SongChartNoteCounts CountNotesInLine(string line, ref SongChartNoteCounts result)
+    private static int CountNotesInLine(string line, ref SongChartNoteCounts counts)
     {
         if (line.Length != LINE_SIZE)
         {
             Debug.LogWarning($"Invalid note line length: {line}.");
-            return result;
+            return 0;
         }
 
+        var result = 0;
         for (var lane = 0; lane < LINE_SIZE; lane++)
         {
             if (line[lane] == '0')
@@ -97,15 +148,16 @@ public static class NoteCounter
                 continue;
             }
 
-            result.LaneNotes[lane]++;
+            result++;
+            counts.LaneNotes[lane]++;
 
             switch (noteClass.Value)
             {
                 case NoteClass.Tap:
-                    result.TapNotes++;
+                    counts.TapNotes++;
                     break;
                 case NoteClass.Hold:
-                    result.HoldNotes++;
+                    counts.HoldNotes++;
                     break;
             }
         }

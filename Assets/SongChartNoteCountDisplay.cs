@@ -10,7 +10,8 @@ public class SongChartNoteCountDisplay : MonoBehaviour
     public Text TxtTapNoteCount;
     public Text TxtHoldNoteCount;
     public Text TxtTotalNoteCount;
-    public Text TxtNps;
+    public Text TxtAvgNps;
+    public Text TxtMaxNps;
 
     public void UpdateNoteCountDisplay(SongChartNoteCounts counts)
     {
@@ -20,6 +21,7 @@ public class SongChartNoteCountDisplay : MonoBehaviour
         TxtTapNoteCount.text = counts.TapNotes.ToString();
         TxtHoldNoteCount.text = counts.HoldNotes.ToString();
         TxtTotalNoteCount.text = counts.TotalNotes.ToString();
-        TxtNps.text = string.Format(CultureInfo.InvariantCulture, "{0:N2}", counts.Nps);
+        TxtAvgNps.text = string.Format(CultureInfo.InvariantCulture, "{0:N2}", counts.AverageNps);
+        TxtMaxNps.text = string.Format(CultureInfo.InvariantCulture, "{0:N2}", counts.MaxNps);
     }
 }
