@@ -2075,6 +2075,7 @@ MonoBehaviour:
   EnableMomentumOption: 0
   AutoSetNoteLabelsFromController: 1
   DefaultKeyboardNoteLabels: WASD
+  LrrDisplayEnabled: 1
   MasterVolume: 0.5
   GameplaySfxVolume: 1
   GameplayMusicVolume: 0.8
@@ -2348,7 +2349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 0
-  m_MaxPlayerCount: 4
+  m_MaxPlayerCount: 6
   m_AllowJoining: 0
   m_JoinBehavior: 1
   m_PlayerJoinedEvent:

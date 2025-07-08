@@ -2043,7 +2043,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Library: []
+  m_Library:
+  - m_Name: PlayerIdentifiers
+    m_Hash: 0
+    m_CategoryList:
+    - m_Name: P5
+      m_Hash: 0
+      m_Sprite: {fileID: 1538120804, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+    - m_Name: P6
+      m_Hash: 0
+      m_Sprite: {fileID: 1680734709, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
   m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: a22fb749a19f73842bdbac7e0fe3fd1b, type: 3}
 --- !u!1 &7131182822757509540
 GameObject:
@@ -2265,7 +2274,8 @@ MonoBehaviour:
     NoteCounts:
       TapNotes: 0
       HoldNotes: 0
-      Nps: 0
+      AverageNps: 0
+      MaxNps: 0
       LaneNotes: 00000000000000000000000000000000
     Notes: []
   ScrollingBackground: {fileID: 173249840906701199}

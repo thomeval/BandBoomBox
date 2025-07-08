@@ -251,6 +251,8 @@ public class Menu : MonoBehaviour
 
 
         newObject.transform.SetParent(MenuItemsContainer.transform);
+        newObject.transform.localScale = Vector3.one;
+
         var rt = newObject.GetComponent<RectTransform>();
         if (rt != null)
         {
