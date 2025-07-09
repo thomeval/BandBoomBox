@@ -121,6 +121,7 @@
     <Compile Include="Assets\Scripts\Misc\ObjectEventArgs.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayStateValues.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayNetworkPlayerListItem.cs" />
+    <Compile Include="Assets\SoundEventProvider.cs" />
     <Compile Include="Assets\Scripts\Songs\SongManager.cs" />
     <Compile Include="Assets\Scripts\SongSelect\PlayerGroupHighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\Songs\HoldRegion.cs" />

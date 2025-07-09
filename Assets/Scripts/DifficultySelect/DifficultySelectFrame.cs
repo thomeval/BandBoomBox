@@ -31,6 +31,9 @@ public class DifficultySelectFrame : MonoBehaviour
     [Header("Other")]
     public Text TxtDisconnectMessage;
 
+    public SoundEventProvider SoundEventProvider;
+
+
     public Difficulty SelectedDifficulty
     {
         get
@@ -58,9 +61,6 @@ public class DifficultySelectFrame : MonoBehaviour
         }
 
     }
-
-    [Header("Sounds")]
-    public MenuSoundEventHandler SoundEventHandler;
 
     public SongChart SelectedSongChart
     {
@@ -103,7 +103,7 @@ public class DifficultySelectFrame : MonoBehaviour
 
     private void Init()
     {
-
+        Helpers.AutoAssign(ref SoundEventProvider);
         _chartGroups = DisplayedSongData.SongCharts.Select(e => e.Group).Distinct().ToArray();
         ChartGroupSelector.SetActive(_chartGroups.Length > 1);
         SelectedChartGroup = _chartGroups.Contains("Main") ? "Main" : _chartGroups[0];
@@ -190,7 +190,7 @@ public class DifficultySelectFrame : MonoBehaviour
             case InputAction.X:
                 NoteCountDisplay.ToggleVisibility();
                 PlayerHighScoreDisplay.ToggleVisibility();
-                SoundEventHandler.PlaySfx(SoundEvent.SelectionShifted);
+                SoundEventProvider.PlaySfx(SoundEvent.SelectionShifted, Player.LocalSlot);
                 break;
             default:
                 DifficultyMenu.HandleInput(inputEvent);
@@ -234,7 +234,7 @@ public class DifficultySelectFrame : MonoBehaviour
     private void ChangeScrollSpeed(int delta)
     {
         Player.ChangeScrollSpeed(delta);
-        SoundEventHandler.PlaySfx(SoundEvent.SelectionShifted);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionShifted, Player.LocalSlot);
         RefreshText();
     }
 
@@ -250,7 +250,7 @@ public class DifficultySelectFrame : MonoBehaviour
             return;
         }
 
-        SoundEventHandler.PlaySfx(SoundEvent.SelectionShifted);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionShifted, Player.LocalSlot);
         SelectedChartGroup = Helpers.GetNextValue(_chartGroups, SelectedChartGroup, delta, true);
         RefreshMenu();
         RefreshText();

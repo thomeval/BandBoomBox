@@ -49,7 +49,7 @@ public class PlayerJoinFrame : MonoBehaviour
     public Color ErrorMessageColor = new Color(1.0f, 0.5f, 0.5f);
 
     [Header("Sounds")]
-    public MenuSoundEventHandler SoundEventHandler;
+    public SoundEventProvider SoundEventProvider;
 
     public event EventHandler PlayerLeft;
 
@@ -57,6 +57,7 @@ public class PlayerJoinFrame : MonoBehaviour
     {
         _playerManager = FindObjectOfType<PlayerManager>();
         _playerJoinManager = FindObjectOfType<PlayerJoinManager>();
+        Helpers.AutoAssign(ref SoundEventProvider);
         DisplayCurrentPage(PlayerState.NotPlaying);
     }
 
@@ -118,7 +119,7 @@ public class PlayerJoinFrame : MonoBehaviour
                 {
                     Player.PlayerState = PlayerState.PlayerJoin_Options;
                     State = PlayerState.PlayerJoin_Options;
-                    SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
+                    SoundEventProvider.PlaySfx(SoundEvent.SelectionCancelled, Player.LocalSlot);
                 }
                 break;
             case PlayerState.PlayerJoin_Options:
@@ -145,7 +146,7 @@ public class PlayerJoinFrame : MonoBehaviour
 
     public void RemovePlayer()
     {
-        SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionCancelled, Player.LocalSlot);
         PlayerLeft?.Invoke(this, null);
     }
 
@@ -168,7 +169,7 @@ public class PlayerJoinFrame : MonoBehaviour
 
         if (!_playerManager.ProfileAvailable(profileData.ID, this.Player.Slot))
         {
-            SoundEventHandler.PlaySfx(SoundEvent.Mistake);
+            SoundEventProvider.PlaySfx(SoundEvent.Mistake, Player.LocalSlot);
             ProfileSelectFrame.Error = "The selected profile is in use by another player.";
             return;
         }
@@ -185,12 +186,12 @@ public class PlayerJoinFrame : MonoBehaviour
 
     public void PlaySfx(SoundEvent soundEvent)
     {
-        SoundEventHandler.PlaySfx(soundEvent);
+        SoundEventProvider.PlaySfx(soundEvent, Player.LocalSlot);
     }
 
     public void PlayConfirmedSfx()
     {
-        SoundEventHandler.PlaySfx(SoundEvent.SelectionConfirmed);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionConfirmed, Player.LocalSlot);
     }
 
     public void ToggleMenuOptions(bool showMomentum, bool showAllyBoost)

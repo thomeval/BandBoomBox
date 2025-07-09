@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.Processors;
 
 public class ExpModifierList : MonoBehaviour
 {
@@ -150,6 +149,7 @@ public class ExpModifierList : MonoBehaviour
         var newEntry = Instantiate(EntryPrefab);
         newEntry.Display(label, value);
         newEntry.transform.SetParent(this.transform);
+        newEntry.transform.localScale = Vector3.one;
         this.Entries.Add(newEntry);
     }
 }

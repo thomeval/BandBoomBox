@@ -202,7 +202,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   ExpMeter: {fileID: 208817176282614316}
   ErrorMessageColor: {r: 1, g: 0.5, b: 0.5, a: 1}
-  SoundEventHandler: {fileID: 2466622145899297917}
+  SoundEventHandler: {fileID: 0}
 --- !u!1 &99468441615552420
 GameObject:
   m_ObjectHideFlags: 0
@@ -4209,7 +4209,6 @@ RectTransform:
   - {fileID: 1175812058792224065}
   - {fileID: 3890434628172447123}
   - {fileID: 2432932601146488266}
-  - {fileID: 2898947142868603579}
   - {fileID: 5558043519727067417}
   m_Father: {fileID: 7572079746211223456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7261,10 +7260,6 @@ PrefabInstance:
       propertyPath: TxtExplanation
       value: 
       objectReference: {fileID: 7745448645956445064}
-    - target: {fileID: 1923562749500750279, guid: 512378adc8e68f540b09378e9117109b, type: 3}
-      propertyPath: SoundEventHandler
-      value: 
-      objectReference: {fileID: 2466622145899297917}
     - target: {fileID: 2362600706635371878, guid: 512378adc8e68f540b09378e9117109b, type: 3}
       propertyPath: m_audioClip
       value: 
@@ -7767,10 +7762,6 @@ PrefabInstance:
       propertyPath: CancelMenuAction
       value: Cancel
       objectReference: {fileID: 0}
-    - target: {fileID: 1923562749500750279, guid: 512378adc8e68f540b09378e9117109b, type: 3}
-      propertyPath: SoundEventHandler
-      value: 
-      objectReference: {fileID: 2466622145899297917}
     - target: {fileID: 5554915531928717208, guid: 512378adc8e68f540b09378e9117109b, type: 3}
       propertyPath: m_SortingLayer
       value: 0
@@ -7821,83 +7812,6 @@ MonoBehaviour:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1923562749500750276, guid: 512378adc8e68f540b09378e9117109b, type: 3}
   m_PrefabInstance: {fileID: 7905649292381364131}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &8207030421352732556
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2459439549496897091}
-    m_Modifications:
-    - target: {fileID: 6475643818352624948, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_Name
-      value: MenuSoundEventHandler
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
---- !u!114 &2466622145899297917 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6043278103482838001, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-  m_PrefabInstance: {fileID: 8207030421352732556}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5666282b9d2743479092f37dfd9f4da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &2898947142868603579 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6475643818352624951, guid: 5c67dc4aeac7af24383e14282628b0c7, type: 3}
-  m_PrefabInstance: {fileID: 8207030421352732556}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8555582735850883570
 PrefabInstance:
@@ -8309,10 +8223,6 @@ PrefabInstance:
       propertyPath: CancelMenuAction
       value: '##CANCEL##'
       objectReference: {fileID: 0}
-    - target: {fileID: 1923562749500750279, guid: 512378adc8e68f540b09378e9117109b, type: 3}
-      propertyPath: SoundEventHandler
-      value: 
-      objectReference: {fileID: 2466622145899297917}
     - target: {fileID: 1923562749500750279, guid: 512378adc8e68f540b09378e9117109b, type: 3}
       propertyPath: SelectionHighlightPadding.x
       value: 20
