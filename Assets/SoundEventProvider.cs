@@ -23,4 +23,14 @@ public class SoundEventProvider : MonoBehaviour
         var handler = MenuSoundEventHandlers[playerSlot - 1];
         handler.PlaySfx(soundEvent);
     }
+
+    public void PlayStarAttainedSfx(int starCount)
+    {
+        GeneralSoundEventHandler.PlayStarAttainedSfx(starCount);
+    }
+
+    public void PlayEvaluationGradeSfx(int sfxId)
+    {
+        GeneralSoundEventHandler.PlayEvaluationGradeSfx(sfxId);
+    }
 }

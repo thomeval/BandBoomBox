@@ -45,7 +45,8 @@ public class PlayerResultFrame : MonoBehaviour
     public GameObject[] Pages;
     public bool DisplayAllPages;
     public GameObject ReadyPage;
-    public MenuSoundEventHandler SoundEventHandler;
+    public int PlayerSlot;
+    public SoundEventProvider SoundEventProvider;
 
     [SerializeField]
     private int _displayedPage;
@@ -78,6 +79,7 @@ public class PlayerResultFrame : MonoBehaviour
     void Awake()
     {
         _animator = GetComponent<Animator>();
+        Helpers.AutoAssign(ref SoundEventProvider);
     }
     private void DisplayPage(int pageNum)
     {
@@ -107,9 +109,9 @@ public class PlayerResultFrame : MonoBehaviour
     public void DisplayResult(Player player, bool isNewPb, double stars, int numPlayers)
     {
         this.gameObject.SetActive(true);
+        this.PlayerSlot = player.Slot;
         TxtPlayerName.text = player.Name;
         TxtDifficulty.text = player.GroupAndDifficulty;
-
 
         TxtIsNewPb.gameObject.SetActive(isNewPb);
         var grade = player.GetCurrentGrade().ToString();
@@ -215,7 +217,7 @@ public class PlayerResultFrame : MonoBehaviour
 
     public void PlaySfx(SoundEvent soundEvent)
     {
-        SoundEventHandler.PlaySfx(soundEvent);
+        SoundEventProvider.PlaySfx(soundEvent, PlayerSlot);
     }
 }
 

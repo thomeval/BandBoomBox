@@ -109,7 +109,7 @@ public class EvaluationManager : ScreenManager
         var sfxId = _percentSfxCutoffs.Count(e => e <= maxPerfPercent);
 
         yield return new WaitForSeconds(0.5f);
-        CoreManager.SoundEventHandler.PlayEvaluationGradeSfx(sfxId);
+        CoreManager.SoundEventProvider.PlayEvaluationGradeSfx(sfxId);
     }
 
     public override void OnPlayerInput(InputEvent inputEvent)

@@ -43,7 +43,7 @@ public class StarMeter : MonoBehaviour
     [Header("Sounds")]
     public bool SfxEnabled;
 
-    public SoundEventHandler SoundEventHandler;
+    public SoundEventProvider SoundEventProvider;
 
     private void PlaySfx()
     {
@@ -56,17 +56,13 @@ public class StarMeter : MonoBehaviour
 
         if (curStar > lastStar)
         {
-            SoundEventHandler.PlayStarAttainedSfx(curStar);
+            SoundEventProvider.PlayStarAttainedSfx(curStar);
         }
     }
 
     void Awake()
     {
-        if (SoundEventHandler == null)
-        {
-            var core = FindObjectOfType<CoreManager>();
-            SoundEventHandler = core?.SoundEventHandler;
-        }
+        Helpers.AutoAssign(ref SoundEventProvider);        
     }
 
     void Start()

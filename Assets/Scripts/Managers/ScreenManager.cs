@@ -126,7 +126,12 @@ public class ScreenManager : MonoBehaviour
 
     public void PlaySfx(SoundEvent soundEvent)
     {
-        CoreManager.SoundEventHandler.PlaySfx(soundEvent);
+        CoreManager.SoundEventProvider.PlaySfx(soundEvent, 0);
+    }
+
+    public void PlaySfxForPlayer(SoundEvent soundEvent, int playerSlot)
+    {
+        CoreManager.SoundEventProvider.PlaySfx(soundEvent, playerSlot);
     }
 
     public virtual void SetActionMap(ActionMapType actionMapType)

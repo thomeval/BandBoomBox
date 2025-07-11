@@ -2552,13 +2552,13 @@ MonoBehaviour:
   SongPreviewManager: {fileID: 1563292131917992424}
   SongManager: {fileID: 3657860950170843307}
   SceneTransitionManager: {fileID: 871702214}
-  SoundEventHandler: {fileID: 2056930745}
   SongLibrary: {fileID: 1910463115166675696}
   NetworkManager: {fileID: 374259201}
   ClientNetApi: {fileID: 553200925}
   ServerNetApi: {fileID: 364898357}
   NetSongSelectTurnManager: {fileID: 1887147678}
   GameplayStateRecorder: {fileID: 1620616868}
+  SoundEventProvider: {fileID: 743999107}
   SelectedSong: 
   AudioMixer: {fileID: 24100000, guid: 6dfb45b200e18cb40ac79e7a256945a7, type: 2}
   Settings: {fileID: 0}

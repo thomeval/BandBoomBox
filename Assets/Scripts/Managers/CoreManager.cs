@@ -18,13 +18,13 @@ public class CoreManager : MonoBehaviour
     public SongPreviewManager SongPreviewManager;
     public SongManager SongManager;
     public SceneTransitionManager SceneTransitionManager;
-    public SoundEventHandler SoundEventHandler;
     public SongLibrary SongLibrary;
     public NetworkManager NetworkManager;
     public ClientNetApi ClientNetApi;
     public ServerNetApi ServerNetApi;
     public NetSongSelectTurnManager NetSongSelectTurnManager;
     public GameplayStateRecorder GameplayStateRecorder;
+    public SoundEventProvider SoundEventProvider;
 
     public string SelectedSong;
 
