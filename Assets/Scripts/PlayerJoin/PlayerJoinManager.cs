@@ -44,6 +44,7 @@ public class PlayerJoinManager : ScreenManager
             _playerManager.RemovePlayer(player.Slot);
             _playerManager.UpdateAllowPlayerJoining();
             RefreshPlayerList();
+            DisplayFrames();
 
             if (CoreManager.IsNetGame)
             {
@@ -124,6 +125,8 @@ public class PlayerJoinManager : ScreenManager
             }
             frame.Refresh();
         }
+
+        DisplayFrames();
     }
 
     private void AssignFrameToPlayer(PlayerJoinFrame frame, Player player, bool withSfx)
@@ -161,6 +164,15 @@ public class PlayerJoinManager : ScreenManager
 
         SendNetPlayerJoined(player);
         RefreshPlayerList();
+        DisplayFrames();
+    }
+
+    private void DisplayFrames()
+    {
+        var lastPlayer = CoreManager.PlayerManager.Players.Max(e => e.LocalSlot);
+
+        PlayerJoinFrames[5].gameObject.SetActive(lastPlayer >= 5);
+        PlayerJoinFrames[4].gameObject.SetActive(lastPlayer >= 4);
     }
 
     private void SendNetPlayerJoined(Player player)

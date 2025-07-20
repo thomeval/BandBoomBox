@@ -2465,7 +2465,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 20
+  m_Spacing: 5
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -2482,7 +2482,7 @@ RectTransform:
   m_GameObject: {fileID: 1058249070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.20600858, y: 0.20600858, z: 1}
+  m_LocalScale: {x: 0.20787746, y: 0.20787746, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 982315817}
@@ -2545,7 +2545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16cb3a949be04f54a927e2a16dca1f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredWidth: 1920
+  PreferredWidth: 1900
   PreferredHeight: 620
 --- !u!1001 &1292218956
 PrefabInstance:
