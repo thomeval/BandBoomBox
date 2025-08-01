@@ -226,7 +226,6 @@ public class HitJudge
         result.PlayerSlot = player;
 
         return result;
-
     }
 
     public HitResult GetMissResult(int lane, int player, Difficulty difficulty)

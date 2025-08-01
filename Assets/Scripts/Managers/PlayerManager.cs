@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
     {
         get
         {
-            return _coreManager.IsNetGame ? 2 : 4;
+            return _coreManager.IsNetGame ? 2 : 6;
         }
     }
 

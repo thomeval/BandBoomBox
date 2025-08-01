@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour
     private RectTransform _itemsContainerRectTransform;
 
     [Header("Sounds")]
-    public MenuSoundEventHandler SoundEventHandler;
+    public SoundEventProvider SoundEventProvider;
 
     [Header("Behaviour")]
     public bool WrapSelection;
@@ -121,11 +121,7 @@ public class Menu : MonoBehaviour
 
     void Awake()
     {
-        // If this menu doesn't have a MenuSoundEventHandler set, use the global one found in CoreManager. Note that SoundEventHandler extends MenuSoundEventHandler.
-        if (SoundEventHandler == null)
-        {
-            SoundEventHandler = FindObjectOfType<SoundEventHandler>();
-        }
+        Helpers.AutoAssign(ref SoundEventProvider);
 
         _menuItems.Clear();
 
@@ -251,6 +247,8 @@ public class Menu : MonoBehaviour
 
 
         newObject.transform.SetParent(MenuItemsContainer.transform);
+        newObject.transform.localScale = Vector3.one;
+
         var rt = newObject.GetComponent<RectTransform>();
         if (rt != null)
         {
@@ -323,14 +321,14 @@ public class Menu : MonoBehaviour
             return;
         }
 
-        SoundEventHandler.PlaySfx(SoundEvent.SelectionShifted);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionShifted, Player);
 
         this.SendMessageUpwards("MenuItemShifted", GetEventArgs(SelectedText, delta), SendMessageOptions.DontRequireReceiver);
     }
 
     private void ChangeSelection(int delta)
     {
-        SoundEventHandler.PlaySfx(SoundEvent.SelectionChanged);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionChanged, Player);
         if (WrapSelection)
         {
             SelectedIndex = Helpers.Wrap(SelectedIndex + delta, _menuItems.Count - 1);
@@ -364,7 +362,7 @@ public class Menu : MonoBehaviour
             return;
         }
 
-        SoundEventHandler.PlaySfx(SoundEvent.SelectionConfirmed);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionConfirmed, Player);
         this.SendMessageUpwards("MenuItemSelected", GetEventArgs(SelectedText));
     }
 
@@ -377,7 +375,7 @@ public class Menu : MonoBehaviour
             return;
         }
 
-        SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionCancelled, Player);
         this.SendMessageUpwards("MenuItemSelected", GetEventArgs(CancelMenuAction));
     }
 

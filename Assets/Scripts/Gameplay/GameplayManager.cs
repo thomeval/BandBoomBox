@@ -186,9 +186,7 @@ public class GameplayManager : ScreenManager
 
     private void SetNoteHighwayScale()
     {
-        var fourPlayers = _playerManager.GetLocalPlayers().Count == 4;
-        var highwayScale = fourPlayers ? FOUR_PLAYER_HUD_SCALE : 1.0f;
-        NoteHighways.transform.localScale = new Vector3(highwayScale, highwayScale, highwayScale);
+        var fourPlayers = _playerManager.GetLocalPlayers().Count >= 4;
         NoteHighways.GetComponent<VerticalLayoutGroup>().spacing = fourPlayers ? FOUR_PLAYER_HUD_SPACING : 0;
     }
 

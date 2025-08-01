@@ -28,7 +28,6 @@ public class PauseMenu : MonoBehaviour
         Menu.Player = player;
 
         var handlerIdx = Math.Clamp(player - 1, 0, SoundEventHandlers.Length - 1);
-        Menu.SoundEventHandler = SoundEventHandlers[handlerIdx];
 
         this.gameObject.SetActive(true);
     }

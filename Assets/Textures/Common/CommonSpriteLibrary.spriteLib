@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &1
 MonoBehaviour:
-  m_ObjectHideFlags: 36
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -118,10 +118,20 @@ MonoBehaviour:
       m_Sprite: {fileID: -6526865527696144649, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6526865527696144649, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+    - m_Name: P5
+      m_Hash: 768707464
+      m_Sprite: {fileID: 1538120804, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1538120804, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+    - m_Name: P6
+      m_Hash: 886626866
+      m_Sprite: {fileID: 1680734709, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1680734709, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 5
+    m_EntryOverrideCount: 7
   - m_Name: ScoreCategories
-    m_Hash: -287432470
+    m_Hash: 786309354
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Solo
@@ -152,7 +162,7 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 5
   - m_Name: Stars
-    m_Hash: -1059262680
+    m_Hash: 14479144
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: 0
@@ -213,3 +223,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 11
   m_PrimaryLibraryGUID: 
+  m_ModificationHash: 638874779095831418
+  m_Version: 1

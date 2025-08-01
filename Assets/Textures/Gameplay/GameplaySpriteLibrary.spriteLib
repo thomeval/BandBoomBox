@@ -18,22 +18,22 @@ MonoBehaviour:
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: P1
-      m_Hash: 0
+      m_Hash: 716984209
       m_Sprite: {fileID: 7936265252671662889, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 7936265252671662889, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
     - m_Name: P2
-      m_Hash: 0
+      m_Hash: 867507755
       m_Sprite: {fileID: -3612827306860660423, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -3612827306860660423, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
     - m_Name: P3
-      m_Hash: 0
+      m_Hash: 78786237
       m_Sprite: {fileID: 6685501487919365077, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 6685501487919365077, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
     - m_Name: P4
-      m_Hash: 0
+      m_Hash: 450280222
       m_Sprite: {fileID: 4536834274596570524, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 4536834274596570524, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
@@ -42,8 +42,18 @@ MonoBehaviour:
       m_Sprite: {fileID: -6526865527696144649, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6526865527696144649, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+    - m_Name: P5
+      m_Hash: 768707464
+      m_Sprite: {fileID: 1538120804, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1538120804, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+    - m_Name: P6
+      m_Hash: 886626866
+      m_Sprite: {fileID: 1680734709, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1680734709, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 5
+    m_EntryOverrideCount: 7
   - m_Name: TimingIcons
     m_Hash: 795569582
     m_CategoryList: []
@@ -377,5 +387,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 4
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638841982299824894
+  m_ModificationHash: 638874947308343128
   m_Version: 1
