@@ -25,6 +25,7 @@ public class SettingsManager : MonoBehaviour
     public bool AutoSetNoteLabelsFromController = true;
     public string DefaultKeyboardNoteLabels = "WASD";
     public bool LrrDisplayEnabled = true;
+    public HighwayNameDisplay HighwayNameDisplay = HighwayNameDisplay.SongStart;
 
     [Header("Audio Settings")]
     public float MasterVolume = 0.5f;

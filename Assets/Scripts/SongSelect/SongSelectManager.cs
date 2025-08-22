@@ -226,18 +226,18 @@ public class SongSelectManager : ScreenManager
             case InputAction.B:
             case InputAction.Back:
                 CoreManager.SongPreviewManager.StopPreviews();
-                PlaySfx(SoundEvent.SelectionCancelled);
+                PlaySfxForPlayer(SoundEvent.SelectionCancelled, inputEvent.Player);
                 SceneTransition(GameScene.PlayerJoin);
                 break;
             case InputAction.Y:
                 SongSortMode = Helpers.GetNextValue(_availableSortModes, SongSortMode, 1, true);
-                PlaySfx(SoundEvent.SelectionShifted);
+                PlaySfxForPlayer(SoundEvent.SelectionShifted, inputEvent.Player);
                 break;
             case InputAction.Turbo:
                 HighScoreDisplay.ToggleVisibility();
                 PlayerGroupHighScoreDisplay.ToggleVisibility();
                 ShowHighScores(OrderedSongs[SelectedSongIndex]);
-                PlaySfx(SoundEvent.SelectionShifted);
+                PlaySfxForPlayer(SoundEvent.SelectionShifted, inputEvent.Player);
                 break;
 
         }

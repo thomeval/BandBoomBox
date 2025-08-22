@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
     {
         get
         {
-            return _coreManager.IsNetGame ? 2 : 6;
+            return _coreManager.IsNetGame ? 3 : 6;
         }
     }
 
@@ -64,6 +64,7 @@ public class PlayerManager : MonoBehaviour
         foreach (var player in GetLocalPlayers())
         {
             player.Reset();
+            player.HudManager.HighwayNameDisplay = _coreManager.Settings.HighwayNameDisplay;
         }
 
         UpdateRankings();

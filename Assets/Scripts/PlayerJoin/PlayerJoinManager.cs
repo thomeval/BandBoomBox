@@ -173,6 +173,7 @@ public class PlayerJoinManager : ScreenManager
 
         PlayerJoinFrames[5].gameObject.SetActive(lastPlayer >= 5);
         PlayerJoinFrames[4].gameObject.SetActive(lastPlayer >= 4);
+        PlayerJoinFrames[2].gameObject.SetActive(lastPlayer >= 2 || ! CoreManager.IsNetGame);
     }
 
     private void SendNetPlayerJoined(Player player)

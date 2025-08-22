@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerHudManager : MonoBehaviour
 {
     public int Slot;
+    public HighwayNameDisplay HighwayNameDisplay = HighwayNameDisplay.SongStart;
 
     public Text TxtCombo;
     public Text TxtRanking;
@@ -52,6 +53,7 @@ public class PlayerHudManager : MonoBehaviour
         ImgAllyBoostTickMeter.fillAmount = 1.0f * player.AllyBoostTicks / player.TicksForNextBoost;
 
         _mistakeSfxEnabled = player.MistakeSfxEnabled;
+        CountdownDisplay.HighwayNameDisplay = HighwayNameDisplay;
     }
 
     [SerializeField]

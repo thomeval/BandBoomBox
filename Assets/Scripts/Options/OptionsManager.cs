@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +14,7 @@ public class OptionsManager : ScreenManager
     public Text TxtAutoSetNoteLabels;
     public Text TxtDefaultKeyboardNoteLabels;
     public Text TxtShowLrr;
+    public Text TxtHighwayNameDisplay;
 
     [Header("Audio")]
     public Text TxtAudioLatency;
@@ -65,6 +65,7 @@ public class OptionsManager : ScreenManager
         TxtAutoSetNoteLabels.text = settings.AutoSetNoteLabelsFromController ? "On" : "Off";
         TxtDefaultKeyboardNoteLabels.text = settings.DefaultKeyboardNoteLabels;
         TxtShowLrr.text = settings.LrrDisplayEnabled ? "On" : "Off";
+        TxtHighwayNameDisplay.text = settings.HighwayNameDisplay.ToString();
         TxtAudioLatency.text = $"{settings.AudioLatency * 1000:F0} ms";
         TxtMasterVolume.text = $"{settings.MasterVolume:P0}";
         TxtGameplaySfxVolume.text = $"{settings.GameplaySfxVolume:P0}";
@@ -113,8 +114,11 @@ public class OptionsManager : ScreenManager
             case "Default Keyboard Note Labels":
                 settings.DefaultKeyboardNoteLabels = Helpers.GetNextValue(Player.LabelSkins, settings.DefaultKeyboardNoteLabels, delta, true);
                 break;
-                case "Show Long Range Radar":
-                    settings.LrrDisplayEnabled = !settings.LrrDisplayEnabled;
+            case "Show Long Range Radar":
+                settings.LrrDisplayEnabled = !settings.LrrDisplayEnabled;
+                break;
+            case "Show Player Names During Gameplay":
+                settings.HighwayNameDisplay = Helpers.GetNextEnumValue(settings.HighwayNameDisplay, delta, true);
                 break;
             case "Master Volume":
                 AddToOption(ref settings.MasterVolume, VOLUME_CHANGE_TICK * delta, 0.0f, 1.0f);

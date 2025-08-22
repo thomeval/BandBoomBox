@@ -126,7 +126,6 @@
     <Compile Include="Assets\Scripts\SongSelect\PlayerGroupHighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\Songs\HoldRegion.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayJoinSubmenu.cs" />
-    <Compile Include="Assets\EditorButtonHandler.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorClipboard.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteUtils.cs" />
     <Compile Include="Assets\Scripts\Gameplay\LrrDisplay.cs" />
@@ -256,6 +255,7 @@
     <Compile Include="Assets\Scripts\NetPlay\GameplayStateValuesDto.cs" />
     <Compile Include="Assets\Scripts\Misc\SceneTransitionState.cs" />
     <Compile Include="Assets\Scripts\Input\DeviceLostArgs.cs" />
+    <Compile Include="Assets\Scripts\Common\HighwayNameDisplay.cs" />
     <Compile Include="Assets\Scripts\Gameplay\LrrData.cs" />
     <Compile Include="Assets\Scripts\InitialLoad\InitialLoadManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorManager.cs" />
