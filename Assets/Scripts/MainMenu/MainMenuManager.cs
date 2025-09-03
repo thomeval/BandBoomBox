@@ -129,6 +129,7 @@ public class MainMenuManager : ScreenManager
 
                 CoreManager.PlayerManager.AutoSetNoteSkin();
                 CoreManager.IsNetGame = false;
+                CoreManager.IsHost = true;
                 SceneTransition(GameScene.PlayerJoin);
                 break;
             case "Network Play":

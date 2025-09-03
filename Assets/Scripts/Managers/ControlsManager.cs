@@ -87,7 +87,7 @@ public class ControlsManager : MonoBehaviour
 
     public void ApplyCustomBindings()
     {
-        foreach (var player in _playerManager.Players)
+        foreach (var player in _playerManager.GetLocalPlayers())
         {
             ApplyCustomBindings(player);
         }
