@@ -3,7 +3,7 @@ param(
     [Parameter(Mandatory=$true)]
     [string] $OutputPath = "D:\Writable Folder\Band BoomBox\",
     [Parameter(Mandatory=$false)]
-    [string] $UnityPath = "C:\Program Files\Unity\2022.3.20f1\Editor\Unity.exe"
+    [string] $UnityPath = "C:\Program Files\Unity\2022.3.62f2\Editor\Unity.exe"
 )
 
 function Clean-TargetFolder($target)
