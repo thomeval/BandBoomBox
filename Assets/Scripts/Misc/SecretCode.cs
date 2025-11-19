@@ -3,5 +3,6 @@ public enum SecretCode
     EnableNerfDifficulty = 0,
     EnableMomentumOption = 1,
     EnableExtraDifficulty = 2,
-    AbsolutelyNothing = 3
+    EnableSectionDifficulty = 3,
+    AbsolutelyNothing = 4
 }

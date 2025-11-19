@@ -87,7 +87,18 @@ public class SongManager : MonoBehaviour
         return CurrentSong.Length - CurrentSong.Offset;
     }
 
-    public string GetCurrentSection()
+    public int GetCurrentSectionIndex()
+    {
+        var position = GetSongPositionInBeats();
+        if (CurrentSong == null)
+        {
+            return -1;
+        }
+
+        return CurrentSong.GetSectionIndex(position);
+    }
+
+    public string GetCurrentSectionName()
     {
         var position = GetSongPositionInBeats();
         if (CurrentSong == null)

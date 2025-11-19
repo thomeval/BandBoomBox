@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine.UIElements.Experimental;
 
 public static class GameplayMultiplierUtils
 {
@@ -21,6 +22,19 @@ public static class GameplayMultiplierUtils
     /// Controls the maximum possible score multiplier.
     /// </summary>
     public const double MX_MAXIMUM = 99.0;
+
+    private static readonly float[] _turboMxGainRates = { 0.0f,  1.0f,  2.5f,  4.25f, 6.0f,  8.0f,  10.0f, 12.0f, 14.0f,
+                                                   16.0f, 18.0f, 20.0f, 22.0f, 24.0f, 26.0f, 28.0f, 30.0f, 32.0f  };
+
+        /// <summary>
+    /// Controls the amount of combo required to gain a bonus to the momentum gain rate.
+    /// </summary>
+    public const float GR_COMBO_FOR_BONUS = 50;
+
+    /// <summary>
+    /// Controls the amount of bonus awarded to momentum gain rate if the current team combo is at least GR_COMBO_FOR_BONUS (applied multiple times if appropriate).
+    /// </summary>
+    public const float GR_COMBO_BONUS_AMOUNT = 0.05f;
 
     /// <summary>
     /// Calculates an updated score multiplier by taking the current score multiplier and time elapsed as inputs,
@@ -76,6 +90,19 @@ public static class GameplayMultiplierUtils
         multiplier = Math.Min(1.0, multiplier);
 
         return multiplier;
+    }
+
+    public static float GetMultiplierGainRate(int teamCombo, int playersInTurbo)
+    {
+        var newGainRate = 1.0f;
+
+        var comboGainBonus = ((int)(teamCombo / GR_COMBO_FOR_BONUS)) * GR_COMBO_BONUS_AMOUNT;
+        comboGainBonus = Math.Min(comboGainBonus, 1.0f);
+        newGainRate += comboGainBonus;
+
+        var turboBonus = _turboMxGainRates[playersInTurbo];
+        newGainRate += turboBonus;
+        return newGainRate;
     }
 }
 

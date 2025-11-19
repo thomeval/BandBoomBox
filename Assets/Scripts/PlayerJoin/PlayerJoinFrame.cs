@@ -194,8 +194,8 @@ public class PlayerJoinFrame : MonoBehaviour
         SoundEventProvider.PlaySfx(SoundEvent.SelectionConfirmed, Player.LocalSlot);
     }
 
-    public void ToggleMenuOptions(bool showMomentum, bool showAllyBoost)
+    public void ToggleMenuOptions(bool showMomentum, bool showAllyBoost, bool showSectionDifficulty)
     {
-        OptionsFrame.ToggleMenuOptions(showMomentum, showAllyBoost);
+        OptionsFrame.ToggleMenuOptions(showMomentum, showAllyBoost, showSectionDifficulty);
     }
 }

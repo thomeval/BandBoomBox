@@ -65,6 +65,7 @@
     <Compile Include="Assets\SongChartNoteCountDisplay.cs" />
     <Compile Include="Assets\Scripts\Managers\ScreenManager.cs" />
     <Compile Include="Assets\Scripts\Notes\SjsonUtils.cs" />
+    <Compile Include="Assets\EvaluationSectionList.cs" />
     <Compile Include="Assets\Scripts\Common\GameScene.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileCreateFrame.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectNetworkPlayerListItem.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Assets\Scripts\Notes\NoteSjsonEntry.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorFileSelectPage.cs" />
     <Compile Include="Assets\Scripts\Songs\SongStarCalculatorChart.cs" />
+    <Compile Include="Assets\Scripts\Common\ScrollRectExtensions.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorBasicsPage.cs" />
     <Compile Include="Assets\Scripts\Common\ExpMeter.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayHostSubmenu.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Assets\Scripts\Common\MenuEventArgs.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\NetPlayMenuManager.cs" />
     <Compile Include="Assets\LrrContainer.cs" />
+    <Compile Include="Assets\SectionResultDisplay.cs" />
     <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteCounter.cs" />
     <Compile Include="Assets\Scripts\Common\Player.cs" />
@@ -227,6 +230,7 @@
     <Compile Include="Assets\Scripts\Songs\SongStarValueCalculator.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNoteTransformer.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePalette.cs" />
+    <Compile Include="Assets\Scripts\Common\SectionJudgeMode.cs" />
     <Compile Include="Assets\Scripts\Input\InputEvent.cs" />
     <Compile Include="Assets\Scripts\Misc\SecretCode.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownNumber.cs" />
@@ -235,16 +239,19 @@
     <Compile Include="Assets\Scripts\Common\NetworkPlayerListSortMode.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkPlayerList.cs" />
     <Compile Include="Assets\Scripts\Evaluation\PlayerResultFrame.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\SectionTracker.cs" />
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierList.cs" />
     <Compile Include="Assets\ContentScaler.cs" />
     <Compile Include="Assets\Scripts\Managers\CoreManager.cs" />
     <Compile Include="Assets\Scripts\Common\SectionProgressMeter.cs" />
+    <Compile Include="Assets\Scripts\Input\SectionJudgeResult.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GoalMeter.cs" />
     <Compile Include="Assets\Scripts\Input\DeviationResult.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongList.cs" />
     <Compile Include="Assets\Scripts\Common\Menu.cs" />
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierEntry.cs" />
+    <Compile Include="Assets\EvaluationSectionItem.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinNetworkPlayerListItem.cs" />
     <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
     <Compile Include="Assets\Scripts\Notes\RegionMarker.cs" />

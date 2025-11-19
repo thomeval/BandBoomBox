@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -164,6 +165,26 @@ public static class Helpers
         0.4f                // E grade. Below this for F grade.
     };
 
+    public static float[] NormalSectionGradePercentages = 
+    {
+        0.90f, // Superb
+        0.80f, // Awesome 
+        0.70f, // Great
+        0.60f, // Nice
+        0.50f, // Okay
+        0.0f  // Poor or empty
+    };
+
+    public static float[] StrictSectionGradePercentages =
+    {
+        0.95f, // Superb
+        0.90f, // Awesome 
+        0.85f, // Great
+        0.75f, // Nice
+        0.65f, // Okay
+        0.0f  // Poor or empty
+    };
+
     public static Grade PercentToGrade(float percent)
     {
         for (var x = 0; x < GradePercentages.Length; x++)
@@ -188,6 +209,32 @@ public static class Helpers
             return 0.0f;
         }
         return GradePercentages[(int)grade];
+    }
+
+    public static SectionJudgeResult PercentToSectionGrade(double percent, SectionJudgeMode mode)
+    {
+        if (percent < 0.0f)
+        {
+            return SectionJudgeResult.Empty;
+        }
+
+        if (mode == SectionJudgeMode.Off)
+        {
+            return SectionJudgeResult.Empty;
+        }
+
+        var percentages = mode == SectionJudgeMode.Strict
+            ? StrictSectionGradePercentages
+            : NormalSectionGradePercentages;
+
+        for (var x = 0; x < percentages.Length; x++)
+        {
+            if (percentages[x] <= percent)
+            {
+                return (SectionJudgeResult)x;
+            }
+        }
+        return SectionJudgeResult.Poor;
     }
 
     public static string PathToUri(string path)
@@ -494,6 +541,20 @@ public static class Helpers
         }
 
         return result;
+    }
+
+    public static Color SectionGradeToColor(SectionJudgeResult sectionGrade)
+    {
+        return sectionGrade switch
+        {
+            SectionJudgeResult.Superb => new Color(0.5f, 0.5f, 1.0f),
+            SectionJudgeResult.Awesome => new Color(0.0f, 1.0f, 1.0f),
+            SectionJudgeResult.Great => new Color(0.0f, 1.0f, 0.0f),
+            SectionJudgeResult.Nice => new Color(1.0f, 1.0f, 0.0f),
+            SectionJudgeResult.Okay => new Color(1.0f, 0.65f, 0.0f),
+            SectionJudgeResult.Poor => Color.red,
+            _ => Color.gray,
+        };
     }
 }
 

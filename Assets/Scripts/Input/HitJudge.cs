@@ -194,6 +194,17 @@ public class HitJudge
         { FullComboType.PerfectFullCombo , 1.5f},
     };
 
+    public static Dictionary<SectionJudgeResult, float> SectionBonusMxValues = new()
+    {
+        { SectionJudgeResult.Superb, 1.0f },
+        { SectionJudgeResult.Awesome, 0.8f },
+        { SectionJudgeResult.Great, 0.6f },
+        { SectionJudgeResult.Nice, 0.4f },
+        { SectionJudgeResult.Okay, 0.2f },
+        { SectionJudgeResult.Poor, 0.0f },
+        { SectionJudgeResult.Empty, 0.0f }
+    };
+
     public HitResult GetHitResult(float deviation, int player, Difficulty difficulty, int lane, NoteType noteType, NoteClass noteClass, bool allowCrit, bool allowAllyBoost)
     {
         var result = new HitResult();
@@ -258,8 +269,11 @@ public class HitJudge
         return result;
     }
 
+
     private static readonly JudgeResult[] _comboBreakResults = { JudgeResult.Miss, JudgeResult.Wrong, JudgeResult.Bad };
     private static readonly JudgeResult[] _comboAddResults = { JudgeResult.Crit, JudgeResult.Perfect, JudgeResult.Cool, JudgeResult.CoolWithBoost, JudgeResult.Ok };
+
+
 
     public static bool? IsComboBreak(JudgeResult result)
     {

@@ -10,19 +10,6 @@ public class GameplayStateHelper : MonoBehaviour
     private PlayerManager _playerManager;
     private HudManager _hudManager;
 
-    private readonly float[] _turboMxGainRates = { 0.0f,  1.0f,  2.5f,  4.25f, 6.0f,  8.0f,  10.0f, 12.0f, 14.0f,
-                                                   16.0f, 18.0f, 20.0f, 22.0f, 24.0f, 26.0f, 28.0f, 30.0f, 32.0f  };
-
-    /// <summary>
-    /// Controls the amount of combo required to gain a bonus to the momentum gain rate.
-    /// </summary>
-    public readonly float GR_COMBO_FOR_BONUS = 50;
-
-    /// <summary>
-    /// Controls the amount of bonus awarded to momentum gain rate if the current team combo is at least GR_COMBO_FOR_BONUS (applied multiple times if appropriate).
-    /// </summary>
-    public readonly float GR_COMBO_BONUS_AMOUNT = 0.05f;
-
     public readonly float ENERGY_DRAIN_RATE = 1.0f / 12;
 
     /// <summary>
@@ -76,15 +63,8 @@ public class GameplayStateHelper : MonoBehaviour
 
     public void UpdateMxGainRate()
     {
-        var newGainRate = 1.0f;
-
-        var comboGainBonus = ((int)(StateValues.TeamCombo / GR_COMBO_FOR_BONUS)) * GR_COMBO_BONUS_AMOUNT;
-        comboGainBonus = Math.Min(comboGainBonus, 1.0f);
-        newGainRate += comboGainBonus;
-
         var playersInTurbo = _playerManager.Players.Count(e => e.TurboActive);
-        var turboBonus = _turboMxGainRates[playersInTurbo];
-        newGainRate += turboBonus;
+        var newGainRate = GameplayMultiplierUtils.GetMultiplierGainRate(StateValues.TeamCombo, playersInTurbo);
         StateValues.MxGainRate = newGainRate;
     }
 
@@ -160,13 +140,19 @@ public class GameplayStateHelper : MonoBehaviour
         hitResult.ScorePoints = (int)(StateValues.Multiplier * hitResult.ScorePoints);
         StateValues.Score += hitResult.ScorePoints;
         StateValues.Multiplier += hitResult.MxPoints * appliedMxGainRate;
-        StateValues.Multiplier = Math.Max(GameplayMultiplierUtils.MX_MINIMUM, StateValues.Multiplier);
-        StateValues.Multiplier = Math.Min(GameplayMultiplierUtils.MX_MAXIMUM, StateValues.Multiplier);
+        StateValues.Multiplier = Math.Clamp(StateValues.Multiplier, GameplayMultiplierUtils.MX_MINIMUM, GameplayMultiplierUtils.MX_MAXIMUM);
         StateValues.MaxMultiplier = Math.Max(StateValues.Multiplier, StateValues.MaxMultiplier);
         StateValues.Stars = ParentManager.SongStarScoreValues.GetStarFraction(StateValues.Score);
         if (hitResult.JudgeResult <= JudgeResult.Perfect)
         {
             UpdateEnergyAmount(StateValues.Energy + ENERGY_GAIN_RATE);
         }
+    }
+
+    public void ApplySectionResult(SectionJudgeResult result)
+    {
+        var sectionBonus = HitJudge.SectionBonusMxValues[result];
+        StateValues.Multiplier += sectionBonus;
+        StateValues.Multiplier = Math.Clamp(StateValues.Multiplier, GameplayMultiplierUtils.MX_MINIMUM, GameplayMultiplierUtils.MX_MAXIMUM);
     }
 }

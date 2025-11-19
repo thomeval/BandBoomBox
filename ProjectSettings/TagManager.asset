@@ -80,6 +80,9 @@ TagManager:
   - name: HUD Text
     uniqueID: 81716237
     locked: 0
+  - name: HUD Overlay
+    uniqueID: 4203526967
+    locked: 0
   - name: Popup Background
     uniqueID: 522514031
     locked: 0

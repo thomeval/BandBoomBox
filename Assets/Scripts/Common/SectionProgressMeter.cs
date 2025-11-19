@@ -51,11 +51,6 @@ public class SectionProgressMeter : MonoBehaviour
 
         var currentSection = _displayedSong.GetSectionName(CurrentPosition);
 
-        if (CurrentPosition < 0.0)
-        {
-            currentSection = "Countdown";
-        }
-
         TxtCurrentSection.text = currentSection;
 
         var startPosition = GetStartPosition(CurrentPosition);

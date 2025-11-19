@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
@@ -37,6 +38,9 @@ public class PlayerResultFrame : MonoBehaviour
     public Text TxtAccuracy;
     public Text TxtDeviation;
     public Text TxtBoosts;
+
+    [Header("Page 3")]
+    public EvaluationSectionList SectionList;
 
     [Header("Common")]
     public ExpMeter ExpMeter;
@@ -84,14 +88,6 @@ public class PlayerResultFrame : MonoBehaviour
     private void DisplayPage(int pageNum)
     {
         ReadyPage.SetActive(false);
-        if (DisplayAllPages)
-        {
-            foreach (var page in Pages)
-            {
-                page.SetActive(true);
-            }
-            return;
-        }
 
         if (pageNum < 0 || pageNum >= Pages.Length)
         {
@@ -106,7 +102,7 @@ public class PlayerResultFrame : MonoBehaviour
         Pages[pageNum].SetActive(true);
     }
 
-    public void DisplayResult(Player player, bool isNewPb, double stars, int numPlayers)
+    public void DisplayResult(Player player, bool isNewPb, double stars, int numPlayers, string[] sectionNames)
     {
         this.gameObject.SetActive(true);
         this.PlayerSlot = player.Slot;
@@ -145,7 +141,12 @@ public class PlayerResultFrame : MonoBehaviour
         TxtIsLevelUp.gameObject.SetActive(isLevelUp);
 
         DisplayGradeAnimation();
+        DisplaySectionList(sectionNames, player.SectionPercents.ToArray(), player.ProfileData.SectionDifficulty);
+    }
 
+    private void DisplaySectionList(string[] sectionNames, double[] sectionPercents, SectionJudgeMode mode)
+    {
+        SectionList.DisplaySections(sectionNames, sectionPercents, mode);
     }
 
     public void DisplayReady()
@@ -218,6 +219,14 @@ public class PlayerResultFrame : MonoBehaviour
     public void PlaySfx(SoundEvent soundEvent)
     {
         SoundEventProvider.PlaySfx(soundEvent, PlayerSlot);
+    }
+
+    public void Scroll(int direction)
+    {
+        if (SectionList.isActiveAndEnabled)
+        {
+            SectionList.Scroll(direction);
+        }
     }
 }
 

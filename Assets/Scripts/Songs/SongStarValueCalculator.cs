@@ -12,11 +12,11 @@ public class SongStarValueCalculator : MonoBehaviour
     public Dictionary<TeamScoreCategory, double[]> Percentages = new()
     {
         //                                1     2    3     4     5     6     7     8     9     10
-        {TeamScoreCategory.Solo, new[]   {0.05, 0.2, 0.35, 0.55, 0.75, 1.00}},
-        {TeamScoreCategory.Duet, new[]   {0.05, 0.2, 0.35, 0.55, 0.70, 0.90, 1.05}},
-        {TeamScoreCategory.Squad, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.00, 1.15}},
-        {TeamScoreCategory.Crowd, new[]  {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.00, 1.15, 1.30}},
-        {TeamScoreCategory.Legion, new[] {0.05, 0.2, 0.35, 0.50, 0.65, 0.85, 1.00, 1.15, 1.30, 1.50}}
+        {TeamScoreCategory.Solo,   new[] {0.05, 0.2, 0.35, 0.50, 0.70, 1.00}},
+        {TeamScoreCategory.Duet,   new[] {0.05, 0.2, 0.35, 0.50, 0.60, 0.90, 1.05}},
+        {TeamScoreCategory.Squad,  new[] {0.05, 0.2, 0.30, 0.45, 0.60, 0.85, 1.00, 1.10}},
+        {TeamScoreCategory.Crowd,  new[] {0.05, 0.2, 0.30, 0.45, 0.60, 0.85, 1.00, 1.10, 1.20}},
+        {TeamScoreCategory.Legion, new[] {0.05, 0.2, 0.30, 0.45, 0.60, 0.85, 1.00, 1.10, 1.20, 1.30}}
     };
 
     public int NoteBaseValue = 50;
@@ -71,11 +71,13 @@ public class SongStarValueCalculator : MonoBehaviour
             var notes = _noteGenerator.LoadOrGenerateSongNotes(currentSong, player.ChartGroup, player.Difficulty);
 
             NoteUtils.CalculateAbsoluteTimes(notes, currentSong.Bpm);
+            var sections = currentSong.Sections.Keys.ToArray();
             _chartCache.Add(new SongStarCalculatorChart
             {
                 ChartGroup = player.ChartGroup,
                 Difficulty = player.Difficulty,
-                Notes = notes
+                Notes = notes,
+                Sections = sections
             });
         }
     }
@@ -119,23 +121,38 @@ public class SongStarValueCalculator : MonoBehaviour
     }
     public long CalculateMaxScore(List<SongStarCalculatorChart> charts)
     {
-
         var mx = 1.0;
         var maxMx = 1.0;
         long result = 0;
         var lastNoteTime = 0.0;
-
+        var sections = charts[0].Sections;
+        var mxBonusPerSection = HitJudge.SectionBonusMxValues[SectionJudgeResult.Awesome] * charts.Count;
         var notes = charts.SelectMany(e => e.Notes).ToList();
         var noteCount = 0;
+        var currentCombo = 0;
+        var mistakes = (charts.Count * 2);
+        var mistakeInterval = Math.Max(1, notes.Count / (mistakes + 1));
+
+        // Start at the second section (in other words, apply the bonus at the end of the first section)
+        var currentSectionIdx = 1;
+        var currentSectionEnd = sections.Length > 1 ? sections[1] : double.MaxValue;
 
         foreach (var note in notes.OrderBy(e => e.AbsoluteTime))
         {
+            // Check for section change
+            if (note.Position >= currentSectionEnd)
+            {
+                currentSectionIdx++;
+                mx += mxBonusPerSection;
+                currentSectionEnd = (currentSectionIdx >= sections.Length) ? double.MaxValue : sections[currentSectionIdx];
+            }
+
             double value = (this.NoteBaseValue * NoteUtils.GetNoteValue(note.NoteType, note.NoteClass));
             value *= mx;
             result += (long)value;
 
-            // TODO: Consider implementing combo gain rate bonuses, and a "mistake interval".
-            mx += note.MxValue;
+            var gainRate = GameplayMultiplierUtils.GetMultiplierGainRate(currentCombo, 0);
+            mx += note.MxValue * gainRate;
             maxMx = Math.Max(maxMx, mx);
 
             // Move to Next note
@@ -144,6 +161,12 @@ public class SongStarValueCalculator : MonoBehaviour
 
             lastNoteTime = note.AbsoluteTime;
             noteCount++;
+            currentCombo++;
+
+            if (currentCombo > mistakeInterval)
+            {
+                currentCombo = 0;
+            }   
         }
 
         var category = HighScoreManager.GetScoreCategory(charts.Count);

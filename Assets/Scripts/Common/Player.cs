@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     public const int TICKS_FOR_FIRST_ALLY_BOOST = 200;
     public const int TICKS_INC_PER_BOOST = 100;
+    public const int MIN_SECTION_HITS = 8;
 
     public static readonly int[] ScrollSpeeds = { 200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000 };
 
@@ -58,6 +59,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    [Header("Performance Points")]
     [SerializeField]
     private int _perfPoints;
     public int PerfPoints
@@ -72,7 +74,6 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private int _maxPerfPoints;
-
     public int MaxPerfPoints
     {
         get { return _maxPerfPoints; }
@@ -80,6 +81,42 @@ public class Player : MonoBehaviour
         {
             _maxPerfPoints = value;
             RefreshHud();
+        }
+    }
+
+    [SerializeField]
+    private int _sectionPerfPoints;
+    public int SectionPerfPoints
+    {
+        get { return _sectionPerfPoints; }
+        set
+        {
+            _sectionPerfPoints = value;
+            RefreshHud();
+        }
+    }
+
+    [SerializeField]
+    private int _maxSectionPerfPoints;
+
+    public int MaxSectionPerfPoints
+    {
+        get { return _maxSectionPerfPoints; }
+        set
+        {
+            _maxSectionPerfPoints = value;
+            RefreshHud();
+        }
+    }
+
+    [SerializeField]
+    private int _sectionHits;
+    public int SectionHits
+    {
+        get { return _sectionHits; }
+        set
+        {
+            _sectionHits = value;
         }
     }
 
@@ -258,6 +295,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private List<double> _sectionPercents = new();
+    public List<double> SectionPercents
+    {
+        get { return _sectionPercents; }
+        set
+        {
+            _sectionPercents = value;
+        }
+    }
 
     public bool IsParticipating;
 
@@ -360,7 +407,7 @@ public class Player : MonoBehaviour
     {
         if (HudManager != null)
         {
-            HudManager.UpdateHud(this);
+            HudManager.UpdateHud();
         }
     }
 
@@ -515,7 +562,15 @@ public class Player : MonoBehaviour
 
     private void UpdatePerfPoints(HitResult result)
     {
+        if (result.JudgeResult == JudgeResult.Wrong)
+        {
+            return;
+        }
+
         this.PerfPoints += result.PerfPoints;
+        this.SectionPerfPoints += result.PerfPoints;
+        this.SectionHits++;
+        this.MaxSectionPerfPoints += HitJudge.JudgePerfPointValues[JudgeResult.Perfect];
     }
 
     private void UpdateHitCounts(HitResult result)
@@ -557,6 +612,16 @@ public class Player : MonoBehaviour
             this.Combo++;
         }
 
+    }
+
+    public double EndSection()
+    {
+        var result = this.MaxSectionPerfPoints == 0 || this.SectionHits < MIN_SECTION_HITS ? -1.0 : 1.0 * this.SectionPerfPoints / this.MaxSectionPerfPoints;
+        this.SectionPercents.Add(result);
+        this.SectionPerfPoints = 0;
+        this.MaxSectionPerfPoints = 0;
+        this.SectionHits = 0;
+        return result;
     }
 
     public void AutoSetLabelSkin(bool fromController)
@@ -607,7 +672,11 @@ public class Player : MonoBehaviour
         Mistakes.Add(JudgeResult.Wrong, 0);
         Mistakes.Add(JudgeResult.Miss, 0);
 
+        this.SectionPercents = new();
         this.PerfPoints = 0;
+        this.SectionPerfPoints = 0;
+        this.MaxPerfPoints = 0;
+        this.MaxSectionPerfPoints = 0;
         this.Combo = 0;
         this.MaxCombo = 0;
         this.HitAccuracyTotal = 0.0f;

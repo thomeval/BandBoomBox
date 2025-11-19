@@ -15,6 +15,7 @@ public class GameplayManager : ScreenManager
     public NetworkPlayerList NetworkPlayerList;
     public GameplayStateHelper StateHelper;
     public GameplayStateValues StateValues;
+    public SectionTracker SectionTracker;
 
     public float SongPosition
     {
@@ -104,7 +105,7 @@ public class GameplayManager : ScreenManager
         foreach (var noteManager in NoteManagers.Where(e => e.ParentEnabled))
         {
             var player = _playerManager.GetLocalPlayers().Single(e => e.Slot == noteManager.Slot);
-            NoteGenerator.LoadOrGenerateSongNotes(_songManager.CurrentSong, player.ChartGroup, player.Difficulty, noteManager);          
+            NoteGenerator.LoadOrGenerateSongNotes(_songManager.CurrentSong, player.ChartGroup, player.Difficulty, noteManager);
             NoteGenerator.GenerateBeatLines(_songManager.CurrentSong, noteManager);
             noteManager.ApplyNoteSkin(player.NoteSkin, player.LabelSkin);
             noteManager.CalculateAbsoluteTimes(_songManager.CurrentSong.Bpm);
@@ -135,7 +136,7 @@ public class GameplayManager : ScreenManager
         {
             var pHudManager = HudManager.PlayerHudManagers[num];
             pHudManager.ShowRankings = multiplayer;
-            pHudManager.Slot = player.Slot;
+            pHudManager.Player = player;
             player.HudManager = HudManager.PlayerHudManagers[num];
             NoteManagers[num].Slot = player.Slot;
             NoteManagers[num].ParentEnabled = true;
@@ -218,7 +219,7 @@ public class GameplayManager : ScreenManager
         int lrrIndex = 0;
         foreach (var manager in NoteManagers.Where(e => e.ParentEnabled))
         {
-            var data = NoteCounter.CountNotes(manager.Notes, _songManager.GetSongEndInBeats(), _songManager.CurrentSong.Bpm, intervalSize);    
+            var data = NoteCounter.CountNotes(manager.Notes, _songManager.GetSongEndInBeats(), _songManager.CurrentSong.Bpm, intervalSize);
             _lrrContainer.LrrDisplays[lrrIndex].SetFromData(data.LrrData, manager.Slot);
             lrrIndex++;
         }
@@ -234,6 +235,7 @@ public class GameplayManager : ScreenManager
         UpdateBackground();
         UpdateScrollSpeeds();
         UpdateGameplayStateRecorder();
+        UpdateSectionTracker();
         _lastUpdate = DateTime.Now;
     }
 
@@ -294,12 +296,18 @@ public class GameplayManager : ScreenManager
             _outroTime = DateTime.Now.AddSeconds(OUTRO_TIME);
             CoreManager.LastTeamScore = GetTeamScore();
             DisplayFullComboAnimations();
+            EndSection();
         }
         else
         {
             GameplayState = GameplayScreenState.Playing;
         }
 
+    }
+
+    private void UpdateSectionTracker()
+    {
+        SectionTracker.UpdateSection();
     }
 
     private void DisplayFullComboAnimations()
@@ -413,7 +421,7 @@ public class GameplayManager : ScreenManager
 
             if (note != null)
             {
-                 // Note was hit. Apply a hit result.
+                // Note was hit. Apply a hit result.
                 var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
                 var allyBoostProvider = _playerManager.FindAllyBoostForPlayer(player);
                 var allowAllyBoost = allyBoostProvider != null;
@@ -743,5 +751,25 @@ public class GameplayManager : ScreenManager
     {
         _songManager.PauseSong(true);
         base.OnNetShutdown();
+    }
+
+    public void EndSection()
+    {
+        if (CoreManager.IsHost)
+        {
+            foreach (var player in _playerManager.Players)
+            {
+                var result = player.EndSection();
+                var judgeResult = Helpers.PercentToSectionGrade(result, player.ProfileData.SectionDifficulty);
+
+                 Debug.Log($"Player {player.NameOrPlayerNumber} ended section with {result:P1}, ({judgeResult})");
+                StateHelper.ApplySectionResult(judgeResult);
+
+                if (player.HudManager != null)
+                {
+                    player.HudManager.ShowSectionResult(judgeResult);
+                }
+            }
+        }
     }
 }

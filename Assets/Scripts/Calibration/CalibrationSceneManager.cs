@@ -111,7 +111,7 @@ public class CalibrationSceneManager : ScreenManager
         NoteManager.SongPosition = this.SongPosition;
         NoteManager.SongPositionInBeats = _songManager.GetSongPositionInBeats();
         NoteManager.UpdateNotes();
-        PlayerHudManager.UpdateHud(Player);
+        PlayerHudManager.UpdateHud();
         PlayerHudManager.DisplayBeat(_songManager.GetSongPositionInBeats());
     }
     public void BeginCalibration()

@@ -386,6 +386,47 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 21300000, guid: 04631ba03d380cb48902da6f91c7ee91, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 4
+  - m_Name: SectionResults
+    m_Hash: 771862773
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Superb
+      m_Hash: 293340690
+      m_Sprite: {fileID: -1275598170, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1275598170, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+    - m_Name: Awesome
+      m_Hash: 795830181
+      m_Sprite: {fileID: -794150264, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -794150264, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+    - m_Name: Great
+      m_Hash: 139853147
+      m_Sprite: {fileID: 1126233551, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1126233551, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+    - m_Name: Nice
+      m_Hash: 780250382
+      m_Sprite: {fileID: 1135936173, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1135936173, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+    - m_Name: Okay
+      m_Hash: 864952520
+      m_Sprite: {fileID: -1574982974, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1574982974, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+    - m_Name: Poor
+      m_Hash: 900479963
+      m_Sprite: {fileID: -1469547642, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1469547642, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+    - m_Name: Empty
+      m_Hash: 688263872
+      m_Sprite: {fileID: 779234079, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 779234079, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 7
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638874947308343128
+  m_ModificationHash: 638986174921855739
   m_Version: 1

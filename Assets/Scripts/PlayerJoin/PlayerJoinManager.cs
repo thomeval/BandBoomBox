@@ -111,7 +111,7 @@ public class PlayerJoinManager : ScreenManager
             var frame = PlayerJoinFrames[x - 1];
             frame.gameObject.SetActive(true);
 
-            frame.ToggleMenuOptions(CoreManager.Settings.EnableMomentumOption, !CoreManager.IsNetGame);
+            frame.ToggleMenuOptions(CoreManager.Settings.EnableMomentumOption, !CoreManager.IsNetGame, CoreManager.Settings.EnableSectionDifficulty);
 
             if (player != null)
             {

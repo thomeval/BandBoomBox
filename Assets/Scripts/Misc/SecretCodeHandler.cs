@@ -9,6 +9,7 @@ public class SecretCodeHandler : MonoBehaviour
             { SecretCode.EnableNerfDifficulty, new [] { InputAction.Left, InputAction.Left, InputAction.Left, InputAction.Right, InputAction.Right, InputAction.Right, InputAction.Left, InputAction.Right, InputAction.Pause } },
             { SecretCode.EnableMomentumOption, new [] { InputAction.B, InputAction.X, InputAction.Down, InputAction.A, InputAction.B, InputAction.X, InputAction.Down, InputAction.A, InputAction.Pause  } },
             { SecretCode.EnableExtraDifficulty, new [] { InputAction.Down, InputAction.Down, InputAction.Down, InputAction.Pause } },
+            { SecretCode.EnableSectionDifficulty, new [] { InputAction.Down, InputAction.Down, InputAction.Down, InputAction.Right, InputAction.Up, InputAction.Up, InputAction.Left, InputAction.Pause } },
             { SecretCode.AbsolutelyNothing, new [] { InputAction.Up, InputAction.Up, InputAction.Down, InputAction.Down,  InputAction.Left, InputAction.Right, InputAction.Left, InputAction.Right, InputAction.B, InputAction.A, InputAction.Pause } }
         };
 
@@ -19,6 +20,7 @@ public class SecretCodeHandler : MonoBehaviour
         { SecretCode.EnableExtraDifficulty, "Extra difficulty unlocked!" },
         { SecretCode.EnableNerfDifficulty, "N.E.R.F. difficulty unlocked!" },
         { SecretCode.EnableMomentumOption, "Momentum scroll speed option unlocked!" },
+        { SecretCode.EnableSectionDifficulty, "Section difficulty options unlocked!" },
         { SecretCode.AbsolutelyNothing, "Extra lives unlocked... but this game doesn't use lives at all!" },
     };
 
@@ -94,7 +96,11 @@ public class SecretCodeHandler : MonoBehaviour
                 _coreManager.Settings.EnableMomentumOption = true;
                 _coreManager.Settings.Save();
                 break;
-                case SecretCode.AbsolutelyNothing:
+                case SecretCode.EnableSectionDifficulty:
+                    _coreManager.Settings.EnableSectionDifficulty = true;
+                    _coreManager.Settings.Save();
+                break;
+            case SecretCode.AbsolutelyNothing:
                 break;
             default:
                 Debug.LogWarning("Unknown secret code: " + ActivatedCode);

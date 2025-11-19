@@ -74,7 +74,7 @@ public class HudManager : MonoBehaviour
         var songLength = (int)(_songManager.GetPlayableLength() - _songManager.GetSongPosition());
         songLength = Math.Max(songLength, 0);
         TxtSongTime.text = string.Format(CultureInfo.InvariantCulture, "{0}:{1:00}", songLength / 60, songLength % 60);
-        TxtSongCurrentSection.text = _songManager.GetCurrentSection();
+        TxtSongCurrentSection.text = _songManager.GetCurrentSectionName();
 
         DisplayBeat(_songManager.GetSongPositionInBeats());
 

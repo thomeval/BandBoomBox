@@ -7,6 +7,7 @@ public class ProfileData
     public string ID { get; set; }
     public string Name { get; set; }
     public TimingDisplayType TimingDisplayType { get; set; }
+    public SectionJudgeMode SectionDifficulty { get; set;} = SectionJudgeMode.Normal;
     public int ScrollSpeed { get; set; }
     public long Exp { get; set; }
     public float? Goal { get; set; }
@@ -55,4 +56,3 @@ public class ProfileData
         return scores.FirstOrDefault();
     }
 }
-

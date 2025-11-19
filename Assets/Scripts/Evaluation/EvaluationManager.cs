@@ -82,8 +82,9 @@ public class EvaluationManager : ScreenManager
 
         var stars = CoreManager.LastTeamScore.Stars;
         var numPlayers = CoreManager.PlayerManager.GetLocalPlayers().Count;
-        frame.DisplayResult(player, isPersonalBest, stars, numPlayers);
+        var sectionNames = CoreManager.CurrentSongData.GetSectionNames();
         frame.DisplayedPage = 0;
+        frame.DisplayResult(player, isPersonalBest, stars, numPlayers, sectionNames);
 
         var totalModifier = frame.ExpModifierList.TotalExpModifier;
         player.ApplyExpGain(totalModifier);
@@ -150,6 +151,12 @@ public class EvaluationManager : ScreenManager
             case InputAction.Right:
                 ChangeResultPage(inputEvent.Player, 1);
                 break;
+                case InputAction.Up:
+                    ScrollResultPage(inputEvent.Player, 1);
+                    break;
+                case InputAction.Down:
+                    ScrollResultPage(inputEvent.Player, -1);
+                    break;
             case InputAction.A:
             case InputAction.B:
             case InputAction.Pause:
@@ -168,6 +175,12 @@ public class EvaluationManager : ScreenManager
                 ToggleCurrentFrame(player);
                     break;
         }
+    }
+
+    private void ScrollResultPage(int player, int delta)
+    {
+        var frame = GetFrameForPlayer(player);
+        frame.Scroll(delta);
     }
 
     private void ToggleCurrentFrame(Player player)

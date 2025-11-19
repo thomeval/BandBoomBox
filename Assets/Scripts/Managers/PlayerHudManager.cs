@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class PlayerHudManager : MonoBehaviour
 {
-    public int Slot;
+    public int Slot => Player?.Slot ?? 0;
+    public Player Player;
+
     public HighwayNameDisplay HighwayNameDisplay = HighwayNameDisplay.SongStart;
 
     public Text TxtCombo;
@@ -25,34 +27,35 @@ public class PlayerHudManager : MonoBehaviour
     public AudioSource AudMistake;
     public HeldNoteDisplay HeldNoteDisplay;
     public LrrDisplay LrrDisplay;
+    public SectionResultDisplay SectionResultDisplay;
 
     private SpriteResolver _playerIdentifierResolver;
 
     private bool _mistakeSfxEnabled;
 
-    public void UpdateHud(Player player)
+    public void UpdateHud()
     {
-        _playerIdentifierResolver.SetCategoryAndLabel("PlayerIdentifiers", player.GetPlayerIdSprite());
-        TxtDifficulty.text = player.Difficulty.GetDisplayName();
-        TxtPerfPercent.text = string.Format(CultureInfo.InvariantCulture, "{0:N1}%", player.PerfPercent * 100);
-        TxtCombo.text = string.Format(CultureInfo.InvariantCulture, "{0:000}", player.Combo);
+        _playerIdentifierResolver.SetCategoryAndLabel("PlayerIdentifiers", Player.GetPlayerIdSprite());
+        TxtDifficulty.text = Player.Difficulty.GetDisplayName();
+        TxtPerfPercent.text = string.Format(CultureInfo.InvariantCulture, "{0:N1}%", Player.PerfPercent * 100);
+        TxtCombo.text = string.Format(CultureInfo.InvariantCulture, "{0:000}", Player.Combo);
         TxtRanking.enabled = ShowRankings;
-        CountdownDisplay.PlayerName = player.NameOrPlayerNumber;
+        CountdownDisplay.PlayerName = Player.NameOrPlayerNumber;
 
-        var ranking = Helpers.FormatRanking(player.Ranking);
+        var ranking = Helpers.FormatRanking(Player.Ranking);
 
         TxtRanking.text = ranking;
 
-        TimingDisplay.gameObject.SetActive(player.TimingDisplayType != TimingDisplayType.Off);
-        TimingDisplay.SpriteCategory = "Timing" + player.TimingDisplayType;
+        TimingDisplay.gameObject.SetActive(Player.TimingDisplayType != TimingDisplayType.Off);
+        TimingDisplay.SpriteCategory = "Timing" + Player.TimingDisplayType;
 
-        UpdateGoalMeter(player);
+        UpdateGoalMeter();
 
-        TxtAllyBoostCount.text = player.CanProvideAllyBoosts ? "" + player.AllyBoosts : "--";
-        ImgAllyBoostIcon.SetCategoryAndLabel("AllyBoostIcons", "" + player.ProfileData.AllyBoostMode );
-        ImgAllyBoostTickMeter.fillAmount = 1.0f * player.AllyBoostTicks / player.TicksForNextBoost;
+        TxtAllyBoostCount.text = Player.CanProvideAllyBoosts ? "" + Player.AllyBoosts : "--";
+        ImgAllyBoostIcon.SetCategoryAndLabel("AllyBoostIcons", "" + Player.ProfileData.AllyBoostMode );
+        ImgAllyBoostTickMeter.fillAmount = 1.0f * Player.AllyBoostTicks / Player.TicksForNextBoost;
 
-        _mistakeSfxEnabled = player.MistakeSfxEnabled;
+        _mistakeSfxEnabled = Player.MistakeSfxEnabled;
         CountdownDisplay.HighwayNameDisplay = HighwayNameDisplay;
     }
 
@@ -78,18 +81,18 @@ public class PlayerHudManager : MonoBehaviour
 
     }
 
-    private void UpdateGoalMeter(Player player)
+    private void UpdateGoalMeter()
     {
         if (GoalMeter == null)
         {
             return;
         }
 
-        GoalMeter.GoalGrade = player.GetGoalGrade();
-        GoalMeter.Min = player.GoalPerfPoints.GetValueOrDefault();
-        GoalMeter.Max = player.MaxPerfPoints;
-        GoalMeter.PlayerCurrent = player.PerfPoints;
-        GoalMeter.Value = player.MaxPerfPointsWithMistakes;
+        GoalMeter.GoalGrade = Player.GetGoalGrade();
+        GoalMeter.Min = Player.GoalPerfPoints.GetValueOrDefault();
+        GoalMeter.Max = Player.MaxPerfPoints;
+        GoalMeter.PlayerCurrent = Player.PerfPoints;
+        GoalMeter.Value = Player.MaxPerfPointsWithMistakes;
     }
 
     public void FlashLane(int lane)
@@ -119,6 +122,11 @@ public class PlayerHudManager : MonoBehaviour
     public void DisplayBeat(float songTimeInBeats)
     {
         CountdownDisplay.DisplayBeat(songTimeInBeats);
+    }
+
+    public void ShowSectionResult(SectionJudgeResult sectionResult)
+    { 
+        SectionResultDisplay.ShowSectionResult(sectionResult);
     }
 
     void Awake()

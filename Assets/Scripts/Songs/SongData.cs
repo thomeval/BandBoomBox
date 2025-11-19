@@ -107,8 +107,30 @@ public class SongData
         return currentSection;
     }
 
+    public int GetSectionIndex(double position)
+    {
+        var idx = this.Sections.Count(e => e.Key <= position);
+        return idx-1;
+    }
+
     public string GetSectionName(double position)
     {
-        return GetSection(position).Value;
+        var idx = GetSectionIndex(position);
+        if (idx == -1)
+        {
+            return "Countdown";
+        }
+
+        return this.Sections.ElementAt(idx).Value;
+    }
+
+    public string[] GetSectionNames()
+    {
+        if (this.Sections == null)
+        {
+            return Array.Empty<string>();
+        }
+
+        return this.Sections.Values.ToArray();
     }
 }
