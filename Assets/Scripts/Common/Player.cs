@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
     public int Slot;
 
     /// <summary>
-    /// For local players, gets this player's slot (1 to 4, with 1 being P1). For remote players, always returns 0.
+    /// For local players, gets this player's slot (1 to 6, with 1 being P1). For remote players, always returns 0.
     /// </summary>
     public int LocalSlot
     {

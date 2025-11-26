@@ -114,7 +114,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetPlayerCount(int players)
     {
-        players = Helpers.Clamp(players, 1, 4);
+        players = Helpers.Clamp(players, 1, MaxLocalPlayers);
         while (players < GetLocalPlayers().Count)
         {
             var playerToRemove = Players[Players.Count - 1];
