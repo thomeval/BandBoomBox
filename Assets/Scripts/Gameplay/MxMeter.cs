@@ -38,6 +38,9 @@ public class MxMeter : MonoBehaviour
     public int MeterHeight = 980;
     public int MeterWidth = 260;
 
+    public float MultiplierChangeRate = 2.0f;
+    private float _displayedMultiplier = 1.0f;
+
     [SerializeField]
     private float _multiplier;
     public float Multiplier
@@ -46,7 +49,6 @@ public class MxMeter : MonoBehaviour
         set
         {
             _multiplier = value;
-            UpdateSprites();
         }
     }
 
@@ -57,11 +59,20 @@ public class MxMeter : MonoBehaviour
         _glowRend = GlowSprite.GetComponent<SpriteRenderer>();
     }
 
+    private void Update()
+    {
+        if (Math.Abs(_displayedMultiplier - _multiplier) > Mathf.Epsilon)
+        {
+            _displayedMultiplier = Mathf.MoveTowards(_displayedMultiplier, _multiplier, MultiplierChangeRate * Time.deltaTime);
+            UpdateSprites();
+        }
+    }
+
     private void UpdateSprites()
     {
 
-        var whole = (int)_multiplier;
-        var fraction = _multiplier - whole;
+        var whole = (int)_displayedMultiplier;
+        var fraction = _displayedMultiplier - whole;
 
         UpdateColors(whole);
         UpdateFrontSpriteMask(fraction);
@@ -73,10 +84,10 @@ public class MxMeter : MonoBehaviour
 
     private void UpdateGlow()
     {
-        var badFraction = 1.0f - Multiplier;
-        var goodFraction = Math.Min(1.0f, (Multiplier - 1) / 20);
+        var badFraction = 1.0f - _displayedMultiplier;
+        var goodFraction = Math.Min(1.0f, (_displayedMultiplier - 1) / 20);
         goodFraction *= BeatFractionProvider.InverseBeatFraction;
-        var color = Multiplier < 1.0f
+        var color = _displayedMultiplier < 1.0f
             ? new Color(1.0f, 0.0f, 0.0f, badFraction)
             : new Color(1.0f, 1.0f, 1.0f, goodFraction);
 
@@ -85,7 +96,7 @@ public class MxMeter : MonoBehaviour
 
     private void UpdateFrontSpriteMask(float fraction)
     {
-        if (_multiplier < 1.0f)
+        if (_displayedMultiplier < 1.0f)
         {
             fraction = 0.0f;
         }
