@@ -3511,6 +3511,7 @@ MonoBehaviour:
   BeatFractionProvider: {fileID: 979979203}
   MeterHeight: 980
   MeterWidth: 260
+  MultiplierChangeRate: 2
   _multiplier: 0
 --- !u!1 &1213205981
 GameObject:
