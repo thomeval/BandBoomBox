@@ -29,17 +29,21 @@ public class ControlsManager : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogWarning($"Unable to load custom keyboard controls from {CustomControlsFile}. {e.Message} When running this game for the first time, this warning can be ignored. Attempting to load default configuration...");
-
-            try
-            {
-                CustomBindings = LoadInputActions(DefaultControlsFile);
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"Unable to load default keyboard controls from {DefaultControlsFile}. {ex.Message}");
-            }
+            LoadDefaultInputActions();
         }
 
+    }
+
+    public void LoadDefaultInputActions()
+    {
+        try
+        {
+            CustomBindings = LoadInputActions(DefaultControlsFile);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Unable to load default keyboard controls from {DefaultControlsFile}. {ex.Message}");
+        }
     }
 
     private CustomBindingSet LoadInputActions(string path)

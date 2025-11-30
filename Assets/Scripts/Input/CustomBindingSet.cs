@@ -8,6 +8,7 @@ public class CustomBindingSet
     public int Version { get; set; }
     public List<CustomBinding> Bindings { get; set; }
 
+    public int MAX_BINDINGS_FOR_ACTION = 2;
     public CustomBinding[] GetBindingsByAction(string action)
     {
         return Bindings.Where(b => b.Action == action).ToArray();
@@ -47,6 +48,17 @@ public class CustomBindingSet
         }
 
         Bindings.Add(new CustomBinding { Action = action, Path = key });
+        EnforceMaxBindings(action);
+    }
 
+    private void EnforceMaxBindings(string action)
+    {
+        var currentBindings = Bindings.Where(b => b.Action == action).ToList();
+
+        for (int x = currentBindings.Count - 1; x >= MAX_BINDINGS_FOR_ACTION; x--)
+        {
+            var binding = currentBindings[x];
+            Bindings.Remove(binding);
+        }
     }
 }

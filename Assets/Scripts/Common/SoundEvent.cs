@@ -22,5 +22,10 @@ public enum SoundEvent
     Net_PlayerLeft,
     SecretUnlocked,
     Gameplay_TurboOnNetwork,
-    Gameplay_FullCombo
+    Gameplay_FullCombo,
+
+    Options_KeyBindingStart,
+    Options_KeyBindingEnd,
+    Options_KeyBindingCancelled,
+    Options_KeyBindingReset
 }

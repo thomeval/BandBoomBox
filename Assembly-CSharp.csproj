@@ -206,6 +206,7 @@
     <Compile Include="Assets\Scripts\Calibration\CalibrationSceneManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorFineTunePage.cs" />
     <Compile Include="Assets\Scripts\Managers\HudManager.cs" />
+    <Compile Include="Assets\Scripts\Options\RebindManager.cs" />
     <Compile Include="Assets\Scripts\Gameplay\BeatFractionProvider.cs" />
     <Compile Include="Assets\Scripts\NetPlay\NetSongSelectTurnManager.cs" />
     <Compile Include="Assets\GameplayStateRecorder.cs" />

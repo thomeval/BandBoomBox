@@ -2149,6 +2149,10 @@ MonoBehaviour:
   SfxEditorPaste: {fileID: 5028737455461466703}
   SfxEditorSelectRegionStart: {fileID: 5028737455422512989}
   SfxEditorSelectRegionEnd: {fileID: 5028737456924547926}
+  SfxOptionsKeyBindingStart: {fileID: 5028737455422512989}
+  SfxOptionsKeyBindingEnd: {fileID: 5028737456924547926}
+  SfxOptionsKeyBindingCancelled: {fileID: 5028737455836496952}
+  SfxOptionsKeyBindingReset: {fileID: 5028737457116949427}
   SfxNetPlayerJoined: {fileID: 4584114448718086223}
   SfxNetPlayerLeft: {fileID: 8644990760830637526}
   SfxEvaluationGrades:

@@ -23,6 +23,12 @@ public class SoundEventHandler : MenuSoundEventHandler
     public AudioSource SfxEditorSelectRegionStart;
     public AudioSource SfxEditorSelectRegionEnd;
 
+    [Header("Options")]
+    public AudioSource SfxOptionsKeyBindingStart;
+    public AudioSource SfxOptionsKeyBindingEnd;
+    public AudioSource SfxOptionsKeyBindingCancelled;
+    public AudioSource SfxOptionsKeyBindingReset;
+
     [Header("Network")]
     public AudioSource SfxNetPlayerJoined;
     public AudioSource SfxNetPlayerLeft;
@@ -50,6 +56,11 @@ public class SoundEventHandler : MenuSoundEventHandler
         _sfxEntries.Add(SoundEvent.Gameplay_TurboOn, SfxGameplayTurboOn);
         _sfxEntries.Add(SoundEvent.Gameplay_TurboOnNetwork, SfxGameplayTurboOnNetwork);
         _sfxEntries.Add(SoundEvent.Gameplay_FullCombo, SfxGameplayFullCombo);
+
+        _sfxEntries.Add(SoundEvent.Options_KeyBindingStart, SfxOptionsKeyBindingStart);
+        _sfxEntries.Add(SoundEvent.Options_KeyBindingEnd, SfxOptionsKeyBindingEnd);
+        _sfxEntries.Add(SoundEvent.Options_KeyBindingCancelled, SfxOptionsKeyBindingCancelled);
+        _sfxEntries.Add(SoundEvent.Options_KeyBindingReset, SfxOptionsKeyBindingReset);
 
         _sfxEntries.Add(SoundEvent.Net_PlayerJoined, SfxNetPlayerJoined);
         _sfxEntries.Add(SoundEvent.Net_PlayerLeft, SfxNetPlayerLeft);
