@@ -9,7 +9,7 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
     public Text TxtCombo;
     public Text TxtRanking;
     public GameObject TurboBackground;
-
+    public SectionResultDisplay SectionResultDisplay;
     public override void Refresh()
     {
         base.Refresh();
@@ -30,7 +30,6 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
             }
         }
 
-
         SetTextSafe(TxtCombo, $"{Player.Combo:000}");
 
         if (!Player.IsParticipating)
@@ -48,7 +47,11 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
         {
             TurboBackground.SetActive(Player.TurboActive);
         }
-
     }
 
+    public override void DisplaySectionResult(SectionResultDto sectionResult)
+    {
+        Debug.Log($"Player {Player.DisplayNetId}{Player.Slot} Section Result: {sectionResult.SectionAccuracy:P0}({sectionResult.JudgeResult})");
+        SectionResultDisplay.ShowSectionResult(sectionResult.JudgeResult);
+    }
 }

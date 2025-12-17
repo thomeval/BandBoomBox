@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -190,6 +191,10 @@ public class ScreenManager : MonoBehaviour
     {
     }
 
+    public virtual void OnNetReceiveSectionResult(SectionResultSetDto dto)
+    {
+    }
+
     public void SendNetPlayerUpdate(Player player)
     {
         if (!CoreManager.IsNetGame)
@@ -226,5 +231,7 @@ public class ScreenManager : MonoBehaviour
         player.PlayerState = playerState;
         SendNetPlayerUpdate(player);
     }
+
+
 }
 

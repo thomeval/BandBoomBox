@@ -12,9 +12,15 @@ public class SongManager : MonoBehaviour
         get { return _audioSource.isPlaying; }
     }
 
+    /// <summary>
+    /// Returns the audio latency of Unity's internal sound engine, in seconds.
+    /// </summary>
     public float EngineOffset = 0.025f;
     private AudioSource _audioSource;
 
+    /// <summary>
+    /// Returns the audio latency setting set by the user, in seconds.
+    /// </summary>
     public float UserAudioLatency
     {
         get { return _settingsManager.AudioLatency; }
@@ -60,6 +66,10 @@ public class SongManager : MonoBehaviour
         return _audioSource.time;
     }
 
+    /// <summary>
+    /// Sets the audio position of the AudioSource, in seconds.
+    /// </summary>
+    /// <param name="position">The new audio position, in seconds.</param>
     public void SetAudioPosition(float position)
     {
         var length = _audioSource.clip.length;
@@ -72,6 +82,10 @@ public class SongManager : MonoBehaviour
         return _audioSource.clip.length;
     }
 
+    /// <summary>
+    /// Returns the current song position in beats, with 0 being the first playable beat (after offset).
+    /// </summary>
+    /// <returns>The current song position in beats.</returns>
     public float GetSongPositionInBeats()
     {
         var msTime = GetSongPosition();
@@ -139,25 +153,6 @@ public class SongManager : MonoBehaviour
         var url = Helpers.PathToUri(song.AudioPath);
         StartCoroutine(LoadSongCoroutine(url, onCompleted));
     }
-
-    /*
-    IEnumerator LoadSongCoroutine(string url, Action onCompleted)
-    {
-
-        WWW www = new WWW(url);
-        yield return www;
-
-        if (www.error != null)
-        {
-            Debug.LogError("Error occurred while loading audio: " + www.error);
-            yield break;
-        }
-        var clip = www.GetAudioClip(false, false);
-        _audioSource.clip = clip;
-        Debug.Log("Song Load complete. ");
-        onCompleted?.Invoke();
-    }
-    */
 
     IEnumerator LoadSongCoroutine(string url, Action onCompleted)
     {

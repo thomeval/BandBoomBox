@@ -396,6 +396,9 @@ public class PlayerManager : MonoBehaviour
         toPlayer.TurboActive = fromPlayer.TurboActive;
         toPlayer.IsParticipating = fromPlayer.IsParticipating;
         toPlayer.NetFullComboType = fromPlayer.NetFullComboType;
+        toPlayer.SectionHits = fromPlayer.SectionHits;
+        toPlayer.SectionPerfPoints = fromPlayer.SectionPerfPoints;
+        toPlayer.MaxSectionPerfPoints = fromPlayer.MaxSectionPerfPoints;
     }
 
     public void CopyValues(PlayerScoreDto fromPlayer, Player toPlayer)
@@ -407,6 +410,9 @@ public class PlayerManager : MonoBehaviour
         toPlayer.PlayerState = fromPlayer.PlayerState;
         toPlayer.TurboActive = fromPlayer.TurboActive;
         toPlayer.NetFullComboType = fromPlayer.FullComboType;
+        toPlayer.SectionHits = fromPlayer.SectionHits;
+        toPlayer.SectionPerfPoints = fromPlayer.SectionPerfPoints;
+        toPlayer.MaxSectionPerfPoints = fromPlayer.MaxSectionPerfPoints;
     }
 
     public void SetPlayerState(PlayerState state)

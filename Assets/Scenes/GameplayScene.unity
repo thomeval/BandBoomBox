@@ -6918,6 +6918,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameplayNetworkPlayerListItem
       objectReference: {fileID: 0}
+    - target: {fileID: 2590143402719120744, guid: 3e1ac6eb4711cdf48870691f47ad4d43, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7195,7 +7199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 68cd71c78ac4f2441bd19f780ffc1905, type: 3}
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: a22fb749a19f73842bdbac7e0fe3fd1b, type: 3}
 --- !u!1001 &7131182823707603350
 PrefabInstance:
   m_ObjectHideFlags: 0

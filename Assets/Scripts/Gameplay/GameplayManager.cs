@@ -747,6 +747,20 @@ public class GameplayManager : ScreenManager
         CoreManager.ClientNetApi.ReceiveNetGameplayStateValuesClientRpc(dto);
     }
 
+    public override void OnNetReceiveSectionResult(SectionResultSetDto dto)
+    {
+        DisplaySectionResults(dto);
+    }
+
+    public void SendNetGameplaySectionResult(SectionResultSetDto dto)
+    {
+        if (!CoreManager.IsNetGame || !CoreManager.IsHost)
+        {
+            return;
+        }
+        CoreManager.ClientNetApi.ReceiveNetGameplaySectionResultClientRpc(dto);
+    }
+
     public override void OnNetShutdown()
     {
         _songManager.PauseSong(true);
@@ -755,21 +769,64 @@ public class GameplayManager : ScreenManager
 
     public void EndSection()
     {
-        if (CoreManager.IsHost)
+        if (!CoreManager.IsHost)
         {
-            foreach (var player in _playerManager.Players)
+            return;
+        }
+
+        SectionResultSetDto result = BuildSectionResults();
+
+        SendNetGameplaySectionResult(result);
+        StateHelper.ApplySectionResults(result);
+        SendNetGameplayStateValuesUpdate(StateValues.AsDto());
+
+        if (!CoreManager.IsNetGame)
+        {
+            DisplaySectionResults(result);
+        }
+        
+    }
+
+    public SectionResultSetDto BuildSectionResults()
+    {
+        var temp = new List<SectionResultDto>();
+        var result = new SectionResultSetDto
+        {
+            SectionIndex = _songManager.GetCurrentSectionIndex() - 1
+        };
+        foreach (var player in _playerManager.Players)
+        {
+           temp.Add(player.EndSection());
+        }
+
+        result.SectionResults = temp.ToArray();
+        return result;
+    }
+
+    public void DisplaySectionResults(SectionResultSetDto resultSet)
+    {
+        Debug.Log($"Displaying section results for section {resultSet.SectionIndex}");
+        var localResults = resultSet.SectionResults.Where(e => e.NetId == this.CoreManager.NetId).ToArray();
+
+        foreach (var result in localResults)
+        {
+            var player = _playerManager.GetLocalPlayer(result.PlayerSlot);
+            if (player.HudManager != null)
             {
-                var result = player.EndSection();
-                var judgeResult = Helpers.PercentToSectionGrade(result, player.ProfileData.SectionDifficulty);
-
-                 Debug.Log($"Player {player.NameOrPlayerNumber} ended section with {result:P1}, ({judgeResult})");
-                StateHelper.ApplySectionResult(judgeResult);
-
-                if (player.HudManager != null)
-                {
-                    player.HudManager.ShowSectionResult(judgeResult);
-                }
+                Debug.Log($"Displaying section result for player {player.Name}: {result.JudgeResult}");
+                player.HudManager.ShowSectionResult(result.JudgeResult);
             }
+
+            // In Net games, clients do not record section result percentages. Use the result provided by the host instead.
+            if (!CoreManager.IsHost)
+            {
+                player.ForceEndSection(result.SectionAccuracy);
+            }
+        }
+
+        if (NetworkPlayerList.isActiveAndEnabled)
+        {
+            NetworkPlayerList.DisplaySectionResults(resultSet);
         }
     }
 }

@@ -149,10 +149,13 @@ public class GameplayStateHelper : MonoBehaviour
         }
     }
 
-    public void ApplySectionResult(SectionJudgeResult result)
+    public void ApplySectionResults(SectionResultSetDto result)
     {
-        var sectionBonus = HitJudge.SectionBonusMxValues[result];
-        StateValues.Multiplier += sectionBonus;
-        StateValues.Multiplier = Math.Clamp(StateValues.Multiplier, GameplayMultiplierUtils.MX_MINIMUM, GameplayMultiplierUtils.MX_MAXIMUM);
+        foreach (var entry in result.SectionResults)
+        {
+            var sectionBonus = HitJudge.SectionBonusMxValues[entry.JudgeResult];
+            StateValues.Multiplier += sectionBonus;
+            StateValues.Multiplier = Math.Clamp(StateValues.Multiplier, GameplayMultiplierUtils.MX_MINIMUM, GameplayMultiplierUtils.MX_MAXIMUM);
+        }
     }
 }

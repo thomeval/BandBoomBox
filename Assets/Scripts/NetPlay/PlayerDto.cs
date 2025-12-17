@@ -22,6 +22,13 @@ public class PlayerDto : INetworkSerializable
     public bool TurboActive;
     public bool IsParticipating;
     public FullComboType NetFullComboType;
+    public int AllyBoosts;
+    public int AllyBoostsReceived;
+    public int AllyBoostsGiven;
+    public int SectionHits;
+    public int SectionPerfPoints;
+    public int MaxSectionPerfPoints;
+    public SectionJudgeMode SectionDifficulty;
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
@@ -44,6 +51,13 @@ public class PlayerDto : INetworkSerializable
         serializer.SerializeValue(ref TurboActive);
         serializer.SerializeValue(ref IsParticipating);
         serializer.SerializeValue(ref NetFullComboType);
+        serializer.SerializeValue(ref AllyBoosts);
+        serializer.SerializeValue(ref AllyBoostsReceived);
+        serializer.SerializeValue(ref AllyBoostsGiven);
+        serializer.SerializeValue(ref SectionHits);
+        serializer.SerializeValue(ref SectionPerfPoints);
+        serializer.SerializeValue(ref MaxSectionPerfPoints);
+        serializer.SerializeValue(ref SectionDifficulty);
     }
 
     public static PlayerDto FromPlayer(Player player)
@@ -68,7 +82,14 @@ public class PlayerDto : INetworkSerializable
             Momentum = player.Momentum,
             TurboActive = player.TurboActive,
             IsParticipating = player.IsParticipating,
-            NetFullComboType = player.NetFullComboType
+            NetFullComboType = player.NetFullComboType,
+            AllyBoosts = player.AllyBoosts,
+            AllyBoostsGiven = player.AllyBoostsProvided,
+            AllyBoostsReceived = player.AllyBoostsReceived,
+            SectionHits = player.SectionHits,
+            SectionPerfPoints = player.SectionPerfPoints,
+            MaxSectionPerfPoints = player.MaxSectionPerfPoints,
+            SectionDifficulty = player.ProfileData.SectionDifficulty
         };
 
     }

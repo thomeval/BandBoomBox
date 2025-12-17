@@ -134,4 +134,10 @@ public class ClientNetApi : NetworkBehaviour
     {
         _coreManager.ActiveMainManager.OnSongSelectCancelled();
     }
+
+    [ClientRpc]
+    public void ReceiveNetGameplaySectionResultClientRpc(SectionResultSetDto dto)
+    {
+        _coreManager.ActiveMainManager.OnNetReceiveSectionResult(dto);
+    }
 }

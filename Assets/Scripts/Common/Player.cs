@@ -614,14 +614,27 @@ public class Player : MonoBehaviour
 
     }
 
-    public double EndSection()
+    public SectionResultDto EndSection()
     {
-        var result = this.MaxSectionPerfPoints == 0 || this.SectionHits < MIN_SECTION_HITS ? -1.0 : 1.0 * this.SectionPerfPoints / this.MaxSectionPerfPoints;
-        this.SectionPercents.Add(result);
-        this.SectionPerfPoints = 0;
-        this.MaxSectionPerfPoints = 0;
-        this.SectionHits = 0;
+        var percent = this.MaxSectionPerfPoints == 0 || this.SectionHits < MIN_SECTION_HITS ? -1.0 : 1.0 * this.SectionPerfPoints / this.MaxSectionPerfPoints;
+        var result = new SectionResultDto
+        {
+            NetId = this.NetId,
+            PlayerSlot = this.Slot,
+            SectionAccuracy = percent,
+            JudgeResult = Helpers.PercentToSectionGrade(percent, this.ProfileData.SectionDifficulty)
+        };
+
+        ForceEndSection(percent);
         return result;
+    }
+
+    public void ForceEndSection(double sectionAccuracy)
+    {
+        this.SectionPercents.Add(sectionAccuracy);
+        this.MaxSectionPerfPoints = 0;
+        this.SectionPerfPoints = 0;
+        this.SectionHits = 0;
     }
 
     public void AutoSetLabelSkin(bool fromController)
@@ -675,6 +688,7 @@ public class Player : MonoBehaviour
         this.SectionPercents = new();
         this.PerfPoints = 0;
         this.SectionPerfPoints = 0;
+        this.SectionHits = 0;
         this.MaxPerfPoints = 0;
         this.MaxSectionPerfPoints = 0;
         this.Combo = 0;
@@ -831,5 +845,4 @@ public class Player : MonoBehaviour
     {
         _inputManager.TriggerRumble(0.65f, 0.2f);
     }
-
 }

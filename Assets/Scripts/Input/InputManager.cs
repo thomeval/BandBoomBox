@@ -33,7 +33,6 @@ public class InputManager : MonoBehaviour
     private GameObject _coreManager;
 
     private Player _player;
-    // Start is called before the first frame update
 
     private readonly Dictionary<string, string> _deviceLabelsLookup = new()
     {

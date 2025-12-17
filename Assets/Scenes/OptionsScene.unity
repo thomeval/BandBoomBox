@@ -3396,7 +3396,7 @@ GameObject:
   - component: {fileID: 645073012}
   - component: {fileID: 645073011}
   m_Layer: 0
-  m_Name: TxtUseMouseMessage
+  m_Name: TxtUserMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5636,6 +5636,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4c7f057afa0184190fa901d4ffde74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TxtMessage: {fileID: 645073011}
+  AwaitingInputColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  NormalMessageColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1320730096
 MonoBehaviour:
   m_ObjectHideFlags: 0

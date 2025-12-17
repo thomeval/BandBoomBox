@@ -112,4 +112,17 @@ public class NetworkPlayerList : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
     }
+
+    public void DisplaySectionResults(SectionResultSetDto resultSet)
+    {
+        foreach (var result in resultSet.SectionResults)
+        {
+            var item = Children.FirstOrDefault(e => e.Player.NetId == result.NetId && e.Player.Slot == result.PlayerSlot);
+
+            if (item != null)
+            {
+                item.DisplaySectionResult(result);
+            }
+        }
+    }
 }

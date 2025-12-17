@@ -81,4 +81,9 @@ public class NetworkPlayerListItem : MonoBehaviour
                 throw new ArgumentOutOfRangeException(nameof(playerState), playerState, null);
         }
     }
+
+    public virtual void DisplaySectionResult(SectionResultDto sectionResult)
+    {
+        // Override in derived classes if needed
+    }
 }
