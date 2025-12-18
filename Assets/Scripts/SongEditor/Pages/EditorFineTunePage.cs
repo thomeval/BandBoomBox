@@ -77,8 +77,10 @@ public class EditorFineTunePage : EditorPageManager
     }
     public void BeginFineTune()
     {
+        Player.Reset();
         // Enable the Timing Display (defaults to Off)
         Player.TimingDisplayType = TimingDisplayType.EarlyLate;
+        Player.ProfileData.AllyBoostMode = AllyBoostMode.Off;
 
         EventSystem.current.SetSelectedGameObject(DefaultButton.gameObject);
         _songManager.LoadSong(Parent.CurrentSong, OnSongLoaded);
@@ -313,6 +315,7 @@ public class EditorFineTunePage : EditorPageManager
     {
         _songManager.SetAudioPosition(Parent.CurrentSong.AudioStart);
         SetupNoteManager();
+        ClearHits();
     }
     public void BtnDone_OnClick()
     {

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerHudManager : MonoBehaviour
 {
-    public int Slot => Player?.Slot ?? 0;
-    public Player Player;
+    public int Slot => Player.Slot;
+    public Player Player = new();
 
     public HighwayNameDisplay HighwayNameDisplay = HighwayNameDisplay.SongStart;
 
@@ -35,7 +35,8 @@ public class PlayerHudManager : MonoBehaviour
 
     public void UpdateHud()
     {
-        _playerIdentifierResolver.SetCategoryAndLabel("PlayerIdentifiers", Player.GetPlayerIdSprite());
+        var playerSpriteId = Player == null ? "None" : Player.GetPlayerIdSprite();
+        _playerIdentifierResolver.SetCategoryAndLabel("PlayerIdentifiers", playerSpriteId);
         TxtDifficulty.text = Player.Difficulty.GetDisplayName();
         TxtPerfPercent.text = string.Format(CultureInfo.InvariantCulture, "{0:N1}%", Player.PerfPercent * 100);
         TxtCombo.text = string.Format(CultureInfo.InvariantCulture, "{0:000}", Player.Combo);

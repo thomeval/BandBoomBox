@@ -31,8 +31,6 @@ public class EditorManager : ScreenManager
         get { return _pages[CurrentPage]; }
     }
 
-
-
     public bool IsExistingSong;
 
     private void DisplayCurrentPage()
