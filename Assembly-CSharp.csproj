@@ -151,6 +151,7 @@
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteSet.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteGenerator.cs" />
+    <Compile Include="Assets\BoostStatsDisplay.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayMultiplierUtils.cs" />
     <Compile Include="Assets\Scripts\Common\StarMeter.cs" />
     <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicEntry.cs" />

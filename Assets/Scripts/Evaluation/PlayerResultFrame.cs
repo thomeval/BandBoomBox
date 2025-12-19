@@ -37,7 +37,8 @@ public class PlayerResultFrame : MonoBehaviour
     public Text LblAccuracyDeviation;
     public Text TxtAccuracy;
     public Text TxtDeviation;
-    public Text TxtBoosts;
+
+    public BoostStatsDisplay BoostStatsDisplay;
 
     [Header("Page 3")]
     public EvaluationSectionList SectionList;
@@ -128,9 +129,10 @@ public class PlayerResultFrame : MonoBehaviour
 
         DisplayHitCount(player);
         DisplayAccuracyDeviation(player);
-        if (TxtBoosts != null)
+
+        if (BoostStatsDisplay != null)
         {
-            TxtBoosts.text = string.Format("P:{0}, R:{1}, E:{2}", player.AllyBoostsProvided, player.AllyBoostsReceived, player.AllyBoosts);
+            BoostStatsDisplay.ShowBoostStats(player);
         }
         ExpModifierList.DisplayExpModifier(player, stars, numPlayers);
 

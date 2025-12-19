@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerHudManager : MonoBehaviour
 {
-    public int Slot => Player.Slot;
+    public int Slot => Player?.Slot ?? 0;
     public Player Player = new();
 
     public HighwayNameDisplay HighwayNameDisplay = HighwayNameDisplay.SongStart;
