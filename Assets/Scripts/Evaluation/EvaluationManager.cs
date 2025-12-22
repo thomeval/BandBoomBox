@@ -47,6 +47,8 @@ public class EvaluationManager : ScreenManager
             frame.Hide();
         }
 
+        CoreManager.PlayerManager.DisableAllTurbos();
+
         foreach (var player in CoreManager.PlayerManager.GetLocalPlayers())
         {
             var isPersonalBest = CoreManager.ProfileManager.SavePlayerScore(player, CoreManager.LastTeamScore.SongId, CoreManager.LastTeamScore.SongVersion);

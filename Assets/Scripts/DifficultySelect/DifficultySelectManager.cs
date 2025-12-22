@@ -27,6 +27,8 @@ public class DifficultySelectManager : ScreenManager
     {
         NetworkPlayerList.gameObject.SetActive(CoreManager.IsNetGame);
 
+        CoreManager.PlayerManager.DisableAllTurbos();
+
         foreach (var frame in DifficultySelectFrames)
         {
             frame.Hide();

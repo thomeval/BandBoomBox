@@ -79,6 +79,7 @@ public class NetPlayMenuManager : ScreenManager
 
         CoreManager.IsNetGame = true;
         CoreManager.IsHost = false;
+        CoreManager.PlayerManager.DisableAllTurbos();
 
         UnityTransport.SetConnectionData(JoinMenu.JoinIpAddress, JoinMenu.JoinPort);
         CoreManager.NetworkManager.NetworkConfig.ConnectionData = GetJoinParams(passwordHash);
@@ -115,6 +116,7 @@ public class NetPlayMenuManager : ScreenManager
         UnityTransport.SetConnectionData("127.0.0.1", HostMenu.HostPort, "0.0.0.0");
         CoreManager.IsNetGame = true;
         CoreManager.IsHost = true;
+        CoreManager.PlayerManager.DisableAllTurbos();
 
         CoreManager.ServerNetApi.MaxNetPlayers = HostMenu.MaxPlayers;
         CoreManager.ServerNetApi.SongSelectRules = HostMenu.SongSelectRules;
