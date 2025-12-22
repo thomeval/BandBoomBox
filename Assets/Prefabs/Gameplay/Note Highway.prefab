@@ -296,6 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d6b788f9fe2cd640bda238acb3cea1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LaneHeight: 100
   LaneSprites:
   - {fileID: 889235058}
   - {fileID: 1280279158}
@@ -1690,6 +1691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325380a69f13c6c41beb5ede6e20cecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LaneHeight: 75
   LaneSprites:
   - {fileID: 139950199058370128}
   - {fileID: 7761714648023584934}
@@ -2380,9 +2382,11 @@ MonoBehaviour:
   ImpactZone: {fileID: 8025664223044120092}
   FullComboAnimator: {fileID: 2408957351396101315}
   FullComboSprite: {fileID: 1046683219618480265}
+  LaneOrderType: 0
   ImpactZoneCenter: -560
   LaneHeight: 75
   TopLanePos: 75
+  TopLaneEnabled: 1
   EarlyHitCutoff: -0.5
   LateHitCutoff: 0.3
   EarlyWrongCutoff: -2
@@ -3809,6 +3813,22 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2342194951513280059, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
+      propertyPath: NoteScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391519711658370500, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2775783412034763079, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
+      propertyPath: m_SpriteHash
+      value: 105117491
+      objectReference: {fileID: 0}
+    - target: {fileID: 3788977432497258551, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
+      propertyPath: m_SpriteHash
+      value: 105117491
+      objectReference: {fileID: 0}
     - target: {fileID: 4003420567161005931, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
       propertyPath: m_SortingLayer
       value: 6
@@ -3822,12 +3842,28 @@ PrefabInstance:
       value: Impact Zone
       objectReference: {fileID: 0}
     - target: {fileID: 5207678611932997305, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
+      propertyPath: m_Size.y
+      value: 112.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207678611932997305, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
       propertyPath: m_SortingLayer
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5223771706145074032, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
+      propertyPath: m_Size.y
+      value: 112.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223771706145074032, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
       propertyPath: m_SortingLayer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6335301540973364944, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
+      propertyPath: m_SpriteHash
+      value: 105117491
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240435033877196064, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
+      propertyPath: m_Size.y
+      value: 112.5
       objectReference: {fileID: 0}
     - target: {fileID: 7240435033877196064, guid: 84e705368f62a7d478e54fb2dd09edff, type: 3}
       propertyPath: m_SortingLayer

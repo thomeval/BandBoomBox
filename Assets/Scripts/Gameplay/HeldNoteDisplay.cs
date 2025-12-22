@@ -7,8 +7,7 @@ public class HeldNoteDisplay : MonoBehaviour
 {
     private const int LANE_COUNT = 3;
     public int ImpactZoneCenter = -540;
-    public float NoteScale = 0.75f;
-    public int LaneHeight = 100;
+    public float NoteScale = 1.0f;
 
     public GameObject[] Lanes = new GameObject[LANE_COUNT];
 
@@ -84,7 +83,6 @@ public class HeldNoteDisplay : MonoBehaviour
 
     public void SetLaneOrder(LaneOrderType laneOrderType)
     {
-        LaneOrderProvider.SetObjectLaneOrder(Lanes, laneOrderType, LaneHeight);
-        //LaneOrderProvider.SetObjectLaneOrder(_heldReleaseNotes, laneOrderType);
+        LaneOrderProvider.SetObjectLaneOrder(Lanes, laneOrderType);
     }
 }

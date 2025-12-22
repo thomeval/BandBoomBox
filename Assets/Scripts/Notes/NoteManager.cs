@@ -29,6 +29,7 @@ public class NoteManager : MonoBehaviour
 
     public int LaneHeight = 100;
     public int TopLanePos = 100;
+    public bool TopLaneEnabled = true;
 
     public float EarlyHitCutoff = -0.5f;
     public float LateHitCutoff = 0.3f;
@@ -339,7 +340,8 @@ public class NoteManager : MonoBehaviour
 
     public void SetImpactZoneSprites(Difficulty difficulty, bool overrideTopLane)
     {
-        ImpactZone.SetSprites(difficulty, overrideTopLane || Notes.Any(e => e.Lane == 0));
+        ImpactZone.SetSprites(difficulty, overrideTopLane || TopLaneEnabled);
+        ImpactZone.SetLaneOrder(LaneOrderType);
     }
     public void SetImpactZoneSprites(bool overrideTopLane)
     {
@@ -585,6 +587,7 @@ public class NoteManager : MonoBehaviour
 
         this.BeatLines.Clear();
         this.Notes.Clear();
+        TopLaneEnabled = false;
     }
 
     public void AttachNote(Note note)
@@ -609,6 +612,7 @@ public class NoteManager : MonoBehaviour
 
         Notes = Notes.OrderBy(e => e.Position).ToList();
         SetNoteMxValue();
+        TopLaneEnabled = Notes.Any(e => e.Lane == 0);
     }
 
     public void AttachNotes(IEnumerable<Note> notes)
@@ -620,6 +624,7 @@ public class NoteManager : MonoBehaviour
 
         Notes = Notes.OrderBy(e => e.Position).ToList();
         SetNoteMxValue();
+        TopLaneEnabled = Notes.Any(e => e.Lane == 0);
     }
 
     public void AttachBeatLines()

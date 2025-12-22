@@ -17,4 +17,15 @@ public class NoteHighwayImpactZone : MonoBehaviour
         BottomLaneResolver.SetCategoryAndLabel(SPRITE_CATEGORY, "Bot-Default");
 
     }
+
+    public void SetLaneOrder(LaneOrderType laneOrderType)
+    {
+        var lanes = new []
+        {
+            TopLaneResolver,
+            MidLaneResolver,
+            BottomLaneResolver
+        };
+        LaneOrderProvider.SetObjectLaneOrder(lanes, laneOrderType);
+    }
 }
