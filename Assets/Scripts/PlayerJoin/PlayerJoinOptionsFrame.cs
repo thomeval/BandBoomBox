@@ -17,10 +17,12 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public Text TxtControllerRumbleEnabled;
     public Text TxtSectionDifficulty;
     public Text TxtMomentum;
-    
+    public Text TxtLaneOrderType;
+
     public GameObject MomentumMenuItem;
     public GameObject AllyBoostMenuItem;
     public GameObject SectionDifficultyMenuItem;
+    public GameObject LaneOrderTypeMenuItem;
 
     public Grade?[] Goals = { null, Grade.D, Grade.DPlus, Grade.C, Grade.CPlus, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus };
     public int[] MomentumAmounts = { 0, 25, 50, 100, 150, 200 };
@@ -78,6 +80,9 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
             case "Section Difficulty":
                 Parent.Player.ProfileData.SectionDifficulty = Helpers.GetNextEnumValue(Parent.Player.ProfileData.SectionDifficulty, amount, false);
                 break;
+                case "Lane Order":
+                Parent.Player.LaneOrderType = Helpers.GetNextEnumValue(Parent.Player.LaneOrderType, amount, false);
+                break;
         }
     }
 
@@ -121,6 +126,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         TxtMomentum.text = "" + player.Momentum;
         TxtAllyBoostsEnabled.text = player.ProfileData.AllyBoostMode.ToString();
         TxtSectionDifficulty.text = player.ProfileData.SectionDifficulty.ToString();
+        TxtLaneOrderType.text = player.LaneOrderType.ToString();
     }
 
     private string BoolToOnOff(bool value)
@@ -161,15 +167,24 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         }
     }
 
+    private void UpdateLanePreview()
+    {
+        if (Parent.Player == null)
+        {
+            return;
+        }
+    }
+
     public void ShowMomentumOption()
     {
         MomentumMenuItem.SetActive(true);
     }
 
-    public void ToggleMenuOptions(bool showMomentum, bool showAllyBoost, bool showSectionDifficulty)
+    public void ToggleMenuOptions(bool showMomentum, bool showAllyBoost, bool showSectionDifficulty, bool showLaneOrder)
     {
         MomentumMenuItem.SetActive(showMomentum);
         AllyBoostMenuItem.SetActive(showAllyBoost);
         SectionDifficultyMenuItem.SetActive(showSectionDifficulty);
+        LaneOrderTypeMenuItem.SetActive(showLaneOrder);
     }
 }

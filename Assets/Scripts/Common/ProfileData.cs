@@ -21,6 +21,7 @@ public class ProfileData
     public List<PlayerScore> PlayerScores { get; set; } = new();
     public int Momentum { get; set; }
     public AllyBoostMode AllyBoostMode { get; set; }
+    public LaneOrderType LaneOrderType { get; set; } = LaneOrderType.Standard;
 
     public PlayerScore GetPlayerHighScore(string songId, int songVersion, Difficulty difficulty, string chartGroup)
     {

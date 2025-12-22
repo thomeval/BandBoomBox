@@ -15,6 +15,7 @@ public class NoteManager : MonoBehaviour
     public NoteHighwayImpactZone ImpactZone;
     public Animator FullComboAnimator;
     public SpriteResolver FullComboSprite;
+    public LaneOrderType LaneOrderType = LaneOrderType.Standard;
 
     public RegionMarker SelectedRegionMarker
     {
@@ -215,9 +216,6 @@ public class NoteManager : MonoBehaviour
         }
 
         ScrollingBackground.localPosition = new Vector3(newX, ScrollingBackground.localPosition.y);
-
-        // var speedScale = this._displayedScrollSpeed / 500.0f;
-        // ScrollingBackground.localScale = new Vector3(speedScale, 1.0f);
     }
 
     public void HideAllNotes()
@@ -257,7 +255,7 @@ public class NoteManager : MonoBehaviour
 
     public void UpdateNotes()
     {
-
+        var laneOrder = LaneOrderProvider.GetLaneOrder(this.LaneOrderType);
         foreach (var note in Notes)
         {
             if (note.AbsoluteTime > this.MaxVisiblePosition)
@@ -271,7 +269,8 @@ public class NoteManager : MonoBehaviour
             }
 
             var xPos = CalculateRenderPosition(note.AbsoluteTime);
-            var yPos = TopLanePos - (note.Lane * LaneHeight);
+            var yOffset = laneOrder[note.Lane] * LaneHeight;
+            var yPos = TopLanePos - yOffset;
             note.SetRenderPosition(xPos, yPos);
         }
 

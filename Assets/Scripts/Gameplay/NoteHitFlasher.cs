@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,5 +22,10 @@ public class NoteHitFlasher : MonoBehaviour
     public void FlashNoteHit(int lane)
     {
         LaneSprites[lane].Play();
+    }
+
+    public void SetLaneOrder(LaneOrderType laneOrderType)
+    {        
+        LaneOrderProvider.SetObjectLaneOrder(LaneSprites, laneOrderType);
     }
 }

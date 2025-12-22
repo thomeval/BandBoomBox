@@ -112,6 +112,7 @@ public class GameplayManager : ScreenManager
             noteManager.ScrollSpeed = player.ScrollSpeed;
             _playerManager.SetMaxPerfPoints(noteManager.MaxPerfPoints, player.Slot);
             noteManager.ScrollingBackgroundOpacity = 0.0f;
+            noteManager.LaneOrderType = player.LaneOrderType;
             noteManager.SetImpactZoneSprites(false);
         }
     }

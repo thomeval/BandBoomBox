@@ -54,7 +54,7 @@ public class NetPlayJoinSubmenu : NetPlaySubmenuBase
         }
     }
 
-    protected override bool MenuInputActive()
+    public override bool MenuInputActive()
     {
         return !(TxtJoinIpAddress.isFocused || TxtJoinPassword.isFocused || TxtJoinPort.isFocused);
     }

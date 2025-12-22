@@ -7,6 +7,9 @@ public class SongManager : MonoBehaviour
 {
     public SongData CurrentSong { get; set; }
 
+    [field:SerializeField]
+    public AudioChannelFader GameplayMusicFader { get;set; }
+
     public bool IsSongPlaying
     {
         get { return _audioSource.isPlaying; }
@@ -239,5 +242,15 @@ public class SongManager : MonoBehaviour
     public void StopSong()
     {
         _audioSource.Stop();
+    }
+
+    public void StartSongFade()
+    {
+        GameplayMusicFader.StartFadeOut();
+    }
+
+    public void StopSongFade()
+    {
+        GameplayMusicFader.StopFadeOut();
     }
 }

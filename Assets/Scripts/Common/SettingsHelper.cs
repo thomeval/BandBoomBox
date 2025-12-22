@@ -32,11 +32,17 @@ public class SettingsHelper : MonoBehaviour
         ApplyAudioVolume("MenuMusicVolume", _settings.MenuMusicVolume);
     }
 
-    private void ApplyAudioVolume(string mixerParam, float volume)
+    public void ApplyAudioVolume(string mixerParam, float volume)
     {
         volume = Mathf.Max(volume, 0.00001f);
         var temp = Mathf.Log10(volume) * 20;
         _coreManager.AudioMixer.SetFloat(mixerParam, temp);
+    }
+
+    public float GetAudioVolume(string mixerParam)
+    {
+        _coreManager.AudioMixer.GetFloat(mixerParam, out var volume);
+        return Mathf.Pow(10, volume / 20);
     }
 
     private void ApplyGraphicsSettings()

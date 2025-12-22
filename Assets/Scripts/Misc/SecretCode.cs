@@ -4,5 +4,6 @@ public enum SecretCode
     EnableMomentumOption = 1,
     EnableExtraDifficulty = 2,
     EnableSectionDifficulty = 3,
-    AbsolutelyNothing = 4
+    AbsolutelyNothing = 4,
+    EnableLaneOrderOption = 5
 }

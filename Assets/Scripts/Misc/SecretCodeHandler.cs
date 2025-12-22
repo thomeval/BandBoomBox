@@ -10,7 +10,8 @@ public class SecretCodeHandler : MonoBehaviour
             { SecretCode.EnableMomentumOption, new [] { InputAction.B, InputAction.X, InputAction.Down, InputAction.A, InputAction.B, InputAction.X, InputAction.Down, InputAction.A, InputAction.Pause  } },
             { SecretCode.EnableExtraDifficulty, new [] { InputAction.Down, InputAction.Down, InputAction.Down, InputAction.Pause } },
             { SecretCode.EnableSectionDifficulty, new [] { InputAction.Down, InputAction.Down, InputAction.Down, InputAction.Right, InputAction.Up, InputAction.Up, InputAction.Left, InputAction.Pause } },
-            { SecretCode.AbsolutelyNothing, new [] { InputAction.Up, InputAction.Up, InputAction.Down, InputAction.Down,  InputAction.Left, InputAction.Right, InputAction.Left, InputAction.Right, InputAction.B, InputAction.A, InputAction.Pause } }
+            { SecretCode.AbsolutelyNothing, new [] { InputAction.Up, InputAction.Up, InputAction.Down, InputAction.Down,  InputAction.Left, InputAction.Right, InputAction.Left, InputAction.Right, InputAction.B, InputAction.A, InputAction.Pause } },
+            { SecretCode.EnableLaneOrderOption, new [] { InputAction.B, InputAction.A, InputAction.B, InputAction.A, InputAction.Down, InputAction.Down, InputAction.Down, InputAction.Pause } }
         };
 
     private readonly Dictionary<SecretCode, int> _inputCodeProgress = new();
@@ -22,6 +23,7 @@ public class SecretCodeHandler : MonoBehaviour
         { SecretCode.EnableMomentumOption, "Momentum scroll speed option unlocked!" },
         { SecretCode.EnableSectionDifficulty, "Section difficulty options unlocked!" },
         { SecretCode.AbsolutelyNothing, "Extra lives unlocked... but this game doesn't use lives at all!" },
+        { SecretCode.EnableLaneOrderOption, "Lane order option unlocked!" }
     };
 
     public SecretCode? ActivatedCode { get; private set; }
@@ -101,6 +103,10 @@ public class SecretCodeHandler : MonoBehaviour
                     _coreManager.Settings.Save();
                 break;
             case SecretCode.AbsolutelyNothing:
+                break;
+            case SecretCode.EnableLaneOrderOption:
+                _coreManager.Settings.EnableLaneOrderOption = true;
+                _coreManager.Settings.Save();
                 break;
             default:
                 Debug.LogWarning("Unknown secret code: " + ActivatedCode);

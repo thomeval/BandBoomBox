@@ -6,9 +6,10 @@ using UnityEngine.U2D.Animation;
 public class HeldNoteDisplay : MonoBehaviour
 {
     private const int LANE_COUNT = 3;
-
     public int ImpactZoneCenter = -540;
     public float NoteScale = 0.75f;
+    public int LaneHeight = 100;
+
     public GameObject[] Lanes = new GameObject[LANE_COUNT];
 
     private SpriteResolver[] _laneResolvers;
@@ -77,7 +78,13 @@ public class HeldNoteDisplay : MonoBehaviour
 
         _laneRenderers[lane].size = new Vector2(width, _laneRenderers[lane].size.y);
 
-        var yPos = 100 - (100 * lane);
+        var yPos = _laneRenderers[lane].transform.localPosition.y;
         _laneRenderers[lane].transform.localPosition = new Vector2(width / 2, yPos);
+    }
+
+    public void SetLaneOrder(LaneOrderType laneOrderType)
+    {
+        LaneOrderProvider.SetObjectLaneOrder(Lanes, laneOrderType, LaneHeight);
+        //LaneOrderProvider.SetObjectLaneOrder(_heldReleaseNotes, laneOrderType);
     }
 }

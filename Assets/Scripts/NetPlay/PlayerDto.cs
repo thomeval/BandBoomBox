@@ -29,6 +29,7 @@ public class PlayerDto : INetworkSerializable
     public int SectionPerfPoints;
     public int MaxSectionPerfPoints;
     public SectionJudgeMode SectionDifficulty;
+    public LaneOrderType LaneOrderType;
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
@@ -58,6 +59,7 @@ public class PlayerDto : INetworkSerializable
         serializer.SerializeValue(ref SectionPerfPoints);
         serializer.SerializeValue(ref MaxSectionPerfPoints);
         serializer.SerializeValue(ref SectionDifficulty);
+        serializer.SerializeValue(ref LaneOrderType);
     }
 
     public static PlayerDto FromPlayer(Player player)
@@ -89,7 +91,8 @@ public class PlayerDto : INetworkSerializable
             SectionHits = player.SectionHits,
             SectionPerfPoints = player.SectionPerfPoints,
             MaxSectionPerfPoints = player.MaxSectionPerfPoints,
-            SectionDifficulty = player.ProfileData.SectionDifficulty
+            SectionDifficulty = player.ProfileData.SectionDifficulty,
+            LaneOrderType = player.LaneOrderType
         };
 
     }

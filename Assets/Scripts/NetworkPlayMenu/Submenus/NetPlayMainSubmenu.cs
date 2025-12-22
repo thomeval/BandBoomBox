@@ -7,6 +7,11 @@ public class NetPlayMainSubmenu : NetPlaySubmenuBase
     public override NetPlayMenuState NetPlayMenuState => NetPlayMenuState.MainMenu;
     public Text TxtLocalIps;
 
+    public override void HandleInput(InputEvent inputEvent)
+    {
+        base.HandleInput(inputEvent);
+    }
+
     public override void MenuItemSelected(MenuEventArgs args)
     {
         switch (args.SelectedItem)
@@ -22,25 +27,4 @@ public class NetPlayMainSubmenu : NetPlaySubmenuBase
                 break;
         }
     }
-
-    public void GetLocalIps()
-    {
-        TxtLocalIps.text = "Your IP's: ";
-
-        try
-        {
-            var addresses = Dns.GetHostEntry(Dns.GetHostName()).AddressList
-                            .Where(e => e.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-
-            foreach (var address in addresses)
-            {
-                TxtLocalIps.text += address.ToString() + ", ";
-            }
-        }
-        catch
-        {
-            TxtLocalIps.text += "[Unknown]";
-        }
-    }
-
 }

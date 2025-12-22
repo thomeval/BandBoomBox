@@ -53,7 +53,7 @@ public class NetPlayHostSubmenu : NetPlaySubmenuBase
         }
     }
 
-    protected override bool MenuInputActive()
+    public override bool MenuInputActive()
     {
         return !(TxtHostPort.isFocused || TxtHostPassword.isFocused);
     }

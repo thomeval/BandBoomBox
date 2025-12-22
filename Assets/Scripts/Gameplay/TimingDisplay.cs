@@ -1,11 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 public class TimingDisplay : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     public const int LANE_COUNT = 3;
+    public int LaneHeight = 100;
 
     public GameObject[] LaneSprites = new GameObject[LANE_COUNT];
     public string SpriteCategory;
@@ -31,5 +31,10 @@ public class TimingDisplay : MonoBehaviour
         var label = string.Format("{0}{1}", hitResult.JudgeResult, hitResult.DeviationResult).Replace("NotHit","");
         _spriteResolvers[hitResult.Lane].SetCategoryAndLabel(SpriteCategory,label);
         _spriteFaders[hitResult.Lane].Reset();
+    }
+
+    public void SetLaneOrder(LaneOrderType laneOrderType)
+    {
+        LaneOrderProvider.SetObjectLaneOrder(LaneSprites, laneOrderType, LaneHeight);
     }
 }

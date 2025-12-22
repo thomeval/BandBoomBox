@@ -2382,6 +2382,7 @@ GameObject:
   - component: {fileID: 5093772559801414793}
   - component: {fileID: 8144668357045341266}
   - component: {fileID: 3657860950170843307}
+  - component: {fileID: 8144668357045341267}
   m_Layer: 0
   m_Name: SongManager
   m_TagString: Untagged
@@ -2636,6 +2637,7 @@ MonoBehaviour:
   EnableExtraDifficulty: 1
   EnableMomentumOption: 0
   EnableSectionDifficulty: 0
+  EnableLaneOrderOption: 0
   AutoSetNoteLabelsFromController: 1
   DefaultKeyboardNoteLabels: WASD
   LrrDisplayEnabled: 1
@@ -2687,7 +2689,7 @@ AudioSource:
   m_GameObject: {fileID: 7984010655541007771}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -998002077645581100, guid: 6dfb45b200e18cb40ac79e7a256945a7, type: 2}
+  OutputAudioMixerGroup: {fileID: -3155400946501072105, guid: 6dfb45b200e18cb40ac79e7a256945a7, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -2882,6 +2884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9768cd5433d00408e888192a1e7ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <GameplayMusicFader>k__BackingField: {fileID: 8144668357045341267}
   EngineOffset: 0.05
   TimingDeviationOffset: 0
   _audioTimingDeviation: 0
@@ -3312,6 +3315,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8144668357045341267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416430689951199412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb4993e645b97c47a5d290d3214a58c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HoldTime: 2
+  FadeTime: 3
+  MixerGroupName: GameplayMusicFaderVolume
+  _initialVolume: 0
+  _active: 0
 --- !u!114 &8434684571698714355
 MonoBehaviour:
   m_ObjectHideFlags: 0

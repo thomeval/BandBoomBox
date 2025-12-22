@@ -58,6 +58,11 @@ public class PlayerHudManager : MonoBehaviour
 
         _mistakeSfxEnabled = Player.MistakeSfxEnabled;
         CountdownDisplay.HighwayNameDisplay = HighwayNameDisplay;
+
+        LaneFlasher.SetLaneOrder(Player.LaneOrderType);
+        NoteHitFlasher.SetLaneOrder(Player.LaneOrderType);
+        HeldNoteDisplay.SetLaneOrder(Player.LaneOrderType);
+        TimingDisplay.SetLaneOrder(Player.LaneOrderType);
     }
 
     [SerializeField]

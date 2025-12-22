@@ -1,9 +1,11 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class LaneFlasher : MonoBehaviour
 {
     public const int LANE_COUNT = 3;
+    public int LaneHeight = 75;
     public SpriteFader[] LaneSprites = new SpriteFader[LANE_COUNT];
 
     private readonly int[] _buttonsHeld = new int[LANE_COUNT];
@@ -40,5 +42,10 @@ public class LaneFlasher : MonoBehaviour
         {
             _buttonsHeld[x] = 0;
         }
+    }
+
+    public void SetLaneOrder(LaneOrderType laneOrderType)
+    {
+        LaneOrderProvider.SetObjectLaneOrder(LaneSprites.Select(e => e.gameObject).ToArray(), laneOrderType);
     }
 }

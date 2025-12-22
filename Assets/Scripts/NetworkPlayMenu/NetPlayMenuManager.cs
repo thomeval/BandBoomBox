@@ -1,6 +1,9 @@
 using Newtonsoft.Json;
+using System.Linq;
+using System.Net;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NetPlayMenuManager : ScreenManager
 {
@@ -25,6 +28,8 @@ public class NetPlayMenuManager : ScreenManager
             }
         }
     }
+
+    public Text TxtLocalIps;
 
     public const ushort DEFAULT_PORT = 3334;
 
@@ -60,7 +65,7 @@ public class NetPlayMenuManager : ScreenManager
     {
         LoadFromSettings();
         NetPlayMenuState = NetPlayMenuState.MainMenu;
-        MainMenu.GetLocalIps();
+        GetLocalIps();
     }
 
     public void Connect(string passwordHash)
@@ -176,6 +181,13 @@ public class NetPlayMenuManager : ScreenManager
 
     public override void OnPlayerInput(InputEvent inputEvent)
     {
+        if (inputEvent.Action == InputAction.X && !inputEvent.IsPressed && CurrentSubmenu.MenuInputActive())
+        {
+            ToggleIpsDisplay();
+            PlaySfx(SoundEvent.SelectionShifted);
+            return;
+        }
+
         CurrentSubmenu.HandleInput(inputEvent);
     }
 
@@ -193,4 +205,33 @@ public class NetPlayMenuManager : ScreenManager
         _settingsManager.Save();
     }
 
+    
+    public void GetLocalIps()
+    {
+        TxtLocalIps.text = "Your IP's: ";
+
+        try
+        {
+            var addresses = Dns.GetHostEntry(Dns.GetHostName()).AddressList
+                            .Where(e => e.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+
+            foreach (var address in addresses)
+            {
+                TxtLocalIps.text += address.ToString() + ", ";
+            }
+        }
+        catch
+        {
+            TxtLocalIps.text += "[Unknown]";
+        }
+    }
+
+    public void ToggleIpsDisplay()
+    {
+        TxtLocalIps.gameObject.SetActive(!TxtLocalIps.gameObject.activeSelf);
+        if (TxtLocalIps.gameObject.activeSelf)
+        {
+            GetLocalIps();
+        }
+    }
 }

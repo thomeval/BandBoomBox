@@ -38,7 +38,7 @@ public class NetPlaySubmenuBase : MonoBehaviour
     {
     }
 
-    protected virtual bool MenuInputActive()
+    public virtual bool MenuInputActive()
     {
         return true;
     }

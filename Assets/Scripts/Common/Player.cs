@@ -341,6 +341,12 @@ public class Player : MonoBehaviour
         set { ProfileData.RumbleEnabled = value; }
     }
 
+    public LaneOrderType LaneOrderType
+    {
+        get { return ProfileData.LaneOrderType; }
+        set { ProfileData.LaneOrderType = value; }
+    }
+
     public int Momentum
     {
         get { return ProfileData.Momentum; }
