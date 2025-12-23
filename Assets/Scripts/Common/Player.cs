@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 
     public static readonly string[] NoteSkins = { "Default" };
 
-    public static readonly string[] LabelSkins = { "ABXY", "BAYX", "Symbols", "WASD", "None" };
+    public static readonly string[] LabelSkins = { "ABXY", "BAYX", "Symbols", "WASD", "Arrows", "None" };
 
     public PlayerHudManager HudManager;
     private InputManager _inputManager;
@@ -120,9 +120,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    private const int MIN_SCROLL_SPEED = 200;
     public int GetCurrentScrollSpeed(double multiplier)
     {
         var result = ScrollSpeed + ((multiplier - 1) * Momentum);
+        result = Math.Max(MIN_SCROLL_SPEED, result);
         return (int)result;
     }
 

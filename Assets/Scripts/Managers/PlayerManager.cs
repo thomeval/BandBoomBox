@@ -37,6 +37,14 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public int ParticipatingPlayerCount
+    {
+        get
+        {
+            return Players.Count(e => e.IsParticipating);
+        }
+    }
+
     private PlayerInputManager _playerInputManager;
     private CoreManager _coreManager;
     private ControlsManager _controlsManager;

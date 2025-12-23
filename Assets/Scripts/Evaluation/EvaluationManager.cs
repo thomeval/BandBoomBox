@@ -195,6 +195,7 @@ public class EvaluationManager : ScreenManager
     {
         if (CoreManager.PlayerManager.GetLocalPlayers().All(e => e.PlayerState == PlayerState.Evaluation_Ready))
         {
+            CoreManager.SongManager.StopSongFade();
             this.SceneTransition(GameScene.SongSelect);
         }
     }

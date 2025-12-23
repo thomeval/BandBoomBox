@@ -51,6 +51,7 @@ public class NoteManager : MonoBehaviour
     public int ScrollSpeed = 500;
     public int Slot = 1;
     public bool TrimNotesEnabled = true;
+    public bool FixedBgScrollSpeed = false;
 
     private float _displayedScrollSpeed = 500;
     private float _lastSeenPosition = -999.0f;
@@ -209,7 +210,8 @@ public class NoteManager : MonoBehaviour
             _noteAreaWidth = ScrollingBackground.rect.width;
         }
 
-        var newX = (this._displayedScrollSpeed * this.SongPosition * -1) % _noteAreaWidth;
+        var bgScrollSpeed = FixedBgScrollSpeed ? 500 : this._displayedScrollSpeed;
+        var newX = (bgScrollSpeed * this.SongPosition * -1) % _noteAreaWidth;
 
         if (float.IsNaN(newX))
         {

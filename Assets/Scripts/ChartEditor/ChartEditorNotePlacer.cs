@@ -55,7 +55,7 @@ public class ChartEditorNotePlacer : MonoBehaviour
 
         if (!NoteIsValidForDifficulty(noteType, noteClass))
         {
-            _parent.DisplayMistake($"The selected note type ({noteType}), does not belong in a {_parent.CurrentDifficulty} chart.");
+            _parent.DisplayMistake($"The selected note type ({noteType}), does not belong in a {_parent.CurrentDifficulty} chart. To disable this check, set 'Allow All Note Types' to On in the Options menu.");
             return;
         }
 

@@ -1,10 +1,11 @@
+using System;
 using System.Linq;
 
 public class DifficultySelectManager : ScreenManager
 {
     public DifficultySelectFrame[] DifficultySelectFrames;
     public NetworkPlayerList NetworkPlayerList;
-
+    public SongListItem SelectedSongDisplay;
     private PlayerManager _playerManager;
 
     public int ReadyPlayers
@@ -45,8 +46,19 @@ public class DifficultySelectManager : ScreenManager
             DifficultySelectFrames[player.Slot - 1].State = PlayerState.DifficultySelect_Selecting;
         }
 
+        UpdateSelectedSongDisplay();
+
         UpdatePlayersState(PlayerState.DifficultySelect_Selecting);
         RefreshPlayerList();
+    }
+
+    private void UpdateSelectedSongDisplay()
+    {
+        var currentSong = CoreManager.CurrentSongData;
+        SelectedSongDisplay.SongData = currentSong;
+        var teamScore = CoreManager.HighScoreManager.GetTeamScore(currentSong.ID, currentSong.Version, CoreManager.PlayerManager.Players.Count);
+        SelectedSongDisplay.DisplayTeamScore(teamScore);
+        SelectedSongDisplay.IsSelected = true;
     }
 
     public override void OnPlayerInput(InputEvent inputEvent)

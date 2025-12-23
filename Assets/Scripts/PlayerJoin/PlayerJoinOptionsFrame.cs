@@ -25,7 +25,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public GameObject LaneOrderTypeMenuItem;
 
     public Grade?[] Goals = { null, Grade.D, Grade.DPlus, Grade.C, Grade.CPlus, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus };
-    public int[] MomentumAmounts = { 0, 25, 50, 100, 150, 200 };
+    public int[] MomentumAmounts = { 0, 10, 25, 50, 100};
     NoteType[] _noteTypesInPreview = { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Down, NoteType.Right, NoteType.Left, NoteType.Up };
     public List<Note> NotePreviews;
 

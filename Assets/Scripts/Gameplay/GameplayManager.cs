@@ -110,6 +110,7 @@ public class GameplayManager : ScreenManager
             noteManager.ApplyNoteSkin(player.NoteSkin, player.LabelSkin);
             noteManager.CalculateAbsoluteTimes(_songManager.CurrentSong.Bpm);
             noteManager.ScrollSpeed = player.ScrollSpeed;
+            noteManager.FixedBgScrollSpeed = player.Momentum != 0;
             _playerManager.SetMaxPerfPoints(noteManager.MaxPerfPoints, player.Slot);
             noteManager.ScrollingBackgroundOpacity = 0.0f;
             noteManager.LaneOrderType = player.LaneOrderType;
@@ -294,6 +295,7 @@ public class GameplayManager : ScreenManager
         else if (SongPosition > _songManager.GetPlayableLength())
         {
             GameplayState = GameplayScreenState.Outro;
+            CoreManager.SongManager.StartSongFade();
             _outroTime = DateTime.Now.AddSeconds(OUTRO_TIME);
             CoreManager.LastTeamScore = GetTeamScore();
             DisplayFullComboAnimations();

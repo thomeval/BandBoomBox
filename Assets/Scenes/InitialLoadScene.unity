@@ -3327,8 +3327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb4993e645b97c47a5d290d3214a58c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoldTime: 2
-  FadeTime: 3
+  HoldTime: 3
+  FadeTime: 5
   MixerGroupName: GameplayMusicFaderVolume
   _initialVolume: 0
   _active: 0
