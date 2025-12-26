@@ -251,6 +251,7 @@
     <Compile Include="Assets\Scripts\Common\SectionProgressMeter.cs" />
     <Compile Include="Assets\Scripts\Input\SectionJudgeResult.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GoalMeter.cs" />
+    <Compile Include="Assets\ChartEditorAutoSaver.cs" />
     <Compile Include="Assets\Scripts\Input\DeviationResult.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongList.cs" />

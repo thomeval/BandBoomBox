@@ -145,11 +145,14 @@ public class ChartEditorMenuManager : MonoBehaviour
                 break;
             case "Auto step forward":
                 opt.AutoStepForward = !opt.AutoStepForward;
-
                 break;
             case "Allow All Note Types":
                 opt.AllowAllNotes = !opt.AllowAllNotes;
                 _parent.ShowNotePalette();
+                break;
+                case "Auto-save Interval":
+                opt.ChangeAutoSaveInterval(args.ShiftAmount);
+                _parent.AutoSaver.AutoSaveIntervalMinutes = opt.AutoSaveIntervalMinutes;
                 break;
 
         }

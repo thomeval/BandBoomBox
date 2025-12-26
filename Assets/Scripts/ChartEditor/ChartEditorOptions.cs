@@ -10,11 +10,12 @@ public class ChartEditorOptions : MonoBehaviour
     public bool AutoStepForward = false;
     public int AutoSaveIntervalMinutes = 10;
     
-
+    private int[] _autoSaveIntervalOptions = new int[] { 0, 5, 10, 15, 20 };
     [Header("Text")] 
     public Text TxtLabelSkin;
     public Text TxtAllowAllNotes;
     public Text TxtAutoStepForward;
+    public Text TxtAutoSaveIntervalMinutes;
 
     private ChartEditorManager _parent;
     private void Awake()
@@ -27,12 +28,20 @@ public class ChartEditorOptions : MonoBehaviour
         TxtLabelSkin.text = LabelSkin;
         TxtAllowAllNotes.text = AllowAllNotes ? "On" : "Off";
         TxtAutoStepForward.text = AutoStepForward ? "On" : "Off";
+        TxtAutoSaveIntervalMinutes.text = AutoSaveIntervalMinutes == 0 ? "Off" : AutoSaveIntervalMinutes + " minutes";
     }
 
     public void ChangeLabelSkin(int delta)
     {
         var newValue = Helpers.GetNextValue(Player.LabelSkins, LabelSkin, delta, true);
         LabelSkin = newValue;
+        SetOptionsItemText();
+    }
+
+    public void ChangeAutoSaveInterval(int delta)
+    {      
+        var newValue = Helpers.GetNextValue(_autoSaveIntervalOptions, AutoSaveIntervalMinutes, delta, false);
+        AutoSaveIntervalMinutes = newValue;
         SetOptionsItemText();
     }
 

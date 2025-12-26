@@ -39,6 +39,7 @@ public class ChartEditorManager : ScreenManager
     public SongProgressMeter SongProgressMeter;
     public SectionProgressMeter SectionProgressMeter;
     public SongChartNoteCountDisplay NoteCountDisplay;
+    public ChartEditorAutoSaver AutoSaver;
 
     [SerializeField]
     private ChartEditorState _chartEditorState;
@@ -208,6 +209,7 @@ public class ChartEditorManager : ScreenManager
         ShowNotePalette();
 
         ApplyNoteSkin();
+        AutoSaver.AutoSaveIntervalMinutes = CoreManager.Settings.EditorAutoSaveIntervalMinutes;
     }
 
 
@@ -496,6 +498,9 @@ public class ChartEditorManager : ScreenManager
 
             CoreManager.SongLibrary.SaveSongToDisk(CurrentSongData);
             PlaySfx(SoundEvent.Editor_SaveComplete);
+
+            // Reset Auto-Save timer
+            AutoSaver.ResetTimer();
             DisplayMessage($"Successfully saved SJSON file to {CurrentSongData.SjsonFilePath} ");
         }
         catch (Exception e)
