@@ -16,14 +16,14 @@ public class SecretCodeHandler : MonoBehaviour
 
     private readonly Dictionary<SecretCode, int> _inputCodeProgress = new();
 
-    private Dictionary<SecretCode, string> _activationMessages = new()
+    private readonly Dictionary<SecretCode, string> _activationMessages = new()
     {
         { SecretCode.EnableExtraDifficulty, "Extra difficulty unlocked!" },
         { SecretCode.EnableNerfDifficulty, "N.E.R.F. difficulty unlocked!" },
         { SecretCode.EnableMomentumOption, "Momentum scroll speed option unlocked!" },
         { SecretCode.EnableSectionDifficulty, "Section difficulty options unlocked!" },
         { SecretCode.AbsolutelyNothing, "Extra lives unlocked... but this game doesn't use lives at all!" },
-        { SecretCode.EnableLaneOrderOption, "Lane order option unlocked!" }
+        { SecretCode.EnableLaneOrderOption, "Lane reordering option unlocked!" }
     };
 
     public SecretCode? ActivatedCode { get; private set; }

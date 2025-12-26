@@ -108,7 +108,7 @@ public class DifficultySelectManager : ScreenManager
             CoreManager.SongPreviewManager.StopPreviews();
             if (CoreManager.IsHost)
             {
-                // Send shutdown RPC to all clients.
+                // Return everyone to song select screen.
                 CoreManager.ServerNetApi.CancelSelectedSongServerRpc();
             }
             else
@@ -217,6 +217,13 @@ public class DifficultySelectManager : ScreenManager
     public override void OnSongSelectCancelled()
     {
         base.OnSongSelectCancelled();
+        UpdatePlayersState(PlayerState.SelectSong);
+        SceneTransition(GameScene.SongSelect);
+    }
+
+    public override void OnNetAbortCurrentSong()
+    {
+        base.OnNetAbortCurrentSong();
         UpdatePlayersState(PlayerState.SelectSong);
         SceneTransition(GameScene.SongSelect);
     }

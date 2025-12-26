@@ -256,6 +256,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: SectionResultDisplays_Flawless
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 700
+        width: 1800
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3d4717d980bc5c4a9ac322dddfa4a92
+      internalID: -1382488033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -269,6 +290,7 @@ TextureImporter:
     nameFileIdTable:
       SectionResultDisplays_Awesome: -794150264
       SectionResultDisplays_Empty: 779234079
+      SectionResultDisplays_Flawless: -1382488033
       SectionResultDisplays_Great: 1126233551
       SectionResultDisplays_Nice: 1135936173
       SectionResultDisplays_Okay: -1574982974
