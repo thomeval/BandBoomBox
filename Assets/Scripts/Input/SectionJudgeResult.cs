@@ -1,5 +1,6 @@
 ﻿public enum SectionJudgeResult
 {
+    Flawless,
     Superb,
     Awesome,
     Great,

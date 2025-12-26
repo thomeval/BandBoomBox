@@ -167,6 +167,7 @@ public static class Helpers
 
     public static float[] NormalSectionGradePercentages = 
     {
+        1.0f , // Flawless
         0.90f, // Superb
         0.80f, // Awesome 
         0.70f, // Great
@@ -177,6 +178,7 @@ public static class Helpers
 
     public static float[] StrictSectionGradePercentages =
     {
+        1.0f , // Flawless
         0.95f, // Superb
         0.90f, // Awesome 
         0.85f, // Great
@@ -547,6 +549,7 @@ public static class Helpers
     {
         return sectionGrade switch
         {
+            SectionJudgeResult.Flawless => Color.white,
             SectionJudgeResult.Superb => new Color(0.5f, 0.5f, 1.0f),
             SectionJudgeResult.Awesome => new Color(0.0f, 1.0f, 1.0f),
             SectionJudgeResult.Great => new Color(0.0f, 1.0f, 0.0f),

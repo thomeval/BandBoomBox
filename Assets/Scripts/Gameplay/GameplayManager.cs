@@ -151,6 +151,11 @@ public class GameplayManager : ScreenManager
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log($"GameplayManager Start\r\n--------------------");
+        Debug.Log($"Selected Song: {CoreManager.CurrentSongData}");
+        Debug.Log($"    ID: {CoreManager.CurrentSongData.ID}, Version: {CoreManager.CurrentSongData.Version}");
+        Debug.Log($"IsNetGame: {CoreManager.IsNetGame}, IsHost: {CoreManager.IsHost}");
+
         CoreManager.SongPreviewManager.StopPreviews();
 
         SetNoteHighwayScale();
@@ -185,6 +190,7 @@ public class GameplayManager : ScreenManager
 
         GameplayState = GameplayScreenState.Intro;
 
+        Debug.Log($"GameplayManager Startup Complete");
     }
 
     private void SetNoteHighwayScale()
@@ -294,6 +300,7 @@ public class GameplayManager : ScreenManager
         }
         else if (SongPosition > _songManager.GetPlayableLength())
         {
+            Debug.Log("Song Complete. Entering Outro State");
             GameplayState = GameplayScreenState.Outro;
             CoreManager.SongManager.StartSongFade();
             _outroTime = DateTime.Now.AddSeconds(OUTRO_TIME);
@@ -380,12 +387,12 @@ public class GameplayManager : ScreenManager
     }
     public override void OnPlayerInput(InputEvent inputEvent)
     {
-        if (GameplayState == GameplayScreenState.Paused)
+        if (PauseMenu.isActiveAndEnabled)
         {
             HandlePauseMenuInput(inputEvent);
             return;
-
         }
+
         if (inputEvent.IsPressed)
         {
             var player = _playerManager.GetLocalPlayer(inputEvent.Player);
@@ -542,11 +549,6 @@ public class GameplayManager : ScreenManager
 
     private void PauseGame(int player, bool pause)
     {
-        // Don't allow pausing in net games
-        if (CoreManager.IsNetGame)
-        {
-            return;
-        }
 
         if (pause)
         {
@@ -554,9 +556,8 @@ public class GameplayManager : ScreenManager
             {
                 return;
             }
-            PauseMenu.Show(player);
-            GameplayState = GameplayScreenState.Paused;
-            _songManager.PauseSong(true);
+            PauseMenu.Show(player, CoreManager.IsNetGame, CoreManager.IsHost);
+            TryPauseSong(true);
 
             foreach (var phudManager in HudManager.PlayerHudManagers)
             {
@@ -571,10 +572,27 @@ public class GameplayManager : ScreenManager
                 return;
             }
             PauseMenu.Hide();
+            TryPauseSong(false);
+        }
+    }
+
+    private void TryPauseSong(bool paused)
+    {
+        if (CoreManager.IsNetGame)
+        {
+            return;
+        }
+
+        if (paused)
+        {
+            GameplayState = GameplayScreenState.Paused;
+            _songManager.PauseSong(true);
+        }
+        else
+        {
             GameplayState = GameplayScreenState.Playing;
             _songManager.PauseSong(false);
         }
-
     }
 
     private void PauseMenuItemSelected(MenuEventArgs args)
@@ -592,6 +610,15 @@ public class GameplayManager : ScreenManager
                 break;
             case "Exit Song":
                 SceneTransition(GameScene.SongSelect);
+                break;
+            case "Abort Song":
+                Debug.Assert(CoreManager.IsNetGame);
+                CoreManager.ServerNetApi.AbortCurrentSongServerRpc();
+                break;
+            case "Disconnect":
+                Debug.Assert(CoreManager.IsNetGame && !CoreManager.IsHost);
+                // MainMenuScene will shut down NetworkManager.
+                SceneTransition(GameScene.MainMenu);
                 break;
         }
     }
@@ -764,6 +791,14 @@ public class GameplayManager : ScreenManager
         CoreManager.ClientNetApi.ReceiveNetGameplaySectionResultClientRpc(dto);
     }
 
+    public override void OnNetAbortCurrentSong()
+    {
+        base.OnNetAbortCurrentSong();
+        Debug.Log("Received abort song signal from host.");
+        UpdatePlayersState(PlayerState.SelectSong);
+        SceneTransition(GameScene.SongSelect);
+    }
+
     public override void OnNetShutdown()
     {
         _songManager.PauseSong(true);
@@ -787,7 +822,7 @@ public class GameplayManager : ScreenManager
         {
             DisplaySectionResults(result);
         }
-        
+
     }
 
     public SectionResultSetDto BuildSectionResults()
@@ -799,7 +834,7 @@ public class GameplayManager : ScreenManager
         };
         foreach (var player in _playerManager.Players)
         {
-           temp.Add(player.EndSection());
+            temp.Add(player.EndSection());
         }
 
         result.SectionResults = temp.ToArray();
@@ -808,7 +843,6 @@ public class GameplayManager : ScreenManager
 
     public void DisplaySectionResults(SectionResultSetDto resultSet)
     {
-        Debug.Log($"Displaying section results for section {resultSet.SectionIndex}");
         var localResults = resultSet.SectionResults.Where(e => e.NetId == this.CoreManager.NetId).ToArray();
 
         foreach (var result in localResults)
@@ -816,7 +850,6 @@ public class GameplayManager : ScreenManager
             var player = _playerManager.GetLocalPlayer(result.PlayerSlot);
             if (player.HudManager != null)
             {
-                Debug.Log($"Displaying section result for player {player.Name}: {result.JudgeResult}");
                 player.HudManager.ShowSectionResult(result.JudgeResult);
             }
 

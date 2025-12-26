@@ -220,6 +220,7 @@ public class CoreManager : MonoBehaviour
 
         ActiveMainManager.OnNetPlayerTurboStarted(myPlayer);
     }
+
     #endregion
 
     public void SaveAllActiveProfiles()

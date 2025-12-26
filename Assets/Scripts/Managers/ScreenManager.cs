@@ -195,6 +195,11 @@ public class ScreenManager : MonoBehaviour
     {
     }
 
+    public virtual void OnNetAbortCurrentSong()
+    {
+        Debug.Log("Abort signal received from server. Returning to song select.");
+    }
+
     public void SendNetPlayerUpdate(Player player)
     {
         if (!CoreManager.IsNetGame)
@@ -231,7 +236,5 @@ public class ScreenManager : MonoBehaviour
         player.PlayerState = playerState;
         SendNetPlayerUpdate(player);
     }
-
-
 }
 

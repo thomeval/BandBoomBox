@@ -54,7 +54,7 @@ public class AudioChannelFader : MonoBehaviour
 
     public void StartFadeOut()
     {
-        this.gameObject.SetActive(true);
+        this.enabled = true;
         _initialVolume = _settingsHelper.GetAudioVolume(MixerGroupName);
         _startTime = DateTime.Now;
         _active = true;
@@ -64,6 +64,6 @@ public class AudioChannelFader : MonoBehaviour
     {
         _active = false;
         _settingsHelper.ApplyAudioVolume(MixerGroupName, _initialVolume);
-        this.gameObject.SetActive(false);
+        this.enabled = false;
     }
 }

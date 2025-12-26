@@ -203,6 +203,13 @@ public class ServerNetApi : NetworkBehaviour
         _clientNetApi.CancelSelectedSongClientRpc();
     }
 
+    [ServerRpc(RequireOwnership = true)]
+    public void AbortCurrentSongServerRpc()
+    {
+        Debug.Log("(Server) Aborting current song.");
+        _clientNetApi.AbortCurrentSongClientRpc();
+    }
+
     #endregion
 
     public override void OnNetworkSpawn()

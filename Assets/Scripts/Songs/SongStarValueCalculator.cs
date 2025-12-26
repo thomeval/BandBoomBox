@@ -53,7 +53,6 @@ public class SongStarValueCalculator : MonoBehaviour
             result.Add(chart);
         }
 
-        Debug.Log($"GetCurrentPlayerCharts result: {result.Count} charts");
         return result;
     }
 

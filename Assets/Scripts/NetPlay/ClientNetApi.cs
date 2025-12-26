@@ -140,4 +140,10 @@ public class ClientNetApi : NetworkBehaviour
     {
         _coreManager.ActiveMainManager.OnNetReceiveSectionResult(dto);
     }
+
+    [ClientRpc]
+    public void AbortCurrentSongClientRpc()
+    {
+        _coreManager.ActiveMainManager.OnNetAbortCurrentSong();
+    }
 }

@@ -196,6 +196,7 @@ public class HitJudge
 
     public static Dictionary<SectionJudgeResult, float> SectionBonusMxValues = new()
     {
+        { SectionJudgeResult.Flawless, 1.0f },
         { SectionJudgeResult.Superb, 1.0f },
         { SectionJudgeResult.Awesome, 0.8f },
         { SectionJudgeResult.Great, 0.6f },
