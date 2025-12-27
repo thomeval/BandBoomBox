@@ -73,6 +73,8 @@ public class NetPlayMenuManager : ScreenManager
         if (string.IsNullOrEmpty(JoinMenu.JoinIpAddress))
         {
             JoinMenu.Message = "Please enter a valid IP address.";
+            PlaySfx(SoundEvent.Mistake);
+            return;
         }
 
         JoinMenu.JoinIpAddress = JoinMenu.JoinIpAddress.Trim();
@@ -183,7 +185,7 @@ public class NetPlayMenuManager : ScreenManager
 
     public override void OnPlayerInput(InputEvent inputEvent)
     {
-        if (inputEvent.Action == InputAction.X && !inputEvent.IsPressed && CurrentSubmenu.MenuInputActive())
+        if (inputEvent.Action == InputAction.X && inputEvent.IsPressed && CurrentSubmenu.MenuInputActive())
         {
             ToggleIpsDisplay();
             PlaySfx(SoundEvent.SelectionShifted);
