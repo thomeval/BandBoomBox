@@ -40,7 +40,7 @@ public class SongSelectNetworkPlayerList : MonoBehaviour
         if (notReadyCount == 1)
         {
             var notReadyPlayer = _playerManager.Players.Single(e => e.PlayerState != PlayerState.SelectSong);
-            return $"{notReadyPlayer.Name} ({notReadyPlayer.NetId}) Not Ready";
+            return $"{notReadyPlayer.Name} ({notReadyPlayer.DisplayNetId}) Not Ready";
         }
 
         return $"{notReadyCount} Not Ready";

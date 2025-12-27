@@ -617,6 +617,7 @@ public class GameplayManager : ScreenManager
             case "Disconnect":
                 Debug.Assert(CoreManager.IsNetGame && !CoreManager.IsHost);
                 // MainMenuScene will shut down NetworkManager.
+                CoreManager.SongManager.StopSong();
                 SceneTransition(GameScene.MainMenu);
                 break;
         }
