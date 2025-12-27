@@ -205,6 +205,7 @@ public class ChartEditorManager : ScreenManager
         NoteManager.AttachNotes(notes);
         NoteManager.CalculateAbsoluteTimes(CurrentSongData.Bpm);
         NoteManager.SetImpactZoneSprites(CurrentChart.Difficulty, CurrentDifficultyUsesTopLane);
+        NoteManager.TopLaneEnabled = true;
         RefreshNoteCounts();
         ShowNotePalette();
 

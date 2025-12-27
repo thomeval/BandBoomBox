@@ -18,8 +18,6 @@ public class ChartEditorAutoSaver : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    [TextArea]
     private DateTime _nextAutoSaveTime = DateTime.Now;
 
     private void Awake()

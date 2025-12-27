@@ -127,13 +127,6 @@ public class GameplayManager : ScreenManager
             noteManager.ParentEnabled = false;
         }
 
-
-        // TODO: Suspicious
-        foreach (var player in _playerManager.Players.Where(e => e.Slot == 0))
-        {
-            player.gameObject.SetActive(false);
-        }
-
         foreach (var player in _playerManager.GetLocalPlayers())
         {
             var pHudManager = HudManager.PlayerHudManagers[num];
@@ -421,10 +414,10 @@ public class GameplayManager : ScreenManager
         var noteType = NoteUtils.GetNoteTypeForInput(inputEvent.Action);
 
         var noteManager = GetNoteManager(inputEvent.Player);
+        var lane = NoteUtils.GetNoteLane(noteType.Value);
 
         if (noteType != null && noteManager != null)
-        {
-            var lane = NoteUtils.GetNoteLane(noteType.Value);
+        {         
             var playerHudManager = HudManager.GetPlayerHudManager(player.Slot);
             playerHudManager.FlashLane(lane);
             var note = noteManager.FindNextNote(noteType.Value, true);
@@ -460,6 +453,12 @@ public class GameplayManager : ScreenManager
             }
             else
             {
+                // If the player has no notes on the Top lane (LB, RB), and they pressed that lane, ignore it.
+                if (!noteManager.TopLaneEnabled && lane == 0)
+                {
+                    return;
+                }
+
                 // Check for WRONG judgement
                 note = noteManager.FindNextNote(true);
                 if (note != null)
