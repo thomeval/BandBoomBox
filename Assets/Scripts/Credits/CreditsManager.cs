@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CreditsManager : ScreenManager
@@ -8,9 +9,11 @@ public class CreditsManager : ScreenManager
     public RectTransform CreditsContainer;
     public GameObject RhythmistContainer;
     public Text LeadRhythmistName;
-    public int ScrollLimit = 2600;
+    public bool IsPaused = false;
 
-    [Header("Sounds")] 
+    private int _scrollLimit = 2600;
+
+    [Header("Sounds")]
     public AudioSource SfxBack;
 
     void Awake()
@@ -24,7 +27,7 @@ public class CreditsManager : ScreenManager
         var pos = CreditsContainer.localPosition;
 
         var leadRhythmist = CoreManager.ProfileManager.GetLeadRhythmist();
-        
+
         if (leadRhythmist == null)
         {
             RhythmistContainer.SetActive(false);
@@ -33,15 +36,25 @@ public class CreditsManager : ScreenManager
 
         RhythmistContainer.SetActive(true);
         LeadRhythmistName.text = leadRhythmist.Name;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(CreditsContainer);
+        _scrollLimit = (int)CreditsContainer.sizeDelta.y + 100;
     }
 
     void FixedUpdate()
+    {
+        if (!IsPaused)
+        {
+            Scroll();
+        }
+    }
+
+    private void Scroll()
     {
         var pos = CreditsContainer.localPosition;
         var newY = pos.y + ScrollSpeed;
 
 
-        if (newY > ScrollLimit)
+        if (newY > _scrollLimit)
         {
             newY = CreditsContainer.sizeDelta.y * -0.5f;
         }
@@ -57,6 +70,9 @@ public class CreditsManager : ScreenManager
             case InputAction.Back:
                 SfxBack.PlayUnlessNull();
                 SceneTransition(GameScene.Options);
+                break;
+            case InputAction.X:
+                IsPaused = !IsPaused;
                 break;
         }
     }
