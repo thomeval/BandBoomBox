@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Notes\SjsonUtils.cs" />
     <Compile Include="Assets\EvaluationSectionList.cs" />
     <Compile Include="Assets\Scripts\Common\GameScene.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\SongIssuesDisplay.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileCreateFrame.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectNetworkPlayerListItem.cs" />
     <Compile Include="Assets\Scripts\Misc\UIExtensions.cs" />

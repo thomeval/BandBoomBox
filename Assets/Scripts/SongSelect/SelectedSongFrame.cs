@@ -11,9 +11,8 @@ public class SelectedSongFrame : MonoBehaviour
     public Text TxtBpm;
     public Text TxtAuthor;
     public Text TxtLength;
-    public Text TxtIssues;
-    public Text LblIssues;
-   
+    public SongIssuesDisplay SongIssuesDisplay;
+
     [SerializeField]
     private SongData _selectedSong;
     public SongData SelectedSong
@@ -38,7 +37,7 @@ public class SelectedSongFrame : MonoBehaviour
             TxtLength.text = string.Format(CultureInfo.InvariantCulture, "{0}:{1:00}", (int) (SelectedSong.Length / 60),
                 SelectedSong.Length % 60);
             TxtAuthor.text = SelectedSong.ChartAuthor;
-            TxtIssues.text = !string.IsNullOrEmpty(SelectedSong.Issues) ? SelectedSong.Issues : "None";
+            SongIssuesDisplay.SongData = SelectedSong;
         }
 
     }

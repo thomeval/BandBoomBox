@@ -128,6 +128,8 @@ public static class NoteUtils
                 return new[] { NoteType.AnyB, NoteType.AnyD };
             case Difficulty.Medium:
                 return new[] { NoteType.A, NoteType.B, NoteType.Left, NoteType.Down };
+                case Difficulty.Mild:
+                return new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Left, NoteType.Down, NoteType.Right };
             case Difficulty.Hard:
                 return new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right };
             case Difficulty.Expert:

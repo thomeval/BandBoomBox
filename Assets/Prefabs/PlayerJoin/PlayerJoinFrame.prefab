@@ -6007,7 +6007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1045633231963110545, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3002741384211044361, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_RootOrder
@@ -6099,7 +6099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -6277,7 +6277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1045633231963110545, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3002741384211044361, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_RootOrder
@@ -6369,7 +6369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -6675,7 +6675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1045633231963110545, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3002741384211044361, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_RootOrder
@@ -6767,7 +6767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -7073,7 +7073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1045633231963110545, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3002741384211044361, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_RootOrder
@@ -7165,7 +7165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -8077,7 +8077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1045633231963110545, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3002741384211044361, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_RootOrder
@@ -8169,7 +8169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -8218,7 +8218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1045633231963110545, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3002741384211044361, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_RootOrder
@@ -8310,7 +8310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -8538,7 +8538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1045633231963110545, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3002741384211044361, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_RootOrder
@@ -8630,7 +8630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -8683,7 +8683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1045633231963110545, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3002741384211044361, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_RootOrder
@@ -8775,7 +8775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7806892630655366193, guid: e32ed4a921290704ca83e1b401f12afe, type: 3}
       propertyPath: m_WasSpriteAssigned

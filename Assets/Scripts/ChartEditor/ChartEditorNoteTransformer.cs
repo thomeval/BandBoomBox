@@ -64,6 +64,16 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         { NoteType.Down, NoteType.A}
     };
 
+    private readonly Dictionary<NoteType, NoteType> _invertMildLookup = new()
+    {
+        {NoteType.A, NoteType.Down},
+        {NoteType.B, NoteType.Left},
+        {NoteType.X, NoteType.Right},
+        {NoteType.Left, NoteType.B},
+        { NoteType.Down, NoteType.A},
+        {NoteType.Right, NoteType.X},
+    };
+
     private readonly Dictionary<NoteType, NoteType> _clampDifficultyBeginnerLookup = new()
     {
         { NoteType.A, NoteType.AnyB },
@@ -86,6 +96,15 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         { NoteType.Y, NoteType.B },
         { NoteType.Up, NoteType.Down },
         { NoteType.Right, NoteType.Left },
+        { NoteType.LB, NoteType.Down },
+        { NoteType.LT, NoteType.Left },
+        { NoteType.RB, NoteType.A },
+        { NoteType.RT, NoteType.B },
+    };
+        private readonly Dictionary<NoteType, NoteType> _clampDifficultyMildLookup = new()
+    {
+        { NoteType.Y, NoteType.A },
+        { NoteType.Up, NoteType.Down },
         { NoteType.LB, NoteType.Down },
         { NoteType.LT, NoteType.Left },
         { NoteType.RB, NoteType.A },
@@ -297,7 +316,6 @@ public class ChartEditorNoteTransformer : MonoBehaviour
 
         foreach (var note in notesToRemove)
         {
-            // TODO: Does this remove the end note for hold notes?
             _noteManager.RemoveNote(note);
         }
         _parent.PlaySfx(SoundEvent.Editor_NoteRemoved);
@@ -315,26 +333,45 @@ public class ChartEditorNoteTransformer : MonoBehaviour
 
     }
 
-    public void ClearRegionExceptStep(float step)
+    public void EnsureSpacing(float spacing)
     {
         var notesAffected = GetNotesInCurrentRegion();
-        notesAffected = notesAffected.Where(e => !e.IsEndNote).ToList();
+        notesAffected = notesAffected.OrderBy(e => e.Position).ToList();
+        double lastPosition = double.NegativeInfinity;
+        var notesToRemove = new List<Note>();
+        foreach (var note in notesAffected)
+        {
+            var delta = note.Position - lastPosition;
 
-        var notesToRemove = notesAffected.Where(e => !IsInStep(e, step)).ToList();
+            // Allow notes at the same position (chords)
+            if (delta == 0.0f)
+            {
+                continue;
+            }
+
+            // Include end notes in spacing checks, but never remove them.
+            if (note.IsEndNote)
+            {
+                lastPosition = note.Position;
+                continue;
+            }
+
+            if (delta < spacing)
+            {
+                notesToRemove.Add(note);
+            }
+            else
+            {
+                lastPosition = note.Position;
+            }
+        }
 
         foreach (var note in notesToRemove)
         {
             _noteManager.RemoveNote(note, true);
         }
         _parent.PlaySfx(SoundEvent.Editor_NoteRemoved);
-
-        _parent.DisplayMessage($"Removed {notesToRemove.Count} notes.");
-    }
-
-    private bool IsInStep(Note note, float step)
-    {
-        const float TOLERANCE = 0.0001f;
-        return Mathf.Abs(note.Position * step - Mathf.Round(note.Position * step)) < TOLERANCE;
+        _parent.DisplayMessage($"Removed {notesToRemove.Count} notes to ensure spacing of {spacing} beats.");
     }
 
     public void ClampToDifficulty(Difficulty difficulty)
@@ -354,6 +391,9 @@ public class ChartEditorNoteTransformer : MonoBehaviour
                 break;
             case Difficulty.Medium:
                 lookup = _clampDifficultyMediumLookup;
+                break;
+                case Difficulty.Mild:
+                    lookup = _clampDifficultyMildLookup;
                 break;
             case Difficulty.Hard:
                 lookup = _clampDifficultyHardLookup;

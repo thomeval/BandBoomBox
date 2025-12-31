@@ -5,5 +5,6 @@ public enum Difficulty
     Hard = 2,
     Expert = 3,
     Nerf = 4,
+    Mild = 5,
     Extra = 10
 }

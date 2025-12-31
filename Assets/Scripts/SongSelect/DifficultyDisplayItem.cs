@@ -19,7 +19,8 @@ public class DifficultyDisplayItem : MonoBehaviour
     {
         {Difficulty.Beginner, new Color(0.0f, 0.33f, 1.0f )},
         {Difficulty.Medium, new Color(0.0f, 0.5f, 0.0f )},
-        {Difficulty.Hard, new Color(0.65f, 0.65f, 0.0f )},
+        {Difficulty.Mild, new Color(0.65f, 0.65f, 0.0f )},
+        {Difficulty.Hard, new Color(1.0f, 0.5f, 0.0f )},
         {Difficulty.Expert, new Color(0.8f, 0.0f, 0.0f )},
         {Difficulty.Nerf, new Color(0.65f, 0.0f, 0.65f )},
         {Difficulty.Extra, new Color(0.0f, 0.6f, 0.6f )},
@@ -29,7 +30,8 @@ public class DifficultyDisplayItem : MonoBehaviour
     {
         {Difficulty.Beginner, new Color(0.6f, 0.7f, 1.0f )},
         {Difficulty.Medium, new Color(0.6f, 1.0f, 0.6f )},
-        {Difficulty.Hard, new Color(1.0f, 1.0f, 0.6f )},
+        {Difficulty.Mild, new Color(1.0f, 1.0f, 0.6f )},
+        {Difficulty.Hard, new Color(1.0f, 0.8f, 0.6f )},
         {Difficulty.Expert, new Color(1.0f, 0.65f, 0.65f )},
         {Difficulty.Nerf, new Color(1.0f, 0.7f, 1.0f )},
         {Difficulty.Extra, new Color(0.0f, 0.9f, 0.9f )},

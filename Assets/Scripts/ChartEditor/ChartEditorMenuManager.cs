@@ -275,8 +275,8 @@ public class ChartEditorMenuManager : MonoBehaviour
                 _parent.NoteTransformer.ClampToDifficulty(_parent.CurrentChart.Difficulty);
                 _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
-            case "Remove all notes except current step":
-                _parent.NoteTransformer.ClearRegionExceptStep(_parent.CursorStepSize);
+            case "Ensure Minimum Spacing":
+                _parent.NoteTransformer.EnsureSpacing(1f / _parent.CursorStepSize);
                 _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
             default:
