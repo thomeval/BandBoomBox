@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1499,14 +1498,24 @@ MonoBehaviour:
   _netId: 0
   _perfPoints: 0
   _maxPerfPoints: 0
-  <IsLocalPlayer>k__BackingField: 0
-  Slot: 0
+  _sectionPerfPoints: 0
+  _maxSectionPerfPoints: 0
+  _sectionHits: 0
+  <IsLocalPlayer>k__BackingField: 1
+  Slot: 1
   _combo: 0
   _maxCombo: 0
   _netFullComboType: 0
   _ranking: 1
   _difficulty: 0
+  _chartDifficultyLevel: 0
   _turboActive: 0
+  _allyBoosts: 0
+  _allyBoostTicks: 0
+  _ticksForNextBoost: 0
+  _allyBoostsReceived: 0
+  _allyBoostsProvided: 0
+  _sectionPercents: []
   IsParticipating: 0
   NoteSkin: Default
   LabelSkin: None
@@ -5742,7 +5751,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 522514031
-  m_SortingLayer: 14
+  m_SortingLayer: 15
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 48cadeafab79edd46ae7532ace634a44, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7111,6 +7120,10 @@ PrefabInstance:
       propertyPath: Slot
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7131182824097523991, guid: 54825131424afb0458e542290b1f40f0, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 411681952}
     - target: {fileID: 7131182824097523991, guid: 54825131424afb0458e542290b1f40f0, type: 3}
       propertyPath: GoalMeter
       value: 
