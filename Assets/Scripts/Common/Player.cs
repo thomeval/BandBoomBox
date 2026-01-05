@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     void Awake()
     {
         _inputManager = this.GetComponent<InputManager>();
+
     }
 
     void Start()
@@ -213,6 +214,18 @@ public class Player : MonoBehaviour
         set
         {
             _difficulty = value;
+            RefreshHud();
+        }
+    }
+
+    [SerializeField]
+    private int _chartDifficultyLevel;   
+    public int ChartDifficultyLevel
+    {
+        get { return _chartDifficultyLevel; }
+        set
+        {
+            _chartDifficultyLevel = value;
             RefreshHud();
         }
     }
@@ -455,6 +468,21 @@ public class Player : MonoBehaviour
             }
 
             result -= Mistakes[JudgeResult.Miss] * maxPerHit;
+            return result;
+        }
+    }
+
+    public int MaxPerfPointsFromHits
+    {
+        get
+        {
+            var result = 0;
+            var maxPerHit = HitJudge.JudgePerfPointValues[JudgeResult.Perfect];
+            foreach (var hit in EarlyHits.Union(LateHits).ToList())
+            {
+                result += hit.Value * maxPerHit;
+            }
+            result += Mistakes[JudgeResult.Miss] * maxPerHit;
             return result;
         }
     }

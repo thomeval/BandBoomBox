@@ -171,6 +171,7 @@ public class DifficultySelectManager : ScreenManager
         var player = CoreManager.PlayerManager.GetLocalPlayers().Single(e => e.Slot == playerSlot);
         player.Difficulty = selectedChart.Difficulty;
         player.ChartGroup = selectedChart.Group;
+        player.ChartDifficultyLevel = selectedChart.DifficultyLevel;
     }
 
     private void TryReturnToSongSelect(DifficultySelectFrame frame)

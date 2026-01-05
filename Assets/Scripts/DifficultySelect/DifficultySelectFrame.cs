@@ -165,7 +165,6 @@ public class DifficultySelectFrame : MonoBehaviour
         {
             case InputAction.B:
             case InputAction.Back:
-                //  SoundEventHandler.PlaySfx(SoundEvent.SelectionCancelled);
                 DifficultyMenu.HandleInput(inputEvent);
                 break;
         }

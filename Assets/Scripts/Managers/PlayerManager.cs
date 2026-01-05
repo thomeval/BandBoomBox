@@ -327,6 +327,8 @@ public class PlayerManager : MonoBehaviour
         }
 
         var previousTurboState = myPlayer.TurboActive;
+
+        // TODO: Consider skipping this for local players
         CopyValues(player, myPlayer);
 
         _coreManager.OnNetPlayerUpdated(myPlayer);
@@ -407,6 +409,7 @@ public class PlayerManager : MonoBehaviour
         toPlayer.SectionHits = fromPlayer.SectionHits;
         toPlayer.SectionPerfPoints = fromPlayer.SectionPerfPoints;
         toPlayer.MaxSectionPerfPoints = fromPlayer.MaxSectionPerfPoints;
+        toPlayer.ChartDifficultyLevel = fromPlayer.ChartDifficultyLevel;
     }
 
     public void CopyValues(PlayerScoreDto fromPlayer, Player toPlayer)
