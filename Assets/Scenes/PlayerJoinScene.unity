@@ -2869,7 +2869,11 @@ PrefabInstance:
     - target: {fileID: 3173276286165253032, guid: caebde99b29e952438912f294c1449e8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -4990040255076369386, guid: 3561d42a901b11b4f9d4d8a6ba14b9e3, type: 3}
+      objectReference: {fileID: 504113382, guid: 3561d42a901b11b4f9d4d8a6ba14b9e3, type: 3}
+    - target: {fileID: 3173276286165253032, guid: caebde99b29e952438912f294c1449e8, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3319804487162802411, guid: caebde99b29e952438912f294c1449e8, type: 3}
       propertyPath: m_Text
       value: Join
@@ -2965,7 +2969,11 @@ PrefabInstance:
     - target: {fileID: 7387480693979299334, guid: caebde99b29e952438912f294c1449e8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 2820451121921838660, guid: 3561d42a901b11b4f9d4d8a6ba14b9e3, type: 3}
+      objectReference: {fileID: -593418193, guid: 3561d42a901b11b4f9d4d8a6ba14b9e3, type: 3}
+    - target: {fileID: 7387480693979299334, guid: caebde99b29e952438912f294c1449e8, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3592,6 +3600,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 745734922}
     m_Modifications:
+    - target: {fileID: 106669767432348273, guid: 0d7669f57f7b90a4dafc5774d3ac463d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -593418193, guid: 3561d42a901b11b4f9d4d8a6ba14b9e3, type: 3}
+    - target: {fileID: 106669767432348273, guid: 0d7669f57f7b90a4dafc5774d3ac463d, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473792067717687263, guid: 0d7669f57f7b90a4dafc5774d3ac463d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1593631918, guid: 3561d42a901b11b4f9d4d8a6ba14b9e3, type: 3}
     - target: {fileID: 8355976934051285315, guid: 0d7669f57f7b90a4dafc5774d3ac463d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
