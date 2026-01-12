@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -320,17 +321,14 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdateNetPlayer(PlayerDto player)
     {
-        var myPlayer = Players.FirstOrDefault(e => e.NetId == player.NetId && e.Slot == player.Slot);
+        var myPlayer = GetPlayerToUpdate(player.NetId, player.Slot, true);
         if (myPlayer == null)
         {
             return;
         }
 
         var previousTurboState = myPlayer.TurboActive;
-
-        // TODO: Consider skipping this for local players
         CopyValues(player, myPlayer);
-
         _coreManager.OnNetPlayerUpdated(myPlayer);
         CheckTurboStarted(myPlayer, previousTurboState);
     }
@@ -345,7 +343,7 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdateNetPlayer(PlayerScoreDto player)
     {
-        var myPlayer = Players.FirstOrDefault(e => e.NetId == player.NetId && e.Slot == player.Slot);
+        var myPlayer = GetPlayerToUpdate(player.NetId, player.Slot, false);
         if (myPlayer == null)
         {
             return;
@@ -355,6 +353,17 @@ public class PlayerManager : MonoBehaviour
         CopyValues(player, myPlayer);
         _coreManager.OnNetPlayerUpdated(myPlayer);
         CheckTurboStarted(myPlayer, previousTurboState);
+    }
+
+    private Player GetPlayerToUpdate(ulong netId, int slot, bool includeLocalPlayers)
+    {
+        var myPlayer = Players.FirstOrDefault(e => e.NetId == netId && e.Slot == slot);
+        if (myPlayer == null || (!includeLocalPlayers && myPlayer.IsLocalPlayer))
+        {
+            return null;
+        }
+
+        return myPlayer;
     }
 
     public void ClearNetPlayers()

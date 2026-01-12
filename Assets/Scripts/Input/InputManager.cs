@@ -303,11 +303,6 @@ public class InputManager : MonoBehaviour
         {
             return;
         }
-        var preferredController = GetPreferredNoteLabels();
-
-        // TODO: This event fires if the controller used by the player changes OR when any of the InputBindings change. Keep track of the previous device, and only fire the event if it changes.
-        // _coreManager.SendMessage("OnPlayerControlsChanged",
-        //        new ControlsChangedArgs { Player = _player.Slot, ControllerType = preferredController, Device = _playerInput.devices[0]?.name });
     }
 
     void OnDeviceLost(PlayerInput input)

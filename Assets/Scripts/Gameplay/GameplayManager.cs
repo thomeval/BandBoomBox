@@ -350,6 +350,14 @@ public class GameplayManager : ScreenManager
         TryToStartSong();
     }
 
+    private void SongManager_SongLoadFailed()
+    {
+        _isSongLoading = false;
+        CoreManager.SongLibrary.MissingSongs.Add(_songManager.CurrentSong.ID);
+        CoreManager.SongLibrary.UpdateAvailableSongs();
+        SceneTransition(GameScene.SongSelect);
+    }
+
     private void TryToStartSong()
     {
         if (_isSongLoading || !_startSignalReceived)
@@ -664,7 +672,7 @@ public class GameplayManager : ScreenManager
     {
         _songLoadStart = DateTime.Now;
         _isSongLoading = true;
-        _songManager.LoadSong(selectedSongData, SongManager_SongLoaded);
+        _songManager.LoadSong(selectedSongData, SongManager_SongLoaded, SongManager_SongLoadFailed);
         HudManager.SongTitleText = selectedSongData.Title + " " + selectedSongData.Subtitle;
     }
 

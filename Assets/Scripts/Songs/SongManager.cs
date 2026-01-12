@@ -145,7 +145,7 @@ public class SongManager : MonoBehaviour
         _audioTimingDeviation = (_audioSource.time - audioTime);
     }
 
-    public void LoadSong(SongData song, Action onCompleted)
+    public void LoadSong(SongData song, Action onCompleted, Action onFailed = null)
     {
         StopSong();
         CurrentSong = song;
@@ -154,10 +154,10 @@ public class SongManager : MonoBehaviour
 
         Debug.Log($"Loading audio file located at {song.AudioPath}");
         var url = Helpers.PathToUri(song.AudioPath);
-        StartCoroutine(LoadSongCoroutine(url, onCompleted));
+        StartCoroutine(LoadSongCoroutine(url, onCompleted, onFailed));
     }
 
-    IEnumerator LoadSongCoroutine(string url, Action onCompleted)
+    IEnumerator LoadSongCoroutine(string url, Action onCompleted, Action onFailed = null)
     {
 
         using (var request = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.UNKNOWN))
@@ -167,6 +167,7 @@ public class SongManager : MonoBehaviour
             if (request.error != null)
             {
                 Debug.LogError("Error occurred while loading audio: " + request.error);
+                onFailed?.Invoke();
                 yield break;
             }
 

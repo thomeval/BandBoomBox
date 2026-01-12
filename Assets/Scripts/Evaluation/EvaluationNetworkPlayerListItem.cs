@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
@@ -37,11 +38,7 @@ public class EvaluationNetworkPlayerListItem : NetworkPlayerListItem
         }
 
         SetTextSafe(TxtPlayerLevel, $"{ExpLevelUtils.GetLevel(Player.Exp)}");
-
-        if (TxtDifficulty != null)
-        {
-            TxtDifficulty.text = Player.GroupAndDifficulty;
-        }
+        SetTextSafe(TxtDifficulty, $"{Player.GroupAndDifficulty} ({Player.ChartDifficultyLevel})");
 
         var ranking = Player.IsParticipating ? Helpers.FormatRanking(Player.Ranking) : "-";
         SetTextSafe(TxtRanking, ranking);

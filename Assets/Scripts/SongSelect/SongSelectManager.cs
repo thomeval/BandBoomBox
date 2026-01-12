@@ -55,7 +55,6 @@ public class SongSelectManager : ScreenManager
         }
     }
 
-    public List<string> UnavailableSongs { get { return CoreManager.SongLibrary.UnavailableSongs; } }
     void Awake()
     {
         if (!FindCoreManager())
@@ -133,7 +132,7 @@ public class SongSelectManager : ScreenManager
 
         SetSelectedIndex(selectedId);
 
-        TxtSongCount.text = "" + OrderedSongs.Count;
+        TxtSongCount.text = "" + CoreManager.SongLibrary.AvailableSongCount;
 
         TxtStarCount.text = "" + CoreManager.HighScoreManager.GetTotalStarsForSongs(OrderedSongs, playerCount);
         TxtSortMode.text = SongSortMode;
@@ -263,6 +262,12 @@ public class SongSelectManager : ScreenManager
     }
     private void OnSongDecided()
     {
+        if (!SelectedSong.IsAvailable)
+        {
+            PlaySfx(SoundEvent.Mistake);
+            return;
+        }
+
         if (CoreManager.IsNetGame)
         {
             var request = new NetSongChoiceRequest()
@@ -359,7 +364,6 @@ public class SongSelectManager : ScreenManager
 
             if (response.ResponseType == NetSongChoiceResponseType.SongNotInLibrary)
             {
-                UnavailableSongs.Add(response.SongId);
                 SongList.PopulateSongListItems();
             }
         }
@@ -376,5 +380,13 @@ public class SongSelectManager : ScreenManager
         base.OnNetCurrentTurnUpdated(currentTurn);
         TxtNextSongSelectTurn.text = CoreManager.NetSongSelectTurnManager.GetTurnMessage();
         TxtNextSongSelectTurn.color = NormalMessageColor;
+    }
+
+    public override void OnNetReceiveCommonSongs(NetworkPlayerSongLibrary commonSongs)
+    {
+        base.OnNetReceiveCommonSongs(commonSongs);
+        TxtSongCount.text = "" + CoreManager.SongLibrary.AvailableSongCount;
+        SongList.PopulateSongListItems();
+        ShowSelectedSong();
     }
 }

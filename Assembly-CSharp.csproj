@@ -138,6 +138,7 @@
     <Compile Include="Assets\Scripts\Misc\SecretCodeHandler.cs" />
     <Compile Include="Assets\Scripts\Gameplay\EnergyMeterScaleManager.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorOptions.cs" />
+    <Compile Include="Assets\Scripts\Songs\NetworkSongLibrarySet.cs" />
     <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
     <Compile Include="Assets\Scripts\Notes\FinishMarker.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkPlayerListItem.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Assets\Scripts\SongSelect\SongList.cs" />
     <Compile Include="Assets\Scripts\Common\Menu.cs" />
     <Compile Include="Assets\Scripts\Common\LaneOrderProvider.cs" />
+    <Compile Include="Assets\Scripts\Songs\SongLibraryEntry.cs" />
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierEntry.cs" />
     <Compile Include="Assets\EvaluationSectionItem.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinNetworkPlayerListItem.cs" />
@@ -271,6 +273,7 @@
     <Compile Include="Assets\Scripts\Misc\SceneTransitionState.cs" />
     <Compile Include="Assets\Scripts\Input\DeviceLostArgs.cs" />
     <Compile Include="Assets\Scripts\Common\HighwayNameDisplay.cs" />
+    <Compile Include="Assets\Scripts\Songs\NetworkPlayerSongLibrary.cs" />
     <Compile Include="Assets\Scripts\Gameplay\LrrData.cs" />
     <Compile Include="Assets\Scripts\InitialLoad\InitialLoadManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorManager.cs" />

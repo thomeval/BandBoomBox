@@ -13,7 +13,28 @@ namespace Assets
 
         public string[] SongFolders;
 
-        public List<string> UnavailableSongs { get; internal set; } = new();
+        public List<string> MissingSongs { get; internal set; } = new();
+
+        public int AvailableSongCount
+        {
+            get { return Songs.Count(e => e.IsAvailable); }
+        }
+
+        /// <summary>
+        /// During Network Games, this will contain the songs that are commonly available to all players.
+        /// This will be calculated by the host and sent to clients.
+        /// When not in a Network Game, this will be null.
+        /// </summary>
+        public NetworkPlayerSongLibrary CommonAvailableSongs = null;
+
+        [SerializeField]
+        private NetworkSongLibrarySet _networkSongLibrarySet = new();
+
+        /// <summary>
+        /// During Network Games, the host will maintain a set of all player song libraries and use this collection
+        /// to determine songs that all players have in common.
+        /// </summary>
+        public NetworkSongLibrarySet NetworkSongLibrarySet => _networkSongLibrarySet;
 
         public event EventHandler LoadSongsCompleted;
 
@@ -55,6 +76,7 @@ namespace Assets
                 LoadSongs(temp);
             }
             Debug.Log($"Finished searching for songs. Loaded {Songs.Count} songs.");
+            UpdateAvailableSongs();
             LoadSongsCompleted?.Invoke(this, null);
         }
 
@@ -189,5 +211,45 @@ namespace Assets
             Songs.Add(songData);
         }
 
+        public SongLibraryEntry[] AsSongEntryCollection()
+        {
+            return Songs.Select(e => new SongLibraryEntry
+            {
+                ID = e.ID,
+                Version = e.Version
+            }).ToArray();
+        }
+
+        /// <summary>
+        /// Updates the local song library to mark which songs are available.
+        /// Any song in the MissingSongs list will be marked as unavailable (usually due to missing files).
+        /// During Network Games, the CommonAvailableSongs will be used to further filter available songs to only those that all players have.
+        /// </summary>
+        public void UpdateAvailableSongs()
+        {
+            IEnumerable<SongLibraryEntry> availableSongs = AsSongEntryCollection();
+            availableSongs = availableSongs.Where(e => !MissingSongs.Contains(e.ID));
+
+            if (CommonAvailableSongs != null)
+            {
+                availableSongs = availableSongs.Intersect(CommonAvailableSongs.Songs).ToList();
+            }
+
+            foreach (var song in Songs)
+            {
+                song.IsAvailable = availableSongs.Any(e => e.ID == song.ID && e.Version == song.Version);
+            }
+
+            Debug.Log($"Updated available songs. {AvailableSongCount} / {Songs.Count} songs are available.");
+        }
+
+        public void InitCommonSongs()
+        {
+            CommonAvailableSongs = new NetworkPlayerSongLibrary
+            {
+                NetId = 0,
+                Songs = AsSongEntryCollection()
+            };
+        }
     }
 }

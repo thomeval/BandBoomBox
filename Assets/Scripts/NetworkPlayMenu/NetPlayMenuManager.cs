@@ -54,6 +54,7 @@ public class NetPlayMenuManager : ScreenManager
 
     private UnityTransport UnityTransport => CoreManager.NetworkManager.GetComponent<UnityTransport>();
     private SettingsManager _settingsManager;
+    private bool _waitingForCommonSongs = false;
 
     private void Awake()
     {
@@ -65,6 +66,9 @@ public class NetPlayMenuManager : ScreenManager
     {
         LoadFromSettings();
         NetPlayMenuState = NetPlayMenuState.MainMenu;
+
+        // Reset common songs from previous Network games.
+        CoreManager.SongLibrary.CommonAvailableSongs = null;
         GetLocalIps();
     }
 
@@ -127,6 +131,10 @@ public class NetPlayMenuManager : ScreenManager
         CoreManager.NetworkManager.ConnectionApprovalCallback = CoreManager.ServerNetApi.ConnectionApprovalCallback;
         CoreManager.NetworkManager.NetworkConfig.ConnectionData = GetJoinParams(passwordHash);
 
+        CoreManager.SongLibrary.InitCommonSongs();
+
+        _waitingForCommonSongs = false;
+
         Debug.Log($"Starting server on port {HostMenu.HostPort}.");
         var result = CoreManager.NetworkManager.StartHost();
 
@@ -168,9 +176,20 @@ public class NetPlayMenuManager : ScreenManager
 
     private void ClientNetApi_NetSettingsUpdated(object sender, System.EventArgs e)
     {
+        JoinMenu.Message = "syncing song library with server...";
         CoreManager.ClientNetApi.NetSettingsUpdated -= ClientNetApi_NetSettingsUpdated;
-        this.SceneTransition(GameScene.PlayerJoin);
+
+        _waitingForCommonSongs = true;
+
+        var mySongLibrary = new NetworkPlayerSongLibrary 
+        {
+            NetId = CoreManager.NetId,
+            Songs = CoreManager.SongLibrary.AsSongEntryCollection()
+        };
+
+        CoreManager.ServerNetApi.RegisterMySongLibraryServerRpc(mySongLibrary);       
     }
+
 
     public override void OnNetClientDisconnected(ulong id)
     {
@@ -183,6 +202,16 @@ public class NetPlayMenuManager : ScreenManager
         }
     }
 
+    public override void OnNetReceiveCommonSongs(NetworkPlayerSongLibrary commonSongs)
+    {
+        base.OnNetReceiveCommonSongs(commonSongs);
+        if (!_waitingForCommonSongs)
+        {
+            return;
+        }
+        JoinMenu.Message = "(Client) Song library synced.";
+        this.SceneTransition(GameScene.PlayerJoin);
+    }
     public override void OnPlayerInput(InputEvent inputEvent)
     {
         if (inputEvent.Action == InputAction.X && inputEvent.IsPressed && CurrentSubmenu.MenuInputActive())

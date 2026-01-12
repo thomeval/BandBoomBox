@@ -26,6 +26,10 @@ public class SongData
     public string AudioPath;
     public int Version = 1;
 
+    [JsonIgnore]
+    [NonSerialized]
+    public bool IsAvailable = true;
+
     [Header("Timing")]
     public float Bpm;
     public float AudioStart;

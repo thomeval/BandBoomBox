@@ -179,6 +179,7 @@ public class CoreManager : MonoBehaviour
 
         PlayerManager.SetPlayerCount(1);
         PlayerManager.AllowPlayerJoining = false;
+        SongLibrary.CommonAvailableSongs = null;
     }
 
     public void OnNetRequestSongResponse(NetSongChoiceResponse response)

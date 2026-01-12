@@ -552,7 +552,7 @@ MonoBehaviour:
   m_MaxConnectAttempts: 6
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
-    Address: 127.0.0.1
+    Address: 0.0.0.0
     Port: 3334
     ServerListenAddress: 0.0.0.0
   DebugSimulator:

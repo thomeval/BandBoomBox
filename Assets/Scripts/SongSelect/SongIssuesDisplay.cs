@@ -24,6 +24,13 @@ public class SongIssuesDisplay : MonoBehaviour
             return;
         }
 
+        if (!_songData.IsAvailable)
+        {
+            this.gameObject.SetActive(true);
+            TxtIssues.text = "Song is unavailable.";
+            return;
+        }
+
         this.gameObject.SetActive(!string.IsNullOrEmpty(_songData.Issues));
         TxtIssues.text = _songData.Issues;
     }

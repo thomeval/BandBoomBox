@@ -197,7 +197,14 @@ public class ScreenManager : MonoBehaviour
 
     public virtual void OnNetAbortCurrentSong()
     {
-        Debug.Log("Abort signal received from server. Returning to song select.");
+        Debug.Log("(Client) Abort signal received from server. Returning to song select.");
+    }
+
+    public virtual void OnNetReceiveCommonSongs(NetworkPlayerSongLibrary commonSongs)
+    {
+        Debug.Log($"(Client) Received Common Songs list with {commonSongs.Songs.Length} songs.");
+        CoreManager.SongLibrary.CommonAvailableSongs = commonSongs;
+        CoreManager.SongLibrary.UpdateAvailableSongs();
     }
 
     public void SendNetPlayerUpdate(Player player)

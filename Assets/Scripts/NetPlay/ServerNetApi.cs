@@ -76,8 +76,7 @@ public class ServerNetApi : NetworkBehaviour
     public void RemoveNetPlayerServerRpc(ServerRpcParams serverParams = default)
     {
         var netId = serverParams.Receive.SenderClientId;
-        Debug.Log($"(Server) Removing all players from client ID {netId}");
-        _clientNetApi.ReceivePlayerListClientRpc(GetPlayerList());
+        RemoveNetPlayersServerRpc(netId);
     }
 
     /// <summary>
@@ -90,6 +89,8 @@ public class ServerNetApi : NetworkBehaviour
         Debug.Log($"(Server) Removing all Players from client ID {netId}");
         _playerManager.RemoveNetPlayer(netId);
         _clientNetApi.ReceivePlayerListClientRpc(GetPlayerList());
+        _coreManager.SongLibrary.NetworkSongLibrarySet.Remove(netId);
+        SyncCommonSongs();
     }
 
     /// <summary>
@@ -210,7 +211,22 @@ public class ServerNetApi : NetworkBehaviour
         _clientNetApi.AbortCurrentSongClientRpc();
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void RegisterMySongLibraryServerRpc(NetworkPlayerSongLibrary library, ServerRpcParams serverParams = default)
+    {
+        var netId = serverParams.Receive.SenderClientId;
+        Debug.Log($"(Server) Received song library for client ID {netId} with {library.Songs.Length} songs.");
+        _coreManager.SongLibrary.NetworkSongLibrarySet.Add(netId, library);
+        SyncCommonSongs();
+    }
+
     #endregion
+
+     private void SyncCommonSongs()
+    {
+        var commonSongs = _coreManager.SongLibrary.NetworkSongLibrarySet.GetCommonSongs();
+        _clientNetApi.ReceiveCommonSongsClientRpc(commonSongs);
+    }
 
     public override void OnNetworkSpawn()
     {

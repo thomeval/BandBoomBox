@@ -146,4 +146,10 @@ public class ClientNetApi : NetworkBehaviour
     {
         _coreManager.ActiveMainManager.OnNetAbortCurrentSong();
     }
+
+    [ClientRpc]
+    public void ReceiveCommonSongsClientRpc(NetworkPlayerSongLibrary commonSongs)
+    {
+        _coreManager.ActiveMainManager.OnNetReceiveCommonSongs(commonSongs);
+    }
 }

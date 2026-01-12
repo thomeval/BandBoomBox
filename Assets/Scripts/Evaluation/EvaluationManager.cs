@@ -55,7 +55,6 @@ public class EvaluationManager : ScreenManager
 
             DisplayPlayerResultFrame(player, isPersonalBest);
             player.ProfileData.SongsPlayed++;
-
         }
 
         var isTeamBest = CoreManager.HighScoreManager.AddTeamScore(CoreManager.LastTeamScore);
@@ -153,12 +152,12 @@ public class EvaluationManager : ScreenManager
             case InputAction.Right:
                 ChangeResultPage(inputEvent.Player, 1);
                 break;
-                case InputAction.Up:
-                    ScrollResultPage(inputEvent.Player, 1);
-                    break;
-                case InputAction.Down:
-                    ScrollResultPage(inputEvent.Player, -1);
-                    break;
+            case InputAction.Up:
+                ScrollResultPage(inputEvent.Player, 1);
+                break;
+            case InputAction.Down:
+                ScrollResultPage(inputEvent.Player, -1);
+                break;
             case InputAction.A:
             case InputAction.B:
             case InputAction.Pause:
@@ -173,9 +172,9 @@ public class EvaluationManager : ScreenManager
                     TryToContinue();
                 }
                 break;
-                case InputAction.Y:
+            case InputAction.Y:
                 ToggleCurrentFrame(player);
-                    break;
+                break;
         }
     }
 
