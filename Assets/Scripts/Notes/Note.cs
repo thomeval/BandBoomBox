@@ -84,6 +84,11 @@ public class Note : MonoBehaviour
     {
         var currentPos = this.transform.localPosition;
         this.transform.localPosition = new Vector3(currentPos.x, newYPos, currentPos.z);
+
+        if (this.EndNote != null)
+        {
+            this.EndNote.SetRenderYPosition(newYPos);
+        }
     }
 
     public void SetRenderPosition(float newXPos, float newYPos)
@@ -124,6 +129,11 @@ public class Note : MonoBehaviour
     {
         RefreshSprites();
         RefreshLane();
+
+        if (this.EndNote != null)
+        {
+            this.EndNote.Refresh();
+        }
     }
 
     public void RefreshSprites()

@@ -165,7 +165,22 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         { NoteType.RT, NoteType.RB },
     };
 
+    private readonly Dictionary<NoteType, NoteType> _expandToExpertLookup = new()
+    {
+        { NoteType.A, NoteType.RB },
+        { NoteType.B, NoteType.RB },
+        { NoteType.X, NoteType.RB },
+        { NoteType.Y, NoteType.RB },
+        { NoteType.Left, NoteType.LB },
+        { NoteType.Down, NoteType.LB },
+        { NoteType.Up, NoteType.LB },
+        { NoteType.Right, NoteType.LB },
+        { NoteType.AnyB, NoteType.RB },
+        { NoteType.AnyD, NoteType.LB },
+    };
+
     private NoteType[] _mediumNoteTypes = { NoteType.A, NoteType.B, NoteType.Left, NoteType.Down };
+    private NoteType[] _topLaneNoteTypes = { NoteType.LB , NoteType.LT, NoteType.RB, NoteType.RT, NoteType.AnyT };
 
     private Dictionary<NoteType, NoteType> GetRotate90Lookup()
     {
@@ -257,7 +272,7 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         var notesAffected = GetNotesInCurrentRegion();
 
 
-        if (notesAffected.Any(e => !IsMediumNote(e)))
+        if (notesAffected.Any(e => IsTopLaneNote(e)))
         {
             _parent.DisplayMistake("Cannot expand the selected region to Hard difficulty. There are already notes that are not Medium difficulty.");
             return;
@@ -279,6 +294,43 @@ public class ChartEditorNoteTransformer : MonoBehaviour
     private bool IsMediumNote(Note note)
     {
         return _mediumNoteTypes.Contains(note.NoteType);
+    }
+
+    public void ExpandToExpert()
+    {
+        if (!HasValidRegionSet())
+        {
+            _parent.PlaySfx(SoundEvent.Mistake);
+            return;
+        }
+        var notesAffected = GetNotesInCurrentRegion();
+
+        if (notesAffected.Any(e => IsTopLaneNote(e)))
+        {
+            _parent.DisplayMistake("Cannot expand the selected region to Expert difficulty. There are already notes that are not Expert or N.E.R.F. difficulty.");
+            return;
+        }
+
+        int notesProcessed = 0;
+
+        foreach(var note in notesAffected)
+        {
+            if (note.NoteClass == NoteClass.Release)
+            {
+                continue;
+            }
+
+            if (notesProcessed % 4 == 0)
+            {
+                TransformNote(note, _expandToExpertLookup);
+            }
+            notesProcessed++;
+        }
+    }
+
+    public bool IsTopLaneNote(Note note)
+    {
+        return _topLaneNoteTypes.Contains(note.NoteType);
     }
 
     public void SwapHandsAtCurrentPosition()
@@ -456,6 +508,10 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         }
 
         note.NoteType = lookup[note.NoteType];
+        if (note.EndNote != null)
+        {
+            note.EndNote.NoteType = note.NoteType;
+        }
         note.Refresh();
 
         var yPos = _noteManager.TopLanePos - (note.Lane * _noteManager.LaneHeight);

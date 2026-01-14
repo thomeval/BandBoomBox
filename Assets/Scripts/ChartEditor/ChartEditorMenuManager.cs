@@ -267,6 +267,10 @@ public class ChartEditorMenuManager : MonoBehaviour
                 _parent.NoteTransformer.ExpandMediumToHard();
                 _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
+            case "Expand Hard To Expert":
+                _parent.NoteTransformer.ExpandToExpert();
+                _parent.ChartEditorState = ChartEditorState.Edit;
+                break;
             case "Clear Selected Region":
                 _parent.NoteTransformer.ClearRegion();
                 _parent.ChartEditorState = ChartEditorState.Edit;
