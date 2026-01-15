@@ -412,6 +412,22 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 3d38cdd37a74a7944aea08374397921b, type: 3}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3075249064277429540, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1178,6 +1194,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 170
       objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3075249064277429540, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1742,6 +1774,22 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 88371dc04ff83f645a00a645018e8f62, type: 3}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3075249064277429540, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2473,6 +2521,22 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 3d38cdd37a74a7944aea08374397921b, type: 3}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3075249064277429540, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3168,6 +3232,22 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: f4f202d09f449b447b3024e33ec93a5b, type: 3}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3075249064277429540, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3890,6 +3970,22 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 3d38cdd37a74a7944aea08374397921b, type: 3}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926043975921330695, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3075249064277429540, guid: b83e9135c07fe0b4c942a582322fce16, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

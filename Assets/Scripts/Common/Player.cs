@@ -219,7 +219,7 @@ public class Player : MonoBehaviour
     }
 
     [SerializeField]
-    private int _chartDifficultyLevel;   
+    private int _chartDifficultyLevel;
     public int ChartDifficultyLevel
     {
         get { return _chartDifficultyLevel; }
@@ -420,6 +420,11 @@ public class Player : MonoBehaviour
         get { return ProfileData.AllyBoostMode == AllyBoostMode.On || ProfileData.AllyBoostMode == AllyBoostMode.ProvideOnly; }
     }
 
+    public bool AutoTurboEnabled
+    {
+        get { return ProfileData.AutoTurboEnabled; }
+        set { ProfileData.AutoTurboEnabled = value; }
+    }
 
     #endregion
 

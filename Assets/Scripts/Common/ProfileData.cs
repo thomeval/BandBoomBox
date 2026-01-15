@@ -22,6 +22,7 @@ public class ProfileData
     public int Momentum { get; set; }
     public AllyBoostMode AllyBoostMode { get; set; }
     public LaneOrderType LaneOrderType { get; set; } = LaneOrderType.Standard;
+    public bool AutoTurboEnabled { get; set; } = false;
 
     public PlayerScore GetPlayerHighScore(string songId, int songVersion, Difficulty difficulty, string chartGroup)
     {

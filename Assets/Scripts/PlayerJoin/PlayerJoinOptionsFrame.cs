@@ -18,6 +18,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public Text TxtSectionDifficulty;
     public Text TxtMomentum;
     public Text TxtLaneOrderType;
+    public Text TxtAutoTurboEnabled;
 
     public GameObject MomentumMenuItem;
     public GameObject AllyBoostMenuItem;
@@ -25,7 +26,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public GameObject LaneOrderTypeMenuItem;
 
     public Grade?[] Goals = { null, Grade.D, Grade.DPlus, Grade.C, Grade.CPlus, Grade.B, Grade.BPlus, Grade.A, Grade.APlus, Grade.S, Grade.SPlus };
-    public int[] MomentumAmounts = { 0, 10, 25, 50, 100};
+    public int[] MomentumAmounts = { 0, 10, 25, 50, 100 };
     NoteType[] _noteTypesInPreview = { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Down, NoteType.Right, NoteType.Left, NoteType.Up };
     public List<Note> NotePreviews;
 
@@ -74,14 +75,17 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
                 var newMomentum = Helpers.GetNextValue(MomentumAmounts, Parent.Player.Momentum, amount, false);
                 Parent.Player.Momentum = newMomentum;
                 break;
-                case "Ally Boosts":
+            case "Ally Boosts":
                 Parent.Player.ProfileData.AllyBoostMode = Helpers.GetNextEnumValue(Parent.Player.ProfileData.AllyBoostMode, amount, false);
                 break;
             case "Section Difficulty":
                 Parent.Player.ProfileData.SectionDifficulty = Helpers.GetNextEnumValue(Parent.Player.ProfileData.SectionDifficulty, amount, false);
                 break;
-                case "Lane Order":
+            case "Lane Order":
                 Parent.Player.LaneOrderType = Helpers.GetNextEnumValue(Parent.Player.LaneOrderType, amount, false);
+                break;
+            case "Auto Turbo":
+                Parent.Player.AutoTurboEnabled = !Parent.Player.AutoTurboEnabled;
                 break;
         }
     }
@@ -127,6 +131,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         TxtAllyBoostsEnabled.text = player.ProfileData.AllyBoostMode.ToString();
         TxtSectionDifficulty.text = player.ProfileData.SectionDifficulty.ToString();
         TxtLaneOrderType.text = player.LaneOrderType.ToString();
+        TxtAutoTurboEnabled.text = BoolToOnOff(player.AutoTurboEnabled);
     }
 
     private string BoolToOnOff(bool value)

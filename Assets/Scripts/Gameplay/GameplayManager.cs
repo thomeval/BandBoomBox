@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -425,7 +426,7 @@ public class GameplayManager : ScreenManager
         var lane = NoteUtils.GetNoteLane(noteType.Value);
 
         if (noteType != null && noteManager != null)
-        {         
+        {
             var playerHudManager = HudManager.GetPlayerHudManager(player.Slot);
             playerHudManager.FlashLane(lane);
             var note = noteManager.FindNextNote(noteType.Value, true);
@@ -505,6 +506,51 @@ public class GameplayManager : ScreenManager
 
         GetNoteManager(player.Slot).TurboActive = player.TurboActive;
         HudManager.UpdateEnergyMeter(_playerManager.AnyTurboActive());
+    }
+
+    private bool _autoTurboQueued = false;
+    private void CheckAutoTurbo()
+    {
+        if (_autoTurboQueued)
+        {
+            return;
+        }
+
+        if (StateValues.Energy == StateValues.MaxEnergy)
+        {
+            _autoTurboQueued = true;
+            StartCoroutine(AutoEnableTurboCoroutine());
+            return;
+        }
+    }
+
+    private IEnumerator AutoEnableTurboCoroutine()
+    {
+        // Delay slightly to ensure auto turbo works correctly in Network games.
+        yield return new WaitForSeconds(1.0f);
+
+        _autoTurboQueued = false;
+        if (StateValues.Energy < StateHelper.MIN_ENERGY_FOR_TURBO)
+        {
+            yield break;
+        }
+
+        int affectedPlayers = 0;
+        foreach (var player in _playerManager.GetLocalPlayers().Where(e => e.AutoTurboEnabled))
+        {
+            if (!player.TurboActive)
+            {
+                affectedPlayers++;
+            }
+            player.TurboActive = true;
+            GetNoteManager(player.Slot).TurboActive = true;
+        }
+
+        if (affectedPlayers > 0)
+        {
+            HudManager.UpdateEnergyMeter(_playerManager.AnyTurboActive());
+            PlaySfx(SoundEvent.Gameplay_TurboOn);
+        }
     }
 
     private void HandlePlayerReleaseInput(InputEvent inputEvent)
@@ -665,6 +711,7 @@ public class GameplayManager : ScreenManager
 
         StateHelper.ApplyHitResult(hitResult);
         StateHelper.UpdateTeamCombo(hitResult.JudgeResult);
+        CheckAutoTurbo();
         SendNetGameplayStateValuesUpdate(StateValues.AsDto());
     }
 
@@ -751,7 +798,7 @@ public class GameplayManager : ScreenManager
         base.OnNetGameplayStateValuesUpdated(dto);
         StateValues.CopyValues(dto);
         HudManager.UpdateEnergyMeter(_playerManager.AnyTurboActive());
-
+        CheckAutoTurbo();
         if (CoreManager.IsHost)
         {
             return;
