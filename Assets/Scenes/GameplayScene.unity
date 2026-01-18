@@ -1298,11 +1298,11 @@ SpriteMask:
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_MaskAlphaCutoff: 0.2
-  m_FrontSortingLayerID: 81716237
+  m_FrontSortingLayerID: -1506056491
   m_BackSortingLayerID: -1506056491
-  m_FrontSortingLayer: 13
+  m_FrontSortingLayer: 12
   m_BackSortingLayer: 12
-  m_FrontSortingOrder: 0
+  m_FrontSortingOrder: 1
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
@@ -4241,8 +4241,16 @@ PrefabInstance:
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5082381328408138745, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
+      propertyPath: m_BackSortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082381328408138745, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
       propertyPath: m_FrontSortingLayer
-      value: 13
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082381328408138745, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
+      propertyPath: m_FrontSortingOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5082381328408138745, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
       propertyPath: m_BackSortingLayerID
@@ -4250,7 +4258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5082381328408138745, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
       propertyPath: m_FrontSortingLayerID
-      value: 81716237
+      value: -1506056491
       objectReference: {fileID: 0}
     - target: {fileID: 5324095597173616118, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
       propertyPath: m_labelHash
@@ -7058,6 +7066,22 @@ PrefabInstance:
     - target: {fileID: 2439892231172782121, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
       propertyPath: m_Name
       value: LrrDisplay1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082381328408138745, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
+      propertyPath: m_BackSortingLayer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082381328408138745, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
+      propertyPath: m_BackSortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082381328408138745, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
+      propertyPath: m_FrontSortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082381328408138745, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
+      propertyPath: m_BackSortingLayerID
+      value: -1506056491
       objectReference: {fileID: 0}
     - target: {fileID: 5324095597173616118, guid: ba6737b3fa328dd43b644f0fbf8cbeef, type: 3}
       propertyPath: m_SpriteHash
