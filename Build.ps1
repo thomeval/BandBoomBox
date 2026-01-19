@@ -76,7 +76,7 @@ function Build-Project()
 
     [string] $archiveName =  "$ReleasesPath\$GameName $GameVersion ($TargetPlatform).zip"
     Write-Host "Creating Archive at $archiveName"
-    Compress-Archive -Path "$folder\*" -DestinationPath "$archiveName"
+    . $7zipPath a -tzip -mx9 "$archiveName" "$folder\*" 
 }
 
 if (-not($outputPath.EndsWith("\")))
@@ -94,7 +94,7 @@ if (-not($outputPath.EndsWith("\")))
 [string] $linuxLogPath       = $outputPath + "Logs\log_Linux.txt"
 [string] $macLogPath         = $outputPath + "Logs\log_Mac.txt"
 [string] $releasesPath       = $outputPath + "Releases"
-
+[string] $7zipPath           = "C:\Program Files\7-Zip\7z.exe"
 $ErrorActionPreference = "Stop"
 
 [int] $solutionFiles = (Get-ChildItem -Path $projectPath *.sln).Count
@@ -106,6 +106,12 @@ if ($solutionFiles -eq 0)
 if (-not (Test-Path($unityPath)))
 {
     Write-Error("Unity.exe was not found at $unityPath.")
+}
+
+if (-not (Test-Path $7zipPath)) 
+{
+    Write-Error "7-Zip is not installed at the expected path: $7zipPath"
+    return
 }
 
 #Clean the target folder. Powershell will ask for confirmation if it is not empty.
