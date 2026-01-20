@@ -131,7 +131,7 @@ public class NoteManager : MonoBehaviour
             return;
         }
 
-        var mxFromHit = HitJudge.JudgeMxValues[JudgeResult.Perfect] * HitJudge.DifficultyMxValues[this.Chart.Difficulty];
+        var mxFromHit = HitJudge.JudgeMxValues[JudgeResult.Perfect];
 
         foreach (var note in this.Notes)
         {

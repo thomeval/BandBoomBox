@@ -101,7 +101,7 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         { NoteType.RB, NoteType.A },
         { NoteType.RT, NoteType.B },
     };
-        private readonly Dictionary<NoteType, NoteType> _clampDifficultyMildLookup = new()
+    private readonly Dictionary<NoteType, NoteType> _clampDifficultyMildLookup = new()
     {
         { NoteType.Y, NoteType.A },
         { NoteType.Up, NoteType.Down },
@@ -180,7 +180,7 @@ public class ChartEditorNoteTransformer : MonoBehaviour
     };
 
     private NoteType[] _mediumNoteTypes = { NoteType.A, NoteType.B, NoteType.Left, NoteType.Down };
-    private NoteType[] _topLaneNoteTypes = { NoteType.LB , NoteType.LT, NoteType.RB, NoteType.RT, NoteType.AnyT };
+    private NoteType[] _topLaneNoteTypes = { NoteType.LB, NoteType.LT, NoteType.RB, NoteType.RT, NoteType.AnyT };
 
     private Dictionary<NoteType, NoteType> GetRotate90Lookup()
     {
@@ -283,9 +283,17 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         var transformNextNote = true;
         foreach (var note in notesAffected)
         {
+            if (note.IsEndNote)
+            {
+                continue;
+            }
             if (transformNextNote)
             {
                 TransformNote(note, lookup);
+                if (note.EndNote != null)
+                {
+                    TransformNote(note.EndNote, lookup);
+                }
             }
             transformNextNote = !transformNextNote;
         }
@@ -313,9 +321,9 @@ public class ChartEditorNoteTransformer : MonoBehaviour
 
         int notesProcessed = 0;
 
-        foreach(var note in notesAffected)
+        foreach (var note in notesAffected)
         {
-            if (note.NoteClass == NoteClass.Release)
+            if (note.IsEndNote)
             {
                 continue;
             }
@@ -323,6 +331,10 @@ public class ChartEditorNoteTransformer : MonoBehaviour
             if (notesProcessed % 4 == 0)
             {
                 TransformNote(note, _expandToExpertLookup);
+                if (note.EndNote != null)
+                {
+                    TransformNote(note.EndNote, _expandToExpertLookup);
+                }
             }
             notesProcessed++;
         }
@@ -444,8 +456,8 @@ public class ChartEditorNoteTransformer : MonoBehaviour
             case Difficulty.Medium:
                 lookup = _clampDifficultyMediumLookup;
                 break;
-                case Difficulty.Mild:
-                    lookup = _clampDifficultyMildLookup;
+            case Difficulty.Mild:
+                lookup = _clampDifficultyMildLookup;
                 break;
             case Difficulty.Hard:
                 lookup = _clampDifficultyHardLookup;
@@ -508,10 +520,7 @@ public class ChartEditorNoteTransformer : MonoBehaviour
         }
 
         note.NoteType = lookup[note.NoteType];
-        if (note.EndNote != null)
-        {
-            note.EndNote.NoteType = note.NoteType;
-        }
+
         note.Refresh();
 
         var yPos = _noteManager.TopLanePos - (note.Lane * _noteManager.LaneHeight);

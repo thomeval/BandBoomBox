@@ -110,19 +110,6 @@ public class HitJudge
     };
 
     /// <summary>
-    /// These values apply a bonus or reduction to the amount of score multiplier (AKA Momentum) gained from each note successfully hit, based on the player's selected difficulty. 1.0 indicates no change.
-    /// </summary>
-    public static Dictionary<Difficulty, float> DifficultyMxValues = new()
-    {
-        {Difficulty.Beginner, 0.8f},
-        {Difficulty.Medium, 0.9f},
-        {Difficulty.Hard, 1.0f},
-        {Difficulty.Expert, 1.05f},
-        {Difficulty.Nerf, 1.05f},
-        {Difficulty.Extra, 1.0f}
-    };
-
-    /// <summary>
     /// These values adjust the amount of score multiplier (AKA Momentum) lost when a note is missed, based on the player's selected difficulty. 1.0 indicates no change. 
     /// This is used to make the game more forgiving on lower difficulties.
     /// </summary>
@@ -130,6 +117,7 @@ public class HitJudge
     {
         {Difficulty.Beginner, 0.5f},
         {Difficulty.Medium, 0.75f},
+        {Difficulty.Mild, 1.0f},
         {Difficulty.Hard, 1.0f},
         {Difficulty.Expert, 1.0f},
         {Difficulty.Nerf, 1.0f},
@@ -144,6 +132,7 @@ public class HitJudge
     {
         {Difficulty.Beginner, 0.5f},
         {Difficulty.Medium, 0.75f},
+        {Difficulty.Mild, 0.9f},
         {Difficulty.Hard, 1.0f},
         {Difficulty.Extra, 1.0f},
         {Difficulty.Expert, 1.1f},
@@ -233,7 +222,7 @@ public class HitJudge
         result.Lane = lane;
         result.PerfPoints = JudgePerfPointValues[judgeResult];
         result.ScorePoints = (int)(JudgeScoreValues[judgeResult] * value);
-        result.MxPoints = JudgeMxValues[judgeResult] * DifficultyMxValues[difficulty];
+        result.MxPoints = JudgeMxValues[judgeResult];
         result.Deviation = deviation;
         result.PlayerSlot = player;
 
@@ -263,7 +252,7 @@ public class HitJudge
             JudgeResult = JudgeResult.Wrong,
             PerfPoints = JudgePerfPointValues[JudgeResult.Wrong],
             ScorePoints = JudgeScoreValues[JudgeResult.Wrong],
-            MxPoints = JudgeMxValues[JudgeResult.Wrong] * DifficultyMxValues[difficulty],
+            MxPoints = JudgeMxValues[JudgeResult.Wrong],
             PlayerSlot = player,
             Lane = lane
         };

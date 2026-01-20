@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChartEditorMenuManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class ChartEditorMenuManager : MonoBehaviour
     public GameObject MnuControllerControlsContainer;
     public GameObject RootMenuContainer;
 
+    public Text MivPasteMode;
+
     [SerializeField]
     private Menu _activeMenu;
     public Menu ActiveMenu
@@ -26,6 +29,8 @@ public class ChartEditorMenuManager : MonoBehaviour
         get { return _activeMenu; }
         private set { _activeMenu = value; }
     }
+
+    private bool _pasteInverted = false;
 
     private readonly ChartEditorState[] _handledStates = new[]
     {
@@ -131,6 +136,20 @@ public class ChartEditorMenuManager : MonoBehaviour
             case ChartEditorState.OptionsMenu:
                 MenuItemShiftedOptions(args);
                 break;
+                case ChartEditorState.MainMenu:
+                MenuItemShiftedMain(args);
+                break;
+        }
+    }
+
+    private void MenuItemShiftedMain(MenuEventArgs args)
+    {
+        switch (args.SelectedItem)
+        {
+            case "Paste":
+                _pasteInverted = !_pasteInverted;
+                MivPasteMode.text = _pasteInverted ? "Inverted" : "Normal";
+                break;
         }
     }
 
@@ -154,7 +173,6 @@ public class ChartEditorMenuManager : MonoBehaviour
                 opt.ChangeAutoSaveInterval(args.ShiftAmount);
                 _parent.AutoSaver.AutoSaveIntervalMinutes = opt.AutoSaveIntervalMinutes;
                 break;
-
         }
 
         opt.SetOptionsItemText();
@@ -221,7 +239,14 @@ public class ChartEditorMenuManager : MonoBehaviour
                 break;
             case "Paste":
                 _parent.ChartEditorState = ChartEditorState.Edit;
-                _parent.Clipboard.OnPlayerInput(InputAction.Editor_Paste);
+                if (_pasteInverted)
+                {
+                    _parent.Clipboard.OnPlayerInput(InputAction.Editor_PasteInverted);
+                }
+                else
+                {
+                    _parent.Clipboard.OnPlayerInput(InputAction.Editor_Paste);
+                }
                 _parent.RefreshNoteCounts();
                 break;
             case "Save":

@@ -63,7 +63,7 @@ public class NoteGenerator : MonoBehaviour
 
     private void SetNoteMxValue(List<NoteBase> result, Difficulty difficulty)
     {
-        var mxValue = HitJudge.JudgeMxValues[JudgeResult.Perfect] * HitJudge.DifficultyMxValues[difficulty];
+        var mxValue = HitJudge.JudgeMxValues[JudgeResult.Perfect];
 
         foreach (var note in result)
         {

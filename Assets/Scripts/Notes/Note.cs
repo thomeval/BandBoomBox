@@ -129,11 +129,6 @@ public class Note : MonoBehaviour
     {
         RefreshSprites();
         RefreshLane();
-
-        if (this.EndNote != null)
-        {
-            this.EndNote.Refresh();
-        }
     }
 
     public void RefreshSprites()
