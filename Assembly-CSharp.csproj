@@ -150,6 +150,7 @@
     <Compile Include="Assets\Scripts\Common\ScrollRectExtensions.cs" />
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorBasicsPage.cs" />
     <Compile Include="Assets\Scripts\Common\ExpMeter.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNoteTransformer.Lookups.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayHostSubmenu.cs" />
     <Compile Include="Assets\Scripts\Common\PlayerSongSelectFrame.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\EditorNotePaletteSet.cs" />
