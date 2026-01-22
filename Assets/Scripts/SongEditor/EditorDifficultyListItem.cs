@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ public class EditorDifficultyListItem : MonoBehaviour
     public InputField TxtGroup;
     public InputField TxtDifficultyLevel;
     public Dropdown CmbDifficulty;
-    public Text TxtIsBlank;
+    public Text TxtAvgNps;
     public Button BtnRemove;
     public Button BtnEdit;
     public Button BtnClone;
@@ -32,7 +33,7 @@ public class EditorDifficultyListItem : MonoBehaviour
         TxtDifficultyLevel.text = "" + DisplayedChart.DifficultyLevel;
         TxtGroup.text = DisplayedChart.Group;
         CmbDifficulty.SetSelectedText(DisplayedChart.Difficulty.GetDisplayName());
-        TxtIsBlank.text = DisplayedChart.IsBlank ? "B" : "";
+        TxtAvgNps.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", DisplayedChart.NoteCounts.AverageNps);
     }
 
     void Awake()
