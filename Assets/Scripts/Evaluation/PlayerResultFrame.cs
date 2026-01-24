@@ -108,7 +108,7 @@ public class PlayerResultFrame : MonoBehaviour
         this.gameObject.SetActive(true);
         this.PlayerSlot = player.Slot;
         TxtPlayerName.text = player.Name;
-        TxtDifficulty.text = player.GroupAndDifficulty;
+        TxtDifficulty.text = $"{player.GroupAndDifficulty} ({player.ChartDifficultyLevel})";
 
         TxtIsNewPb.gameObject.SetActive(isNewPb);
         var grade = player.GetCurrentGrade().ToString();
