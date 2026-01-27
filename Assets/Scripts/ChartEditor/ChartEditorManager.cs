@@ -40,6 +40,7 @@ public class ChartEditorManager : ScreenManager
     public SectionProgressMeter SectionProgressMeter;
     public SongChartNoteCountDisplay NoteCountDisplay;
     public ChartEditorAutoSaver AutoSaver;
+    public LrrDisplay LrrDisplay;
 
     [SerializeField]
     private ChartEditorState _chartEditorState;
@@ -213,11 +214,11 @@ public class ChartEditorManager : ScreenManager
         AutoSaver.AutoSaveIntervalMinutes = CoreManager.Settings.EditorAutoSaveIntervalMinutes;
     }
 
-
     public void RefreshNoteCounts()
     {
         var intervalSize = CurrentSongData.BeatsPerMeasure * 2;
         CurrentChart.NoteCounts = NoteCounter.CountNotes(NoteManager.Notes, CurrentSongData.Length - CurrentSongData.Offset, CurrentSongData.Bpm, intervalSize);
+        LrrDisplay.SetFromData(CurrentChart.NoteCounts.LrrData,0);
         UpdateNoteCountDisplay();
     }
 
@@ -260,6 +261,7 @@ public class ChartEditorManager : ScreenManager
         NoteManager.SongPosition = CursorPositionInSeconds;
         NoteManager.SongPositionInBeats = (float)CursorPosition;
         NoteManager.UpdateNotes();
+        LrrDisplay.SetCurrentTime((float) CursorPosition);
     }
 
     public void ChangeStepSize(int delta)

@@ -9,21 +9,35 @@ public class LrrDisplay : MonoBehaviour
     public LrrData LrrData;
     public BarChart LrrBarChart;
     public SpriteResolver PlayerIdentifierSprite;
+    public int XOffset = 0;
+    public bool UseSongManager = true;
     private SongManager _songManager;
     private float _transitionTime = 0.5f;
+    private float _lastTime = float.MinValue;
+
     private void Awake()
     {
-        Helpers.AutoAssign(ref _songManager);       
+        Helpers.AutoAssign(ref _songManager);
     }
 
     public void Update()
     {
-        if (LrrData == null || _songManager == null)
+        if (!UseSongManager || LrrData == null || _songManager == null)
         {
             return;
         }
 
         var currentTime = _songManager.GetSongPositionInBeats();
+
+        SetCurrentTime(currentTime);
+    }
+
+    public void SetCurrentTime(float currentTime)
+    {
+        if (Math.Abs(currentTime - _lastTime) < 0.001f)
+        {
+            return;
+        }
 
         var currentInterval = (int)Math.Floor(currentTime / LrrData.IntervalSizeBeats);
         var currentIntervalFraction = (currentTime % LrrData.IntervalSizeBeats);
@@ -34,7 +48,8 @@ public class LrrDisplay : MonoBehaviour
         var transitionStart = LrrData.IntervalSizeBeats - _transitionTime;
         var lerpPoint = Mathf.InverseLerp(transitionStart, LrrData.IntervalSizeBeats, currentIntervalFraction);
 
-        LrrBarChart.XOffset = currentInterval + lerpPoint;
+        LrrBarChart.XOffset = currentInterval + lerpPoint + XOffset;
+        _lastTime = currentTime;
     }
 
     public void SetFromData(LrrData lrrData, int playerSlot)

@@ -75,7 +75,7 @@ public class BarChart : MonoBehaviour
     {
         foreach (var barObj in _valueBars)
         {
-            Destroy(barObj);
+            Destroy(barObj.gameObject);
         }
 
         _valueBars.Clear();
