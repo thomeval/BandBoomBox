@@ -192,6 +192,18 @@ public partial class ChartEditorNoteTransformer : MonoBehaviour
 
     }
 
+    public void ClearNotesOutsidePlayableArea()
+    {
+        var notesToRemove = _noteManager.Notes.Where(e => e.Position < 0 || e.Position >= _parent.CurrentSongData.LengthInBeats)
+            .ToList();
+
+        foreach (var note in notesToRemove)
+        {
+            _noteManager.RemoveNote(note);
+        }
+        _parent.PlaySfx(SoundEvent.Editor_NoteRemoved);
+    }
+
     public void EnsureSpacing(float spacing)
     {
         var notesAffected = GetNotesInCurrentRegion();

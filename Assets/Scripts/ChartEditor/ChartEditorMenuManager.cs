@@ -308,6 +308,10 @@ public class ChartEditorMenuManager : MonoBehaviour
                 _parent.NoteTransformer.EnsureSpacing(1f / _parent.CursorStepSize);
                 _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
+                case "Clear Notes Outside Playable Area":
+                    _parent.NoteTransformer.ClearNotesOutsidePlayableArea();
+                    _parent.ChartEditorState = ChartEditorState.Edit;
+                break;
             default:
                 throw new Exception("Unknown menu item selected: " + args.SelectedItem);
         }
