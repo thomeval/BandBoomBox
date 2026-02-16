@@ -86,4 +86,9 @@ public class NetworkPlayerListItem : MonoBehaviour
     {
         // Override in derived classes if needed
     }
+
+    public virtual void DisplayFullComboResult(FullComboResultDto result)
+    {
+        // Override in derived classes if needed
+    }
 }

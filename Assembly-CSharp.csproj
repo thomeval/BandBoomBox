@@ -215,6 +215,7 @@
     <Compile Include="Assets\Scripts\Managers\HudManager.cs" />
     <Compile Include="Assets\Scripts\Options\RebindManager.cs" />
     <Compile Include="Assets\Scripts\Gameplay\BeatFractionProvider.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\FullComboResultDto.cs" />
     <Compile Include="Assets\Scripts\NetPlay\NetSongSelectTurnManager.cs" />
     <Compile Include="Assets\GameplayStateRecorder.cs" />
     <Compile Include="Assets\Scripts\Credits\CreditsManager.cs" />

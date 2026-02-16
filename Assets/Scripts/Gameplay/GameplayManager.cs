@@ -300,6 +300,7 @@ public class GameplayManager : ScreenManager
             _outroTime = DateTime.Now.AddSeconds(OUTRO_TIME);
             CoreManager.LastTeamScore = GetTeamScore();
             DisplayFullComboAnimations();
+            SendNetFullComboResults();
             EndSection();
         }
         else
@@ -335,6 +336,26 @@ public class GameplayManager : ScreenManager
         {
             PlaySfx(SoundEvent.Gameplay_FullCombo);
         }
+    }
+
+    private void SendNetFullComboResults()
+    {
+        if (!CoreManager.IsNetGame)
+        {
+            return;
+        }
+
+        var result = new FullComboResultSetDto
+        {
+            FullComboResults = _playerManager.GetLocalPlayers().Select(e => new FullComboResultDto
+            {
+                NetId = CoreManager.NetId,
+                PlayerSlot = e.Slot,
+                FullComboType = e.GetFullComboType()
+            }).ToArray()
+        };
+
+        CoreManager.ServerNetApi.SendNetFullComboResultServerRpc(result);
     }
 
     private void SongManager_SongLoaded()
@@ -837,6 +858,10 @@ public class GameplayManager : ScreenManager
         DisplaySectionResults(dto);
     }
 
+    public override void OnNetReceiveFullComboResult(FullComboResultSetDto dto)
+    {
+        NetworkPlayerList.DisplayFullComboResults(dto);
+    }
     public void SendNetGameplaySectionResult(SectionResultSetDto dto)
     {
         if (!CoreManager.IsNetGame || !CoreManager.IsHost)

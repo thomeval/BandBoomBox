@@ -142,6 +142,12 @@ public class ClientNetApi : NetworkBehaviour
     }
 
     [ClientRpc]
+    public void ReceiveNetFullComboResultClientRpc(FullComboResultSetDto dto)
+    {
+        _coreManager.ActiveMainManager.OnNetReceiveFullComboResult(dto);
+    }
+
+    [ClientRpc]
     public void AbortCurrentSongClientRpc()
     {
         _coreManager.ActiveMainManager.OnNetAbortCurrentSong();

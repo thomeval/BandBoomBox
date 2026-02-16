@@ -54,4 +54,15 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
         Debug.Log($"Player {Player.DisplayNetId}{Player.Slot} Section Result: {sectionResult.SectionAccuracy:P0}({sectionResult.JudgeResult})");
         SectionResultDisplay.ShowSectionResult(sectionResult.JudgeResult);
     }
+
+    public override void DisplayFullComboResult(FullComboResultDto result)
+    {
+        Debug.Log($"Player {Player.DisplayNetId}{Player.Slot} Full Combo Result: {result.FullComboType}");
+
+        if (result.FullComboType != FullComboType.None)
+        {
+            SectionResultDisplay.ShowFullComboResult(result.FullComboType);
+        }
+
+    }
 }

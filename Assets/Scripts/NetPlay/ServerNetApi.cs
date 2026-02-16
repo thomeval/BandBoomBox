@@ -220,9 +220,17 @@ public class ServerNetApi : NetworkBehaviour
         SyncCommonSongs();
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void SendNetFullComboResultServerRpc(FullComboResultSetDto result, ServerRpcParams serverParams = default)
+    {
+        var netId = serverParams.Receive.SenderClientId;
+        Debug.Log($"(Server) Received Full Combo Result from client ID {netId}.");
+        _clientNetApi.ReceiveNetFullComboResultClientRpc(result);
+    }
+
     #endregion
 
-     private void SyncCommonSongs()
+    private void SyncCommonSongs()
     {
         var commonSongs = _coreManager.SongLibrary.NetworkSongLibrarySet.GetCommonSongs();
         _clientNetApi.ReceiveCommonSongsClientRpc(commonSongs);

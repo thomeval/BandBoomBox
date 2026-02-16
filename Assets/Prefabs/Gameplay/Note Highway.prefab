@@ -556,7 +556,7 @@ GameObject:
   - component: {fileID: 6967005719500568351}
   - component: {fileID: 563984009246973971}
   m_Layer: 0
-  m_Name: InnerContainer
+  m_Name: InnerContainer-SectionResult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -622,7 +622,7 @@ SpriteRenderer:
   m_SortingLayerID: -91440329
   m_SortingLayer: 14
   m_SortingOrder: 0
-  m_Sprite: {fileID: 779234079, guid: 063cc506d38677a41bfee044b262f596, type: 3}
+  m_Sprite: {fileID: -1275598170, guid: 063cc506d38677a41bfee044b262f596, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
@@ -3459,6 +3459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteResolver: {fileID: 563984009246973971}
+  _fullComboSpriteResolver: {fileID: 0}
   _animator: {fileID: 7663648831417904475}
 --- !u!95 &7663648831417904475
 Animator:

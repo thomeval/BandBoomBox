@@ -195,6 +195,10 @@ public class ScreenManager : MonoBehaviour
     {
     }
 
+    public virtual void OnNetReceiveFullComboResult(FullComboResultSetDto dto)
+    {
+    }
+
     public virtual void OnNetAbortCurrentSong()
     {
         Debug.Log("(Client) Abort signal received from server. Returning to song select.");

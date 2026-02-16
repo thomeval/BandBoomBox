@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SectionResultDisplay_ShowResult
+  m_Name: SectionResultDisplay_ShowFullComboResult
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -40,7 +40,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2.5
+        time: 5
         value: 1
         inSlope: 0
         outSlope: 0
@@ -49,7 +49,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 3
+        time: 6
         value: 0
         inSlope: 0
         outSlope: 0
@@ -61,7 +61,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: InnerContainer-SectionResult
+    path: InnerContainer-FullComboResult
     classID: 212
     script: {fileID: 0}
     flags: 0
@@ -81,23 +81,23 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.16666667
         value: 50
-        inSlope: -45.297623
-        outSlope: -45.297623
+        inSlope: -29.181677
+        outSlope: -29.181677
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.12842987
+        outWeight: 0.090063915
       - serializedVersion: 3
-        time: 2.5
+        time: 5
         value: 0
-        inSlope: -70.58824
-        outSlope: -70.58824
+        inSlope: -34.285717
+        outSlope: -34.285717
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 3
+        time: 6
         value: -300
         inSlope: 0
         outSlope: 0
@@ -109,7 +109,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: InnerContainer-SectionResult
+    path: InnerContainer-FullComboResult
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -122,7 +122,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2068254023
+      path: 327948483
       attribute: 304273561
       script: {fileID: 0}
       typeID: 212
@@ -131,7 +131,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2068254023
+      path: 327948483
       attribute: 1460864421
       script: {fileID: 0}
       typeID: 224
@@ -145,7 +145,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 3
+    m_StopTime: 6
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -184,7 +184,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2.5
+        time: 5
         value: 1
         inSlope: 0
         outSlope: 0
@@ -193,7 +193,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 3
+        time: 6
         value: 0
         inSlope: 0
         outSlope: 0
@@ -205,7 +205,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: InnerContainer-SectionResult
+    path: InnerContainer-FullComboResult
     classID: 212
     script: {fileID: 0}
     flags: 0
@@ -225,23 +225,23 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.16666667
         value: 50
-        inSlope: -45.297623
-        outSlope: -45.297623
+        inSlope: -29.181677
+        outSlope: -29.181677
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.12842987
+        outWeight: 0.090063915
       - serializedVersion: 3
-        time: 2.5
+        time: 5
         value: 0
-        inSlope: -70.58824
-        outSlope: -70.58824
+        inSlope: -34.285717
+        outSlope: -34.285717
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 3
+        time: 6
         value: -300
         inSlope: 0
         outSlope: 0
@@ -253,7 +253,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: InnerContainer-SectionResult
+    path: InnerContainer-FullComboResult
     classID: 224
     script: {fileID: 0}
     flags: 0

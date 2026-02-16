@@ -87,7 +87,7 @@ public class PlayerDto : INetworkSerializable
             Momentum = player.Momentum,
             TurboActive = player.TurboActive,
             IsParticipating = player.IsParticipating,
-            NetFullComboType = player.NetFullComboType,
+            NetFullComboType = player.GetFullComboType(),           
             AllyBoosts = player.AllyBoosts,
             AllyBoostsGiven = player.AllyBoostsProvided,
             AllyBoostsReceived = player.AllyBoostsReceived,

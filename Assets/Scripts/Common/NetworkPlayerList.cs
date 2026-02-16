@@ -125,4 +125,17 @@ public class NetworkPlayerList : MonoBehaviour
             }
         }
     }
+
+    public void DisplayFullComboResults(FullComboResultSetDto dto)
+    {
+        foreach (var result in dto.FullComboResults)
+        {
+            var item = Children.FirstOrDefault(e => e.Player.NetId == result.NetId && e.Player.Slot == result.PlayerSlot);
+
+            if (item != null)
+            {
+                item.DisplayFullComboResult(result);
+            }
+        }
+    }
 }
