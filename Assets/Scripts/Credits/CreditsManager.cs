@@ -5,13 +5,12 @@ using UnityEngine.UI;
 public class CreditsManager : ScreenManager
 {
     public float ScrollSpeed = 2.0f;
-
+    public float ScrollSpeedMultiplier = 1.0f;
     public RectTransform CreditsContainer;
     public GameObject RhythmistContainer;
     public Text LeadRhythmistName;
-    public bool IsPaused = false;
 
-    private int _scrollLimit = 2600;
+    private int _scrollLimit = 9999;    // Calculated at runtime.
 
     [Header("Sounds")]
     public AudioSource SfxBack;
@@ -24,8 +23,6 @@ public class CreditsManager : ScreenManager
 
     private void Start()
     {
-        var pos = CreditsContainer.localPosition;
-
         var leadRhythmist = CoreManager.ProfileManager.GetLeadRhythmist();
 
         if (leadRhythmist == null)
@@ -42,16 +39,13 @@ public class CreditsManager : ScreenManager
 
     void FixedUpdate()
     {
-        if (!IsPaused)
-        {
-            Scroll();
-        }
+       Scroll();
     }
 
     private void Scroll()
     {
         var pos = CreditsContainer.localPosition;
-        var newY = pos.y + ScrollSpeed;
+        var newY = pos.y + (ScrollSpeed * ScrollSpeedMultiplier);
 
 
         if (newY > _scrollLimit)
@@ -72,7 +66,10 @@ public class CreditsManager : ScreenManager
                 SceneTransition(GameScene.Options);
                 break;
             case InputAction.X:
-                IsPaused = !IsPaused;
+                ScrollSpeedMultiplier = ScrollSpeedMultiplier == 0.0f ? 1.0f : 0.0f;
+                break;
+            case InputAction.Y:
+                ScrollSpeedMultiplier = ScrollSpeedMultiplier == 6.0f ? 1.0f : 6.0f;
                 break;
         }
     }

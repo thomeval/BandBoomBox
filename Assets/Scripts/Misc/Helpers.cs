@@ -182,8 +182,8 @@ public static class Helpers
         0.95f, // Superb
         0.90f, // Awesome 
         0.85f, // Great
-        0.75f, // Nice
-        0.65f, // Okay
+        0.80f, // Nice
+        0.70f, // Okay
         0.0f  // Poor or empty
     };
 
