@@ -37,6 +37,7 @@
         "HoldNotes": 37,
         "AverageNps": 1.22487664,
         "MaxNps": 1.33333337,
+        "TrimmedAverageNps": 1.33333337,
         "LaneNotes": [
           0,
           89,
@@ -450,6 +451,7 @@
         "HoldNotes": 61,
         "AverageNps": 2.226433,
         "MaxNps": 3.33333325,
+        "TrimmedAverageNps": 2.41441441,
         "LaneNotes": [
           0,
           162,
@@ -862,7 +864,8 @@
         "TapNotes": 213,
         "HoldNotes": 84,
         "AverageNps": 2.57833147,
-        "MaxNps": 3.33333325,
+        "MaxNps": 4.66666651,
+        "TrimmedAverageNps": 2.77477479,
         "LaneNotes": [
           0,
           193,
@@ -1276,6 +1279,7 @@
         "HoldNotes": 92,
         "AverageNps": 3.26859331,
         "MaxNps": 5.33333349,
+        "TrimmedAverageNps": 3.53153157,
         "LaneNotes": [
           0,
           240,
@@ -1689,6 +1693,7 @@
         "HoldNotes": 86,
         "AverageNps": 3.97915721,
         "MaxNps": 6.0,
+        "TrimmedAverageNps": 4.36036,
         "LaneNotes": [
           185,
           200,
@@ -2102,6 +2107,7 @@
         "HoldNotes": 129,
         "AverageNps": 4.97394657,
         "MaxNps": 7.33333349,
+        "TrimmedAverageNps": 5.43243265,
         "LaneNotes": [
           236,
           245,

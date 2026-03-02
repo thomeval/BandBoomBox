@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,7 +7,7 @@ public static class NoteCounter
 {
 
     private const int LINE_SIZE = 4;
-
+    private const int MIN_TRIMMED_AVG_INTERVALS = 6;
     public static SongChartNoteCounts CountNotes(IEnumerable<Note> notes, float songLength, float songBpm, float intervalSize)
     {
         var result = new SongChartNoteCounts();
@@ -57,7 +58,7 @@ public static class NoteCounter
 
         if (notesInPhrase > 0)
         {
-            var currentNps = notesInPhrase / intervalSize * songBpm / 60;;
+            var currentNps = notesInPhrase / intervalSize * songBpm / 60;
             result.LrrData.Intervals.Add(currentNps);
         }
 
@@ -66,6 +67,8 @@ public static class NoteCounter
             result.AverageNps = result.TotalNotes / songLength;
             result.MaxNps = result.LrrData.Intervals.Max();
         }
+
+        CalculateTrimmedAverageNps(ref result);
         return result;
 
     }
@@ -117,10 +120,31 @@ public static class NoteCounter
         if (songLength > 0.0f)
         {
             result.AverageNps = result.TotalNotes / songLength;
-            result.MaxNps = result.LrrData.Intervals.Max();
+            result.MaxNps = result.LrrData.Intervals.Count > 0 ? result.LrrData.Intervals.Max() : 0;
         }
 
+        CalculateTrimmedAverageNps(ref result);
         return result;
+    }
+
+    private static void CalculateTrimmedAverageNps(ref SongChartNoteCounts result)
+    {
+        if (result.LrrData.Intervals.Count < MIN_TRIMMED_AVG_INTERVALS)
+        {
+            result.TrimmedAverageNps = result.AverageNps;
+        }
+        else
+        {
+            // Remove the lowest 25% of intervals, and the highest interval, then take the average of the remaining intervals.
+            var intervalsToRemove = result.LrrData.Intervals.Count / 4;
+            var sortedIntervals = result.LrrData.Intervals.OrderBy(i => i)
+                .Skip(intervalsToRemove)
+                .OrderByDescending(i => i)
+                .Skip(1)
+                .ToList();
+
+            result.TrimmedAverageNps = sortedIntervals.Average();
+        }
     }
 
     private static int CountNotesInLine(string line, ref SongChartNoteCounts counts)

@@ -219,6 +219,16 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
+    public int GetSlotByProfileId(string profileId)
+    {
+        var playerWithProfile = Players.SingleOrDefault(e => e.ProfileId == profileId);
+        if (playerWithProfile == null)
+        {
+            return -1;
+        }
+        return playerWithProfile.Slot;
+    }
+
     public TeamScoreCategory GetScoreCategory()
     {
         return HighScoreManager.GetScoreCategory(this.Players.Count);

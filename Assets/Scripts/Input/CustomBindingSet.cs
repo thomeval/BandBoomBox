@@ -8,7 +8,7 @@ public class CustomBindingSet
     public int Version { get; set; }
     public List<CustomBinding> Bindings { get; set; }
 
-    public int MAX_BINDINGS_FOR_ACTION = 2;
+    public const int MAX_BINDINGS_FOR_ACTION = 2;
     public CustomBinding[] GetBindingsByAction(string action)
     {
         return Bindings.Where(b => b.Action == action).ToArray();

@@ -21,7 +21,8 @@ public class SongChartNoteCountDisplay : MonoBehaviour
         TxtTapNoteCount.text = counts.TapNotes.ToString();
         TxtHoldNoteCount.text = counts.HoldNotes.ToString();
         TxtTotalNoteCount.text = counts.TotalNotes.ToString();
-        TxtAvgNps.text = string.Format(CultureInfo.InvariantCulture, "{0:N2}", counts.AverageNps);
+        var averageNps = counts.TrimmedAverageNps == 0 ? counts.AverageNps : counts.TrimmedAverageNps;
+        TxtAvgNps.text = string.Format(CultureInfo.InvariantCulture, "{0:N2}", averageNps);
         TxtMaxNps.text = string.Format(CultureInfo.InvariantCulture, "{0:N2}", counts.MaxNps);
     }
 }

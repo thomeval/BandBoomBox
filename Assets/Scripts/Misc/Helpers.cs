@@ -187,6 +187,17 @@ public static class Helpers
         0.0f  // Poor or empty
     };
 
+    public static Dictionary<Difficulty, string> DifficultyAbbreviations = new()
+    {
+        { Difficulty.Beginner, "BEG" },
+        { Difficulty.Medium, "MED" },
+        { Difficulty.Mild, "MLD" },
+        { Difficulty.Hard, "HRD" },
+        { Difficulty.Expert, "EXP" },
+        { Difficulty.Nerf, "NRF" },
+        {Difficulty.Extra, "XTR" }
+    };
+
     public static Grade PercentToGrade(float percent)
     {
         for (var x = 0; x < GradePercentages.Length; x++)
@@ -474,6 +485,16 @@ public static class Helpers
                 return diff.ToString();
 
         }
+    }
+
+    public static string GetShortDisplayName(this Difficulty diff)
+    {
+        if (DifficultyAbbreviations.TryGetValue(diff, out var abbreviation))
+        {
+            return abbreviation;
+        }
+
+        throw new ArgumentException($"No abbreviation found for difficulty {diff}");
     }
 
     public static Difficulty GetDifficultyByDisplayName(string displayName)

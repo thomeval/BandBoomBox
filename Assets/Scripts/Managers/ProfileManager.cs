@@ -41,6 +41,7 @@ public class ProfileManager : MonoBehaviour
                 TimingDisplayType = TimingDisplayType.Words,
                 MistakeSfxEnabled = true,
                 RumbleEnabled = true,
+                AutoTurboEnabled = true,
                 AllyBoostMode = AllyBoostMode.On
             };
         }
@@ -178,6 +179,30 @@ public class ProfileManager : MonoBehaviour
         }
 
         return profile.GetBestPlayerHighScore(songId, songVersion);
+    }
+
+    // TODO: Implement caching for this method, as it is called every time the selected song is changed in the song selection screen.
+    public List<DisplayedPlayerHighScore> GetAllPlayerScores(string songId, int songVersion)
+    {
+        var result = new List<DisplayedPlayerHighScore>();
+
+        foreach (var profile in Profiles)
+        {
+            var score = profile.GetBestPlayerHighScore(songId, songVersion);
+            if (score == null)
+            {
+                continue;
+            }
+            result.Add(new DisplayedPlayerHighScore
+            {
+                PlayerName = profile.Name,
+                ProfileId = profile.ID,
+                Score = score
+            });
+        }
+
+        result = result.OrderByDescending(e => e.Score.PerfPoints).ToList();
+        return result;
     }
 
     public bool SavePlayerScore(Player player, string songId, int songVersion)

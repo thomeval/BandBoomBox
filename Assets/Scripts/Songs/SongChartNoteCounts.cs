@@ -16,6 +16,8 @@ public class SongChartNoteCounts
     public int HoldNotes;
     public float AverageNps;
     public float MaxNps;
+    public float TrimmedAverageNps;
+
     public int[] LaneNotes = new int[4];
 
     [NonSerialized]
@@ -29,7 +31,8 @@ public class SongChartNoteCounts
             HoldNotes = this.HoldNotes,
             LaneNotes = this.LaneNotes.ToArray(),
             AverageNps = this.AverageNps,
-            MaxNps = this.MaxNps
+            MaxNps = this.MaxNps,
+            TrimmedAverageNps = this.TrimmedAverageNps
         };
     }
 }

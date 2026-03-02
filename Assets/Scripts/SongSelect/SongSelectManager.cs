@@ -14,7 +14,7 @@ public class SongSelectManager : ScreenManager
     public PlayerSongSelectFrame[] PlayerOptionsFrames = new PlayerSongSelectFrame[2];
     public DifficultyDisplay DifficultyDisplay;
     public HighScoreDisplay HighScoreDisplay;
-    public PlayerGroupHighScoreDisplay PlayerGroupHighScoreDisplay;
+    public PlayerHighScoreListDisplay PlayerHighScoreListDisplay;
     public Text TxtSongCount;
     public Text TxtStarCount;
     public Text TxtSortMode;
@@ -41,7 +41,7 @@ public class SongSelectManager : ScreenManager
         }
     }
 
-    private readonly string[] _availableSortModes = { "TITLE", "ARTIST", "BPM", "LENGTH", "STARS", "BEG DIFF", "MED DIFF", "HRD DIFF", "EXP DIFF" };
+    private readonly string[] _availableSortModes = { "TITLE", "ARTIST", "BPM", "LENGTH", "STARS", "BEG DIFF", "MED DIFF", "MLD DIFF", "HRD DIFF", "EXP DIFF" };
 
     public SongData SelectedSong
     {
@@ -61,13 +61,15 @@ public class SongSelectManager : ScreenManager
         {
             return;
         }
+
+        PlayerHighScoreListDisplay.Init();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         HighScoreDisplay.Show();
-        PlayerGroupHighScoreDisplay.Hide();
+        PlayerHighScoreListDisplay.Hide();
         CoreManager.MenuMusicManager.StopAll();
         CoreManager.SongManager.StopSong();
         SetupPlayerOptionsFrames();
@@ -121,6 +123,9 @@ public class SongSelectManager : ScreenManager
                 break;
             case "MED DIFF":
                 OrderedSongs = songs.OrderBy(e => e.GetDifficultyRange(Difficulty.Medium).Min).ToList();
+                break;
+            case "MLD DIFF":
+                OrderedSongs = songs.OrderBy(e => e.GetDifficultyRange(Difficulty.Mild).Min).ToList();
                 break;
             case "HRD DIFF":
                 OrderedSongs = songs.OrderBy(e => e.GetDifficultyRange(Difficulty.Hard).Min).ToList();
@@ -197,7 +202,7 @@ public class SongSelectManager : ScreenManager
             CoreManager.HighScoreManager.GetTeamScore(selectedSong.ID, selectedSong.Version, playerCount);
 
         HighScoreDisplay.Display(highScore, playerCount);
-        PlayerGroupHighScoreDisplay.FetchHighScores(selectedSong.ID, selectedSong.Version);
+        PlayerHighScoreListDisplay.FetchHighScores(selectedSong.ID, selectedSong.Version);
     }
 
     public override void OnPlayerInput(InputEvent inputEvent)
@@ -234,7 +239,7 @@ public class SongSelectManager : ScreenManager
                 break;
             case InputAction.Turbo:
                 HighScoreDisplay.ToggleVisibility();
-                PlayerGroupHighScoreDisplay.ToggleVisibility();
+                PlayerHighScoreListDisplay.ToggleVisibility();
                 ShowHighScores(OrderedSongs[SelectedSongIndex]);
                 PlaySfxForPlayer(SoundEvent.SelectionShifted, inputEvent.Player);
                 break;

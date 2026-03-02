@@ -54,6 +54,11 @@ public class LrrDisplay : MonoBehaviour
 
     public void SetFromData(LrrData lrrData, int playerSlot)
     {
+        if (lrrData.Intervals.Count == 0)
+        {
+            lrrData.Intervals.Add(0);
+        }
+
         var maxNps = lrrData.Intervals.Max();
         LrrData = lrrData;
         LrrBarChart.SetYAxis(0, maxNps);

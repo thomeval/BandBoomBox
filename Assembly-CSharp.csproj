@@ -203,6 +203,7 @@
     <Compile Include="Assets\Scripts\Common\BarChart.cs" />
     <Compile Include="Assets\NoteHighwayImpactZone.cs" />
     <Compile Include="Assets\Scripts\NetPlay\NetGameSettings.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\PlayerHighScoreListEntry.cs" />
     <Compile Include="Assets\Scripts\Common\MenuSoundEventHandler.cs" />
     <Compile Include="Assets\Scripts\Gameplay\NoteHitFlasher.cs" />
     <Compile Include="Assets\Scripts\Common\ComboUtils.cs" />
@@ -224,10 +225,12 @@
     <Compile Include="Assets\Scripts\HighScores\TeamScore.cs" />
     <Compile Include="Assets\Scripts\Songs\SongLibrary.cs" />
     <Compile Include="Assets\Scripts\Common\Difficulty.cs" />
+    <Compile Include="Assets\Scripts\HighScores\DisplayedPlayerHighScore.cs" />
     <Compile Include="Assets\Scripts\Common\ErrorMessage.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteManager.cs" />
     <Compile Include="Assets\Scripts\Options\CustomBindingDisplay.cs" />
     <Compile Include="Assets\Scripts\Notes\Note.cs" />
+    <Compile Include="Assets\PlayerHighScoreListDisplay.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorPage.cs" />
     <Compile Include="Assets\Scripts\NetPlay\PlayerDto.cs" />
     <Compile Include="Assets\Scripts\Gameplay\TimingDisplayType.cs" />

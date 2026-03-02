@@ -46,7 +46,7 @@ public class BarChart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // SetYAxis(YMin, YMax);
+        // SetYAxis(YMin, YMax);
     }
 
     public void SetYAxis(float min, float max)
@@ -97,8 +97,14 @@ public class BarChart : MonoBehaviour
     {
         var barObj = Instantiate(BarItemPrefab, ChartInner);
         barObj.Parent = this;
-        var relativeValue = (value - YMin) / (YMax - YMin);
-        relativeValue = Mathf.Clamp01(relativeValue);
+
+        var relativeValue = 0.0f;
+
+        if (YMax > YMin)
+        {
+            relativeValue = (value - YMin) / (YMax - YMin);
+            relativeValue = Mathf.Clamp01(relativeValue);
+        }
 
         barObj.Value = relativeValue;
         barObj.Width = width;
