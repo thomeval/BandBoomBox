@@ -9,6 +9,7 @@ public class SongData
 {
     [Header("Basics")]
     public string ID;
+    public int Version = 1;
     public string Title;
     public string Subtitle;
     public string Artist;
@@ -16,6 +17,7 @@ public class SongData
     public string Issues;
     public string Url;
 
+    [Header("Files")]
     [JsonIgnore]
     [NonSerialized]
     public string SjsonFilePath;
@@ -24,7 +26,7 @@ public class SongData
     [JsonIgnore]
     [NonSerialized]
     public string AudioPath;
-    public int Version = 1;
+    public string AlbumJacketArtFile;
 
     [JsonIgnore]
     [NonSerialized]

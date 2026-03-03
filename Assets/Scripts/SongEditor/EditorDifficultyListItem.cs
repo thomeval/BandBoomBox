@@ -33,7 +33,8 @@ public class EditorDifficultyListItem : MonoBehaviour
         TxtDifficultyLevel.text = "" + DisplayedChart.DifficultyLevel;
         TxtGroup.text = DisplayedChart.Group;
         CmbDifficulty.SetSelectedText(DisplayedChart.Difficulty.GetDisplayName());
-        TxtAvgNps.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", DisplayedChart.NoteCounts.AverageNps);
+        var nps = DisplayedChart.NoteCounts.TrimmedAverageNps > 0 ? DisplayedChart.NoteCounts.TrimmedAverageNps : DisplayedChart.NoteCounts.AverageNps;
+        TxtAvgNps.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", nps);
     }
 
     void Awake()
@@ -41,9 +42,6 @@ public class EditorDifficultyListItem : MonoBehaviour
         BtnRemove.onClick.AddListener(BtnRemove_OnClick);
         BtnEdit.onClick.AddListener(BtnEdit_OnClick);
         BtnClone.onClick.AddListener(BtnClone_OnClick);
-        //   TxtGroup.onValueChanged.AddListener(arg0 => ApplyChartData());
-        //   TxtDifficultyLevel.onValueChanged.AddListener(arg0 => ApplyChartData());
-        //   CmbDifficulty.onValueChanged.AddListener(arg0 => ApplyChartData());
     }
 
     private void BtnRemove_OnClick()
