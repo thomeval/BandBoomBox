@@ -1170,8 +1170,9 @@ GameObject:
   m_Component:
   - component: {fileID: 254949753}
   - component: {fileID: 254949754}
+  - component: {fileID: 254949755}
   m_Layer: 0
-  m_Name: Square
+  m_Name: SongJacketDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1186,7 +1187,7 @@ RectTransform:
   m_GameObject: {fileID: 254949752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 250, y: 250, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1011740029}
@@ -1194,7 +1195,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -810, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &254949754
 SpriteRenderer:
@@ -1238,16 +1239,29 @@ SpriteRenderer:
   m_SortingLayer: 12
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_DrawMode: 1
+  m_Size: {x: 250, y: 250}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &254949755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254949752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5016846416fc68348a2f67e800542d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 254949754}
 --- !u!1001 &295819219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4164,6 +4178,7 @@ MonoBehaviour:
   - {fileID: 2033059856}
   - {fileID: 1881724428}
   SongResultFrame: {fileID: 1011740030}
+  SongJacketDisplay: {fileID: 254949755}
   PbContinue: {fileID: 189759109}
   NetworkPlayerList: {fileID: 8278763241355587983}
   MxBarChart: {fileID: 182098544}

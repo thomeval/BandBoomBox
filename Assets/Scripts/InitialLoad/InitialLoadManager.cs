@@ -23,6 +23,7 @@ public class InitialLoadManager : ScreenManager
         CoreManager.HighScoreManager.Load();
         CoreManager.ProfileManager.ProfilesPath = CoreManager.Settings.ProfilesPath;
         CoreManager.ProfileManager.Load();
+        CoreManager.ProfileManager.InitPlayerHighScoreCache(CoreManager.SongLibrary.Songs);
     }
 
     private void SongLibrary_LoadSongsCompleted(object sender, System.EventArgs e)

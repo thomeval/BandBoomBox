@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static TreeEditor.TreeEditorHelper;
 
 public partial class ChartEditorNoteTransformer : MonoBehaviour
 {
@@ -125,6 +127,13 @@ public partial class ChartEditorNoteTransformer : MonoBehaviour
 
             if (notesProcessed % 4 == 0)
             {
+                // Only transform the note if there isn't already a note at that position, to avoid stacking two notes on top of each other.
+                var existing = _noteManager.GetNoteAtPosition(note.Position, 0);
+                if (existing != null)
+                {
+                    continue;
+                }
+
                 TransformNote(note, _expandToExpertLookup);
                 if (note.EndNote != null)
                 {

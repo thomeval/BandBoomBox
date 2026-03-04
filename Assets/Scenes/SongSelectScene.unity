@@ -399,6 +399,7 @@ MonoBehaviour:
   SongIssuesDisplay: {fileID: 1500677885}
   _selectedSong:
     ID: 
+    Version: 1
     Title: 
     Subtitle: 
     Artist: 
@@ -406,7 +407,7 @@ MonoBehaviour:
     Issues: 
     Url: 
     AudioFile: 
-    Version: 1
+    AlbumJacketArtFile: 
     Bpm: 0
     AudioStart: 0
     Offset: 0
@@ -802,7 +803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272962871186443109, guid: fb414ed6350aa2f4b9e285fbf60d2d36, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 272962871186443109, guid: fb414ed6350aa2f4b9e285fbf60d2d36, type: 3}
       propertyPath: m_AnchorMin.x
@@ -810,11 +811,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272962871186443109, guid: fb414ed6350aa2f4b9e285fbf60d2d36, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 272962871186443109, guid: fb414ed6350aa2f4b9e285fbf60d2d36, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 580
       objectReference: {fileID: 0}
     - target: {fileID: 272962871186443109, guid: fb414ed6350aa2f4b9e285fbf60d2d36, type: 3}
       propertyPath: m_SizeDelta.y
@@ -850,11 +851,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272962871186443109, guid: fb414ed6350aa2f4b9e285fbf60d2d36, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 290
       objectReference: {fileID: 0}
     - target: {fileID: 272962871186443109, guid: fb414ed6350aa2f4b9e285fbf60d2d36, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -180
       objectReference: {fileID: 0}
     - target: {fileID: 272962871186443109, guid: fb414ed6350aa2f4b9e285fbf60d2d36, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -871,6 +872,10 @@ PrefabInstance:
     - target: {fileID: 5536318174712010678, guid: fb414ed6350aa2f4b9e285fbf60d2d36, type: 3}
       propertyPath: m_Name
       value: PlayerHighScoreListEntry (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5536318174712010678, guid: fb414ed6350aa2f4b9e285fbf60d2d36, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1661,6 +1666,7 @@ GameObject:
   - component: {fileID: 574792337}
   - component: {fileID: 574792336}
   - component: {fileID: 574792335}
+  - component: {fileID: 574792338}
   m_Layer: 0
   m_Name: HighScoreList
   m_TagString: Untagged
@@ -1776,6 +1782,23 @@ SpriteMask:
   m_BackSortingOrder: -999
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
+--- !u!114 &574792338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574792332}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3d64a61f7efe4408cf7cdca4114389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OuterContainer: {fileID: 574792333}
+  InnerContainer: {fileID: 2076820471}
+  ScrollSpeed: 30
+  WaitTime: 1
+  _state: 0
 --- !u!1001 &586732444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5354,6 +5377,7 @@ MonoBehaviour:
   - {fileID: 1370079800}
   _songData:
     ID: 
+    Version: 1
     Title: 
     Subtitle: 
     Artist: 
@@ -5361,7 +5385,7 @@ MonoBehaviour:
     Issues: 
     Url: 
     AudioFile: 
-    Version: 1
+    AlbumJacketArtFile: 
     Bpm: 0
     AudioStart: 0
     Offset: 0

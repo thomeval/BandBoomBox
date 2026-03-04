@@ -9,6 +9,7 @@ public class EvaluationManager : ScreenManager
     public PlayerResultFrame[] PlayerResultFrames = new PlayerResultFrame[4];
     public PlayerResultFrame[] WidePlayerResultFrames = new PlayerResultFrame[4];
     public SongResultFrame SongResultFrame;
+    public SongJacketDisplay SongJacketDisplay;
     public GameObject PbContinue;
     public NetworkPlayerList NetworkPlayerList;
     public BarChart MxBarChart;
@@ -61,7 +62,7 @@ public class EvaluationManager : ScreenManager
 
         SongResultFrame.DisplayResult(CoreManager.LastTeamScore, isTeamBest);
         DisplayMxHistoryBarChart(CoreManager.GameplayStateRecorder.GetMultipliers());
-
+        SongJacketDisplay.DisplayJacket(CoreManager.CurrentSongData);
         CoreManager.SaveAllActiveProfiles();
         StartCoroutine(DisplayContinueAfterDelay());
         StartCoroutine(PlayGradeSfx());

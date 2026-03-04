@@ -93,6 +93,7 @@ public class ChartEditorClipboard : MonoBehaviour
         var invertStr = invert ? "(inverted)" : "";
         _parent.DisplayMessage($"Pasted {notesPasted} notes {invertStr}.");
         _parent.PlaySfx(SoundEvent.Editor_Paste);
+        _parent.RefreshNoteCounts();
     }
 
     public void Clear()

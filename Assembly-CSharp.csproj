@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNotePlacer.cs" />
     <Compile Include="Assets\Scripts\Notes\BeatLine.cs" />
     <Compile Include="Assets\FramePageForPlayerState.cs" />
+    <Compile Include="Assets\AutoScroller.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SelectedSongFrame.cs" />
     <Compile Include="Assets\Scripts\NetPlay\NetSongChoiceResponseType.cs" />
     <Compile Include="Assets\Scripts\Managers\PlayerManager.cs" />
@@ -268,6 +269,7 @@
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierEntry.cs" />
     <Compile Include="Assets\EvaluationSectionItem.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinNetworkPlayerListItem.cs" />
+    <Compile Include="Assets\SongJacketDisplay.cs" />
     <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
     <Compile Include="Assets\Scripts\Notes\RegionMarker.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\ProfileListItem.cs" />

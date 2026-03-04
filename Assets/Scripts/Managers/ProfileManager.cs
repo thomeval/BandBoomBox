@@ -1,13 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Profiling;
 using Debug = UnityEngine.Debug;
 
 public class ProfileManager : MonoBehaviour
 {
+    private Dictionary<(string SongId, int SongVersion), List<DisplayedPlayerHighScore>> _highScoreCache = new();
+
     public string ProfilesPath = "%AppSaveFolder%/Profiles";
     public List<ProfileData> Profiles = new List<ProfileData>();
 
@@ -181,28 +185,43 @@ public class ProfileManager : MonoBehaviour
         return profile.GetBestPlayerHighScore(songId, songVersion);
     }
 
-    // TODO: Implement caching for this method, as it is called every time the selected song is changed in the song selection screen.
     public List<DisplayedPlayerHighScore> GetAllPlayerScores(string songId, int songVersion)
     {
-        var result = new List<DisplayedPlayerHighScore>();
-
-        foreach (var profile in Profiles)
+        if (!_highScoreCache.ContainsKey((songId, songVersion)))
         {
-            var score = profile.GetBestPlayerHighScore(songId, songVersion);
-            if (score == null)
-            {
-                continue;
-            }
-            result.Add(new DisplayedPlayerHighScore
-            {
-                PlayerName = profile.Name,
-                ProfileId = profile.ID,
-                Score = score
-            });
+            UpdateHighScoreCache(songId, songVersion);
         }
 
-        result = result.OrderByDescending(e => e.Score.PerfPoints).ToList();
-        return result;
+        return _highScoreCache[(songId, songVersion)];
+    }
+
+    private void UpdateHighScoreCache(string songId, int songVersion)
+    {
+        var scores = new List<DisplayedPlayerHighScore>();
+        foreach (var profile in Profiles)
+        {
+            var playerScore = profile.GetBestPlayerHighScore(songId, songVersion);
+            if (playerScore != null)
+            {
+                scores.Add(new DisplayedPlayerHighScore
+                {
+                    PlayerName = profile.Name,
+                    ProfileId = profile.ID,
+                    Score = playerScore
+                });
+            }
+        }
+        _highScoreCache[(songId, songVersion)] = scores.OrderByDescending(e => e.Score.PerfPoints).ToList();
+    }
+
+    public void InitPlayerHighScoreCache(List<SongData> songs)
+    {
+        Debug.Log("Initializing player high score cache...");
+        foreach (var song in songs)
+        {
+            var scores = GetAllPlayerScores(song.ID, song.Version);
+            _highScoreCache[(song.ID, song.Version)] = scores;
+        }
     }
 
     public bool SavePlayerScore(Player player, string songId, int songVersion)
@@ -214,7 +233,14 @@ public class ProfileManager : MonoBehaviour
         var profile = this[player.ProfileId];
 
         var playerScore = player.GetPlayerScore(songId, songVersion);
-        return profile.AddPlayerScore(playerScore);
+        var result = profile.AddPlayerScore(playerScore);
+
+        if (result)
+        {
+            UpdateHighScoreCache(songId, songVersion);
+        }
+
+        return result;
     }
 
 }
