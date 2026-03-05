@@ -16,10 +16,15 @@ public class SongJacketDisplay : MonoBehaviour
 
     public void DisplayJacket(SongData songData)
     {
+        if (string.IsNullOrEmpty(songData.AlbumJacketArtFile))
+        {
+            SpriteRenderer.sprite = null;
+            return;
+        }
         var songDataFolder = Path.GetDirectoryName(songData.SjsonFilePath);
         var jacketPath = Path.Combine(songDataFolder, songData.AlbumJacketArtFile);
 
-        if (string.IsNullOrEmpty(jacketPath) || !File.Exists(jacketPath))
+        if (!File.Exists(jacketPath))
         {
             SpriteRenderer.sprite = null;
             return;
