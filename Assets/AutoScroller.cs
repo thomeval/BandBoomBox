@@ -2,98 +2,115 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AutoScroller : MonoBehaviour
 {
     public RectTransform OuterContainer;
     public RectTransform InnerContainer;
 
+
     public DateTime LastUpdate = DateTime.Now;
 
+    /// <summary>
+    /// The speed at which to scroll InnerContainer, in units per second.
+    /// </summary>
     public float ScrollSpeed = 1.0f;
+
+    /// <summary>
+    /// The amount of time to pause scrolling when at the top or bottom, in seconds.
+    /// </summary>
     public float WaitTime = 3.0f;
 
     [SerializeField]
     private AutoScrollerState _state = AutoScrollerState.NotStarted;
 
-    private float _minY;
-    private float _maxY;
-    private DateTime _waitUntilTime = DateTime.Now;
-
-    private Vector3[] _corners = new Vector3[4];
-    // Update is called once per frame
     void Update()
     {
         UpdateScroll();
         LastUpdate = DateTime.Now;
     }
 
-    private void Reset()
+    private float _waitTimer = 0f;
+
+    public void Reset()
     {
+        this.enabled = true;
         _state = AutoScrollerState.NotStarted;
-        CalculateBounds();
+        _waitTimer = 0f;
 
-        InnerContainer.localPosition = new Vector3(InnerContainer.localPosition.x, _maxY, InnerContainer.localPosition.z);
-    }
-
-    private void CalculateBounds()
-    {
-        var sizeDelta = Math.Max(0, InnerContainer.rect.height - OuterContainer.rect.height);
-        OuterContainer.GetWorldCorners(_corners);
-        // MinY is the bottom of the outer container. MaxY is the bottom of the inner container when the top of the inner container is aligned with the top of the outer container.
-        _minY = _corners[0].y;
-        _maxY = _corners[0].y + sizeDelta;
+        if (OuterContainer != null && InnerContainer != null)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(InnerContainer);
+            Vector3 localPos = InnerContainer.localPosition;
+            localPos.y = OuterContainer.rect.yMax - InnerContainer.rect.yMax;
+            InnerContainer.localPosition = localPos;
+        }
     }
 
     private void UpdateScroll()
     {
-
-        CalculateBounds();
-        InnerContainer.GetWorldCorners(_corners);
-        var currentY = _corners[0].y;
-        if (_maxY == 0)
+        if (OuterContainer == null || InnerContainer == null)
         {
-            _state = AutoScrollerState.NotStarted;
             return;
         }
 
-        var positionDelta = (DateTime.Now - LastUpdate).TotalSeconds * ScrollSpeed;
+        if (InnerContainer.rect.height <= OuterContainer.rect.height)
+        {
+            Reset();
+            this.enabled = false;
+            return;
+        }
+
+        float dt = (float)(DateTime.Now - LastUpdate).TotalSeconds;
+
+        if (_state == AutoScrollerState.NotStarted)
+        {
+            Reset();
+            _state = AutoScrollerState.WaitingAtStart;
+        }
+
         switch (_state)
         {
-            case AutoScrollerState.NotStarted:
-                LastUpdate = DateTime.Now;
-                _state = AutoScrollerState.ScrollingToEnd;
-                break;
-            case AutoScrollerState.ScrollingToEnd:
-                if (currentY - positionDelta < _minY)
-                {
-                    positionDelta = currentY - _minY;
-                    _state = AutoScrollerState.WaitingAtEnd;
-                    _waitUntilTime = DateTime.Now.AddSeconds(WaitTime);
-                }
-                var newPositionB = new Vector3(InnerContainer.localPosition.x, InnerContainer.localPosition.y - (float)positionDelta, InnerContainer.localPosition.z);
-                InnerContainer.localPosition = newPositionB;
-                break;
-            case AutoScrollerState.ScrollingToStart:
-                if (currentY + positionDelta > _maxY)
-                {
-                    positionDelta = _maxY - currentY;
-                    _state = AutoScrollerState.WaitingAtStart;
-                    _waitUntilTime = DateTime.Now.AddSeconds(WaitTime);
-                }
-                var newPositionT = new Vector3(InnerContainer.localPosition.x, InnerContainer.localPosition.y - (float)positionDelta, InnerContainer.localPosition.z);
-                InnerContainer.localPosition = newPositionT;
-                break;
             case AutoScrollerState.WaitingAtStart:
-                if (DateTime.Now > _waitUntilTime)
+                _waitTimer += dt;
+                if (_waitTimer >= WaitTime)
                 {
+                    _waitTimer = 0f;
                     _state = AutoScrollerState.ScrollingToEnd;
                 }
                 break;
-            case AutoScrollerState.WaitingAtEnd:
-                if (DateTime.Now > _waitUntilTime)
+
+            case AutoScrollerState.ScrollingToEnd:
+                InnerContainer.localPosition += new Vector3(0, ScrollSpeed * dt, 0);
+
+                if (InnerContainer.localPosition.y + InnerContainer.rect.yMin >= OuterContainer.rect.yMin)
                 {
+                    Vector3 localPos = InnerContainer.localPosition;
+                    localPos.y = OuterContainer.rect.yMin - InnerContainer.rect.yMin;
+                    InnerContainer.localPosition = localPos;
+                    _state = AutoScrollerState.WaitingAtEnd;
+                }
+                break;
+
+            case AutoScrollerState.WaitingAtEnd:
+                _waitTimer += dt;
+                if (_waitTimer >= WaitTime)
+                {
+                    _waitTimer = 0f;
                     _state = AutoScrollerState.ScrollingToStart;
+                }
+                break;
+
+            case AutoScrollerState.ScrollingToStart:
+                InnerContainer.localPosition -= new Vector3(0, ScrollSpeed * dt, 0);
+
+                if (InnerContainer.localPosition.y + InnerContainer.rect.yMax <= OuterContainer.rect.yMax)
+                {
+                    Vector3 localPos = InnerContainer.localPosition;
+                    localPos.y = OuterContainer.rect.yMax - InnerContainer.rect.yMax;
+                    InnerContainer.localPosition = localPos;
+                    _state = AutoScrollerState.WaitingAtStart;
                 }
                 break;
         }

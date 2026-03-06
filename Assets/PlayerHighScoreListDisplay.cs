@@ -11,6 +11,7 @@ public class PlayerHighScoreListDisplay : MonoBehaviour
 
     public GameObject EntryContainer;
     public GameObject HighScoreEntryPrefab;
+    public AutoScroller ListAutoScroller;
 
     private List<PlayerHighScoreListEntry> _entries = new List<PlayerHighScoreListEntry>();
 
@@ -55,5 +56,8 @@ public class PlayerHighScoreListDisplay : MonoBehaviour
             entry.DisplayedScore = scores[x];
             entry.gameObject.SetActive(true);
         }
+
+        ListAutoScroller.Reset();
+
     }
 }
