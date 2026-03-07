@@ -145,7 +145,7 @@ public class DifficultySelectManager : ScreenManager
             return;
         }
 
-        ApplySelectedChart(args.Player, frame.SelectedSongChart);
+        ApplySelectedChart(args.Player, frame.SelectedSongChart, frame.PlayerHighScoreDisplay.DisplayedScore);
         UpdateFrameState(frame, PlayerState.DifficultySelect_Ready);
         TryStartSong();
     }
@@ -166,12 +166,13 @@ public class DifficultySelectManager : ScreenManager
         }
     }
 
-    private void ApplySelectedChart(int playerSlot, SongChart selectedChart)
+    private void ApplySelectedChart(int playerSlot, SongChart selectedChart, PlayerScore playerScore)
     {
         var player = CoreManager.PlayerManager.GetLocalPlayers().Single(e => e.Slot == playerSlot);
         player.Difficulty = selectedChart.Difficulty;
         player.ChartGroup = selectedChart.Group;
         player.ChartDifficultyLevel = selectedChart.DifficultyLevel;
+        player.PbPerfPoints = playerScore?.PerfPoints;
     }
 
     private void TryReturnToSongSelect(DifficultySelectFrame frame)

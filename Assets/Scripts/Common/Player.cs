@@ -86,6 +86,17 @@ public class Player : MonoBehaviour
     }
 
     [SerializeField]
+    private int? _pbPerfPoints;
+    public int? PbPerfPoints
+    {
+        get { return _pbPerfPoints; }
+        set
+        {
+            _pbPerfPoints = value;
+        }
+    }
+
+    [SerializeField]
     private int _sectionPerfPoints;
     public int SectionPerfPoints
     {
@@ -445,6 +456,9 @@ public class Player : MonoBehaviour
         get { return this.MaxPerfPoints == 0 ? 0 : (1.0f * this.PerfPoints / this.MaxPerfPoints); }
     }
 
+    /// <summary>
+    /// Returns the performance points this player needs to achieve in order to reach their goal, or null if they don't have a goal set.
+    /// </summary>
     public int? GoalPerfPoints
     {
         get
@@ -477,18 +491,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns the maximum performance points this player could have achieved based on their hits, including misses but excluding wrongs. 
+    /// Used for calculating the player's current percent progress towards their goal.
+    /// </summary>
     public int MaxPerfPointsFromHits
     {
         get
         {
-            var result = 0;
             var maxPerHit = HitJudge.JudgePerfPointValues[JudgeResult.Perfect];
-            foreach (var hit in EarlyHits.Union(LateHits).ToList())
-            {
-                result += hit.Value * maxPerHit;
-            }
-            result += Mistakes[JudgeResult.Miss] * maxPerHit;
-            return result;
+            return TotalHitsWithMisses * maxPerHit;
         }
     }
 
