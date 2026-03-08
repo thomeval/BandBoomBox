@@ -714,7 +714,7 @@
     {
       "Group": "Primary",
       "Difficulty": 5,
-      "DifficultyLevel": 6,
+      "DifficultyLevel": 5,
       "NoteCounts": {
         "TapNotes": 167,
         "HoldNotes": 69,
@@ -2424,7 +2424,7 @@
     {
       "Group": "Secondary",
       "Difficulty": 5,
-      "DifficultyLevel": 6,
+      "DifficultyLevel": 5,
       "NoteCounts": {
         "TapNotes": 186,
         "HoldNotes": 60,
