@@ -1,5 +1,6 @@
 {
   "ID": "25b5da5e-888e-4fc6-a939-e279596dda22",
+  "Version": 1,
   "Title": "Future Greatness",
   "Subtitle": "",
   "Artist": "thomeval",
@@ -7,7 +8,7 @@
   "Issues": "",
   "Url": "",
   "AudioFile": "FutureGreatness.ogg",
-  "Version": 1,
+  "AlbumJacketArtFile": null,
   "Bpm": 80.0,
   "AudioStart": 0.16,
   "Offset": 12.16,
@@ -177,8 +178,8 @@
         "TapNotes": 66,
         "HoldNotes": 36,
         "AverageNps": 1.43094146,
-        "MaxNps": 1.66666663,
-        "TrimmedAverageNps": 1.52777779,
+        "MaxNps": 1.5,
+        "TrimmedAverageNps": 1.44444442,
         "LaneNotes": [
           0,
           70,
@@ -327,8 +328,8 @@
         "TapNotes": 100,
         "HoldNotes": 30,
         "AverageNps": 1.65906262,
-        "MaxNps": 2.33333325,
-        "TrimmedAverageNps": 1.75,
+        "MaxNps": 1.83333337,
+        "TrimmedAverageNps": 1.66666663,
         "LaneNotes": [
           0,
           81,
@@ -477,8 +478,8 @@
         "TapNotes": 131,
         "HoldNotes": 37,
         "AverageNps": 2.125674,
-        "MaxNps": 2.66666675,
-        "TrimmedAverageNps": 2.30555558,
+        "MaxNps": 2.33333325,
+        "TrimmedAverageNps": 2.13888884,
         "LaneNotes": [
           0,
           104,
@@ -628,7 +629,7 @@
         "HoldNotes": 46,
         "AverageNps": 2.94483614,
         "MaxNps": 3.66666675,
-        "TrimmedAverageNps": 3.19444442,
+        "TrimmedAverageNps": 3.0,
         "LaneNotes": [
           89,
           93,

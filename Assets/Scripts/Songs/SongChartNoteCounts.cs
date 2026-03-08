@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 [Serializable]
+[DebuggerDisplay("Notes: {TotalNotes}, Tap: {TapNotes}, Hold: {HoldNotes}, Trimmed Avg NPS: {TrimmedAverageNps}, Max NPS: {MaxNps}")]
 public class SongChartNoteCounts
 {
     public int TotalNotes

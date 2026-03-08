@@ -20,7 +20,7 @@ public class SettingsManager : MonoBehaviour
 
     [Header("Gameplay Settings")]
     public bool EnableNerfDifficulty = false;
-    public bool EnableExtraDifficulty = false;
+    public bool EnableExtraDifficulty = true;
     public bool EnableMomentumOption = false;
     public bool EnableSectionDifficulty = false;
     public bool EnableLaneOrderOption = false;

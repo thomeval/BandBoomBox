@@ -9,6 +9,8 @@ namespace Assets
 {
     public class SongLibrary : MonoBehaviour
     {
+        private const bool FORCE_RECOUNT_NOTES = false;
+
         public List<SongData> Songs = new List<SongData>();
 
         public string[] SongFolders;
@@ -103,7 +105,6 @@ namespace Assets
 
             var folder = Path.GetDirectoryName(path);
             var json = File.ReadAllText(path);
-            //  var song = JsonUtility.FromJson<SongData>(json);
             var song = JsonConvert.DeserializeObject<SongData>(json);
 
             if (this.Contains(song.ID) && !ignoreDuplicate)
@@ -126,7 +127,7 @@ namespace Assets
             var songLength = songData.Length - songData.Offset;
             foreach (var chart in songData.SongCharts)
             {
-                changed |= CheckSongChartNoteCounts(chart, songLength, songData.Bpm, songData.BeatsPerMeasure);
+                changed |= CheckSongChartNoteCounts(songData, chart);
             }
 
             if (changed)
@@ -136,14 +137,14 @@ namespace Assets
             }
         }
 
-        private bool CheckSongChartNoteCounts(SongChart chart, float songLength, float songBpm, float beatsPerMeasure)
-        {          
-            if (chart.NoteCounts.TotalNotes != 0 && chart.NoteCounts.MaxNps != 0)
+        private bool CheckSongChartNoteCounts(SongData songData, SongChart chart)
+        {
+            if (!FORCE_RECOUNT_NOTES && chart.NoteCounts.TotalNotes != 0 && chart.NoteCounts.MaxNps != 0)
             {
                 return false;
             }
 
-            chart.NoteCounts = NoteCounter.CountNotes(chart, songLength, songBpm, beatsPerMeasure);
+            chart.NoteCounts = NoteCounter.CountNotes(songData, chart);
             return chart.NoteCounts.TotalNotes > 0;
         }
 

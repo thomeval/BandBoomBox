@@ -217,7 +217,9 @@ public class ChartEditorManager : ScreenManager
     public void RefreshNoteCounts()
     {
         var intervalSize = CurrentSongData.BeatsPerMeasure * 2;
-        CurrentChart.NoteCounts = NoteCounter.CountNotes(NoteManager.Notes, CurrentSongData.Length - CurrentSongData.Offset, CurrentSongData.Bpm, intervalSize);
+        var noteCountsA = NoteCounter.CountNotes(NoteManager.Notes, CurrentSongData.Length - CurrentSongData.Offset, CurrentSongData.Bpm, intervalSize);
+
+        CurrentChart.NoteCounts = noteCountsA;
         LrrDisplay.SetFromData(CurrentChart.NoteCounts.LrrData,0);
         UpdateNoteCountDisplay();
     }

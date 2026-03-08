@@ -73,6 +73,10 @@ public static class NoteCounter
 
     }
 
+    public static SongChartNoteCounts CountNotes(SongData songData, SongChart chart)
+    {
+        return CountNotes(chart.Notes, songData.Length - songData.Offset, songData.Bpm, songData.BeatsPerMeasure * 2);
+    }
     public static SongChartNoteCounts CountNotes(SongChart chart, float songLength, float songBpm, float intervalSize)
     {
         return CountNotes(chart.Notes, songLength, songBpm, intervalSize);

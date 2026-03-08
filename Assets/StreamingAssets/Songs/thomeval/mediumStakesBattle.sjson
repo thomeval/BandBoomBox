@@ -1,5 +1,6 @@
 {
   "ID": "8be69432-bae2-4041-afb9-b5cb0d255f87",
+  "Version": 1,
   "Title": "Medium Stakes Battle",
   "Subtitle": "",
   "Artist": "thomeval",
@@ -7,7 +8,7 @@
   "Issues": "",
   "Url": "",
   "AudioFile": "MediumStakesBattle.ogg",
-  "Version": 1,
+  "AlbumJacketArtFile": null,
   "Bpm": 160.0,
   "AudioStart": 6.18,
   "Offset": 12.18,
@@ -31,13 +32,13 @@
     {
       "Group": "Main",
       "Difficulty": 0,
-      "DifficultyLevel": 1,
+      "DifficultyLevel": 2,
       "NoteCounts": {
         "TapNotes": 107,
         "HoldNotes": 37,
         "AverageNps": 1.22487664,
         "MaxNps": 1.33333337,
-        "TrimmedAverageNps": 1.33333337,
+        "TrimmedAverageNps": 1.28828835,
         "LaneNotes": [
           0,
           89,
@@ -445,13 +446,13 @@
     {
       "Group": "Main",
       "Difficulty": 1,
-      "DifficultyLevel": 4,
+      "DifficultyLevel": 6,
       "NoteCounts": {
         "TapNotes": 207,
         "HoldNotes": 61,
         "AverageNps": 2.226433,
-        "MaxNps": 3.33333325,
-        "TrimmedAverageNps": 2.41441441,
+        "MaxNps": 2.66666675,
+        "TrimmedAverageNps": 2.36036038,
         "LaneNotes": [
           0,
           162,
@@ -864,8 +865,8 @@
         "TapNotes": 213,
         "HoldNotes": 84,
         "AverageNps": 2.57833147,
-        "MaxNps": 4.66666651,
-        "TrimmedAverageNps": 2.77477479,
+        "MaxNps": 3.33333325,
+        "TrimmedAverageNps": 2.73873878,
         "LaneNotes": [
           0,
           193,
@@ -1278,8 +1279,8 @@
         "TapNotes": 299,
         "HoldNotes": 92,
         "AverageNps": 3.26859331,
-        "MaxNps": 5.33333349,
-        "TrimmedAverageNps": 3.53153157,
+        "MaxNps": 4.66666651,
+        "TrimmedAverageNps": 3.45045042,
         "LaneNotes": [
           0,
           240,
@@ -1692,8 +1693,8 @@
         "TapNotes": 416,
         "HoldNotes": 86,
         "AverageNps": 3.97915721,
-        "MaxNps": 6.0,
-        "TrimmedAverageNps": 4.36036,
+        "MaxNps": 5.33333349,
+        "TrimmedAverageNps": 4.26126146,
         "LaneNotes": [
           185,
           200,
@@ -2106,8 +2107,8 @@
         "TapNotes": 477,
         "HoldNotes": 129,
         "AverageNps": 4.97394657,
-        "MaxNps": 7.33333349,
-        "TrimmedAverageNps": 5.43243265,
+        "MaxNps": 6.33333349,
+        "TrimmedAverageNps": 5.324324,
         "LaneNotes": [
           236,
           245,
