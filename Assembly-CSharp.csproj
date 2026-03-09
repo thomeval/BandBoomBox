@@ -172,6 +172,7 @@
     <Compile Include="Assets\LrrContainer.cs" />
     <Compile Include="Assets\SectionResultDisplay.cs" />
     <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\PaceDisplay.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteCounter.cs" />
     <Compile Include="Assets\Scripts\Common\Player.cs" />
     <Compile Include="Assets\Scripts\SongSelect\SongPreviewManager.cs" />
@@ -258,7 +259,6 @@
     <Compile Include="Assets\Scripts\Managers\CoreManager.cs" />
     <Compile Include="Assets\Scripts\Common\SectionProgressMeter.cs" />
     <Compile Include="Assets\Scripts\Input\SectionJudgeResult.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\GoalMeter.cs" />
     <Compile Include="Assets\ChartEditorAutoSaver.cs" />
     <Compile Include="Assets\Scripts\Input\DeviationResult.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplayItem.cs" />

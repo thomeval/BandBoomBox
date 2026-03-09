@@ -23,7 +23,7 @@ public class PlayerHudManager : MonoBehaviour
     public NoteHitFlasher NoteHitFlasher;
     public GameObject PlayerIdentifier;
     public CountdownDisplay CountdownDisplay;
-    public GoalMeter GoalMeter;
+    public PaceDisplay PaceDisplay;
     public AudioSource AudMistake;
     public HeldNoteDisplay HeldNoteDisplay;
     public LrrDisplay LrrDisplay;
@@ -84,21 +84,20 @@ public class PlayerHudManager : MonoBehaviour
         {
             this.AudMistake.Play();
         }
-
     }
 
     private void UpdateGoalMeter()
     {
-        if (GoalMeter == null)
+        if (PaceDisplay == null)
         {
             return;
         }
 
-        GoalMeter.GoalGrade = Player.GetGoalGrade();
-        GoalMeter.Min = Player.GoalPerfPoints.GetValueOrDefault();
-        GoalMeter.Max = Player.MaxPerfPoints;
-        GoalMeter.PlayerCurrent = Player.PerfPoints;
-        GoalMeter.Value = Player.MaxPerfPointsWithMistakes;
+        var progress = 1.0f * Player.MaxPerfPointsFromHits /  Player.MaxPerfPoints;
+        int? pbValue = Player.PbPerfPoints.HasValue ? (int)(Player.PbPerfPoints.Value * progress) : null;
+        int? globalValue = Player.GoalPerfPoints.HasValue ? (int)(Player.GoalPerfPoints.Value * progress) : null;
+
+        PaceDisplay.Display(Player.PerfPoints, pbValue, globalValue, Player.GetGoalGrade());
     }
 
     public void FlashLane(int lane)
