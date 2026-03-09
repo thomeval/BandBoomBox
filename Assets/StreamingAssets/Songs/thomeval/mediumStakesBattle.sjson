@@ -1274,7 +1274,7 @@
     {
       "Group": "Main",
       "Difficulty": 2,
-      "DifficultyLevel": 8,
+      "DifficultyLevel": 10,
       "NoteCounts": {
         "TapNotes": 299,
         "HoldNotes": 92,
