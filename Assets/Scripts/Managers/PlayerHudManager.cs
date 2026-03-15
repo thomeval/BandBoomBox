@@ -24,7 +24,7 @@ public class PlayerHudManager : MonoBehaviour
     public GameObject PlayerIdentifier;
     public CountdownDisplay CountdownDisplay;
     public PaceDisplay PaceDisplay;
-    public AudioSource AudMistake;
+    public SoundEventProvider SoundEventProvider;
     public HeldNoteDisplay HeldNoteDisplay;
     public LrrDisplay LrrDisplay;
     public SectionResultDisplay SectionResultDisplay;
@@ -79,10 +79,9 @@ public class PlayerHudManager : MonoBehaviour
     public void DisplayHitResult(HitResult result)
     {
         this.TimingDisplay.ShowHit(result);
-
         if (result.JudgeResult == JudgeResult.Wrong && _mistakeSfxEnabled)
         {
-            this.AudMistake.Play();
+            this.SoundEventProvider.PlaySfx(SoundEvent.Mistake, this.Slot);
         }
     }
 
@@ -95,9 +94,10 @@ public class PlayerHudManager : MonoBehaviour
 
         var progress = 1.0f * Player.MaxPerfPointsFromHits /  Player.MaxPerfPoints;
         int? pbValue = Player.PbPerfPoints.HasValue ? (int)(Player.PbPerfPoints.Value * progress) : null;
+        int? rbValue = Player.RbPerfPoints.HasValue ? (int)(Player.RbPerfPoints.Value * progress) : null;
         int? globalValue = Player.GoalPerfPoints.HasValue ? (int)(Player.GoalPerfPoints.Value * progress) : null;
 
-        PaceDisplay.Display(Player.PerfPoints, pbValue, globalValue, Player.GetGoalGrade());
+        PaceDisplay.Display(Player.PerfPoints, pbValue, rbValue, globalValue, Player.GetGoalGrade());
     }
 
     public void FlashLane(int lane)
@@ -137,5 +137,6 @@ public class PlayerHudManager : MonoBehaviour
     void Awake()
     {
         _playerIdentifierResolver = PlayerIdentifier.GetComponent<SpriteResolver>();
+        Helpers.AutoAssign(ref SoundEventProvider);
     }
 }

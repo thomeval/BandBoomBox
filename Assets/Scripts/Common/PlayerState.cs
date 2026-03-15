@@ -8,6 +8,7 @@ public enum PlayerState
     SelectSong,
     PlayerJoin_SelectProfile,
     PlayerJoin_CreateProfile,
+    PlayerJoin_SelectRival,
     PlayerJoin_Options,
     PlayerJoin_Ready,
     DifficultySelect_Selecting,

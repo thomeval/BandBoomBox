@@ -97,6 +97,17 @@ public class Player : MonoBehaviour
     }
 
     [SerializeField]
+    private int? _rbPerfPoints;
+    public int? RbPerfPoints
+    {
+        get { return _rbPerfPoints; }
+        set
+        {
+            _rbPerfPoints = value;
+        }
+    }
+
+    [SerializeField]
     private int _sectionPerfPoints;
     public int SectionPerfPoints
     {

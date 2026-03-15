@@ -5,6 +5,7 @@ using UnityEngine;
 public class SongJacketDisplay : MonoBehaviour
 {
     public SpriteRenderer SpriteRenderer;
+    private RectTransform _rectTransform;
 
     private void Awake()
     {
@@ -12,6 +13,7 @@ public class SongJacketDisplay : MonoBehaviour
         {
             SpriteRenderer = GetComponent<SpriteRenderer>();
         }
+        _rectTransform = GetComponent<RectTransform>();
     }
 
     public void DisplayJacket(SongData songData)
@@ -35,6 +37,7 @@ public class SongJacketDisplay : MonoBehaviour
             var texture = new Texture2D(2, 2);
             texture.LoadImage(File.ReadAllBytes(jacketPath));
             SpriteRenderer.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+            SpriteRenderer.size = new Vector2(_rectTransform.rect.width, _rectTransform.rect.height);
         }
         catch (Exception ex)
         {

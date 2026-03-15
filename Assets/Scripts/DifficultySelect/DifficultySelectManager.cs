@@ -7,6 +7,9 @@ public class DifficultySelectManager : ScreenManager
     public NetworkPlayerList NetworkPlayerList;
     public SongListItem SelectedSongDisplay;
     private PlayerManager _playerManager;
+    private ProfileManager _profileManager;
+
+    private SongData _currentSong => CoreManager.CurrentSongData;
 
     public int ReadyPlayers
     {
@@ -22,8 +25,9 @@ public class DifficultySelectManager : ScreenManager
     {
         FindCoreManager();
         Helpers.AutoAssign(ref _playerManager);
+        Helpers.AutoAssign(ref _profileManager);
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         NetworkPlayerList.gameObject.SetActive(CoreManager.IsNetGame);
@@ -54,9 +58,8 @@ public class DifficultySelectManager : ScreenManager
 
     private void UpdateSelectedSongDisplay()
     {
-        var currentSong = CoreManager.CurrentSongData;
-        SelectedSongDisplay.SongData = currentSong;
-        var teamScore = CoreManager.HighScoreManager.GetTeamScore(currentSong.ID, currentSong.Version, CoreManager.PlayerManager.Players.Count);
+        SelectedSongDisplay.SongData = _currentSong;
+        var teamScore = CoreManager.HighScoreManager.GetTeamScore(_currentSong.ID, _currentSong.Version, CoreManager.PlayerManager.Players.Count);
         SelectedSongDisplay.DisplayTeamScore(teamScore);
         SelectedSongDisplay.IsSelected = true;
     }
@@ -146,8 +149,23 @@ public class DifficultySelectManager : ScreenManager
         }
 
         ApplySelectedChart(args.Player, frame.SelectedSongChart, frame.PlayerHighScoreDisplay.DisplayedScore);
+        ApplyRivalBest(args.Player, frame.SelectedSongChart);
         UpdateFrameState(frame, PlayerState.DifficultySelect_Ready);
         TryStartSong();
+    }
+
+    private void ApplyRivalBest(int playerSlot, SongChart selectedSongChart)
+    {
+        var player = CoreManager.PlayerManager.GetLocalPlayer(playerSlot);
+
+        if (player.ProfileData.RivalID == null)
+        {
+            player.RbPerfPoints = null;
+            return;
+        }
+
+        PlayerScore rivalBest = _profileManager.GetPlayerHighScore(player.ProfileData.RivalID, _currentSong.ID, _currentSong.Version, selectedSongChart.Difficulty, selectedSongChart.Group);     
+        player.RbPerfPoints = rivalBest?.PerfPoints;
     }
 
     private bool ShowNerfWarning(DifficultySelectFrame frame)

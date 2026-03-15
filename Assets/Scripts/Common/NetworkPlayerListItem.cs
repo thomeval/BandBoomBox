@@ -57,6 +57,8 @@ public class NetworkPlayerListItem : MonoBehaviour
                 return "Selecting Profile";
             case PlayerState.PlayerJoin_CreateProfile:
                 return "Creating Profile";
+            case PlayerState.PlayerJoin_SelectRival:
+                return "Selecting Rival";
             case PlayerState.PlayerJoin_Options:
                 return "Setting Player Options";
             case PlayerState.PlayerJoin_Ready:

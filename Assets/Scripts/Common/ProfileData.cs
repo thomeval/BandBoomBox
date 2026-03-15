@@ -17,6 +17,7 @@ public class ProfileData
     public bool SeenNerfWarning { get; set; } = false;
     public DateTime LastPlayed { get; set; }
     public string LastNoteLabels { get; set; }
+    public string RivalID { get; set; }
 
     public List<PlayerScore> PlayerScores { get; set; } = new();
     public int Momentum { get; set; }

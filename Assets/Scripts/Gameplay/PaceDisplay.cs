@@ -8,6 +8,8 @@ public class PaceDisplay : MonoBehaviour
 {
     public Text TxtPb;
     public Text TxtPbPerfPoints;
+    public Text TxtRb;
+    public Text TxtRbPerfPoints;
     public Text TxtGoal;
     public Text TxtGoalPerfPoints;
 
@@ -15,32 +17,27 @@ public class PaceDisplay : MonoBehaviour
     public Color NegativeColor = Color.red;
     public Color NeutralColor = Color.black;
 
-    public void Display(int currentPerfPoints, int? pbPerfPoints, int? goalPerfPoints, Grade? goalGrade)
+    public void Display(int currentPerfPoints, int? pbPerfPoints, int? rivalPerfPoints, int? goalPerfPoints, Grade? goalGrade)
     {
-        if (pbPerfPoints.HasValue)
+        SetValue(TxtPbPerfPoints, currentPerfPoints, pbPerfPoints);
+        SetValue(TxtRbPerfPoints, currentPerfPoints, rivalPerfPoints);
+        SetValue(TxtGoalPerfPoints, currentPerfPoints, goalPerfPoints);
+
+        var goalText = goalGrade?.ToString().Replace("Plus", "+") ?? "--";
+        TxtGoal.text = goalText;
+    }
+
+    private void SetValue(Text target, int currentPoints, int? targetPoints)
+    {
+        if (!targetPoints.HasValue)
         {
-            TxtPbPerfPoints.text = GetDelta(currentPerfPoints, pbPerfPoints.Value);
-            TxtPbPerfPoints.color = GetColor(currentPerfPoints, pbPerfPoints.Value);
-        }
-        else
-        {
-            TxtPbPerfPoints.text = "--";
-            TxtPbPerfPoints.color = NeutralColor;
+            target.text = "--";
+            target.color = NeutralColor;
+            return;
         }
 
-        if (goalPerfPoints.HasValue && goalGrade.HasValue)
-        {
-            var goalText = goalGrade?.ToString().Replace("Plus", "+") ?? "--";
-            TxtGoal.text = goalText;
-            TxtGoalPerfPoints.text = GetDelta(currentPerfPoints, goalPerfPoints.Value);
-            TxtGoalPerfPoints.color = GetColor(currentPerfPoints, goalPerfPoints.Value);
-        }
-        else
-        {
-            TxtGoal.text = "";
-            TxtGoalPerfPoints.text = "--";
-            TxtGoalPerfPoints.color = NeutralColor;
-        }
+        target.text = GetDelta(currentPoints, targetPoints.Value);
+        target.color = GetColor(currentPoints, targetPoints.Value);
     }
 
     private Color GetColor(int currentPerfPoints, int targetPerfPoints)

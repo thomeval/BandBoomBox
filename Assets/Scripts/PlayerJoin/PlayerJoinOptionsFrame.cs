@@ -43,7 +43,6 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     {
         Menu.HandleInput(inputEvent);
         UpdateMenu();
-
     }
 
     void MenuItemShifted(MenuEventArgs args)
@@ -101,6 +100,11 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
                 Parent.ProfileSelectFrame.PopulateProfileList();
                 Parent.ProfileSelectFrame.Refresh();
                 Parent.State = PlayerState.PlayerJoin_SelectProfile;
+                break;
+            case "Select Rival":
+                Parent.RivalSelectFrame.PopulateProfileList();
+                Parent.RivalSelectFrame.Refresh();
+                Parent.State = PlayerState.PlayerJoin_SelectRival;
                 break;
             case "Leave":
                 Parent.State = PlayerState.NotPlaying;
@@ -169,14 +173,6 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
             note.NoteBase.NoteType = _noteTypesInPreview[x];
             note.SetSpriteCategories(Parent.Player.NoteSkin, Parent.Player.LabelSkin);
             x++;
-        }
-    }
-
-    private void UpdateLanePreview()
-    {
-        if (Parent.Player == null)
-        {
-            return;
         }
     }
 

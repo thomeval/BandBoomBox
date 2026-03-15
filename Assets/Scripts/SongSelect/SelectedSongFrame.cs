@@ -12,6 +12,7 @@ public class SelectedSongFrame : MonoBehaviour
     public Text TxtAuthor;
     public Text TxtLength;
     public SongIssuesDisplay SongIssuesDisplay;
+    public SongJacketDisplay SongJacketDisplay;
 
     [SerializeField]
     private SongData _selectedSong;
@@ -38,6 +39,7 @@ public class SelectedSongFrame : MonoBehaviour
                 SelectedSong.Length % 60);
             TxtAuthor.text = SelectedSong.ChartAuthor;
             SongIssuesDisplay.SongData = SelectedSong;
+            SongJacketDisplay.DisplayJacket(SelectedSong);
         }
 
     }

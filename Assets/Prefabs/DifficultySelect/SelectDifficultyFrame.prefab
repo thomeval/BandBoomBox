@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9908f42efeab41646b2778bf99f368b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerState: 11
+  PlayerState: 10
 --- !u!1 &412001378852869426
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9908f42efeab41646b2778bf99f368b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerState: 13
+  PlayerState: 14
 --- !u!1 &789885876019931272
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,7 +857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9908f42efeab41646b2778bf99f368b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerState: 12
+  PlayerState: 13
 --- !u!1 &1245966833970586656
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,7 +991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9908f42efeab41646b2778bf99f368b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerState: 10
+  PlayerState: 11
 --- !u!1 &1490759962674065218
 GameObject:
   m_ObjectHideFlags: 0
@@ -3415,6 +3415,7 @@ MonoBehaviour:
   SoundEventProvider: {fileID: 0}
   _displayedSongData:
     ID: 
+    Version: 1
     Title: 
     Subtitle: 
     Artist: 
@@ -3422,7 +3423,7 @@ MonoBehaviour:
     Issues: 
     Url: 
     AudioFile: 
-    Version: 1
+    AlbumJacketArtFile: 
     Bpm: 0
     AudioStart: 0
     Offset: 0

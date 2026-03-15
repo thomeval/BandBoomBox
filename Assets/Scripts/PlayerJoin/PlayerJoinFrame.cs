@@ -7,11 +7,12 @@ public class PlayerJoinFrame : MonoBehaviour
 
     public PlayerJoinOptionsFrame OptionsFrame;
     public PlayerJoinProfileSelectFrame ProfileSelectFrame;
+    public PlayerJoinRivalSelectFrame RivalSelectFrame;
     public PlayerJoinProfileCreateFrame ProfileCreateFrame;
 
     public Text TxtPlayerName;
 
-    public PlayerState[] PageStates = { PlayerState.NotPlaying, PlayerState.PlayerJoin_SelectProfile, PlayerState.PlayerJoin_CreateProfile, PlayerState.PlayerJoin_Options, PlayerState.PlayerJoin_Ready };
+    public PlayerState[] PageStates = { PlayerState.NotPlaying, PlayerState.PlayerJoin_SelectProfile, PlayerState.PlayerJoin_CreateProfile, PlayerState.PlayerJoin_SelectRival, PlayerState.PlayerJoin_Options, PlayerState.PlayerJoin_Ready };
     public GameObject[] Pages;
 
     public Player Player;
@@ -126,17 +127,15 @@ public class PlayerJoinFrame : MonoBehaviour
                 HandleInputOptionsPage(inputEvent);
                 break;
             case PlayerState.PlayerJoin_SelectProfile:
-                HandleInputProfileSelectPage(inputEvent);
+                ProfileSelectFrame.HandleInput(inputEvent);
+                break;
+            case PlayerState.PlayerJoin_SelectRival:
+                RivalSelectFrame.HandleInput(inputEvent);
                 break;
             case PlayerState.PlayerJoin_CreateProfile:
                 ProfileCreateFrame.HandleInput(inputEvent);
                 break;
         }
-    }
-
-    private void HandleInputProfileSelectPage(InputEvent inputEvent)
-    {
-        ProfileSelectFrame.HandleInput(inputEvent);
     }
 
     private void HandleInputOptionsPage(InputEvent inputEvent)
@@ -179,6 +178,23 @@ public class PlayerJoinFrame : MonoBehaviour
 
         var useControllerNoteLabels = _playerJoinManager.CoreManager.Settings.AutoSetNoteLabelsFromController;
         this.Player.AutoSetLabelSkin(useControllerNoteLabels);
+        State = PlayerState.PlayerJoin_Options;
+        PlayConfirmedSfx();
+        Refresh();
+    }
+
+    public void TrySetRivalToPlayer(ProfileData profileData)
+    {
+        if (profileData.ID == Player.ProfileId)
+        {
+            SoundEventProvider.PlaySfx(SoundEvent.Mistake, Player.LocalSlot);
+            RivalSelectFrame.Error = "You cannot select yourself as a rival! Choose another profile.";
+            return;
+        }
+
+        RivalSelectFrame.Error = null;
+        this.Player.ProfileData.RivalID = profileData.ID;
+
         State = PlayerState.PlayerJoin_Options;
         PlayConfirmedSfx();
         Refresh();

@@ -53,6 +53,51 @@ public class ExpModifierList : MonoBehaviour
         AddFullComboResult(player);
         AddStarsResult(stars);
         AddNumPlayersResult(numPlayers);
+        AddRivalScoreResult(player);
+    }
+
+    private void AddRivalScoreResult(Player player)
+    {
+        if (player.ProfileData.RivalID == null || player.RbPerfPoints == null || player.MaxPerfPoints == 0)
+        {
+            return;
+        }
+
+        if (player.PerfPoints < player.RbPerfPoints.Value)
+        {
+            // This awards a 5% penalty when the player is defeated by their rival.
+            var label = "Rival Victorious";
+            var value = 0.95f;
+            Add(label, value);
+        }
+        else if (player.PerfPoints > player.RbPerfPoints.Value)
+        {
+            var label = "Rival Defeated!";
+            var rivalPercent = 1.0f * player.RbPerfPoints.Value / player.MaxPerfPoints;
+            var rivalBonus = GetRivalBonus(rivalPercent);
+
+            Add(label, rivalBonus);
+        }
+        else
+        {
+            var label = "Tied with Rival!";
+            var value = 1.0f;
+            Add(label, value);
+        }
+    }
+
+    private float GetRivalBonus(float rivalPercent)
+    {
+        var rivalGrade = Helpers.PercentToGrade(rivalPercent);
+        if (!HitJudge.GoalExpValues.ContainsKey(rivalGrade))
+        {
+            return 1.0f;
+        }
+        
+        // This awards half the EXP of the Goal EXP bonus (1.2x -> 1.1x), with higher grades awarding more EXP.
+        var value = (HitJudge.GoalExpValues[rivalGrade] - 1) / 2;
+        value++;
+        return value;
     }
 
     private void AddDifficultyResult(Player player)

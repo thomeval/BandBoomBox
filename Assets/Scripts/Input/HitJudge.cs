@@ -170,6 +170,7 @@ public class HitJudge
         {Grade.APlus, 1.3f},    // A+
         {Grade.S, 1.4f},        // S
         {Grade.SPlus, 1.45f},   // S+
+        {Grade.SS, 1.5f},       // SS
     };
 
     /// <summary>
