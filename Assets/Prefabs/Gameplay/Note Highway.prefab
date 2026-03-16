@@ -996,7 +996,7 @@ MonoBehaviour:
   TxtRbPerfPoints: {fileID: 4442114663551913085}
   TxtGoal: {fileID: 2552548262167376242}
   TxtGoalPerfPoints: {fileID: 6152770318499828819}
-  PositiveColor: {r: 0, g: 1, b: 0, a: 1}
+  PositiveColor: {r: 0, g: 0.5, b: 0, a: 1}
   NegativeColor: {r: 0.5, g: 0, b: 0, a: 1}
   NeutralColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &2245210124799722332
