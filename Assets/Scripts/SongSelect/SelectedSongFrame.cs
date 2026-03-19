@@ -35,8 +35,8 @@ public class SelectedSongFrame : MonoBehaviour
             TxtSubtitle.text = SelectedSong.Subtitle;
             TxtArtist.text = SelectedSong.Artist;
             TxtBpm.text = string.Format(CultureInfo.InvariantCulture, "{0:N1}", SelectedSong.Bpm);
-            TxtLength.text = string.Format(CultureInfo.InvariantCulture, "{0}:{1:00}", (int) (SelectedSong.Length / 60),
-                SelectedSong.Length % 60);
+            TxtLength.text = string.Format(CultureInfo.InvariantCulture, "{0}:{1:00}", (int) (SelectedSong.PlayableLength / 60),
+                SelectedSong.PlayableLength % 60);
             TxtAuthor.text = SelectedSong.ChartAuthor;
             SongIssuesDisplay.SongData = SelectedSong;
             SongJacketDisplay.DisplayJacket(SelectedSong);

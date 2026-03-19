@@ -53,6 +53,15 @@ public class SongData
         }
     }
 
+    [JsonIgnore]
+    public float PlayableLength
+    {
+        get
+        {
+            return Mathf.Max(0,0f, this.Length - this.Offset);
+        }
+    }
+
     public SongChart GetChart(string group, Difficulty difficulty)
     {
         return SongCharts.SingleOrDefault(e => e.Group == group && e.Difficulty == difficulty);

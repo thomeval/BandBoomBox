@@ -11,6 +11,7 @@ public class NetworkPlayerListItem : MonoBehaviour
     public SpriteResolver PlayerIdentifier;
     public Text TxtPlayerLevel;
     public Text TxtNetId;
+    public int Index;
 
     public Player Player;
 
@@ -92,5 +93,10 @@ public class NetworkPlayerListItem : MonoBehaviour
     public virtual void DisplayFullComboResult(FullComboResultDto result)
     {
         // Override in derived classes if needed
+    }
+
+    public virtual void SetIndex(int index)
+    {
+        this.Index = index;
     }
 }

@@ -50,6 +50,7 @@ public class NetworkPlayerList : MonoBehaviour
         foreach (var child in Children)
         {
             child.transform.SetSiblingIndex(index);
+            child.SetIndex(index);
             child.Refresh();
             index++;
         }

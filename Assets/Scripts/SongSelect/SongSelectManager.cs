@@ -113,7 +113,7 @@ public class SongSelectManager : ScreenManager
                 OrderedSongs = songs.OrderBy(e => e.Bpm).ToList();
                 break;
             case "LENGTH":
-                OrderedSongs = songs.OrderBy(e => e.Length).ToList();
+                OrderedSongs = songs.OrderBy(e => e.PlayableLength).ToList();
                 break;
             case "STARS":
                 OrderedSongs = songs.OrderBy(e => GetHighScoreStars(e, playerCount)).ToList();

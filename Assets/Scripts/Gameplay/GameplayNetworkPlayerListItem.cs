@@ -65,4 +65,13 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
         }
 
     }
+
+    public override void SetIndex(int index)
+    {
+        base.SetIndex(index);
+        if (SectionResultDisplay != null)
+        {
+            SectionResultDisplay.SetIndex(index);
+        }
+    }
 }

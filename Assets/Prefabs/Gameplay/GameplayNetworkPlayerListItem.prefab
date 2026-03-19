@@ -843,6 +843,10 @@ MonoBehaviour:
   _spriteResolver: {fileID: 458143604204028483}
   _fullComboSpriteResolver: {fileID: 5590408155885399596}
   _animator: {fileID: 4323857442199722368}
+  _spriteMask: {fileID: 5889263574663738762}
+  _spriteRenderers:
+  - {fileID: 6490524235083255769}
+  - {fileID: 6740839188839181870}
 --- !u!95 &4323857442199722368
 Animator:
   serializedVersion: 5
