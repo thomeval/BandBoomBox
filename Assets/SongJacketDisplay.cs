@@ -28,6 +28,7 @@ public class SongJacketDisplay : MonoBehaviour
 
         if (!File.Exists(jacketPath))
         {
+            Debug.LogWarning($"Jacket art file not found for song {songData.Title} at path: {jacketPath}");
             SpriteRenderer.sprite = null;
             return;
         }

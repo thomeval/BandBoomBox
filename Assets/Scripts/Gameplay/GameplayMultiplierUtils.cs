@@ -26,7 +26,7 @@ public static class GameplayMultiplierUtils
     private static readonly float[] _turboMxGainRates = { 0.0f,  1.0f,  2.5f,  4.25f, 6.0f,  8.0f,  10.0f, 12.0f, 14.0f,
                                                    16.0f, 18.0f, 20.0f, 22.0f, 24.0f, 26.0f, 28.0f, 30.0f, 32.0f  };
 
-        /// <summary>
+    /// <summary>
     /// Controls the amount of combo required to gain a bonus to the momentum gain rate.
     /// </summary>
     public const float GR_COMBO_FOR_BONUS = 50;

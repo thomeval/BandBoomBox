@@ -933,7 +933,7 @@ public class GameplayManager : ScreenManager
                 player.HudManager.ShowSectionResult(result.JudgeResult);
             }
 
-            // In Net games, clients do not record section result percentages. Use the result provided by the host instead.
+            // In Network games, clients do not record section result percentages. Use the result provided by the host instead.
             if (!CoreManager.IsHost)
             {
                 player.ForceEndSection(result.SectionAccuracy);

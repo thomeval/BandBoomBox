@@ -10,7 +10,6 @@ namespace Assets
     public class SongLibrary : MonoBehaviour
     {
         private const bool FORCE_RECOUNT_NOTES = false;
-
         public List<SongData> Songs = new List<SongData>();
 
         public string[] SongFolders;
