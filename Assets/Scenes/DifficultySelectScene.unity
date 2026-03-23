@@ -2283,6 +2283,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1594068714582876792, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594068714582876792, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594068714582876792, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594068714582876792, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594068714582876792, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2791064131786776330, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
       propertyPath: m_SpriteLibraryAsset
       value: 

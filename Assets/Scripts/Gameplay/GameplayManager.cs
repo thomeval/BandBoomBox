@@ -63,12 +63,7 @@ public class GameplayManager : ScreenManager
     public const double OUTRO_TIME = 2.0;
 
     /// <summary>
-    /// Scale applied to the note highways when there are four players.
-    /// </summary>
-    public const float FOUR_PLAYER_HUD_SCALE = 0.8f;
-
-    /// <summary>
-    /// Vertical spacing applied to the note highways when there are four players.
+    /// Vertical spacing applied to the note highways when there are four or more players.
     /// </summary>
     public const int FOUR_PLAYER_HUD_SPACING = -10;
 
@@ -142,7 +137,6 @@ public class GameplayManager : ScreenManager
 
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         Debug.Log($"GameplayManager Start\r\n--------------------");
@@ -164,7 +158,6 @@ public class GameplayManager : ScreenManager
 
         // Set the team score category now based on the number of players present when the song starts. Should any players join or leave mid-game, this category should not change.
         StateValues.TeamScoreCategory = _playerManager.GetScoreCategory();
-
 
         InitTurbo();
 

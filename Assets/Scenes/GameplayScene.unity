@@ -732,8 +732,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 349, y: 105}
-  m_SizeDelta: {x: 575, y: 50}
+  m_AnchoredPosition: {x: 381.5, y: 105}
+  m_SizeDelta: {x: 640, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &236470126
 MonoBehaviour:
@@ -759,9 +759,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 5f11aeaafe80331429f90cce368c9efd, type: 3}
     m_FontSize: 36
     m_FontStyle: 1
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 20
-    m_MaxSize: 93
+    m_MaxSize: 36
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -5015,7 +5015,7 @@ PrefabInstance:
     - target: {fileID: 2136920486133186128, guid: 54825131424afb0458e542290b1f40f0, type: 3}
       propertyPath: DangerSprite
       value: 
-      objectReference: {fileID: 1673972321}
+      objectReference: {fileID: 0}
     - target: {fileID: 2574113229154283468, guid: 54825131424afb0458e542290b1f40f0, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -5201,11 +5201,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54825131424afb0458e542290b1f40f0, type: 3}
---- !u!1 &1673972321 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8808684285894363994, guid: 54825131424afb0458e542290b1f40f0, type: 3}
-  m_PrefabInstance: {fileID: 1673972320}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1700907073
 GameObject:
   m_ObjectHideFlags: 0

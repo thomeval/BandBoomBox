@@ -152,6 +152,12 @@ public class EditorChartListPage : EditorPageManager
             return;
         }
 
+        if (sections.ContainsValue(TxtAddSectionName.text))
+        {
+            TxtErrorSections.text = $"This song already contains a section named '{TxtAddSectionName.text}'.";
+            return;
+        }
+
         Parent.CurrentSong.Sections.Add(beat, TxtAddSectionName.text);
         PopulateSectionList();
         TxtErrorSections.text = "";
@@ -244,8 +250,15 @@ public class EditorChartListPage : EditorPageManager
         TxtAddSectionBeat.text = lastSection.Key + amount + "";
     }
 
+    private string[] _singletonSections = new string[] { "Intro", "Outro" };
     public void GenerateSectionName(string sectionType)
     {
+        if (_singletonSections.Contains(sectionType))
+        {
+            TxtAddSectionName.text = sectionType;
+            return;
+        }
+
         var sections = Parent.CurrentSong.Sections;
         var lastSection = sections.Where(e => e.Value.ToUpperInvariant().StartsWith(sectionType.ToUpperInvariant()))
             .OrderByDescending(e => e.Key).FirstOrDefault();

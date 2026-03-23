@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine.UIElements.Experimental;
 
 public static class GameplayMultiplierUtils
 {
@@ -23,6 +22,9 @@ public static class GameplayMultiplierUtils
     /// </summary>
     public const double MX_MAXIMUM = 99.0;
 
+    /// <summary>
+    /// The amount of bonus to the multiplier gain rate per player with Turbo active. The first value is for 0 players, the second value is for 1 player, etc.
+    /// </summary>
     private static readonly float[] _turboMxGainRates = { 0.0f,  1.0f,  2.5f,  4.25f, 6.0f,  8.0f,  10.0f, 12.0f, 14.0f,
                                                    16.0f, 18.0f, 20.0f, 22.0f, 24.0f, 26.0f, 28.0f, 30.0f, 32.0f  };
 
@@ -32,7 +34,7 @@ public static class GameplayMultiplierUtils
     public const float GR_COMBO_FOR_BONUS = 50;
 
     /// <summary>
-    /// Controls the amount of bonus awarded to momentum gain rate if the current team combo is at least GR_COMBO_FOR_BONUS (applied multiple times if appropriate).
+    /// Controls the amount of bonus awarded to multiplier gain rate if the current team combo is at least GR_COMBO_FOR_BONUS (applied multiple times if appropriate).
     /// </summary>
     public const float GR_COMBO_BONUS_AMOUNT = 0.05f;
 
@@ -92,6 +94,14 @@ public static class GameplayMultiplierUtils
         return multiplier;
     }
 
+    /// <summary>
+    /// Returns the multiplier gain rate, which is a multiplier applied to the amount of multiplier gained from scoring actions. 
+    /// The gain rate is affected by the current team combo and the number of players in turbo, with more combo and more players in turbo providing a higher gain rate. 
+    /// The gain rate is returned as a multiplier, where 1.0 means no change to the amount of multiplier gained, 2.0 means double the amount of multiplier gained, etc.
+    /// </summary>
+    /// <param name="teamCombo">The current Team Combo.</param>
+    /// <param name="playersInTurbo">The number of players that currently have Turbo active.</param>
+    /// <returns>The current Multiplier Gain Rate, based on the provided inputs.</returns>
     public static float GetMultiplierGainRate(int teamCombo, int playersInTurbo)
     {
         var newGainRate = 1.0f;

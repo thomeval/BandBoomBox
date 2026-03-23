@@ -43,6 +43,7 @@ public class SongManager : MonoBehaviour
     [SerializeField] private float _audioTimingDeviation;
     public float GetSongPosition(bool ignorePause = false)
     {
+        // If the song hasn't started yet, or if there is no song playing, return 0.
         if (_startTime == null || CurrentSong == null)
         {
             return 0.0f;
@@ -56,7 +57,6 @@ public class SongManager : MonoBehaviour
         var audioTime = (float)(DateTime.Now - _startTime.Value).TotalSeconds;
         audioTime += CurrentSong.AudioStart;
         return audioTime - CurrentSong.Offset + TotalOffsetAdjust;
-        // return _audioSource.time - CurrentSong.Offset + EngineOffset + UserAudioLatency;
     }
 
     /// <summary>
