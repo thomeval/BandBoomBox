@@ -1,5 +1,6 @@
-﻿public enum Grade
+public enum Grade
 {
+    M,          // 98%
     SS,         // 96%
     SPlus,      // 93%
     S,          // 90%

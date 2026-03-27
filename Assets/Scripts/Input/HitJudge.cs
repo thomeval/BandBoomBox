@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -131,12 +131,12 @@ public class HitJudge
     public static Dictionary<Difficulty, float> DifficultyExpValues = new()
     {
         {Difficulty.Beginner, 0.5f},
-        {Difficulty.Medium, 0.75f},
-        {Difficulty.Mild, 0.9f},
-        {Difficulty.Hard, 1.0f},
+        {Difficulty.Medium, 1.0f},
+        {Difficulty.Mild, 1.0f},
+        {Difficulty.Hard, 1.05f},
         {Difficulty.Extra, 1.0f},
         {Difficulty.Expert, 1.1f},
-        {Difficulty.Nerf, 1.2f}
+        {Difficulty.Nerf, 1.12f}
     };
 
     /// <summary>
@@ -171,6 +171,7 @@ public class HitJudge
         {Grade.S, 1.4f},        // S
         {Grade.SPlus, 1.45f},   // S+
         {Grade.SS, 1.5f},       // SS
+        {Grade.M, 1.5f}         // M
     };
 
     /// <summary>

@@ -82,13 +82,18 @@ MonoBehaviour:
       m_Sprite: {fileID: 8772879199988717694, guid: a1199bc1023c4064bb7a2d4c4ed64591, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 8772879199988717694, guid: a1199bc1023c4064bb7a2d4c4ed64591, type: 3}
+    - m_Name: M
+      m_Hash: 443536032
+      m_Sprite: {fileID: 2012242921, guid: a1199bc1023c4064bb7a2d4c4ed64591, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2012242921, guid: a1199bc1023c4064bb7a2d4c4ed64591, type: 3}
     - m_Name: None
-      m_Hash: -542986255
+      m_Hash: 530755569
       m_Sprite: {fileID: 0}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 0}
     m_FromMain: 0
-    m_EntryOverrideCount: 14
+    m_EntryOverrideCount: 15
   - m_Name: PlayerIdentifiers
     m_Hash: 584032422
     m_CategoryList: []
@@ -304,5 +309,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 15
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639032876030363525
+  m_ModificationHash: 639102003885468849
   m_Version: 1

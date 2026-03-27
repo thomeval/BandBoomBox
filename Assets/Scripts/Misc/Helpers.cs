@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -157,6 +157,7 @@ public static class Helpers
 
     public static float[] GradePercentages =
     {
+        0.98f,              // M
         0.96f, 0.93f, 0.9f, // SS, S+ and S grades
         0.85f, 0.8f,        // A Grades
         0.75f, 0.7f,        // B Grades
