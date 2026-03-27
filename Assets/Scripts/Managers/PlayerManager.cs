@@ -429,6 +429,7 @@ public class PlayerManager : MonoBehaviour
         toPlayer.SectionPerfPoints = fromPlayer.SectionPerfPoints;
         toPlayer.MaxSectionPerfPoints = fromPlayer.MaxSectionPerfPoints;
         toPlayer.ChartDifficultyLevel = fromPlayer.ChartDifficultyLevel;
+        toPlayer.ProfileData.AllyBoostMode = fromPlayer.AllyBoostMode;
     }
 
     public void CopyValues(PlayerScoreDto fromPlayer, Player toPlayer)

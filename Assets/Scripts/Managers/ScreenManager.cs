@@ -171,6 +171,10 @@ public class ScreenManager : MonoBehaviour
     {
     }
 
+    public virtual void OnNetAllyBoost(AllyBoostDto dto)
+    {
+    }
+
     public virtual void OnNetShutdown()
     {
         if (!CoreManager.IsNetGame)

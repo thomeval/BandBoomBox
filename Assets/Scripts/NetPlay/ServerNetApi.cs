@@ -187,6 +187,7 @@ public class ServerNetApi : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void ApplyHitResultServerRpc(HitResult hitResult, ServerRpcParams serverParams = default)
     {
+        hitResult.NetId = serverParams.Receive.SenderClientId;
         _coreManager.ActiveMainManager.OnNetHitResult(hitResult);
     }
 

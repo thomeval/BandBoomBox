@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -449,7 +450,9 @@ public class GameplayManager : ScreenManager
             {
                 // Note was hit. Apply a hit result.
                 var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
-                var allyBoostProvider = _playerManager.FindAllyBoostForPlayer(player);
+
+                // In network games, ally boost logic is handled by the host to avoid desync.
+                var allyBoostProvider = CoreManager.IsNetGame ? null : _playerManager.FindAllyBoostForPlayer(player);
                 var allowAllyBoost = allyBoostProvider != null;
 
                 var deviation = SongPosition - note.AbsoluteTime;
@@ -587,7 +590,9 @@ public class GameplayManager : ScreenManager
         if (releaseNote != null)
         {
             var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
-            var allyBoostProvider = _playerManager.FindAllyBoostForPlayer(player);
+
+            // In network games, ally boost logic is handled by the host to avoid desync.
+            var allyBoostProvider = CoreManager.IsNetGame ? null : _playerManager.FindAllyBoostForPlayer(player);
             var allowAllyBoost = allyBoostProvider != null;
 
             var deviation = SongPosition - releaseNote.AbsoluteTime;
@@ -823,7 +828,83 @@ public class GameplayManager : ScreenManager
     public override void OnNetHitResult(HitResult hitResult)
     {
         base.OnNetHitResult(hitResult);
+
+        if (CoreManager.IsHost)
+        {
+            ApplyNetAllyBoost(hitResult);
+        }
+
         ApplyHitResultToTeam(hitResult);
+    }
+
+    /// <summary>
+    /// On the host, tracks ally boost ticks for remote players and determines whether a Cool hit should be
+    /// upgraded to CoolWithBoost. If a boost is applied, updates the hit result and broadcasts the event
+    /// to all non-host clients via ClientRpc.
+    /// </summary>
+    private void ApplyNetAllyBoost(HitResult hitResult)
+    {
+        var player = _playerManager.Players.FirstOrDefault(e => e.NetId == hitResult.NetId && e.Slot == hitResult.PlayerSlot);
+
+        if (player == null)
+        {
+            return;
+        }
+
+        // For remote players, the host independently tracks ally boost ticks to stay authoritative.
+        if (!player.IsLocalPlayer && player.CanProvideAllyBoosts)
+        {
+            player.AllyBoostTicks += HitJudge.JudgeAllyBoostTickValues[hitResult.JudgeResult];
+        }
+
+        // Only Cool hits are eligible for an ally boost upgrade.
+        if (hitResult.JudgeResult != JudgeResult.Cool)
+        {
+            return;
+        }
+
+        var allyBoostProvider = _playerManager.FindAllyBoostForPlayer(player);
+        if (allyBoostProvider == null)
+        {
+            return;
+        }
+
+        // Upgrade the hit result to CoolWithBoost and recalculate the affected score values.
+        // ScorePoints = JudgeScoreValues[Cool] * noteValue, so we scale up to CoolWithBoost.
+        // MxPoints is a fixed per-judgement value (not scaled by note value), so assign directly.
+        var coolScore = HitJudge.JudgeScoreValues[JudgeResult.Cool];
+        hitResult.JudgeResult = JudgeResult.CoolWithBoost;
+        hitResult.PerfPoints = HitJudge.JudgePerfPointValues[JudgeResult.CoolWithBoost];
+        hitResult.ScorePoints = coolScore > 0
+            ? (int)(hitResult.ScorePoints * (float)HitJudge.JudgeScoreValues[JudgeResult.CoolWithBoost] / coolScore)
+            : HitJudge.JudgeScoreValues[JudgeResult.CoolWithBoost];
+        hitResult.MxPoints = HitJudge.JudgeMxValues[JudgeResult.CoolWithBoost];
+
+        _playerManager.ApplyAllyBoost(allyBoostProvider, player);
+
+        // Broadcast the ally boost event to all non-host clients so they can update their local state.
+        var connectedClientIds = NetworkManager.Singleton.ConnectedClientsIds;
+        var remoteClients = connectedClientIds.Where(id => id != NetworkManager.Singleton.LocalClientId).ToArray();
+
+        if (remoteClients.Length > 0)
+        {
+            var dto = new AllyBoostDto
+            {
+                ProviderNetId = allyBoostProvider.NetId,
+                ProviderSlot = allyBoostProvider.Slot,
+                ReceiverNetId = player.NetId,
+                ReceiverSlot = player.Slot
+            };
+            var clientParams = new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = remoteClients } };
+            CoreManager.ClientNetApi.ApplyNetAllyBoostClientRpc(dto, clientParams);
+        }
+    }
+
+    public override void OnNetAllyBoost(AllyBoostDto dto)
+    {
+        var provider = _playerManager.Players.FirstOrDefault(e => e.NetId == dto.ProviderNetId && e.Slot == dto.ProviderSlot);
+        var receiver = _playerManager.Players.FirstOrDefault(e => e.NetId == dto.ReceiverNetId && e.Slot == dto.ReceiverSlot);
+        _playerManager.ApplyAllyBoost(provider, receiver);
     }
 
     public void SendNetHitResult(HitResult hitResult)

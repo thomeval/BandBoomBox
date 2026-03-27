@@ -154,6 +154,12 @@ public class ClientNetApi : NetworkBehaviour
     }
 
     [ClientRpc]
+    public void ApplyNetAllyBoostClientRpc(AllyBoostDto dto)
+    {
+        _coreManager.ActiveMainManager.OnNetAllyBoost(dto);
+    }
+
+    [ClientRpc]
     public void ReceiveCommonSongsClientRpc(NetworkPlayerSongLibrary commonSongs)
     {
         _coreManager.ActiveMainManager.OnNetReceiveCommonSongs(commonSongs);
