@@ -363,3 +363,4 @@ Library/
 Temp/
 UserSettings/
 Packages/
+.nuget/
