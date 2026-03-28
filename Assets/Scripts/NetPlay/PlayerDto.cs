@@ -25,6 +25,8 @@ public class PlayerDto : INetworkSerializable
     public int AllyBoosts;
     public int AllyBoostsReceived;
     public int AllyBoostsGiven;
+    public int AllyBoostTicks;
+    public int TicksForNextBoost;
     public int SectionHits;
     public int SectionPerfPoints;
     public int MaxSectionPerfPoints;
@@ -56,6 +58,8 @@ public class PlayerDto : INetworkSerializable
         serializer.SerializeValue(ref AllyBoosts);
         serializer.SerializeValue(ref AllyBoostsReceived);
         serializer.SerializeValue(ref AllyBoostsGiven);
+        serializer.SerializeValue(ref AllyBoostTicks);
+        serializer.SerializeValue(ref TicksForNextBoost);
         serializer.SerializeValue(ref SectionHits);
         serializer.SerializeValue(ref SectionPerfPoints);
         serializer.SerializeValue(ref MaxSectionPerfPoints);
@@ -91,6 +95,8 @@ public class PlayerDto : INetworkSerializable
             AllyBoosts = player.AllyBoosts,
             AllyBoostsGiven = player.AllyBoostsProvided,
             AllyBoostsReceived = player.AllyBoostsReceived,
+            AllyBoostTicks = player.AllyBoostTicks,
+            TicksForNextBoost = player.TicksForNextBoost,
             SectionHits = player.SectionHits,
             SectionPerfPoints = player.SectionPerfPoints,
             MaxSectionPerfPoints = player.MaxSectionPerfPoints,

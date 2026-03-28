@@ -43,7 +43,7 @@ public class ExpModifierList : MonoBehaviour
     };
 
 
-    public void DisplayExpModifier(Player player, double stars, int numPlayers)
+    public void DisplayExpModifier(Player player, double stars, int numPlayers, double? rivalPerfPercent, bool isPlayingWithRival)
     {
         this.Entries.Clear();
         this.gameObject.ClearChildren();
@@ -53,15 +53,16 @@ public class ExpModifierList : MonoBehaviour
         AddFullComboResult(player);
         AddStarsResult(stars);
         AddNumPlayersResult(numPlayers);
-        AddRivalScoreResult(player);
+        AddRivalScoreResult(player, rivalPerfPercent, isPlayingWithRival);
     }
 
-    private void AddRivalScoreResult(Player player)
+    private void AddRivalScoreResult(Player player, double? rivalPerfPercent, bool isPlayingWithRival)
     {
-        if (player.ProfileData.RivalID == null || player.RbPerfPoints == null || player.MaxPerfPoints == 0)
+        if (rivalPerfPercent == null || player.MaxPerfPoints == 0)
         {
             return;
         }
+
 
         if (player.PerfPoints < player.RbPerfPoints.Value)
         {
@@ -73,8 +74,7 @@ public class ExpModifierList : MonoBehaviour
         else if (player.PerfPoints > player.RbPerfPoints.Value)
         {
             var label = "Rival Defeated!";
-            var rivalPercent = 1.0f * player.RbPerfPoints.Value / player.MaxPerfPoints;
-            var rivalBonus = GetRivalBonus(rivalPercent);
+            var rivalBonus = GetRivalBonus(rivalPerfPercent.Value, isPlayingWithRival);
 
             Add(label, rivalBonus);
         }
@@ -86,16 +86,18 @@ public class ExpModifierList : MonoBehaviour
         }
     }
 
-    private float GetRivalBonus(float rivalPercent)
+    private float GetRivalBonus(double rivalPercent, bool isPlayingWithRival)
     {
-        var rivalGrade = Helpers.PercentToGrade(rivalPercent);
+        var rivalGrade = Helpers.PercentToGrade((float) rivalPercent);
         if (!HitJudge.GoalExpValues.ContainsKey(rivalGrade))
         {
             return 1.0f;
         }
         
+        var mx = isPlayingWithRival ? 1.0f : 2.0f;
+        
         // This awards half the EXP of the Goal EXP bonus (1.2x -> 1.1x), with higher grades awarding more EXP.
-        var value = (HitJudge.GoalExpValues[rivalGrade] - 1) / 2;
+        var value = (HitJudge.GoalExpValues[rivalGrade] - 1) / mx;
         value++;
         return value;
     }

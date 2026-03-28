@@ -85,8 +85,10 @@ public class EvaluationManager : ScreenManager
         var stars = CoreManager.LastTeamScore.Stars;
         var numPlayers = CoreManager.PlayerManager.GetLocalPlayers().Count;
         var sectionNames = CoreManager.CurrentSongData.GetSectionNames();
+
+        (double? rivalPercent, bool isPlayingWithRival) = CoreManager.PlayerManager.GetRivalPerfPercent(player);
         frame.DisplayedPage = 0;
-        frame.DisplayResult(player, isPersonalBest, stars, numPlayers, sectionNames);
+        frame.DisplayResult(player, isPersonalBest, stars, numPlayers, sectionNames, rivalPercent, isPlayingWithRival);
 
         var totalModifier = frame.ExpModifierList.TotalExpModifier;
         player.ApplyExpGain(totalModifier);

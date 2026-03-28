@@ -103,7 +103,7 @@ public class PlayerResultFrame : MonoBehaviour
         Pages[pageNum].SetActive(true);
     }
 
-    public void DisplayResult(Player player, bool isNewPb, double stars, int numPlayers, string[] sectionNames)
+    public void DisplayResult(Player player, bool isNewPb, double stars, int numPlayers, string[] sectionNames, double? rivalPercent, bool isPlayingWithRival)
     {
         this.gameObject.SetActive(true);
         this.PlayerSlot = player.Slot;
@@ -134,7 +134,8 @@ public class PlayerResultFrame : MonoBehaviour
         {
             BoostStatsDisplay.ShowBoostStats(player);
         }
-        ExpModifierList.DisplayExpModifier(player, stars, numPlayers);
+
+        ExpModifierList.DisplayExpModifier(player, stars, numPlayers, rivalPercent, isPlayingWithRival);
 
         var totalExpGain = ExpModifierList.GetTotalExpGain(player);
         ExpMeter.Exp = player.Exp + totalExpGain;

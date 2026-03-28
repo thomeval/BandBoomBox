@@ -506,7 +506,7 @@ public class PlayerManager : MonoBehaviour
         {
             return null;
         }
-        var ally = Players.Where(e => e != player && e.CanProvideAllyBoosts && e.AllyBoosts > 0).OrderBy(e => e.AllyBoosts).FirstOrDefault();
+        var ally = Players.Where(e => e != player && e.CanProvideAllyBoosts && e.AllyBoosts > 0).OrderByDescending(e => e.AllyBoosts).FirstOrDefault();
 
         return ally;
     }
@@ -521,5 +521,36 @@ public class PlayerManager : MonoBehaviour
         providingPlayer.AllyBoosts--;
         providingPlayer.AllyBoostsProvided++;
         receivingPlayer.AllyBoostsReceived++;
+    }
+
+    /// <summary>
+    /// Gets the performance percentage of the specified player's rival, if available, and indicates whether the player
+    /// is currently playing with their rival.
+    /// </summary>
+    /// <param name="player">The player for whom to retrieve the rival's performance percentage. Cannot be null, but can be a player with no rival set. </param>
+    /// <returns>A tuple containing the rival's performance percentage as a nullable double, and a boolean indicating whether the percentage refers to the rival's *current* score.
+    /// If the above boolean value is false, the percentage is calculated from the player's RbPerPoints and MaxPerfPoints, and either refers to the rival's best score instead.
+    /// If the player has no rival set, or if RbPerfPoints is null, the result will be null.
+    /// </returns>
+    public (double? percent, bool isPlayingWithRival) GetRivalPerfPercent(Player player)
+    {
+        if (player.ProfileData.RivalID == null)
+        {
+            return (null, false);
+        }
+
+        var rivalPlayer = Players.FirstOrDefault(e => e.ProfileId == player.ProfileData.RivalID);
+
+        if (rivalPlayer != null)
+        {
+            return (rivalPlayer.PerfPercent, true);
+        }
+
+        if (player.MaxPerfPoints == 0)
+        {
+            return (0, false);
+        }
+
+        return (player.RbPerfPoints / player.MaxPerfPoints, false);
     }
 }
