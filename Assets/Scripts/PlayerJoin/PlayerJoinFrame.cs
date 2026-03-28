@@ -179,13 +179,13 @@ public class PlayerJoinFrame : MonoBehaviour
         var useControllerNoteLabels = _playerJoinManager.CoreManager.Settings.AutoSetNoteLabelsFromController;
         this.Player.AutoSetLabelSkin(useControllerNoteLabels);
         State = PlayerState.PlayerJoin_Options;
-        PlayConfirmedSfx();
+        //PlayConfirmedSfx();
         Refresh();
     }
 
     public void TrySetRivalToPlayer(ProfileData profileData)
     {
-        if (profileData.ID == Player.ProfileId)
+        if (profileData.ID == Player.ProfileId && profileData.ID != null)
         {
             SoundEventProvider.PlaySfx(SoundEvent.Mistake, Player.LocalSlot);
             RivalSelectFrame.Error = "You cannot select yourself as a rival! Choose another profile.";
@@ -196,7 +196,7 @@ public class PlayerJoinFrame : MonoBehaviour
         this.Player.ProfileData.RivalID = profileData.ID;
 
         State = PlayerState.PlayerJoin_Options;
-        PlayConfirmedSfx();
+        //PlayConfirmedSfx();
         Refresh();
     }
 

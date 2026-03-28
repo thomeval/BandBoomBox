@@ -534,6 +534,7 @@ public class PlayerManager : MonoBehaviour
     /// </returns>
     public (double? percent, bool isPlayingWithRival) GetRivalPerfPercent(Player player)
     {
+        // Player has no rival set.
         if (player.ProfileData.RivalID == null)
         {
             return (null, false);
@@ -541,9 +542,16 @@ public class PlayerManager : MonoBehaviour
 
         var rivalPlayer = Players.FirstOrDefault(e => e.ProfileId == player.ProfileData.RivalID);
 
+        // Found the rival player in the active player list.
         if (rivalPlayer != null)
         {
             return (rivalPlayer.PerfPercent, true);
+        }
+
+        // Player has a rival, but that rival doesn't have a high score for the current song.
+        if (player.RbPerfPoints == null)
+        {
+            return (null, false);
         }
 
         if (player.MaxPerfPoints == 0)
@@ -551,6 +559,7 @@ public class PlayerManager : MonoBehaviour
             return (0, false);
         }
 
-        return (player.RbPerfPoints / player.MaxPerfPoints, false);
+        // Player has a rival, isn't currently playing with them, but rival has a high score set.
+        return (1.0 * player.RbPerfPoints.Value / player.MaxPerfPoints, false);
     }
 }

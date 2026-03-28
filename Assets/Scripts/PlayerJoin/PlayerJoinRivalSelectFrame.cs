@@ -82,6 +82,7 @@ public class PlayerJoinRivalSelectFrame : MonoBehaviour
         if (inputEvent.Action == InputAction.Y)
         {
             Parent.TrySetRivalToPlayer(_profileManager.GuestProfile);
+            Parent.PlayConfirmedSfx();
             return;
         }
         ProfilesMenu.HandleInput(inputEvent);

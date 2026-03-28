@@ -90,6 +90,7 @@ public class PlayerJoinProfileSelectFrame : MonoBehaviour
         if (inputEvent.Action == InputAction.Y)
         {
             Parent.TrySetProfileToPlayer(_profileManager.GuestProfile);
+            Parent.PlayConfirmedSfx();
             return;
         }
         ProfilesMenu.HandleInput(inputEvent);

@@ -6,6 +6,7 @@ public class ExpModifierList : MonoBehaviour
 {
     public List<ExpModifierEntry> Entries = new();
 
+    public int MaxDisplayedEntries = 6;
     public ExpModifierEntry EntryPrefab;
 
     public float TotalExpModifier
@@ -64,14 +65,14 @@ public class ExpModifierList : MonoBehaviour
         }
 
 
-        if (player.PerfPoints < player.RbPerfPoints.Value)
+        if (player.PerfPercent < rivalPerfPercent)
         {
             // This awards a 5% penalty when the player is defeated by their rival.
             var label = "Rival Victorious";
             var value = 0.95f;
             Add(label, value);
         }
-        else if (player.PerfPoints > player.RbPerfPoints.Value)
+        else if (player.PerfPercent > rivalPerfPercent)
         {
             var label = "Rival Defeated!";
             var rivalBonus = GetRivalBonus(rivalPerfPercent.Value, isPlayingWithRival);
@@ -193,10 +194,15 @@ public class ExpModifierList : MonoBehaviour
 
     public void Add(string label, float value)
     {
+        var invisible = this.Entries.Count >= MaxDisplayedEntries;
         var newEntry = Instantiate(EntryPrefab);
         newEntry.Display(label, value);
         newEntry.transform.SetParent(this.transform);
         newEntry.transform.localScale = Vector3.one;
         this.Entries.Add(newEntry);
+        if (invisible)
+        {
+            newEntry.gameObject.SetActive(false);
+        }
     }
 }
