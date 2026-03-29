@@ -7,7 +7,9 @@ public class CustomBindingDisplayItem : MonoBehaviour
     public string Action;
     public string[] Bindings;
     public Text TxtBindings;
-    
+    public Color NormalTextColor = Color.white;
+    public Color ErrorColor = Color.red;
+
     private CustomBindingDisplay _parentDisplay;
 
     private void Awake()
@@ -23,8 +25,15 @@ public class CustomBindingDisplayItem : MonoBehaviour
         // Update Text
         if (TxtBindings != null)
         {
+            if (Bindings.Length == 0)
+            {
+                TxtBindings.text = "[Not Bound!]";
+                TxtBindings.color = ErrorColor;
+                return;
+            }
             var displayBindings = myBindings.Select(b => ConvertPath(b.Path)).ToArray();
             TxtBindings.text = string.Join(", ", displayBindings);
+            TxtBindings.color = NormalTextColor;
         }
     }
 
@@ -33,8 +42,14 @@ public class CustomBindingDisplayItem : MonoBehaviour
         _parentDisplay.ListenForNewBinding(this.Action);
     }
 
+    public void ClearBindings()
+    {
+        _parentDisplay.ClearBindings(this.Action);
+    }
+
     public string ConvertPath(string path)
     {
-        return path.Replace("<Keyboard>/", "");
+        return path.Replace("<Keyboard>/", "")
+            .Replace("Arrow","");
     }
 }

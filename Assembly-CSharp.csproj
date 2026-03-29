@@ -9,8 +9,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{79F99774-1F8E-5C43-0596-7FB996C7087B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -297,10 +296,6 @@
     <None Include="Assets\Packages\Newtonsoft.Json.13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll" />
     <None Include="Assets\Packages\Newtonsoft.Json.13.0.1\lib\netstandard2.0\Newtonsoft.Json.xml" />
     <None Include="Assets\StreamingAssets\Acknowledgements.txt" />
-    <None Include="Docs\Ally-Boost.md" />
-    <None Include="Docs\Band BoomBox SJSON Reference.docx" />
-    <None Include="Docs\difficulty-levels.md" />
-    <None Include="Docs\Editor Controls.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1214,7 +1209,6 @@
       <Name>SimpleFileBrowser.Runtime</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

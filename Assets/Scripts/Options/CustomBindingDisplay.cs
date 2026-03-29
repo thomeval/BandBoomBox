@@ -85,4 +85,18 @@ public class CustomBindingDisplay : MonoBehaviour
         _optionsManager.PlaySfx(SoundEvent.Options_KeyBindingEnd);
         ShowMessage($"Bound '{action}' to '{newKey}' successfully.");
     }
+
+    public void ClearBindings(string action)
+    {
+        if (_controlsManager == null)
+        {
+            throw new NullReferenceException(nameof(_controlsManager));
+        }
+
+        Debug.Log($"Clearing binding for: {action}");
+        _controlsManager.CustomBindings.UnbindAction(action);
+        ApplyBindings();
+        _optionsManager.PlaySfx(SoundEvent.SelectionCancelled);
+        ShowMessage($"Cleared binding for '{action}' successfully.");
+    }
 }

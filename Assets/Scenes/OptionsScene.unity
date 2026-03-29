@@ -178,7 +178,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 700, y: 787.5}
+  m_AnchoredPosition: {x: 650, y: 787.5}
   m_SizeDelta: {x: 1250, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &40219952
@@ -3872,6 +3872,7 @@ GameObject:
   - component: {fileID: 881308296}
   - component: {fileID: 881308295}
   - component: {fileID: 881308294}
+  - component: {fileID: 881308297}
   m_Layer: 0
   m_Name: Column1
   m_TagString: Untagged
@@ -3955,6 +3956,23 @@ RectTransform:
   m_AnchoredPosition: {x: -350, y: -15}
   m_SizeDelta: {x: 650, y: 620}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &881308297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881308293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1001 &913973365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5899,6 +5917,7 @@ GameObject:
   - component: {fileID: 1371389799}
   - component: {fileID: 1371389801}
   - component: {fileID: 1371389800}
+  - component: {fileID: 1371389802}
   m_Layer: 0
   m_Name: Column2
   m_TagString: Untagged
@@ -5980,6 +5999,23 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &1371389802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371389798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1001 &1392647419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7084,7 +7120,7 @@ PrefabInstance:
     - target: {fileID: 4854573089388177270, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
       propertyPath: Explanation
       value: If enabled, a bar graph will be shown during gameplay showing the note
-        density of the current and upcoming sections. Not shown with 3 or 4 players
+        density of the current and upcoming sections. Not shown with 3 or more players
         present.
       objectReference: {fileID: 0}
     - target: {fileID: 5376083206506407337, guid: 4b9876e945adc044187f40c31c5379f2, type: 3}
