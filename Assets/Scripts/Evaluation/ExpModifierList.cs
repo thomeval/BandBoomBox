@@ -64,6 +64,7 @@ public class ExpModifierList : MonoBehaviour
             return;
         }
 
+        var rivalBonus = GetRivalBonus(rivalPerfPercent.Value, isPlayingWithRival);
 
         if (player.PerfPercent < rivalPerfPercent)
         {
@@ -75,15 +76,12 @@ public class ExpModifierList : MonoBehaviour
         else if (player.PerfPercent > rivalPerfPercent)
         {
             var label = "Rival Defeated!";
-            var rivalBonus = GetRivalBonus(rivalPerfPercent.Value, isPlayingWithRival);
-
             Add(label, rivalBonus);
         }
         else
         {
             var label = "Tied with Rival!";
-            var value = 1.0f;
-            Add(label, value);
+            Add(label, rivalBonus);
         }
     }
 

@@ -24,6 +24,7 @@ public class SettingsManager : MonoBehaviour
     public bool EnableMomentumOption = false;
     public bool EnableSectionDifficulty = false;
     public bool EnableLaneOrderOption = false;
+    public bool AllowEvenMorePlayers = false;
     public bool AutoSetNoteLabelsFromController = true;
     public string DefaultKeyboardNoteLabels = "WASD";
     public bool LrrDisplayEnabled = true;
