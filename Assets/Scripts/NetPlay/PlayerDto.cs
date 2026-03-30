@@ -7,6 +7,7 @@ public class PlayerDto : INetworkSerializable
     public string NoteSkin;
     public string LabelSkin;
     public string Name;
+    public string ProfileId;
 
     public int PerfPoints;
     public int MaxPerfPoints;
@@ -39,6 +40,7 @@ public class PlayerDto : INetworkSerializable
         serializer.SerializeValue(ref NetId);
         serializer.SerializeValue(ref Slot);
         serializer.SerializeValue(ref Name);
+        serializer.SerializeValue(ref ProfileId);
         serializer.SerializeValue(ref NoteSkin);
         serializer.SerializeValue(ref LabelSkin);
         serializer.SerializeValue(ref PerfPoints);
@@ -76,6 +78,7 @@ public class PlayerDto : INetworkSerializable
             NetId = player.NetId,
             Slot = player.Slot,
             Name = player.Name,
+            ProfileId = player.ProfileId,
             NoteSkin = player.NoteSkin,
             LabelSkin = player.LabelSkin,
             PlayerState = player.PlayerState,
