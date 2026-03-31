@@ -12,6 +12,8 @@ public class CustomBindingDisplay : MonoBehaviour
     public Color AwaitingInputColor = Color.yellow;
     public Color NormalMessageColor = Color.white;
 
+    public bool RebindInProgress => _rebindManager != null && _rebindManager.IsListening;
+
     void Awake()
     {
         Helpers.AutoAssign(ref _controlsManager);
@@ -76,6 +78,7 @@ public class CustomBindingDisplay : MonoBehaviour
         {
             // Cancelled
             _optionsManager.PlaySfx(SoundEvent.Options_KeyBindingCancelled);
+            ShowMessage($"Binding '{action}' cancelled.");
             return;
         }
 

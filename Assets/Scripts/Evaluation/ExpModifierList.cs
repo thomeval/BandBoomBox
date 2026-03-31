@@ -95,7 +95,8 @@ public class ExpModifierList : MonoBehaviour
         
         var mx = isPlayingWithRival ? 1.0f : 2.0f;
         
-        // This awards half the EXP of the Goal EXP bonus (1.2x -> 1.1x), with higher grades awarding more EXP.
+        // This awards half the amount of the Goal EXP bonus (1.2x -> 1.1x), with higher grades awarding more EXP.
+        // Awards the full Goal EXP bonus if the rival is currently playing with them.
         var value = (HitJudge.GoalExpValues[rivalGrade] - 1) / mx;
         value++;
         return value;

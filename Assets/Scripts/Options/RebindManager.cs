@@ -8,18 +8,17 @@ public class RebindManager : MonoBehaviour
 {
     private Action<string> _onComplete;
 
-    [SerializeField]
-    private bool _isListening;
+    public bool IsListening;
 
     public void StartListening(Action<string> onComplete)
     {
         _onComplete = onComplete;
-        _isListening = true;
+        IsListening = true;
     }
 
     void Update()
     {
-        if (!_isListening)
+        if (!IsListening)
         {
             return;
         }
@@ -48,7 +47,7 @@ public class RebindManager : MonoBehaviour
 
     private void Complete(string path)
     {
-        _isListening = false;
+        IsListening = false;
         _onComplete?.Invoke(path);
         _onComplete = null;
     }

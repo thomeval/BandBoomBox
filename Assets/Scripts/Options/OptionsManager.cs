@@ -84,7 +84,13 @@ public class OptionsManager : ScreenManager
 
     public override void OnPlayerInput(InputEvent inputEvent)
     {
+        if (CustomBindingDisplay.RebindInProgress)
+        {
+            return;
+        }
+
         ActiveMenu.HandleInput(inputEvent);
+
         if (ActiveMenu == MainMenu)
         {
             DisplayMenuPage();

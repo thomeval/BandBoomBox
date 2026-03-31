@@ -8,7 +8,7 @@ public class CustomBindingSet
     public int Version { get; set; }
     public List<CustomBinding> Bindings { get; set; }
 
-    public const int MAX_BINDINGS_FOR_ACTION = 2;
+    public const int MAX_BINDINGS_FOR_ACTION = 3;
     public CustomBinding[] GetBindingsByAction(string action)
     {
         return Bindings.Where(b => b.Action == action).ToArray();
@@ -55,9 +55,15 @@ public class CustomBindingSet
     {
         var currentBindings = Bindings.Where(b => b.Action == action).ToList();
 
-        for (int x = currentBindings.Count - 1; x >= MAX_BINDINGS_FOR_ACTION; x--)
+        if (currentBindings.Count <= MAX_BINDINGS_FOR_ACTION)
         {
-            var binding = currentBindings[x];
+            return;
+        }
+
+        var bindingsToRemove = currentBindings.Take(currentBindings.Count - MAX_BINDINGS_FOR_ACTION).ToList();
+
+        foreach (var binding in bindingsToRemove)
+        {
             Bindings.Remove(binding);
         }
     }

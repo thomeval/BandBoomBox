@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class HowToPlayManager : ScreenManager
 {
-    private readonly List<GameObject> _pages = new List<GameObject>();
+    private readonly List<GameObject> _pages = new ();
     public GameObject PageContainer;
     public Menu MainMenu;
 
