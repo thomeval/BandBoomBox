@@ -426,6 +426,9 @@ public class PlayerManager : MonoBehaviour
         toPlayer.TurboActive = fromPlayer.TurboActive;
         toPlayer.IsParticipating = fromPlayer.IsParticipating;
         toPlayer.NetFullComboType = fromPlayer.NetFullComboType;
+        toPlayer.ProfileData.AllyBoostMode = fromPlayer.AllyBoostMode;
+        toPlayer.AllyBoosts = fromPlayer.AllyBoosts;
+        toPlayer.AllyBoostTicks = fromPlayer.AllyBoostTicks;
         toPlayer.SectionHits = fromPlayer.SectionHits;
         toPlayer.SectionPerfPoints = fromPlayer.SectionPerfPoints;
         toPlayer.MaxSectionPerfPoints = fromPlayer.MaxSectionPerfPoints;
@@ -441,6 +444,8 @@ public class PlayerManager : MonoBehaviour
         toPlayer.PlayerState = fromPlayer.PlayerState;
         toPlayer.TurboActive = fromPlayer.TurboActive;
         toPlayer.NetFullComboType = fromPlayer.FullComboType;
+        toPlayer.AllyBoosts = fromPlayer.AllyBoosts;
+        toPlayer.AllyBoostTicks = fromPlayer.AllyBoostTicks;
         toPlayer.SectionHits = fromPlayer.SectionHits;
         toPlayer.SectionPerfPoints = fromPlayer.SectionPerfPoints;
         toPlayer.MaxSectionPerfPoints = fromPlayer.MaxSectionPerfPoints;

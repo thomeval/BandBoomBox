@@ -23,9 +23,8 @@ public class PlayerDto : INetworkSerializable
     public bool TurboActive;
     public bool IsParticipating;
     public FullComboType NetFullComboType;
+    public AllyBoostMode AllyBoostMode;
     public int AllyBoosts;
-    public int AllyBoostsReceived;
-    public int AllyBoostsGiven;
     public int AllyBoostTicks;
     public int TicksForNextBoost;
     public int SectionHits;
@@ -60,9 +59,8 @@ public class PlayerDto : INetworkSerializable
         serializer.SerializeValue(ref TurboActive);
         serializer.SerializeValue(ref IsParticipating);
         serializer.SerializeValue(ref NetFullComboType);
+        serializer.SerializeValue(ref AllyBoostMode);
         serializer.SerializeValue(ref AllyBoosts);
-        serializer.SerializeValue(ref AllyBoostsReceived);
-        serializer.SerializeValue(ref AllyBoostsGiven);
         serializer.SerializeValue(ref AllyBoostTicks);
         serializer.SerializeValue(ref TicksForNextBoost);
         serializer.SerializeValue(ref SectionHits);
@@ -97,10 +95,9 @@ public class PlayerDto : INetworkSerializable
             Momentum = player.Momentum,
             TurboActive = player.TurboActive,
             IsParticipating = player.IsParticipating,
-            NetFullComboType = player.GetFullComboType(),           
+            NetFullComboType = player.GetFullComboType(),   
+            AllyBoostMode = player.ProfileData.AllyBoostMode,
             AllyBoosts = player.AllyBoosts,
-            AllyBoostsGiven = player.AllyBoostsProvided,
-            AllyBoostsReceived = player.AllyBoostsReceived,
             AllyBoostTicks = player.AllyBoostTicks,
             TicksForNextBoost = player.TicksForNextBoost,
             SectionHits = player.SectionHits,

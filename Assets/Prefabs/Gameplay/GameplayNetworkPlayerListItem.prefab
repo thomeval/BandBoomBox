@@ -155,7 +155,7 @@ MonoBehaviour:
   TxtRanking: {fileID: 1937547164022925185}
   TurboBackground: {fileID: 5311073451946888653}
   SectionResultDisplay: {fileID: 1114232060103151340}
-  AllyBoostStatusDisplay: {fileID: 0}
+  AllyBoostStatusDisplay: {fileID: 8071199691354584913}
 --- !u!1 &1315107603405845715
 GameObject:
   m_ObjectHideFlags: 0
