@@ -1356,6 +1356,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6040057914446944518}
+  - component: {fileID: 4322878818424518313}
   m_Layer: 0
   m_Name: AllyBoostDisplay
   m_TagString: Untagged
@@ -1385,6 +1386,21 @@ RectTransform:
   m_AnchoredPosition: {x: 545, y: 108}
   m_SizeDelta: {x: 190, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4322878818424518313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940112018761281475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a48b76753ed130a4fb3afcfc9db06a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TxtAllyBoostCount: {fileID: 5337288200027628429}
+  ImgAllyBoostTickMeter: {fileID: 8571637062653695952}
+  ImgAllyBoostIcon: {fileID: 5257496893769316943}
 --- !u!1 &4011241034447998062
 GameObject:
   m_ObjectHideFlags: 0
@@ -2417,15 +2433,13 @@ MonoBehaviour:
   TxtRanking: {fileID: 7131182823103513543}
   TxtPerfPercent: {fileID: 7131182822757509538}
   TxtDifficulty: {fileID: 7131182824178597955}
-  TxtAllyBoostCount: {fileID: 5337288200027628429}
-  ImgAllyBoostTickMeter: {fileID: 8571637062653695952}
-  ImgAllyBoostIcon: {fileID: 5257496893769316943}
   TimingDisplay: {fileID: 1745462483}
   LaneFlasher: {fileID: 6907439379297323913}
   NoteHitFlasher: {fileID: 3628880499264978121}
   PlayerIdentifier: {fileID: 4011241034447998062}
   CountdownDisplay: {fileID: 4118293604256086045}
   PaceDisplay: {fileID: 404855642827360411}
+  AllyBoostStatusDisplay: {fileID: 4322878818424518313}
   SoundEventProvider: {fileID: 0}
   HeldNoteDisplay: {fileID: 9131606540319237158}
   LrrDisplay: {fileID: 0}
@@ -3155,6 +3169,8 @@ MonoBehaviour:
   _spriteResolver: {fileID: 563984009246973971}
   _fullComboSpriteResolver: {fileID: 0}
   _animator: {fileID: 7663648831417904475}
+  _spriteMask: {fileID: 0}
+  _spriteRenderers: []
 --- !u!95 &7663648831417904475
 Animator:
   serializedVersion: 5

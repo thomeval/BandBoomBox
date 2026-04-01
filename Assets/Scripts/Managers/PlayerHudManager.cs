@@ -15,15 +15,13 @@ public class PlayerHudManager : MonoBehaviour
     public Text TxtRanking;
     public Text TxtPerfPercent;
     public Text TxtDifficulty;
-    public Text TxtAllyBoostCount;
-    public Image ImgAllyBoostTickMeter;
-    public SpriteResolver ImgAllyBoostIcon;
     public TimingDisplay TimingDisplay;
     public LaneFlasher LaneFlasher;
     public NoteHitFlasher NoteHitFlasher;
     public GameObject PlayerIdentifier;
     public CountdownDisplay CountdownDisplay;
     public PaceDisplay PaceDisplay;
+    public AllyBoostStatusDisplay AllyBoostStatusDisplay;
     public SoundEventProvider SoundEventProvider;
     public HeldNoteDisplay HeldNoteDisplay;
     public LrrDisplay LrrDisplay;
@@ -52,9 +50,7 @@ public class PlayerHudManager : MonoBehaviour
 
         UpdateGoalMeter();
 
-        TxtAllyBoostCount.text = Player.CanProvideAllyBoosts ? "" + Player.AllyBoosts : "--";
-        ImgAllyBoostIcon.SetCategoryAndLabel("AllyBoostIcons", "" + Player.ProfileData.AllyBoostMode );
-        ImgAllyBoostTickMeter.fillAmount = 1.0f * Player.AllyBoostTicks / Player.TicksForNextBoost;
+        AllyBoostStatusDisplay.UpdateDisplay(Player);
 
         _mistakeSfxEnabled = Player.MistakeSfxEnabled;
         CountdownDisplay.HighwayNameDisplay = HighwayNameDisplay;
@@ -92,7 +88,7 @@ public class PlayerHudManager : MonoBehaviour
             return;
         }
 
-        var progress = 1.0f * Player.MaxPerfPointsFromHits /  Player.MaxPerfPoints;
+        var progress = 1.0f * Player.MaxPerfPointsFromHits / Player.MaxPerfPoints;
         int? pbValue = Player.PbPerfPoints.HasValue ? (int)(Player.PbPerfPoints.Value * progress) : null;
         int? rbValue = Player.RbPerfPoints.HasValue ? (int)(Player.RbPerfPoints.Value * progress) : null;
         int? globalValue = Player.GoalPerfPoints.HasValue ? (int)(Player.GoalPerfPoints.Value * progress) : null;
@@ -130,7 +126,7 @@ public class PlayerHudManager : MonoBehaviour
     }
 
     public void ShowSectionResult(SectionJudgeResult sectionResult)
-    { 
+    {
         SectionResultDisplay.ShowSectionResult(sectionResult);
     }
 

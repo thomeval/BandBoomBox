@@ -308,6 +308,32 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 0}
     m_FromMain: 0
     m_EntryOverrideCount: 15
+  - m_Name: AllyBoostIcons
+    m_Hash: 563570659
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: On
+      m_Hash: 473042282
+      m_Sprite: {fileID: 21300000, guid: 419a1929158b3cd45920ad0c2e85b624, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 419a1929158b3cd45920ad0c2e85b624, type: 3}
+    - m_Name: ProvideOnly
+      m_Hash: 894832698
+      m_Sprite: {fileID: 21300000, guid: 43790ca7cd7739943aa8efb54fac67c8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 43790ca7cd7739943aa8efb54fac67c8, type: 3}
+    - m_Name: ReceiveOnly
+      m_Hash: 844518694
+      m_Sprite: {fileID: 21300000, guid: 04631ba03d380cb48902da6f91c7ee91, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 04631ba03d380cb48902da6f91c7ee91, type: 3}
+    - m_Name: Off
+      m_Hash: 334568355
+      m_Sprite: {fileID: 21300000, guid: 7d09821ce06a97b47b8c3f0431957d5d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 7d09821ce06a97b47b8c3f0431957d5d, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 4
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639102003885468849
+  m_ModificationHash: 639105700551415712
   m_Version: 1

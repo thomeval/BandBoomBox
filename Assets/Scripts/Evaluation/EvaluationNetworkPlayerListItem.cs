@@ -11,6 +11,7 @@ public class EvaluationNetworkPlayerListItem : NetworkPlayerListItem
     public Text TxtMaxCombo;
     public Text TxtDifficulty;
     public Text TxtRanking;
+    public SpriteResolver ImgAllyBoostIcon;
 
     public override void Refresh()
     {
@@ -42,5 +43,10 @@ public class EvaluationNetworkPlayerListItem : NetworkPlayerListItem
 
         var ranking = Player.IsParticipating ? Helpers.FormatRanking(Player.Ranking) : "-";
         SetTextSafe(TxtRanking, ranking);
+
+        if (ImgAllyBoostIcon != null)
+        {
+            ImgAllyBoostIcon.SetCategoryAndLabel("AllyBoostIcons", "" + Player.ProfileData.AllyBoostMode);
+        }
     }
 }

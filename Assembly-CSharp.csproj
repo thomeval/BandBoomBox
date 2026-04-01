@@ -255,6 +255,7 @@
     <Compile Include="Assets\Scripts\Common\NetworkPlayerList.cs" />
     <Compile Include="Assets\Scripts\Evaluation\PlayerResultFrame.cs" />
     <Compile Include="Assets\Scripts\Gameplay\SectionTracker.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\AllyBoostStatusDisplay.cs" />
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierList.cs" />
     <Compile Include="Assets\ContentScaler.cs" />
     <Compile Include="Assets\Scripts\Managers\CoreManager.cs" />

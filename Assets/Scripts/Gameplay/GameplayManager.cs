@@ -450,7 +450,7 @@ public class GameplayManager : ScreenManager
                 // Note was hit. Apply a hit result.
                 var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
                 var allyBoostProvider = _playerManager.FindAllyBoostForPlayer(player);
-                var allowAllyBoost = allyBoostProvider != null;
+                var allowAllyBoost = allyBoostProvider != null && !CoreManager.IsNetGame;
 
                 var deviation = SongPosition - note.AbsoluteTime;
                 var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass, allowCrit, allowAllyBoost);

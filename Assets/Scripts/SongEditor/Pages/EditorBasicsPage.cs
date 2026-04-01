@@ -112,33 +112,40 @@ namespace Assets.Scripts.Editor.Pages
                 Version = 1,
                 SongCharts = new List<SongChart>
                 {
-                    new SongChart
+                    new() 
                     {
                         Difficulty = Difficulty.Beginner,
                         DifficultyLevel = 1,
                         Group = "Main",
                         Notes = Array.Empty<string>()
                     },
-                    new SongChart
+                    new() 
                     {
                         Difficulty = Difficulty.Medium,
                         DifficultyLevel = 4,
                         Group = "Main",
                         Notes = Array.Empty<string>()
                     },
-                    new SongChart
+                    new() 
+                    {
+                        Difficulty = Difficulty.Mild,
+                        DifficultyLevel = 6,
+                        Group = "Main",
+                        Notes = Array.Empty<string>()
+                    },
+                    new() 
                     {
                         Difficulty = Difficulty.Hard,
                         DifficultyLevel = 8,
                         Group = "Main",
-                        Notes = Array.Empty < string >()
+                        Notes = Array.Empty <string>()
                     },
-                    new SongChart
+                    new() 
                     {
                         Difficulty = Difficulty.Expert,
                         DifficultyLevel = 12,
                         Group = "Main",
-                        Notes = Array.Empty < string >()
+                        Notes = Array.Empty <string>()
                     }
                 },
             };

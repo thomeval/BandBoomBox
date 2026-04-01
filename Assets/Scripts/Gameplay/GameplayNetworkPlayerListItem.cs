@@ -10,6 +10,8 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
     public Text TxtRanking;
     public GameObject TurboBackground;
     public SectionResultDisplay SectionResultDisplay;
+    public AllyBoostStatusDisplay AllyBoostStatusDisplay;
+
     public override void Refresh()
     {
         base.Refresh();
@@ -36,11 +38,14 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
         {
             SetTextSafe(TxtRanking, "-");
             SetTextSafe(TxtPerfPercent, "");
+            AllyBoostStatusDisplay.gameObject.SetActive(false);
         }
         else
         {
             SetTextSafe(TxtRanking, Helpers.FormatRanking(Player.Ranking));
             SetTextSafe(TxtPerfPercent, Helpers.FormatPercent(Player.PerfPercent));
+            AllyBoostStatusDisplay.UpdateDisplay(Player);
+            AllyBoostStatusDisplay.gameObject.SetActive(true);
         }
 
         if (TurboBackground != null)

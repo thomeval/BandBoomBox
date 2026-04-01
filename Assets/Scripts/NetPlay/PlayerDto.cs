@@ -37,12 +37,15 @@ public class PlayerDto : INetworkSerializable
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
+        // Unity Network Serializer does not support null strings, so we need to ensure that they are not null before serialization.
+        ProfileId ??= string.Empty;
+
         serializer.SerializeValue(ref NetId);
         serializer.SerializeValue(ref Slot);
         serializer.SerializeValue(ref Name);
-        serializer.SerializeValue(ref ProfileId);
         serializer.SerializeValue(ref NoteSkin);
         serializer.SerializeValue(ref LabelSkin);
+        serializer.SerializeValue(ref ProfileId);
         serializer.SerializeValue(ref PerfPoints);
         serializer.SerializeValue(ref MaxPerfPoints);
         serializer.SerializeValue(ref PlayerState);
