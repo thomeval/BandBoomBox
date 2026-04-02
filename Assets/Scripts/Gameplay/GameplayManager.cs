@@ -588,7 +588,7 @@ public class GameplayManager : ScreenManager
         {
             var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
             var allyBoostProvider = _playerManager.FindAllyBoostForPlayer(player);
-            var allowAllyBoost = allyBoostProvider != null;
+            var allowAllyBoost = allyBoostProvider != null && !CoreManager.IsNetGame;
 
             var deviation = SongPosition - releaseNote.AbsoluteTime;
             var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, releaseNote.NoteType, releaseNote.NoteClass, allowCrit, allowAllyBoost);
