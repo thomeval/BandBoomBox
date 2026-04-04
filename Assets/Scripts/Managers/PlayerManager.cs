@@ -420,7 +420,7 @@ public class PlayerManager : MonoBehaviour
         toPlayer.Exp = fromPlayer.Exp;
         toPlayer.Momentum = fromPlayer.Momentum;
         toPlayer.Name = fromPlayer.Name;
-        toPlayer.ProfileData.ID = fromPlayer.ProfileId;
+        toPlayer.ProfileData.ID = string.IsNullOrEmpty(fromPlayer.ProfileId) ? null : fromPlayer.ProfileId;
         toPlayer.ChartGroup = fromPlayer.ChartGroup;
         toPlayer.ScrollSpeed = fromPlayer.ScrollSpeed;
         toPlayer.TurboActive = fromPlayer.TurboActive;

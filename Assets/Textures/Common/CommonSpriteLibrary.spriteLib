@@ -133,8 +133,18 @@ MonoBehaviour:
       m_Sprite: {fileID: 1680734709, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 1680734709, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+    - m_Name: P7
+      m_Hash: 65006244
+      m_Sprite: {fileID: 18969708, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 18969708, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+    - m_Name: P8
+      m_Hash: 325121845
+      m_Sprite: {fileID: -1643804812, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1643804812, guid: 198d1ff8731ab9b40aad12033001e681, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 7
+    m_EntryOverrideCount: 9
   - m_Name: ScoreCategories
     m_Hash: 786309354
     m_CategoryList: []
@@ -335,5 +345,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 4
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639105700551415712
+  m_ModificationHash: 639108873602634297
   m_Version: 1
