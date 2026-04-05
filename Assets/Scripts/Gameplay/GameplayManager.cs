@@ -154,7 +154,8 @@ public class GameplayManager : ScreenManager
 
         AssignManagers();
 
-        _playerManager.Reset();
+        // Reset all players, including remote players.
+        _playerManager.ResetPlayers(true);
 
         // Set the team score category now based on the number of players present when the song starts. Should any players join or leave mid-game, this category should not change.
         StateValues.TeamScoreCategory = _playerManager.GetScoreCategory();

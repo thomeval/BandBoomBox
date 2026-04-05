@@ -68,7 +68,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void Reset()
+    public void ResetPlayers(bool includeRemotePlayers = false)
     {
         foreach (var player in GetLocalPlayers())
         {
@@ -76,6 +76,13 @@ public class PlayerManager : MonoBehaviour
             player.HudManager.HighwayNameDisplay = _coreManager.Settings.HighwayNameDisplay;
         }
 
+        if (includeRemotePlayers) 
+        {
+            foreach (var player in Players.Where(e => !e.IsLocalPlayer))
+            {
+                player.Reset();
+            }
+        }
         UpdateRankings();
     }
 
@@ -427,8 +434,6 @@ public class PlayerManager : MonoBehaviour
         toPlayer.IsParticipating = fromPlayer.IsParticipating;
         toPlayer.NetFullComboType = fromPlayer.NetFullComboType;
         toPlayer.ProfileData.AllyBoostMode = fromPlayer.AllyBoostMode;
-        toPlayer.AllyBoosts = fromPlayer.AllyBoosts;
-        toPlayer.AllyBoostTicks = fromPlayer.AllyBoostTicks;
         toPlayer.SectionHits = fromPlayer.SectionHits;
         toPlayer.SectionPerfPoints = fromPlayer.SectionPerfPoints;
         toPlayer.MaxSectionPerfPoints = fromPlayer.MaxSectionPerfPoints;
@@ -446,6 +451,7 @@ public class PlayerManager : MonoBehaviour
         toPlayer.NetFullComboType = fromPlayer.FullComboType;
         toPlayer.AllyBoosts = fromPlayer.AllyBoosts;
         toPlayer.AllyBoostTicks = fromPlayer.AllyBoostTicks;
+        toPlayer.TicksForNextBoost = fromPlayer.TicksForNextBoost;
         toPlayer.SectionHits = fromPlayer.SectionHits;
         toPlayer.SectionPerfPoints = fromPlayer.SectionPerfPoints;
         toPlayer.MaxSectionPerfPoints = fromPlayer.MaxSectionPerfPoints;

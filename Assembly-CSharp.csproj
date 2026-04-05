@@ -162,6 +162,7 @@
     <Compile Include="Assets\Scripts\Gameplay\GameplayMultiplierUtils.cs" />
     <Compile Include="Assets\Scripts\Common\StarMeter.cs" />
     <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicEntry.cs" />
+    <Compile Include="Assets\Scripts\Util\ColorLookups.cs" />
     <Compile Include="Assets\AnimatedSprite.cs" />
     <Compile Include="Assets\Scripts\Common\SongProgressMeter.cs" />
     <Compile Include="Assets\Scripts\Evaluation\EvaluationManager.cs" />

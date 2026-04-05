@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Unity.Collections;
 
 public class PlayerJoinManager : ScreenManager
 {
@@ -156,8 +157,12 @@ public class PlayerJoinManager : ScreenManager
     {
         var lastPlayer = CoreManager.PlayerManager.Players.Max(e => e.LocalSlot);
 
-        PlayerJoinFrames[5].gameObject.SetActive(lastPlayer >= 5);
-        PlayerJoinFrames[4].gameObject.SetActive(lastPlayer >= 4);
+
+        for (int x = CoreManager.PlayerManager.MaxLocalPlayers-1; x >= 4; x--)
+        {
+            PlayerJoinFrames[x - 1].gameObject.SetActive(lastPlayer >= x);
+        }
+
         PlayerJoinFrames[2].gameObject.SetActive(lastPlayer >= 2 || ! CoreManager.IsNetGame);
     }
 

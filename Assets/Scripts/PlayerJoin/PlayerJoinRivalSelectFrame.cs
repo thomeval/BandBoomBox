@@ -54,7 +54,6 @@ public class PlayerJoinRivalSelectFrame : MonoBehaviour
         if (args.SelectedItem == "##CANCEL##")
         {
             Parent.State = PlayerState.PlayerJoin_Options;
-            Parent.RemovePlayer();
             return;
         }
         else

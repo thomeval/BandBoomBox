@@ -14,6 +14,7 @@ public class PlayerScoreDto : INetworkSerializable
     public FullComboType FullComboType;
     public int AllyBoosts;
     public int AllyBoostTicks;
+    public int TicksForNextBoost;
     public int SectionHits;
     public int SectionPerfPoints;
     public int MaxSectionPerfPoints;
@@ -31,6 +32,7 @@ public class PlayerScoreDto : INetworkSerializable
         serializer.SerializeValue(ref FullComboType);
         serializer.SerializeValue(ref AllyBoosts);
         serializer.SerializeValue(ref AllyBoostTicks);
+        serializer.SerializeValue(ref TicksForNextBoost);
         serializer.SerializeValue(ref SectionHits);
         serializer.SerializeValue(ref SectionPerfPoints);
         serializer.SerializeValue(ref MaxSectionPerfPoints);
@@ -51,6 +53,7 @@ public class PlayerScoreDto : INetworkSerializable
             FullComboType = player.GetFullComboType(),
             AllyBoosts = player.AllyBoosts,
             AllyBoostTicks = player.AllyBoostTicks,
+            TicksForNextBoost = player.TicksForNextBoost,
             SectionHits = player.SectionHits,
             SectionPerfPoints = player.SectionPerfPoints,
             MaxSectionPerfPoints = player.MaxSectionPerfPoints

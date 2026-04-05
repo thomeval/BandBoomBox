@@ -53,6 +53,12 @@ public class PlayerJoinProfileSelectFrame : MonoBehaviour
     {
         if (args.SelectedItem == "##CANCEL##")
         {
+            // Player is trying to back out of profile selection. If they already had a profile selected, return to options. If not, disconnect them.
+            if (Parent.Player.ProfileId != null)
+            {
+                Parent.State = PlayerState.PlayerJoin_Options;
+                return;
+            }
             Parent.State = PlayerState.NotPlaying;
             Parent.RemovePlayer();
             return;

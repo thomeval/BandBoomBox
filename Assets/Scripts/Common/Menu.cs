@@ -93,7 +93,7 @@ public class Menu : MonoBehaviour
 
     public string CancelMenuAction;
 
-    public int Player;
+    public int PlayerSlot;
 
     public bool Enabled
     {
@@ -137,6 +137,8 @@ public class Menu : MonoBehaviour
             _menuItems.Add(item.GetComponent<MenuItem>());
         }
 
+        SelectionHighlight.Awake();
+        SetHighlightColor();
     }
     // Start is called before the first frame update
     void Start()
@@ -147,6 +149,11 @@ public class Menu : MonoBehaviour
     void OnEnable()
     {
         FullRefresh();
+    }
+
+    public void SetHighlightColor()
+    {
+        SelectionHighlight.Color = ColorLookups.GetMenuColor(PlayerSlot);
     }
 
     public void HighlightMenuItem(MenuItem item)
@@ -277,7 +284,7 @@ public class Menu : MonoBehaviour
             return;
         }
 
-        if (this.Player != 0 && this.Player != inputEvent.Player)
+        if (this.PlayerSlot != 0 && this.PlayerSlot != inputEvent.Player)
         {
             return;
         }
@@ -321,14 +328,14 @@ public class Menu : MonoBehaviour
             return;
         }
 
-        SoundEventProvider.PlaySfx(SoundEvent.SelectionShifted, Player);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionShifted, PlayerSlot);
 
         this.SendMessageUpwards("MenuItemShifted", GetEventArgs(SelectedText, delta), SendMessageOptions.DontRequireReceiver);
     }
 
     private void ChangeSelection(int delta)
     {
-        SoundEventProvider.PlaySfx(SoundEvent.SelectionChanged, Player);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionChanged, PlayerSlot);
         if (WrapSelection)
         {
             SelectedIndex = Helpers.Wrap(SelectedIndex + delta, _menuItems.Count - 1);
@@ -362,7 +369,7 @@ public class Menu : MonoBehaviour
             return;
         }
 
-        SoundEventProvider.PlaySfx(SoundEvent.SelectionConfirmed, Player);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionConfirmed, PlayerSlot);
         this.SendMessageUpwards("MenuItemSelected", GetEventArgs(SelectedText));
     }
 
@@ -375,7 +382,7 @@ public class Menu : MonoBehaviour
             return;
         }
 
-        SoundEventProvider.PlaySfx(SoundEvent.SelectionCancelled, Player);
+        SoundEventProvider.PlaySfx(SoundEvent.SelectionCancelled, PlayerSlot);
         this.SendMessageUpwards("MenuItemSelected", GetEventArgs(CancelMenuAction));
     }
 
@@ -383,7 +390,7 @@ public class Menu : MonoBehaviour
     {
         return new MenuEventArgs
         {
-            Player = this.Player,
+            Player = this.PlayerSlot,
             SelectedIndex = this.SelectedIndex,
             SelectedItem = selectedItem,
             ShiftAmount = shiftAmount

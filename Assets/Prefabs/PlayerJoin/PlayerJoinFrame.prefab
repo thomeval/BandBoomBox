@@ -2786,7 +2786,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Select Profile
+  m_Text: Select Rival Profile
 --- !u!1 &3306038243349475525
 GameObject:
   m_ObjectHideFlags: 0
@@ -8854,8 +8854,24 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 806329157485359590, guid: 512378adc8e68f540b09378e9117109b, type: 3}
+      propertyPath: m_Size.x
+      value: 430
+      objectReference: {fileID: 0}
+    - target: {fileID: 806329157485359590, guid: 512378adc8e68f540b09378e9117109b, type: 3}
       propertyPath: m_SortingLayer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 806329157485359591, guid: 512378adc8e68f540b09378e9117109b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 410
+      objectReference: {fileID: 0}
+    - target: {fileID: 806329157485359591, guid: 512378adc8e68f540b09378e9117109b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 806329157485359591, guid: 512378adc8e68f540b09378e9117109b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 245
       objectReference: {fileID: 0}
     - target: {fileID: 1923562749500750276, guid: 512378adc8e68f540b09378e9117109b, type: 3}
       propertyPath: m_Pivot.x

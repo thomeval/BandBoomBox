@@ -16,7 +16,7 @@ public class PauseMenu : MonoBehaviour
 
     public int Player
     {
-        get { return Menu.Player; }
+        get { return Menu.PlayerSlot; }
     }
 
     [SerializeField]
@@ -67,7 +67,8 @@ public class PauseMenu : MonoBehaviour
     {
         var label = player > 0 ? "P" + player : "None";
         PlayerIcon.SetCategoryAndLabel("PlayerIdentifiers", label);
-        Menu.Player = player;
+        Menu.PlayerSlot = player;
+        Menu.SetHighlightColor();
         this.IsNetGame = isNetGame;
         this.IsHost = isHost;
 

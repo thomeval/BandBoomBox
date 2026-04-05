@@ -7,6 +7,12 @@ public class MenuSelectionHighlight : MonoBehaviour
     private RectTransform _myTransform;
     private SpriteRenderer _myRenderer;
 
+    public Color Color
+    {
+        get => _myRenderer.color;
+        set => _myRenderer.color = value;
+    }
+
     public void HighlightObject(GameObject obj)
     {
 
@@ -22,7 +28,7 @@ public class MenuSelectionHighlight : MonoBehaviour
         _myRenderer.size = rt.sizeDelta + Padding;
     }
 
-    void Awake()
+    public void Awake()
     {
         _myTransform = GetComponent<RectTransform>();
         _myRenderer = GetComponent<SpriteRenderer>();

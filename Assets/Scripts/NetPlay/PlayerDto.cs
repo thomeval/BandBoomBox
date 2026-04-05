@@ -24,9 +24,6 @@ public class PlayerDto : INetworkSerializable
     public bool IsParticipating;
     public FullComboType NetFullComboType;
     public AllyBoostMode AllyBoostMode;
-    public int AllyBoosts;
-    public int AllyBoostTicks;
-    public int TicksForNextBoost;
     public int SectionHits;
     public int SectionPerfPoints;
     public int MaxSectionPerfPoints;
@@ -60,9 +57,6 @@ public class PlayerDto : INetworkSerializable
         serializer.SerializeValue(ref IsParticipating);
         serializer.SerializeValue(ref NetFullComboType);
         serializer.SerializeValue(ref AllyBoostMode);
-        serializer.SerializeValue(ref AllyBoosts);
-        serializer.SerializeValue(ref AllyBoostTicks);
-        serializer.SerializeValue(ref TicksForNextBoost);
         serializer.SerializeValue(ref SectionHits);
         serializer.SerializeValue(ref SectionPerfPoints);
         serializer.SerializeValue(ref MaxSectionPerfPoints);
@@ -97,9 +91,6 @@ public class PlayerDto : INetworkSerializable
             IsParticipating = player.IsParticipating,
             NetFullComboType = player.GetFullComboType(),   
             AllyBoostMode = player.ProfileData.AllyBoostMode,
-            AllyBoosts = player.AllyBoosts,
-            AllyBoostTicks = player.AllyBoostTicks,
-            TicksForNextBoost = player.TicksForNextBoost,
             SectionHits = player.SectionHits,
             SectionPerfPoints = player.SectionPerfPoints,
             MaxSectionPerfPoints = player.MaxSectionPerfPoints,
