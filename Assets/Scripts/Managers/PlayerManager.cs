@@ -34,6 +34,10 @@ public class PlayerManager : MonoBehaviour
     {
         get
         {
+            if (_coreManager.Settings.AllowEvenMorePlayers)
+             {
+                 return _coreManager.IsNetGame ? 4 : 8;
+             }
             return _coreManager.IsNetGame ? 3 : 6;
         }
     }

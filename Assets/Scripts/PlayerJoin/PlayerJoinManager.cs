@@ -86,17 +86,13 @@ public class PlayerJoinManager : ScreenManager
 
     private void SetupInitialFrameStates()
     {
-        foreach (var frame in PlayerJoinFrames)
-        {
-            frame.gameObject.SetActive(false);
-        }
+        DisplayFrames();
 
         for (var x = 1; x <= _playerManager.MaxLocalPlayers; x++)
         {
 
             var player = _playerManager.GetLocalPlayer(x);
             var frame = PlayerJoinFrames[x - 1];
-            frame.gameObject.SetActive(true);
 
             frame.ToggleMenuOptions(CoreManager.Settings.EnableMomentumOption, true, CoreManager.Settings.EnableSectionDifficulty, CoreManager.Settings.EnableLaneOrderOption);
 
@@ -112,8 +108,6 @@ public class PlayerJoinManager : ScreenManager
             }
             frame.Refresh();
         }
-
-        DisplayFrames();
     }
 
     private void AssignFrameToPlayer(PlayerJoinFrame frame, Player player, bool withSfx)
@@ -153,17 +147,25 @@ public class PlayerJoinManager : ScreenManager
         DisplayFrames();
     }
 
+    private int MinDisplayedFrames => CoreManager.IsNetGame ? 2 : 4;
+
     private void DisplayFrames()
     {
         var lastPlayer = CoreManager.PlayerManager.Players.Max(e => e.LocalSlot);
 
-
-        for (int x = CoreManager.PlayerManager.MaxLocalPlayers-1; x >= 4; x--)
+        foreach (var frame in PlayerJoinFrames)
         {
-            PlayerJoinFrames[x - 1].gameObject.SetActive(lastPlayer >= x);
+            frame.gameObject.SetActive(false);
         }
 
-        PlayerJoinFrames[2].gameObject.SetActive(lastPlayer >= 2 || ! CoreManager.IsNetGame);
+        for (int x = 0; x < PlayerJoinFrames.Length; x++)
+        {
+            // Always display at least 4 frames in local play, and always show one empty frame, up to the maximum allowed.
+            var visible = x < MinDisplayedFrames || lastPlayer >= x;
+            visible &= x < _playerManager.MaxLocalPlayers;
+            PlayerJoinFrames[x].gameObject.SetActive(visible);
+        }
+
     }
 
     private void SendNetPlayerJoined(Player player)

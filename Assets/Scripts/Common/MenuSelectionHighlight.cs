@@ -10,7 +10,14 @@ public class MenuSelectionHighlight : MonoBehaviour
     public Color Color
     {
         get => _myRenderer.color;
-        set => _myRenderer.color = value;
+        set
+        {
+            if (_myRenderer == null)
+            {
+                Awake();
+            }
+            _myRenderer.color = value;
+        }
     }
 
     public void HighlightObject(GameObject obj)

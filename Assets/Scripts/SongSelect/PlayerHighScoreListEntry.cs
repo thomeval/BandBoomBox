@@ -14,8 +14,6 @@ public class PlayerHighScoreListEntry : MonoBehaviour
     public SpriteResolver GradeSprite;
     public SpriteRenderer HighlightSprite;
 
-    public Color[] HighlightColors = new Color[6];
-
     private DisplayedPlayerHighScore _displayedScore;
 
     public DisplayedPlayerHighScore DisplayedScore
@@ -51,7 +49,7 @@ public class PlayerHighScoreListEntry : MonoBehaviour
 
         TxtPerfPoints.color = ComboUtils.GetFcColor(DisplayedScore.Score.FullComboType);
 
-        var color = DisplayedScore.PlayerSlot <= 0 ? Color.clear : HighlightColors[DisplayedScore.PlayerSlot - 1];
+        var color = DisplayedScore.PlayerSlot <= 0 ? Color.clear : ColorLookups.PlayerColors[DisplayedScore.PlayerSlot - 1];
         HighlightSprite.color = color;
     }
 

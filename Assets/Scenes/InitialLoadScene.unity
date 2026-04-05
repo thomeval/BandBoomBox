@@ -3082,7 +3082,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 0
-  m_MaxPlayerCount: 6
+  m_MaxPlayerCount: 8
   m_AllowJoining: 0
   m_JoinBehavior: 1
   m_PlayerJoinedEvent:

@@ -9,8 +9,8 @@ public static class ColorLookups
         FromHex("#96A5FF"),
         FromHex("#92FF79"),
         FromHex("#FFFC79"),
-        FromHex("#AAFFFF"),
         FromHex("#FFAAFF"),
+        FromHex("#AAFFFF"),
         FromHex("#FFCD96"),
         FromHex("#BFBFBF")
     };
