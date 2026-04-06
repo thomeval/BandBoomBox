@@ -232,7 +232,7 @@ public class PlayerManager : MonoBehaviour
 
     public int GetSlotByProfileId(string profileId)
     {
-        var playerWithProfile = Players.SingleOrDefault(e => e.ProfileId == profileId);
+        var playerWithProfile = GetLocalPlayers().SingleOrDefault(e => e.ProfileId == profileId);
         if (playerWithProfile == null)
         {
             return -1;
