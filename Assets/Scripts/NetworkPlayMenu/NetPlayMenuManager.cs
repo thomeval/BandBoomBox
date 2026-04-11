@@ -1,8 +1,10 @@
 using Newtonsoft.Json;
+using System.Collections;
 using System.Linq;
 using System.Net;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class NetPlayMenuManager : ScreenManager
@@ -30,6 +32,7 @@ public class NetPlayMenuManager : ScreenManager
     }
 
     public Text TxtLocalIps;
+    public Text TxtPublicIp;
 
     public const ushort DEFAULT_PORT = 3334;
 
@@ -54,6 +57,8 @@ public class NetPlayMenuManager : ScreenManager
 
     private UnityTransport UnityTransport => CoreManager.NetworkManager.GetComponent<UnityTransport>();
     private SettingsManager _settingsManager;
+    private string _publicIpServiceUrl = "https://api.ipify.org";
+
     private bool _waitingForCommonSongs = false;
 
     private void Awake()
@@ -241,7 +246,7 @@ public class NetPlayMenuManager : ScreenManager
     
     public void GetLocalIps()
     {
-        TxtLocalIps.text = "Your IP's: ";
+        TxtLocalIps.text = "Your LAN IP's: ";
 
         try
         {
@@ -261,10 +266,31 @@ public class NetPlayMenuManager : ScreenManager
 
     public void ToggleIpsDisplay()
     {
-        TxtLocalIps.gameObject.SetActive(!TxtLocalIps.gameObject.activeSelf);
-        if (TxtLocalIps.gameObject.activeSelf)
+        var active = !TxtLocalIps.gameObject.activeSelf;
+        TxtLocalIps.gameObject.SetActive(active);
+        TxtPublicIp.gameObject.SetActive(active);
+
+        if (active)
         {
             GetLocalIps();
+            TxtPublicIp.text = "Checking Public IP...";
+            StartCoroutine(GetPublicIpCoroutine());
         }
     }
+
+private IEnumerator GetPublicIpCoroutine()
+{
+    using (var webRequest = UnityWebRequest.Get(_publicIpServiceUrl))
+    {
+        yield return webRequest.SendWebRequest();
+        if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+        {
+            TxtPublicIp.text = "Your Public IP: [Unknown/Error]";
+        }
+        else
+        {
+            TxtPublicIp.text = "Your Public IP: " + webRequest.downloadHandler.text;
+        }
+    }
+}
 }

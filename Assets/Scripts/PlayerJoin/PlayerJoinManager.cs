@@ -94,7 +94,7 @@ public class PlayerJoinManager : ScreenManager
             var player = _playerManager.GetLocalPlayer(x);
             var frame = PlayerJoinFrames[x - 1];
 
-            frame.ToggleMenuOptions(CoreManager.Settings.EnableMomentumOption, true, CoreManager.Settings.EnableSectionDifficulty, CoreManager.Settings.EnableLaneOrderOption);
+            frame.ToggleMenuOptions(CoreManager.Settings.EnableMomentumOption, true, CoreManager.Settings.EnableSectionDifficulty, true);
 
             if (player != null)
             {

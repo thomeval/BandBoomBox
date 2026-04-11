@@ -5,6 +5,5 @@ public enum SecretCode
     EnableExtraDifficulty = 2,
     EnableSectionDifficulty = 3,
     AbsolutelyNothing = 4,
-    EnableLaneOrderOption = 5,
     AllowEvenMorePlayerSlots = 6,
 }
