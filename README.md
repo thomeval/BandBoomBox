@@ -79,27 +79,9 @@ Band BoomBox is a free, open source rhythm game built using the Unity engine. Th
 ![Controller-LayoutDiagram-Bg](https://github.com/thomeval/BandBoomBox/assets/11618454/ca4d5b13-bbf6-475e-a504-61fef24b1aae)
 
 ## Songs
-The current version of Band BoomBox includes three playable songs, with several more available as a separate download. More songs can be added by using the built-in editor to import audio files (.mp3, .ogg and .flac formats are supported), then composing note sequences for them (called Charts).
-
-## Development
-Compiling Band BoomBox requires the following tools:
-
-- Unity 2022.3 LTS, which can be downloaded from here: https://unity.com/releases/editor/qa/lts-releases . The free Unity Personal Edition will suffice, but note that this will require a free Unity account.
-- A suitable C# IDE, such as the latest version of Visual Studio or Visual Studio Code. If using Visual Studio, ensure that the "Game development with Unity" component is installed. The free Community Edition will suffice.
-
-Once the above are installed, do the following:
-
-- Clone the source code using your preferred git client. 
-- Open Unity Hub, and add the game to the Projects list by selecting the folder that the source code was cloned into.
-- Open the project in the Unity Editor by selecting it from the Projects list in Unity Hub.
-- Once Band BoomBox is open in the Unity Editor, it should not require any special configuration to compile. To run the game, click on the "Play" button at the top of the Editor window.
-- To compile the game into a standalone executable, select File -> Build Settings, select your preferred platform, and click on "Build".
-
-To build the project using the command line instead, try using the `Build.ps1` Powershell script, located in the project's root folder. Usage:
-
-    ./Build.ps1 -OutputPath "D:\Projects\Band BoomBox\Build"
-
-Note that building the Linux version of the game does **not** require a Linux machine. It can be compiled on Windows, provided that the appropriate toolchain components are installed. The above build script will attempt to compile for both Windows and Linux.
+The current version of Band BoomBox includes more than ten playable songs, each with multiple difficulty levels catering to players of any skill level. In addition to this, the game also features a full built-in editor, allowing interested players to create their own. For more details on how to do this, please check the relevant pages on the Wiki.
 
 ## Contributing
-Contributions to fix bugs or add features are welcome, as are contributions to provide additional songs to the game. If you are interested, please submit a Pull Request. Note that all contributions must be compatible with the MIT licence.
+Contributions to fix bugs or add features are welcome, as are contributions to provide additional songs to the game. If you are interested, please submit a Pull Request on Github.
+
+For details on how to set up a development environment that can compile the game, please see [this page](https://github.com/thomeval/BandBoomBox/wiki/Development).
