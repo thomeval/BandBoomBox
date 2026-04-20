@@ -84,7 +84,7 @@ To download the game, simply head to the Releases list, displayed on the right o
 ## Songs
 The current version of Band BoomBox includes more than ten playable songs, each with multiple difficulty levels catering to players of any skill level. In addition to this, the game also features a full built-in editor, allowing interested players to create their own. For more details on how to do this, please check the relevant pages on the Wiki.
 
-**Note:** To reduce download sizes, the Official Song Collection is offered as a separate download from the game itself. For instructions on how to install songs, please see the [Getting Started page](https://github.com/thomeval/BandBoomBox/wiki/GettingStarted).
+**Note:** To reduce download sizes, the Official Song Collection is offered as a separate download from the game itself. For instructions on how to install the song collection, please see the readme file included in the zipped archive.
 
 ## Contributing
 Contributions to fix bugs or add features are welcome, as are contributions to provide additional songs to the game. If you are interested, please submit a Pull Request on Github.
