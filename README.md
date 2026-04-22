@@ -9,10 +9,13 @@ Band BoomBox is a free, open source rhythm game built using the Unity engine. Th
 - Completely free (as in "Open Source Freedom", not "Free To Play but Pay To Win")
 - Playable on Windows, or Linux (including Steam Deck)
 - Support for playing with either a controller or a keyboard
-- Local multiplayer for up to 6 players
+- Single player, as well as local multiplayer for up to 6 players
 - Experimental LAN (network) multiplayer for 8+ players
 - Full support for custom songs, complete with a built in editor
-  
+
+## Getting Started
+To download the game, simply head to the Releases list, displayed on the right of this page, and download either the Windows or Linux version of the game, depending on which operating system you're using. It is recommended to download the Official Song Collection as well, as these are offered as a separate download alongside the game itself.
+
 ## Recommended System Requirements
 - OS: Windows 10 or later, OR Ubuntu Linux 22.04 or later, OR SteamOS 3.4 or later
   - Note: There are likely many other Linux distros that can run Band BoomBox without issue. Feel free to experiment, but those are not officially supported.
@@ -80,6 +83,8 @@ Band BoomBox is a free, open source rhythm game built using the Unity engine. Th
 
 ## Songs
 The current version of Band BoomBox includes more than ten playable songs, each with multiple difficulty levels catering to players of any skill level. In addition to this, the game also features a full built-in editor, allowing interested players to create their own. For more details on how to do this, please check the relevant pages on the Wiki.
+
+**Note:** To reduce download sizes, the Official Song Collection is offered as a separate download from the game itself. For instructions on how to install the song collection, please see the readme file included in the zipped archive.
 
 ## Contributing
 Contributions to fix bugs or add features are welcome, as are contributions to provide additional songs to the game. If you are interested, please submit a Pull Request on Github.
