@@ -172,6 +172,7 @@
     <Compile Include="Assets\Scripts\Common\MenuEventArgs.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\NetPlayMenuManager.cs" />
     <Compile Include="Assets\LrrContainer.cs" />
+    <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayHostConfirmSubmenu.cs" />
     <Compile Include="Assets\SectionResultDisplay.cs" />
     <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PaceDisplay.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Assets\Scripts\Common\SoundEventHandler.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorMenuManager.cs" />
     <Compile Include="Assets\Scripts\HighScores\TeamScore.cs" />
+    <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayJoinConfirmSubmenu.cs" />
     <Compile Include="Assets\Scripts\Songs\SongLibrary.cs" />
     <Compile Include="Assets\Scripts\Common\Difficulty.cs" />
     <Compile Include="Assets\Scripts\HighScores\DisplayedPlayerHighScore.cs" />

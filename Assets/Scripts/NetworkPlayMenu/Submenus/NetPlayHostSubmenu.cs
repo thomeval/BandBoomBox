@@ -38,8 +38,8 @@ public class NetPlayHostSubmenu : NetPlaySubmenuBase
         switch (args.SelectedItem)
         {
             case "Start Hosting":
-                var passwordHash = ComputeHash(HostPassword);
-                ParentManager.StartHosting(passwordHash);
+                ParentManager.PasswordHash = ComputeHash(HostPassword);
+                ParentManager.NetPlayMenuState = NetPlayMenuState.HostConfirmMenu;
                 break;
             case "Port":
                 TxtHostPort.Select();

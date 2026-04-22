@@ -371,17 +371,17 @@ public class ServerNetApi : NetworkBehaviour
         }
 
         Debug.Log("(Server) Connection approved for client ID " + request.ClientNetworkId);
+        response.Reason = "";
         response.Approved = true;
         response.Pending = false;
-        response.Reason = "";
     }
 
     private void DeclineClient(NetworkManager.ConnectionApprovalResponse response, string reason)
     {
         Debug.Log("Connection declined for client. " + reason);
+        response.Reason = reason;
         response.Approved = false;
         response.Pending = false;
-        response.Reason = reason;
     }
 
     public void TryToStartPlayback(bool force)

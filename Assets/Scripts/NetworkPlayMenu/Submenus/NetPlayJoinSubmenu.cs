@@ -45,8 +45,8 @@ public class NetPlayJoinSubmenu : NetPlaySubmenuBase
                 TxtJoinPassword.Select();
                 break;
             case "Connect":
-                var hash = ComputeHash(JoinPassword);
-                ParentManager.Connect(hash);
+                ParentManager.PasswordHash = ComputeHash(JoinPassword);
+                ParentManager.NetPlayMenuState = NetPlayMenuState.JoinConfirmMenu;
                 break;
             case "Back":
                 ParentManager.NetPlayMenuState = NetPlayMenuState.MainMenu;

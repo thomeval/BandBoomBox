@@ -2,5 +2,7 @@
 {
     MainMenu,
     JoinMenu,
-    HostMenu
+    JoinConfirmMenu,
+    HostMenu,
+    HostConfirmMenu
 }

@@ -1,7 +1,9 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,25 +13,11 @@ public class NetPlayMenuManager : ScreenManager
 {
     public NetPlayMainSubmenu MainMenu;
     public NetPlayHostSubmenu HostMenu;
+    public NetPlayHostConfirmSubmenu HostConfirmMenu;
     public NetPlayJoinSubmenu JoinMenu;
+    public NetPlayJoinConfirmSubmenu JoinConfirmMenu;
 
-    public NetPlaySubmenuBase CurrentSubmenu
-    {
-        get
-        {
-            switch (NetPlayMenuState)
-            {
-                case NetPlayMenuState.MainMenu:
-                    return MainMenu;
-                case NetPlayMenuState.HostMenu:
-                    return HostMenu;
-                case NetPlayMenuState.JoinMenu:
-                    return JoinMenu;
-                default:
-                    return MainMenu;
-            }
-        }
-    }
+    public NetPlaySubmenuBase CurrentSubmenu;
 
     public Text TxtLocalIps;
     public Text TxtPublicIp;
@@ -48,14 +36,43 @@ public class NetPlayMenuManager : ScreenManager
         set
         {
             _netPlayMenuState = value;
-            MainMenu.gameObject.SetActive(_netPlayMenuState == NetPlayMenuState.MainMenu);
-            HostMenu.gameObject.SetActive(_netPlayMenuState == NetPlayMenuState.HostMenu);
-            JoinMenu.gameObject.SetActive(_netPlayMenuState == NetPlayMenuState.JoinMenu);
+            var submenu = GetSubmenuForState(_netPlayMenuState);
+
+            CurrentSubmenu = submenu;
+            MainMenu.gameObject.SetActive(false);
+            HostMenu.gameObject.SetActive(false);
+            JoinMenu.gameObject.SetActive(false);
+            HostConfirmMenu.gameObject.SetActive(false);
+            JoinConfirmMenu.gameObject.SetActive(false);
+
+            CurrentSubmenu.gameObject.SetActive(true);
             CurrentSubmenu.UpdateDisplayedValues();
         }
     }
 
+    private NetPlaySubmenuBase GetSubmenuForState(NetPlayMenuState netPlayMenuState)
+    {
+            switch (netPlayMenuState)
+            {
+                case NetPlayMenuState.MainMenu:
+                    return MainMenu;
+                case NetPlayMenuState.HostMenu:
+                    return HostMenu;
+                case NetPlayMenuState.JoinMenu:
+                    return JoinMenu;
+                case NetPlayMenuState.HostConfirmMenu:
+                    return HostConfirmMenu;
+                case NetPlayMenuState.JoinConfirmMenu:
+                    return JoinConfirmMenu;
+                default: 
+                return MainMenu;
+        }
+    }
+
     private UnityTransport UnityTransport => CoreManager.NetworkManager.GetComponent<UnityTransport>();
+
+    public string PasswordHash { get; set; }
+
     private SettingsManager _settingsManager;
     private string _publicIpServiceUrl = "https://api.ipify.org";
 
@@ -77,7 +94,7 @@ public class NetPlayMenuManager : ScreenManager
         GetLocalIps();
     }
 
-    public void Connect(string passwordHash)
+    public void Connect()
     {
         if (string.IsNullOrEmpty(JoinMenu.JoinIpAddress))
         {
@@ -93,7 +110,7 @@ public class NetPlayMenuManager : ScreenManager
         CoreManager.PlayerManager.DisableAllTurbos();
 
         UnityTransport.SetConnectionData(JoinMenu.JoinIpAddress, JoinMenu.JoinPort);
-        CoreManager.NetworkManager.NetworkConfig.ConnectionData = GetJoinParams(passwordHash);
+        CoreManager.NetworkManager.NetworkConfig.ConnectionData = GetJoinParams();
 
         Debug.Log($"Starting client on port {JoinMenu.JoinPort}.");
         var result = CoreManager.NetworkManager.StartClient();
@@ -104,16 +121,16 @@ public class NetPlayMenuManager : ScreenManager
             return;
         }
 
-        JoinMenu.Message = "Connecting...";
+        JoinConfirmMenu.JoinProgressMessage = "Connecting...";
         SaveToSettings();
 
     }
 
-    private static byte[] GetJoinParams(string passwordHash)
+    private byte[] GetJoinParams()
     {
         var request = new NetGameJoinParams
         {
-            PasswordHash = passwordHash,
+            PasswordHash = this.PasswordHash,
             ClientGameVersion = Application.version
         };
         var json = JsonConvert.SerializeObject(request);
@@ -121,7 +138,7 @@ public class NetPlayMenuManager : ScreenManager
         return bytes;
     }
 
-    public void StartHosting(string passwordHash)
+    public void StartHosting()
     {
 
         UnityTransport.SetConnectionData("127.0.0.1", HostMenu.HostPort, "0.0.0.0");
@@ -131,10 +148,10 @@ public class NetPlayMenuManager : ScreenManager
 
         CoreManager.ServerNetApi.MaxNetPlayers = HostMenu.MaxPlayers;
         CoreManager.ServerNetApi.SongSelectRules = HostMenu.SongSelectRules;
-        CoreManager.ServerNetApi.ServerPasswordHash = passwordHash;
+        CoreManager.ServerNetApi.ServerPasswordHash = PasswordHash;
 
         CoreManager.NetworkManager.ConnectionApprovalCallback = CoreManager.ServerNetApi.ConnectionApprovalCallback;
-        CoreManager.NetworkManager.NetworkConfig.ConnectionData = GetJoinParams(passwordHash);
+        CoreManager.NetworkManager.NetworkConfig.ConnectionData = GetJoinParams();
 
         CoreManager.SongLibrary.InitCommonSongs();
 
@@ -172,7 +189,7 @@ public class NetPlayMenuManager : ScreenManager
             CoreManager.ServerNetApi.RegisterNetPlayerServerRpc(player);
         }
 
-        JoinMenu.Message = "Requesting game settings...";
+        JoinConfirmMenu.JoinProgressMessage = "Connection successful. Requesting game settings...";
 
         CoreManager.ClientNetApi.NetSettingsUpdated += ClientNetApi_NetSettingsUpdated;
         CoreManager.ServerNetApi.RequestNetGameSettingsServerRpc();
@@ -181,7 +198,7 @@ public class NetPlayMenuManager : ScreenManager
 
     private void ClientNetApi_NetSettingsUpdated(object sender, System.EventArgs e)
     {
-        JoinMenu.Message = "syncing song library with server...";
+        JoinConfirmMenu.JoinProgressMessage = "Syncing song library with server...";
         CoreManager.ClientNetApi.NetSettingsUpdated -= ClientNetApi_NetSettingsUpdated;
 
         _waitingForCommonSongs = true;
@@ -201,9 +218,17 @@ public class NetPlayMenuManager : ScreenManager
 
         base.OnNetClientDisconnected(id);
 
+        var reason = CoreManager.NetworkManager.DisconnectReason;
+
+        if (string.IsNullOrEmpty(reason))
+        {
+            reason = "The specified host isn't running or is unreachable.";
+        }
         if (!CoreManager.NetworkManager.IsHost)
         {
-            JoinMenu.Message = "Disconnected from server: " + CoreManager.NetworkManager.DisconnectReason;
+            JoinConfirmMenu.JoinProgressMessage = $"Failed to connect to {JoinMenu.JoinIpAddress}:{JoinMenu.JoinPort}: " + reason;
+            Debug.LogWarning($"Failed to connect to {JoinMenu.JoinIpAddress}:{JoinMenu.JoinPort}: " + reason);
+            JoinConfirmMenu.IsBusy = false;
         }
     }
 
@@ -214,7 +239,7 @@ public class NetPlayMenuManager : ScreenManager
         {
             return;
         }
-        JoinMenu.Message = "(Client) Song library synced.";
+        JoinConfirmMenu.JoinProgressMessage = "(Client) Song library synced.";
         this.SceneTransition(GameScene.PlayerJoin);
     }
     public override void OnPlayerInput(InputEvent inputEvent)
