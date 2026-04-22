@@ -17,6 +17,7 @@ public class MainMenuManager : ScreenManager
     public float StartAnimationDelay = 1.0f;
     public float MusicStartDelay = 0.5f;
     public float MusicStartDelaySecret = 5.0f;
+    public string WebsiteUrl = "https://github.com/thomeval/BandBoomBox";
     private TextPulser _pulser;
 
     void Awake()
@@ -151,6 +152,9 @@ public class MainMenuManager : ScreenManager
             case "Editor":
                 SceneTransition(GameScene.Editor);
                 break;
+                case "Website":
+                System.Diagnostics.Process.Start(WebsiteUrl);
+                    break;
             case "Exit":
                 CoreManager.Settings.Save();
                 CoreManager.ControlsManager.SaveInputActions();

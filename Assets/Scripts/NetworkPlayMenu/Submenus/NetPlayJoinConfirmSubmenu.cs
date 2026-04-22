@@ -2,7 +2,7 @@ using UnityEngine.UI;
 
 public class NetPlayJoinConfirmSubmenu : NetPlaySubmenuBase
 {
-    public override NetPlayMenuState NetPlayMenuState => NetPlayMenuState.HostConfirmMenu;
+    public override NetPlayMenuState NetPlayMenuState => NetPlayMenuState.JoinConfirmMenu;
 
     public bool IsBusy;
 
@@ -23,6 +23,7 @@ public class NetPlayJoinConfirmSubmenu : NetPlaySubmenuBase
         switch (inputEvent.Action)
         {
             case InputAction.Back:
+            case InputAction.B:
                 ParentManager.PlaySfx(SoundEvent.SelectionCancelled);
                 ParentManager.NetPlayMenuState = NetPlayMenuState.JoinMenu;
                 IsBusy = false;

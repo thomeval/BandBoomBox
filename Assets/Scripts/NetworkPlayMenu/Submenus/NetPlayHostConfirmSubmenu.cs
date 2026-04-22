@@ -13,6 +13,7 @@ public class NetPlayHostConfirmSubmenu : NetPlaySubmenuBase
         switch (inputEvent.Action)
         {
             case InputAction.Back:
+            case InputAction.B:
                 ParentManager.PlaySfx(SoundEvent.SelectionCancelled);
                 ParentManager.NetPlayMenuState = NetPlayMenuState.HostMenu;
                 IsBusy = false;
