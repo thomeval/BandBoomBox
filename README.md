@@ -1,20 +1,22 @@
 # Band BoomBox
 ![Band BoomBox Logo](Assets/StreamingAssets/Icons/Deck-Logo.png)
 
-Band BoomBox is a free, open source rhythm game built using the Unity engine. The main gameplay involves players hitting a sequence of notes as accurately as possible in order to earn points. The game can be played with either a keyboard or a controller, and features both local and networked cooperative multiplayer.
+Band BoomBox is a free, open source rhythm game built using the Unity engine, with a strong focus on co-operative multiplayer and controller-friendly gameplay. The main gameplay involves players hitting a sequence of notes as accurately as possible in order to earn the highest score possible, either individually, or as a team when playing with others.
+
 ![BB-Gameplay](https://github.com/thomeval/BandBoomBox/assets/11618454/0c38179f-d922-49c8-b332-e64835292d9e)
 ![BoomBox 4P-A](https://github.com/thomeval/BandBoomBox/assets/11618454/73fc8bd3-6adf-4570-9ece-a0c444be401e)
 
 ## Features
 - Completely free (as in "Open Source Freedom", not "Free To Play but Pay To Win")
+- More than ten playable songs, each with multiple difficulty levels, catering to players of any skill level
 - Playable on Windows, or Linux (including Steam Deck)
 - Support for playing with either a controller or a keyboard
 - Single player, as well as local multiplayer for up to 6 players
 - Experimental LAN (network) multiplayer for 8+ players
-- Full support for custom songs, complete with a built in editor
+- Full support for custom songs, complete with a built-in editor. For more details on how to create your own custom songs, please check the relevant pages on the wiki.
 
 ## Getting Started
-To download the game, simply head to the Releases list, displayed on the right of this page, and download either the Windows or Linux version of the game, depending on which operating system you're using. It is recommended to download the Official Song Collection as well, as these are offered as a separate download alongside the game itself.
+To download the game, simply head to the Releases list, displayed on the right of this page, and download either the Windows or Linux version of the game, depending on which operating system you're using. It is recommended to download the Official Song Collection as well, as these are offered as a separate download alongside the game itself. For instructions on how to install the song collection, please see [this page](https://github.com/thomeval/BandBoomBox/wiki/Installing-Songs).
 
 ## Recommended System Requirements
 - OS: Windows 10 or later, OR Ubuntu Linux 22.04 or later, OR SteamOS 3.4 or later
@@ -30,7 +32,6 @@ To download the game, simply head to the Releases list, displayed on the right o
 ## Controls
 ### Keyboard
 ![Keyboard-Layout-Bg](https://github.com/thomeval/BandBoomBox/assets/11618454/0586b62a-4efe-4a85-a3bc-97dea9e24aab)
-
 
 <table>
 <tr>
@@ -81,12 +82,7 @@ To download the game, simply head to the Releases list, displayed on the right o
 ### Controller
 ![Controller-LayoutDiagram-Bg](https://github.com/thomeval/BandBoomBox/assets/11618454/ca4d5b13-bbf6-475e-a504-61fef24b1aae)
 
-## Songs
-The current version of Band BoomBox includes more than ten playable songs, each with multiple difficulty levels catering to players of any skill level. In addition to this, the game also features a full built-in editor, allowing interested players to create their own. For more details on how to do this, please check [this page](https://github.com/thomeval/BandBoomBox/wiki/Installing-Songs).
-
-**Note:** To reduce download sizes, the Official Song Collection is offered as a separate download from the game itself. For instructions on how to install the song collection, please see the readme file included in the zipped archive.
-
 ## Contributing
-Contributions to fix bugs or add features are welcome, as are contributions to provide additional songs to the game. If you are interested, please submit a Pull Request on Github.
+Contributions to fix bugs or add features are welcome! If you are interested in contributing to the game itself, please fork the project's git repository, and submit your contributions as a Pull Request on Github. For details on how to set up a development environment that can compile the game, please see [this page](https://github.com/thomeval/BandBoomBox/wiki/Development).
 
-For details on how to set up a development environment that can compile the game, please see [this page](https://github.com/thomeval/BandBoomBox/wiki/Development).
+Contributions to expand the Official Song Collection are welcome as well! If you are a song creator and are interested in having your song featured in the game, or would like to help in charting songs for the Official Song Collection, please contact one of the developers.
