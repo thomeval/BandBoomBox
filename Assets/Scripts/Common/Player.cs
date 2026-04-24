@@ -765,6 +765,10 @@ public class Player : MonoBehaviour
         this.AllyBoostsReceived = 0;
         this.AllyBoostsProvided = 0;
         this.Ranking = 1;
+
+        #if ENABLE_CHEATS
+        this.AllyBoosts = 5;
+        #endif
     }
 
     public int GetBaseExpGain()

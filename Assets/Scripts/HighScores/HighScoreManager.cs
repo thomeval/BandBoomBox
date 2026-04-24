@@ -108,6 +108,13 @@ public class HighScoreManager : MonoBehaviour
             return false;
         }
 
+#if ENABLE_CHEATS
+        {
+            Debug.LogWarning($"Cheats enabled, ignoring team score for song {teamScore.SongId}, version {teamScore.SongVersion}, category {teamScore.Category}");
+            return false;
+        }
+#endif
+
         var existing = GetTeamScore(teamScore.SongId, teamScore.SongVersion, teamScore.NumPlayers);
 
         if (existing == null)

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+//using System.Diagnostics;
 using System.Linq;
+using UnityEngine;
 
 public class ProfileData
 {
@@ -33,6 +35,11 @@ public class ProfileData
 
     public bool AddPlayerScore(PlayerScore playerScore)
     {
+        #if ENABLE_CHEATS
+        Debug.LogWarning($"Cheats enabled, ignoring player high score for song {playerScore.SongId}, version {playerScore.SongVersion}, difficulty {playerScore.Difficulty}, chart group {playerScore.ChartGroup}");
+        return false;
+        #endif
+
         var existing = GetPlayerHighScore(playerScore.SongId, playerScore.SongVersion, playerScore.Difficulty, playerScore.ChartGroup);
 
         if (existing == null)
