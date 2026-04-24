@@ -193,7 +193,13 @@ public class GameplayManager : ScreenManager
 
         StateValues.Energy = 0.0f;
         StateValues.MaxEnergy = _playerManager.Players.Count(e => e.IsParticipating);
+
+        #if ENABLE_CHEATS
+        StateValues.Energy = StateValues.MaxEnergy;
+        #endif
+
         HudManager.EnergyMeter.SetMaxEnergy(StateValues.MaxEnergy);
+        HudManager.EnergyMeter.Energy = StateValues.Energy;
     }
 
     private void CalculateStarScoresFromSongData()

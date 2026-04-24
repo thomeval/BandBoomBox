@@ -30,6 +30,10 @@ public class MainMenuManager : ScreenManager
     {
         TxtVersion.text = Application.version;
 
+        #if ENABLE_CHEATS
+        TxtVersion.text += " [CHEAT]";
+        #endif
+
         CoreManager.ShutdownNetPlay();
         CoreManager.PlayerManager.ClearParticipation();
 
