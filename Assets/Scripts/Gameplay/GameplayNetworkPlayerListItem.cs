@@ -12,9 +12,16 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
     public SectionResultDisplay SectionResultDisplay;
     public AllyBoostStatusDisplay AllyBoostStatusDisplay;
 
+    private AllyBoostManager _allyBoostManager;
+
     public override void Refresh()
     {
         base.Refresh();
+
+        if (_allyBoostManager == null)
+        {
+            Helpers.AutoAssign(ref _allyBoostManager);
+        }
 
         if (TxtChartGroupDifficulty != null)
         {
@@ -44,7 +51,7 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
         {
             SetTextSafe(TxtRanking, Helpers.FormatRanking(Player.Ranking));
             SetTextSafe(TxtPerfPercent, Helpers.FormatPercent(Player.PerfPercent));
-            AllyBoostStatusDisplay.UpdateDisplay(Player);
+            AllyBoostStatusDisplay.UpdateDisplay(_allyBoostManager.GetPlayer(Player.NetId, Player.Slot));
             AllyBoostStatusDisplay.gameObject.SetActive(true);
         }
 

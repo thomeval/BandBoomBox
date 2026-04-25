@@ -11,7 +11,7 @@ public class SecretCodeHandler : MonoBehaviour
             { SecretCode.EnableExtraDifficulty, new [] { InputAction.Down, InputAction.Down, InputAction.Down, InputAction.Pause } },
             { SecretCode.EnableSectionDifficulty, new [] { InputAction.Down, InputAction.Down, InputAction.Down, InputAction.Right, InputAction.Up, InputAction.Up, InputAction.Left, InputAction.Pause } },
             { SecretCode.AbsolutelyNothing, new [] { InputAction.Up, InputAction.Up, InputAction.Down, InputAction.Down,  InputAction.Left, InputAction.Right, InputAction.Left, InputAction.Right, InputAction.B, InputAction.A, InputAction.Pause } },
-            { SecretCode.AllowEvenMorePlayerSlots, new [] { InputAction.Down, InputAction.Down, InputAction.Down, InputAction.Right, InputAction.Up, InputAction.Up, InputAction.Left, InputAction.Pause } }
+            { SecretCode.AllowEvenMorePlayerSlots, new [] { InputAction.Down, InputAction.Down, InputAction.Down, InputAction.Left, InputAction.Left, InputAction.Right, InputAction.Right, InputAction.Pause } }
         };
 
     private readonly Dictionary<SecretCode, int> _inputCodeProgress = new();

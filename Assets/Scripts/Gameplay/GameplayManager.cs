@@ -68,6 +68,7 @@ public class GameplayManager : ScreenManager
     public const int FOUR_PLAYER_HUD_SPACING = -10;
 
     private PlayerManager _playerManager;
+    private AllyBoostManager _allyBoostManager;
     private SongManager _songManager;
     private SongStarValueCalculator _songStarValueCalculator;
     private LrrContainer _lrrContainer;
@@ -94,6 +95,7 @@ public class GameplayManager : ScreenManager
         _songStarValueCalculator = FindObjectOfType<SongStarValueCalculator>();
         _lrrContainer = FindObjectOfType<LrrContainer>();
         _backgroundManager = FindObjectOfType<BackgroundManager>();
+        Helpers.AutoAssign(ref _allyBoostManager);
     }
 
     private void SetupNoteHighways()
@@ -156,6 +158,7 @@ public class GameplayManager : ScreenManager
 
         // Reset all players, including remote players.
         _playerManager.ResetPlayers(true);
+        _allyBoostManager.Init(_playerManager);
 
         // Set the team score category now based on the number of players present when the song starts. Should any players join or leave mid-game, this category should not change.
         StateValues.TeamScoreCategory = _playerManager.GetScoreCategory();
@@ -194,9 +197,9 @@ public class GameplayManager : ScreenManager
         StateValues.Energy = 0.0f;
         StateValues.MaxEnergy = _playerManager.Players.Count(e => e.IsParticipating);
 
-        #if ENABLE_CHEATS
+#if ENABLE_CHEATS
         StateValues.Energy = StateValues.MaxEnergy;
-        #endif
+#endif
 
         HudManager.EnergyMeter.SetMaxEnergy(StateValues.MaxEnergy);
         HudManager.EnergyMeter.Energy = StateValues.Energy;
@@ -456,18 +459,13 @@ public class GameplayManager : ScreenManager
             {
                 // Note was hit. Apply a hit result.
                 var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
-                var allyBoostProvider = _playerManager.FindAllyBoostForPlayer(player);
-                var allowAllyBoost = allyBoostProvider != null && !CoreManager.IsNetGame;
 
                 var deviation = SongPosition - note.AbsoluteTime;
-                var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass, allowCrit, allowAllyBoost);
-
-                if (hitResult.JudgeResult == JudgeResult.CoolWithBoost)
-                {
-                    _playerManager.ApplyAllyBoost(allyBoostProvider, player);
-                }
-
+                var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass, allowCrit);
+                hitResult.NetId = CoreManager.NetId;
+                TryBoostHitResult(hitResult);
                 ApplyHitResult(hitResult);
+
                 if (note.NoteClass == NoteClass.Hold)
                 {
                     noteManager.OnNoteHeld(note.Lane);
@@ -494,6 +492,7 @@ public class GameplayManager : ScreenManager
                 if (note != null)
                 {
                     var hitResult = _hitJudge.GetWrongResult(lane, inputEvent.Player, player.Difficulty);
+                    hitResult.NetId = CoreManager.NetId;
                     ApplyHitResult(hitResult);
                 }
             }
@@ -594,17 +593,11 @@ public class GameplayManager : ScreenManager
         if (releaseNote != null)
         {
             var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
-            var allyBoostProvider = _playerManager.FindAllyBoostForPlayer(player);
-            var allowAllyBoost = allyBoostProvider != null && !CoreManager.IsNetGame;
 
             var deviation = SongPosition - releaseNote.AbsoluteTime;
-            var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, releaseNote.NoteType, releaseNote.NoteClass, allowCrit, allowAllyBoost);
-
-            if (hitResult.JudgeResult == JudgeResult.CoolWithBoost)
-            {
-                _playerManager.ApplyAllyBoost(allyBoostProvider, player);
-            }
-
+            var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, releaseNote.NoteType, releaseNote.NoteClass, allowCrit);
+            hitResult.NetId = CoreManager.NetId;
+            TryBoostHitResult(hitResult);
             ApplyHitResult(hitResult);
 
             if (hitResult.JudgeResult < JudgeResult.Ok)
@@ -614,6 +607,22 @@ public class GameplayManager : ScreenManager
         }
 
         playerHudManager.ReleaseLane(lane);
+    }
+
+    private void TryBoostHitResult(HitResult hitResult)
+    {
+        if (hitResult.JudgeResult != JudgeResult.Cool)
+        {
+            return;
+        }
+
+        if (CoreManager.IsNetGame)
+        {
+            // For Network games, TryBoostAlly() is called from OnNetHitResult.
+            return;
+        }
+
+        var boostResult = _allyBoostManager.TryBoostAlly(hitResult);
     }
 
     private void HandlePauseMenuInput(InputEvent inputEvent)
@@ -713,6 +722,12 @@ public class GameplayManager : ScreenManager
     {
         var player = _playerManager.GetLocalPlayer(hitResult.PlayerSlot);
         _playerManager.ApplyHitResult(hitResult, hitResult.PlayerSlot);
+
+        if (CoreManager.IsHost)
+        {
+            _allyBoostManager.AddTicksFromHitResult(hitResult);
+        }
+
         _playerManager.UpdateRankings();
         SendNetPlayerScoreUpdate(player);
         CoreManager.ServerNetApi.ApplyHitResultServerRpc(hitResult);
@@ -748,6 +763,7 @@ public class GameplayManager : ScreenManager
     {
         var diff = _playerManager.GetLocalPlayer(player).Difficulty;
         var result = _hitJudge.GetMissResult(note.Lane, player, diff);
+        result.NetId = CoreManager.NetId;
         ApplyHitResult(result);
     }
 
@@ -830,6 +846,11 @@ public class GameplayManager : ScreenManager
     public override void OnNetHitResult(HitResult hitResult)
     {
         base.OnNetHitResult(hitResult);
+
+        if (hitResult.JudgeResult == JudgeResult.Cool)
+        {
+            _allyBoostManager.TryBoostAlly(hitResult);
+        }
         ApplyHitResultToTeam(hitResult);
     }
 
@@ -883,6 +904,30 @@ public class GameplayManager : ScreenManager
     {
         _songManager.PauseSong(true);
         base.OnNetShutdown();
+    }
+
+
+    public override void OnNetAllyBoostApplied(AllyBoostAppliedDto dto)
+    {
+        Debug.Log($"OnNetAllyBoostApplied: Provider: {dto.ProviderNetId}-{dto.ProviderPlayerSlot}, Receiver: {dto.ReceiverNetId}-{dto.ReceiverPlayerSlot}, Lane: {dto.Lane}, Result: {dto.DeviationResult}");
+        _playerManager.ApplyAllyBoost(dto);
+        DisplayAppliedAllyBoost(dto);
+        base.OnNetAllyBoostApplied(dto);
+    }
+
+    private void DisplayAppliedAllyBoost(AllyBoostAppliedDto dto)
+    {
+        var player = _playerManager.GetLocalPlayer(dto.ReceiverPlayerSlot);
+        if (player.HudManager != null)
+        {
+            player.HudManager.ShowAllyBoost(dto.Lane);
+        }
+
+    }
+
+    public override void OnNetAllyBoostPlayerStateChanged(AllyBoostPlayerStateDto dto)
+    {
+        _allyBoostManager.CopyValues(dto);
     }
 
     public void EndSection()

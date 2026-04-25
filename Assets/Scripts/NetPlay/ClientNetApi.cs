@@ -158,4 +158,16 @@ public class ClientNetApi : NetworkBehaviour
     {
         _coreManager.ActiveMainManager.OnNetReceiveCommonSongs(commonSongs);
     }
+
+    [ClientRpc]
+    public void ReceiveAllyBoostAppliedClientRpc(AllyBoostAppliedDto dto, ClientRpcParams param = default)
+    {
+        _coreManager.ActiveMainManager.OnNetAllyBoostApplied(dto);
+    }
+
+    [ClientRpc]
+    public void ReceiveAllyBoostPlayerStateChangedClientRpc(AllyBoostPlayerStateDto dto)
+    {
+        _coreManager.ActiveMainManager.OnNetAllyBoostPlayerStateChanged(dto);
+    }
 }

@@ -683,6 +683,85 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxNetPlayers: 8
   SongSelectRules: 0
+--- !u!1 &435670557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 435670558}
+  - component: {fileID: 435670559}
+  m_Layer: 0
+  m_Name: AllyBoostManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &435670558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435670557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 443371092}
+  m_Father: {fileID: 1910463115700770861}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &435670559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435670557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9924553cc5494c4182f9e02f10b18c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllyBoostPlayerEntries: []
+  EntryContainer: {fileID: 443371091}
+  AllyBoostPlayerEntryPrefab: {fileID: 7850652774169830021, guid: 3da88355ef0359046928a4f9a7c5544f, type: 3}
+--- !u!1 &443371091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 443371092}
+  m_Layer: 0
+  m_Name: Entries
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &443371092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443371091}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 435670558}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &500218857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2778,6 +2857,7 @@ Transform:
   - {fileID: 1620616869}
   - {fileID: 843435794}
   - {fileID: 743999106}
+  - {fileID: 435670558}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1910463115700770862
@@ -2802,7 +2882,6 @@ MonoBehaviour:
   EnableExtraDifficulty: 1
   EnableMomentumOption: 0
   EnableSectionDifficulty: 0
-  EnableLaneOrderOption: 0
   AllowEvenMorePlayers: 0
   AutoSetNoteLabelsFromController: 1
   DefaultKeyboardNoteLabels: WASD

@@ -9,11 +9,11 @@ public class BoostStatsDisplay : MonoBehaviour
     public Text TxtBoostsReceived;
     public Text TxtBoostsLeft;
 
-    public void ShowBoostStats(Player player)
+    public void ShowBoostStats(AllyBoostPlayerEntry player)
     {
-        this.gameObject.SetActive(player.ProfileData.AllyBoostMode != AllyBoostMode.Off);
+        this.gameObject.SetActive(player.AllyBoostMode != AllyBoostMode.Off);
         TxtBoostsProvided.text = $"{player.AllyBoostsProvided}";
         TxtBoostsReceived.text = $"{player.AllyBoostsReceived}";
-        TxtBoostsLeft.text = $"{player.AllyBoosts}";
+        TxtBoostsLeft.text = $"{player.AllyBoostTokens}";
     }
 }

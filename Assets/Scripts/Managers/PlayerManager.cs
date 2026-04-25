@@ -35,9 +35,9 @@ public class PlayerManager : MonoBehaviour
         get
         {
             if (_coreManager.Settings.AllowEvenMorePlayers)
-             {
-                 return _coreManager.IsNetGame ? 4 : 8;
-             }
+            {
+                return _coreManager.IsNetGame ? 4 : 8;
+            }
             return _coreManager.IsNetGame ? 3 : 6;
         }
     }
@@ -80,7 +80,7 @@ public class PlayerManager : MonoBehaviour
             player.HudManager.HighwayNameDisplay = _coreManager.Settings.HighwayNameDisplay;
         }
 
-        if (includeRemotePlayers) 
+        if (includeRemotePlayers)
         {
             foreach (var player in Players.Where(e => !e.IsLocalPlayer))
             {
@@ -453,9 +453,6 @@ public class PlayerManager : MonoBehaviour
         toPlayer.PlayerState = fromPlayer.PlayerState;
         toPlayer.TurboActive = fromPlayer.TurboActive;
         toPlayer.NetFullComboType = fromPlayer.FullComboType;
-        toPlayer.AllyBoosts = fromPlayer.AllyBoosts;
-        toPlayer.AllyBoostTicks = fromPlayer.AllyBoostTicks;
-        toPlayer.TicksForNextBoost = fromPlayer.TicksForNextBoost;
         toPlayer.SectionHits = fromPlayer.SectionHits;
         toPlayer.SectionPerfPoints = fromPlayer.SectionPerfPoints;
         toPlayer.MaxSectionPerfPoints = fromPlayer.MaxSectionPerfPoints;
@@ -516,29 +513,6 @@ public class PlayerManager : MonoBehaviour
         AllowPlayerJoining &= Players.Count < _coreManager.ServerNetApi.MaxNetPlayers;
     }
 
-    public Player FindAllyBoostForPlayer(Player player)
-    {
-        if (!player.CanReceiveAllyBoosts)
-        {
-            return null;
-        }
-        var ally = Players.Where(e => e != player && e.CanProvideAllyBoosts && e.AllyBoosts > 0).OrderByDescending(e => e.AllyBoosts).FirstOrDefault();
-
-        return ally;
-    }
-
-    public void ApplyAllyBoost(Player providingPlayer, Player receivingPlayer)
-    {
-        if (providingPlayer == null || receivingPlayer == null || providingPlayer == receivingPlayer)
-        {
-            return;
-        }
-
-        providingPlayer.AllyBoosts--;
-        providingPlayer.AllyBoostsProvided++;
-        receivingPlayer.AllyBoostsReceived++;
-    }
-
     /// <summary>
     /// Gets the performance percentage of the specified player's rival, if available, and indicates whether the player
     /// is currently playing with their rival.
@@ -577,5 +551,31 @@ public class PlayerManager : MonoBehaviour
 
         // Player has a rival, isn't currently playing with them, but rival has a high score set.
         return (1.0 * player.RbPerfPoints.Value / player.MaxPerfPoints, false);
+    }
+
+    public void ApplyAllyBoost(AllyBoostAppliedDto dto)
+    {
+        var receiver = Players.FirstOrDefault(e => e.NetId == dto.ReceiverNetId && e.Slot == dto.ReceiverPlayerSlot);
+
+        // Don't process Ally Boosts for remote players.
+        if (receiver == null || !receiver.IsLocalPlayer)
+        {
+            return;
+        }
+
+        var addedPerfPoints = HitJudge.JudgePerfPointValues[JudgeResult.Perfect] - HitJudge.JudgePerfPointValues[JudgeResult.Cool];
+
+        receiver.PerfPoints += addedPerfPoints;
+
+        if (dto.DeviationResult == DeviationResult.Late)
+        {
+            receiver.LateHits[JudgeResult.Cool]--;
+            receiver.LateHits[JudgeResult.Perfect]++;
+        }
+        else
+        {
+            receiver.EarlyHits[JudgeResult.Cool]--;
+            receiver.EarlyHits[JudgeResult.Perfect]++;
+        }
     }
 }
