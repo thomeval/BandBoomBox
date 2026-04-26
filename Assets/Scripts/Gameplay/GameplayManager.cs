@@ -910,7 +910,7 @@ public class GameplayManager : ScreenManager
     public override void OnNetAllyBoostApplied(AllyBoostAppliedDto dto)
     {
         Debug.Log($"OnNetAllyBoostApplied: Provider: {dto.ProviderNetId}-{dto.ProviderPlayerSlot}, Receiver: {dto.ReceiverNetId}-{dto.ReceiverPlayerSlot}, Lane: {dto.Lane}, Result: {dto.DeviationResult}");
-        _playerManager.ApplyAllyBoost(dto);
+        _playerManager.ApplyNetAllyBoost(dto);
         DisplayAppliedAllyBoost(dto);
         base.OnNetAllyBoostApplied(dto);
     }

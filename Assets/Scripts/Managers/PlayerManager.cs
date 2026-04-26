@@ -275,14 +275,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void ResetNetId()
-    {
-        foreach (var player in Players)
-        {
-            player.NetId = DEFAULT_NET_ID;
-        }
-    }
-
     public void RegisterNetPlayer(PlayerDto serverPlayer)
     {
 
@@ -553,7 +545,7 @@ public class PlayerManager : MonoBehaviour
         return (1.0 * player.RbPerfPoints.Value / player.MaxPerfPoints, false);
     }
 
-    public void ApplyAllyBoost(AllyBoostAppliedDto dto)
+    public void ApplyNetAllyBoost(AllyBoostAppliedDto dto)
     {
         var receiver = Players.FirstOrDefault(e => e.NetId == dto.ReceiverNetId && e.Slot == dto.ReceiverPlayerSlot);
 
@@ -563,9 +555,9 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-        var addedPerfPoints = HitJudge.JudgePerfPointValues[JudgeResult.Perfect] - HitJudge.JudgePerfPointValues[JudgeResult.Cool];
-
-        receiver.PerfPoints += addedPerfPoints;
+        var addedPoints = HitJudge.JudgePerfPointValues[JudgeResult.Perfect] - HitJudge.JudgePerfPointValues[JudgeResult.Cool];
+        receiver.PerfPoints += addedPoints;
+        receiver.SectionPerfPoints += addedPoints;
 
         if (dto.DeviationResult == DeviationResult.Late)
         {

@@ -40,7 +40,7 @@ public class AllyBoostManager : MonoBehaviour
             entry.TicksIncreasePerBoost = TICKS_INC_PER_BOOST;
 
 #if ENABLE_CHEATS
-            entry.AllyBoostTokens = 5;
+            entry.AllyBoostTokens = 10;
 #endif
 
             AllyBoostPlayerEntries.Add(entry);
@@ -122,6 +122,8 @@ public class AllyBoostManager : MonoBehaviour
 
         hitResult.JudgeResult = JudgeResult.CoolWithBoost;
         hitResult.ScorePoints = HitJudge.JudgeScoreValues[JudgeResult.CoolWithBoost];
+        hitResult.PerfPoints = HitJudge.JudgePerfPointValues[JudgeResult.CoolWithBoost];
+
         provider.AllyBoostTokens--;
         provider.AllyBoostsProvided++;
         receiver.AllyBoostsReceived++;
