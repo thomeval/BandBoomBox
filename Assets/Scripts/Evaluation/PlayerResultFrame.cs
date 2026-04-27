@@ -132,7 +132,8 @@ public class PlayerResultFrame : MonoBehaviour
 
         if (BoostStatsDisplay != null)
         {
-            BoostStatsDisplay.ShowBoostStats(player);
+            var manager = FindObjectOfType<AllyBoostManager>();
+            BoostStatsDisplay.ShowBoostStats(manager.GetPlayer(player.NetId, player.Slot));
         }
 
         ExpModifierList.DisplayExpModifier(player, stars, numPlayers, rivalPercent, isPlayingWithRival);

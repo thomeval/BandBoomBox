@@ -51,9 +51,6 @@ public class PlayerScoreDto : INetworkSerializable
             MaxCombo = player.MaxCombo,
             TurboActive = player.TurboActive,
             FullComboType = player.GetFullComboType(),
-            AllyBoosts = player.AllyBoosts,
-            AllyBoostTicks = player.AllyBoostTicks,
-            TicksForNextBoost = player.TicksForNextBoost,
             SectionHits = player.SectionHits,
             SectionPerfPoints = player.SectionPerfPoints,
             MaxSectionPerfPoints = player.MaxSectionPerfPoints

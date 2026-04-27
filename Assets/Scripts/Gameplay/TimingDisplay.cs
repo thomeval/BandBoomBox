@@ -37,4 +37,14 @@ public class TimingDisplay : MonoBehaviour
     {
         LaneOrderProvider.SetObjectLaneOrder(LaneSprites, laneOrderType, LaneHeight);
     }
+
+    public void ShowAllyBoost(int lane)
+    {
+        var temp = new HitResult
+        {
+            Lane = lane,
+            JudgeResult = JudgeResult.CoolWithBoost
+        };
+        ShowHit(temp);
+    }
 }

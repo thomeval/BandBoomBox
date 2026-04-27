@@ -55,7 +55,7 @@
     <UnityVersion>2022.3.62f2</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\2022.3.62f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\2022.3.62f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -133,6 +133,7 @@
     <Compile Include="Assets\Scripts\SongSelect\PlayerGroupHighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\Songs\HoldRegion.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayJoinSubmenu.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\AllyBoost\AllyBoostPlayerStateDto.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorClipboard.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteUtils.cs" />
     <Compile Include="Assets\Scripts\Gameplay\LrrDisplay.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayHostConfirmSubmenu.cs" />
     <Compile Include="Assets\SectionResultDisplay.cs" />
     <Compile Include="Assets\Scripts\Evaluation\SongResultFrame.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\AllyBoost\AllyBoostPlayerEntry.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PaceDisplay.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteCounter.cs" />
     <Compile Include="Assets\Scripts\Common\Player.cs" />
@@ -270,11 +272,13 @@
     <Compile Include="Assets\Scripts\SongSelect\SongList.cs" />
     <Compile Include="Assets\Scripts\Common\Menu.cs" />
     <Compile Include="Assets\Scripts\Common\LaneOrderProvider.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\AllyBoost\AllyBoostAppliedDto.cs" />
     <Compile Include="Assets\Scripts\Songs\SongLibraryEntry.cs" />
     <Compile Include="Assets\Scripts\Evaluation\ExpModifierEntry.cs" />
     <Compile Include="Assets\EvaluationSectionItem.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinNetworkPlayerListItem.cs" />
     <Compile Include="Assets\SongJacketDisplay.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\AllyBoost\AllyBoostManager.cs" />
     <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
     <Compile Include="Assets\Scripts\Notes\RegionMarker.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\ProfileListItem.cs" />

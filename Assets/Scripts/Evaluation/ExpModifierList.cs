@@ -55,6 +55,14 @@ public class ExpModifierList : MonoBehaviour
         AddStarsResult(stars);
         AddNumPlayersResult(numPlayers);
         AddRivalScoreResult(player, rivalPerfPercent, isPlayingWithRival);
+        AddCheatingPenalty();
+    }
+
+    private void AddCheatingPenalty()
+    {
+        #if (ENABLE_CHEATS)
+        Add("CHEATING!", 0.0f);
+        #endif
     }
 
     private void AddRivalScoreResult(Player player, double? rivalPerfPercent, bool isPlayingWithRival)

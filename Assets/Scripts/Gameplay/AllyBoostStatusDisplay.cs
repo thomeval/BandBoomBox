@@ -8,10 +8,15 @@ public class AllyBoostStatusDisplay : MonoBehaviour
     public Image ImgAllyBoostTickMeter;
     public SpriteResolver ImgAllyBoostIcon;
 
-    public void UpdateDisplay(Player player)
+    public void UpdateDisplay(AllyBoostPlayerEntry player)
     {
-        TxtAllyBoostCount.text = player.CanProvideAllyBoosts ? "" + player.AllyBoosts : "--";
-        ImgAllyBoostIcon.SetCategoryAndLabel("AllyBoostIcons", "" + player.ProfileData.AllyBoostMode);
+        if (player == null)
+        {
+            return;
+        }
+
+        TxtAllyBoostCount.text = player.CanProvideAllyBoosts ? "" + player.AllyBoostTokens : "--";
+        ImgAllyBoostIcon.SetCategoryAndLabel("AllyBoostIcons", "" + player.AllyBoostMode);
         if (ImgAllyBoostTickMeter != null)
         {
             ImgAllyBoostTickMeter.fillAmount = 1.0f * player.AllyBoostTicks / player.TicksForNextBoost;

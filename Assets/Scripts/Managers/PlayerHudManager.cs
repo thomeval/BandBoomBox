@@ -28,11 +28,16 @@ public class PlayerHudManager : MonoBehaviour
     public SectionResultDisplay SectionResultDisplay;
 
     private SpriteResolver _playerIdentifierResolver;
-
+    private AllyBoostManager _allyBoostManager;
     private bool _mistakeSfxEnabled;
 
     public void UpdateHud()
     {
+        if (_allyBoostManager == null)
+        {
+            Helpers.AutoAssign(ref _allyBoostManager);
+        }
+
         var playerSpriteId = Player == null ? "None" : Player.GetPlayerIdSprite();
         _playerIdentifierResolver.SetCategoryAndLabel("PlayerIdentifiers", playerSpriteId);
         TxtDifficulty.text = Player.Difficulty.GetDisplayName();
@@ -50,7 +55,7 @@ public class PlayerHudManager : MonoBehaviour
 
         UpdateGoalMeter();
 
-        AllyBoostStatusDisplay.UpdateDisplay(Player);
+        AllyBoostStatusDisplay.UpdateDisplay(_allyBoostManager.GetPlayer(Player.NetId, Player.Slot));
 
         _mistakeSfxEnabled = Player.MistakeSfxEnabled;
         CountdownDisplay.HighwayNameDisplay = HighwayNameDisplay;
@@ -79,6 +84,11 @@ public class PlayerHudManager : MonoBehaviour
         {
             this.SoundEventProvider.PlaySfx(SoundEvent.Mistake, this.Slot);
         }
+    }
+
+    public void ShowAllyBoost(int lane)
+    {
+        this.TimingDisplay.ShowAllyBoost(lane);
     }
 
     private void UpdateGoalMeter()
@@ -135,4 +145,5 @@ public class PlayerHudManager : MonoBehaviour
         _playerIdentifierResolver = PlayerIdentifier.GetComponent<SpriteResolver>();
         Helpers.AutoAssign(ref SoundEventProvider);
     }
+
 }

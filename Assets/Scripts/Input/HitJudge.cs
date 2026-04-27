@@ -124,7 +124,6 @@ public class HitJudge
         {Difficulty.Extra, 1.0f}
     };
 
-
     /// <summary>
     /// These values apply a bonus or reduction to the amount of experience a player receives at the end of each song, based on the player's selected difficulty. 1.0 indicates no change.
     /// </summary>
@@ -197,7 +196,7 @@ public class HitJudge
         { SectionJudgeResult.Empty, 0.0f }
     };
 
-    public HitResult GetHitResult(float deviation, int player, Difficulty difficulty, int lane, NoteType noteType, NoteClass noteClass, bool allowCrit, bool allowAllyBoost)
+    public HitResult GetHitResult(float deviation, int player, Difficulty difficulty, int lane, NoteType noteType, NoteClass noteClass, bool allowCrit)
     {
         var result = new HitResult();
         var value = NoteUtils.GetNoteValue(noteType, noteClass);
@@ -209,10 +208,6 @@ public class HitJudge
         if (!allowCrit && judgeResult == JudgeResult.Crit)
         {
             judgeResult = JudgeResult.Perfect;
-        }
-        if (allowAllyBoost && judgeResult == JudgeResult.Cool)
-        {
-            judgeResult = JudgeResult.CoolWithBoost;
         }
 
         result.JudgeResult = judgeResult;

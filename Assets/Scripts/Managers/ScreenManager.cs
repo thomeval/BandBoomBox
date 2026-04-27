@@ -199,6 +199,14 @@ public class ScreenManager : MonoBehaviour
     {
     }
 
+    public virtual void OnNetAllyBoostApplied(AllyBoostAppliedDto dto)
+    {
+    }
+
+    public virtual void OnNetAllyBoostPlayerStateChanged(AllyBoostPlayerStateDto dto)
+    {
+    }
+
     public virtual void OnNetAbortCurrentSong()
     {
         Debug.Log("(Client) Abort signal received from server. Returning to song select.");

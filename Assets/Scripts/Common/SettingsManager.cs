@@ -62,8 +62,6 @@ public class SettingsManager : MonoBehaviour
 
     public const ushort DEFAULT_PORT = 3334;
 
-
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -123,6 +121,9 @@ public class SettingsManager : MonoBehaviour
             ScreenResolution = string.Format("{0}x{1}", Display.main.systemWidth, Display.main.systemHeight);
         }
 
+#if ENABLE_CHEATS
+        Debug.LogWarning("Cheats enabled");
+#endif
         Debug.Log("Settings loaded successfully.");
     }
 

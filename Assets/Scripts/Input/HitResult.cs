@@ -30,7 +30,7 @@ public class HitResult : INetworkSerializable
     /// <summary>
     /// In Network games, this gets or sets the Net ID of the player who hit (or missed) this note.
     /// </summary>
-    public int NetId;
+    public ulong NetId;
 
     /// <summary>
     /// Gets or sets which player hit (or missed) this note.
