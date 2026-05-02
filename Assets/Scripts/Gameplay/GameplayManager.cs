@@ -723,7 +723,7 @@ public class GameplayManager : ScreenManager
         var player = _playerManager.GetLocalPlayer(hitResult.PlayerSlot);
         _playerManager.ApplyHitResult(hitResult, hitResult.PlayerSlot);
 
-        if (CoreManager.IsHost)
+        if (!CoreManager.IsNetGame)
         {
             _allyBoostManager.AddTicksFromHitResult(hitResult);
         }
@@ -847,6 +847,10 @@ public class GameplayManager : ScreenManager
     {
         base.OnNetHitResult(hitResult);
 
+        if (CoreManager.IsHost)
+        {
+            _allyBoostManager.AddTicksFromHitResult(hitResult);
+        }
         if (hitResult.JudgeResult == JudgeResult.Cool)
         {
             _allyBoostManager.TryBoostAlly(hitResult);
@@ -917,6 +921,10 @@ public class GameplayManager : ScreenManager
 
     private void DisplayAppliedAllyBoost(AllyBoostAppliedDto dto)
     {
+        if (dto.ReceiverNetId != CoreManager.NetId)
+        {
+            return;
+        }
         var player = _playerManager.GetLocalPlayer(dto.ReceiverPlayerSlot);
         if (player.HudManager != null)
         {
