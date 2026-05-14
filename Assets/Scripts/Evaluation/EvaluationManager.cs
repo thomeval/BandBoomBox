@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -198,8 +199,36 @@ public class EvaluationManager : ScreenManager
         if (CoreManager.PlayerManager.GetLocalPlayers().All(e => e.PlayerState == PlayerState.Evaluation_Ready))
         {
             CoreManager.SongManager.StopSongFade();
+            CoreManager.SongManager.StopSong();
+
+            if (TryShowEnding())
+            {
+                return;
+            }
+
             this.SceneTransition(GameScene.SongSelect);
         }
+    }
+
+    private bool TryShowEnding()
+    {
+        var players = CoreManager.PlayerManager.GetAwesomePlayers();
+
+        if (players.Any())
+        {
+            foreach (var player in players)
+            {
+                player.ProfileData.SeenEnding = true;
+            }
+
+            var args = new Dictionary<string, object>();
+            args["DestinationScene"] = GameScene.SongSelect;
+            args["PlayerNamesToCongratulate"] = string.Join(", ", players.Select(p => p.Name));
+            this.SceneTransition(GameScene.Ending, args);
+            return true;
+        }
+
+        return false;
     }
 
     private void ChangeResultPage(int player, int amount)

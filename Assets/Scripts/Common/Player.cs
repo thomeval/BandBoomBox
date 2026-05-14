@@ -345,6 +345,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    public bool IsMaxLevel
+    {
+        get
+        {
+            return ExpLevelUtils.IsMaxLevel(this.Exp);
+        }
+    }
+
     public int ScrollSpeed
     {
         get { return ProfileData.ScrollSpeed; }

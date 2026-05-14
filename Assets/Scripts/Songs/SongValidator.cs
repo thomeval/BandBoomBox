@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.UI;
 
 public static class SongValidator
@@ -6,7 +7,15 @@ public static class SongValidator
 
     public static string Validate(SongData songData, bool allowZeroCharts = false)
     {
+        songData.Sections ??= new Dictionary<double,string>();
+        songData.SongCharts ??= new List<SongChart>();
+
         var result = "";
+
+        if (string.IsNullOrWhiteSpace(songData.ID))
+        {
+            result += "Song ID cannot be empty;";
+        }
 
         if (songData.Bpm < 1.0f || songData.Bpm > 999.0f)
         {
@@ -25,7 +34,6 @@ public static class SongValidator
         {
             result += "Chart Author cannot be empty;";
         }
-
 
         if (songData.AudioStart < 0.0f)
         {
@@ -53,6 +61,13 @@ public static class SongValidator
         if (!allowZeroCharts && !songData.SongCharts.Any())
         {
             result += "This song contains no charts. It will not be playable without one!;";
+        }
+
+        var groups = songData.SongCharts.GroupBy(e => e.Group + "-" + e.Difficulty);
+
+        foreach (var duplicate in groups.Where(g => g.Count() > 1))
+        {
+            result += $"Multiple charts found with group and difficulty: {duplicate.Key};";
         }
 
         result = result.Replace(";", "\r\n");

@@ -570,4 +570,13 @@ public class PlayerManager : MonoBehaviour
             receiver.EarlyHits[JudgeResult.Perfect]++;
         }
     }
+
+    /// <summary>
+    /// Returns the names of players that have earned the priviledge of seeing the Ending screen, but haven't yet seen it. Only local players are considered.
+    /// </summary>
+    /// <returns>An array containing the names of eligible players. Returns an empty array if no players are eligible.</returns>
+    public Player[] GetAwesomePlayers()
+    {
+        return Players.Where(e => e.IsLocalPlayer && e.IsMaxLevel && !e.ProfileData.SeenEnding).ToArray();
+    }
 }

@@ -62,6 +62,9 @@ public class SettingsManager : MonoBehaviour
 
     public const ushort DEFAULT_PORT = 3334;
 
+    [Header("Other Settings")]
+    public bool ShowEndingInOptions = true;
+
     // Start is called before the first frame update
     void Awake()
     {

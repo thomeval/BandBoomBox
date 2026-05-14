@@ -4,7 +4,7 @@ using UnityEngine;
 public class SecretCodeHandler : MonoBehaviour
 {
     private CoreManager _coreManager;
-    private readonly Dictionary<SecretCode, InputAction[]> _inputCodes = new()
+    private static readonly Dictionary<SecretCode, InputAction[]> _inputCodes = new()
         {
             { SecretCode.EnableNerfDifficulty, new [] { InputAction.Left, InputAction.Left, InputAction.Left, InputAction.Right, InputAction.Right, InputAction.Right, InputAction.Left, InputAction.Right, InputAction.Pause } },
             { SecretCode.EnableMomentumOption, new [] { InputAction.B, InputAction.X, InputAction.Down, InputAction.A, InputAction.B, InputAction.X, InputAction.Down, InputAction.A, InputAction.Pause  } },
@@ -16,7 +16,7 @@ public class SecretCodeHandler : MonoBehaviour
 
     private readonly Dictionary<SecretCode, int> _inputCodeProgress = new();
 
-    private readonly Dictionary<SecretCode, string> _activationMessages = new()
+    private static readonly Dictionary<SecretCode, string> _activationMessages = new()
     {
         { SecretCode.EnableExtraDifficulty, "Extra difficulty unlocked!" },
         { SecretCode.EnableNerfDifficulty, "N.E.R.F. difficulty unlocked!" },
@@ -39,6 +39,8 @@ public class SecretCodeHandler : MonoBehaviour
             return _activationMessages[ActivatedCode.Value];
         }
     }
+
+    public static Dictionary<SecretCode, InputAction[]> SecretCodes => _inputCodes;
 
     private void Awake()
     {

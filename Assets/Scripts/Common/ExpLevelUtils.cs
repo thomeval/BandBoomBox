@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 public static class ExpLevelUtils
 {
     private static readonly long[] _expLevels =
@@ -60,5 +62,10 @@ public static class ExpLevelUtils
         }
 
         return currentExp + awardedExp >= _expLevels[level];
+    }
+
+    public static bool IsMaxLevel(long exp)
+    {
+        return GetLevel(exp) == _expLevels.Length;
     }
 }

@@ -47,5 +47,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CalibrationScene.unity
     guid: c2f79dff8708f354c9380a039d08a1b1
+  - enabled: 1
+    path: Assets/Scenes/EndingScene.unity
+    guid: 4f4d45cd967557e44ba1486d212c4125
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 30b6a00aac5d1d54a8a6024ae502953b, type: 2}

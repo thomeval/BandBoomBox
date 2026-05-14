@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,6 +36,8 @@ public class OptionsManager : ScreenManager
     public Text TxtSaveDataLocation;
     public Text TxtLogsFolderLocation;
 
+    public GameObject MitEnding;
+
     private readonly int[] _targetFrameRateChoices = { 20, 30, 60, 90, 120, 144, 180, 240, -1 };
     private readonly string[] _resolutionChoices = { "1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440", "3840x2160" };
 
@@ -51,6 +54,7 @@ public class OptionsManager : ScreenManager
         SetActiveMenu("MainOptions");
         UpdateText();
         DisplayMenuPage();
+        MitEnding.SetActive(CoreManager.Settings.ShowEndingInOptions);
         UpdateDisplayedKeyBindings();
     }
 
@@ -209,6 +213,11 @@ public class OptionsManager : ScreenManager
         {
             case "Credits":
                 SceneTransition(GameScene.Credits);
+                break;
+            case "???":
+                var sceneArgs = new Dictionary<string, object>();
+                sceneArgs.Add("DestinationScene", GameScene.Options);
+                SceneTransition(GameScene.Ending, sceneArgs);
                 break;
             case "BackToMainOptions":
                 SetActiveMenu("MainOptions");
