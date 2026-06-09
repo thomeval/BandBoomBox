@@ -482,7 +482,12 @@ public class ChartEditorManager : ScreenManager
 
     public void CloseEditor()
     {
-        SceneTransition(GameScene.Editor);
+        var args = new Dictionary<string, object>
+        {
+            { "SongId", CurrentSongData.ID },
+        };
+
+        SceneTransition(GameScene.Editor, args);
         this.Options.Save(CoreManager.Settings);
     }
 

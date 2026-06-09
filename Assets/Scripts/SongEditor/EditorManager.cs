@@ -65,10 +65,30 @@ public class EditorManager : ScreenManager
         fileSelector.DefaultPath = this.SongsHomePath;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
+        
+        if (CoreManager.SceneLoadArgs.ContainsKey("SongId"))
+        {
+            ProcessSceneArgs(CoreManager.SceneLoadArgs);
+        }
         DisplayCurrentPage();
+    }
+
+    private void ProcessSceneArgs(Dictionary<string, object> sceneLoadArgs)
+    {
+        var songId = sceneLoadArgs["SongId"] as string;
+
+        var song = CoreManager.SongLibrary[songId];
+
+        if (song == null)
+        {
+            return;
+        }
+
+        CurrentSong = song;
+        IsExistingSong = true;
+        CurrentPage = EditorPage.ChartList;
     }
 
     private void PopulatePages()
