@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ProfileData
 {
+    public const int MAX_FAVOURITES = 100;
+
     public string ID { get; set; }
     public string Name { get; set; }
     public TimingDisplayType TimingDisplayType { get; set; }
@@ -27,6 +29,7 @@ public class ProfileData
     public LaneOrderType LaneOrderType { get; set; } = LaneOrderType.Standard;
     public bool AutoTurboEnabled { get; set; } = false;
     public bool SeenEnding { get; set; } = false;
+    public List<string> FavouriteSongs { get; set; } = new();
 
     public PlayerScore GetPlayerHighScore(string songId, int songVersion, Difficulty difficulty, string chartGroup)
     {

@@ -41,7 +41,7 @@ public class SongSelectManager : ScreenManager
         }
     }
 
-    private readonly string[] _availableSortModes = { "TITLE", "ARTIST", "BPM", "LENGTH", "STARS", "BEG DIFF", "MED DIFF", "MLD DIFF", "HRD DIFF", "EXP DIFF" };
+    private readonly string[] _availableSortModes = { "TITLE", "ARTIST", "BPM", "LENGTH", "STARS", "BEG DIFF", "MED DIFF", "MLD DIFF", "HRD DIFF", "EXP DIFF", "FAVS" };
 
     public SongData SelectedSong
     {
@@ -132,6 +132,9 @@ public class SongSelectManager : ScreenManager
                 break;
             case "EXP DIFF":
                 OrderedSongs = songs.OrderBy(e => e.GetDifficultyRange(Difficulty.Expert).Min).ToList();
+                break;
+            case "FAVS":
+                OrderedSongs = songs.OrderByDescending(e => CoreManager.SongFavouriteManager.Count(e.ID)).ThenBy(e => e.Title).ToList();
                 break;
         }
 
@@ -233,6 +236,9 @@ public class SongSelectManager : ScreenManager
                 PlaySfxForPlayer(SoundEvent.SelectionCancelled, inputEvent.Player);
                 SceneTransition(GameScene.PlayerJoin);
                 break;
+                case InputAction.X:
+                    ToggleSongFavourite(inputEvent.Player); 
+                break;
             case InputAction.Y:
                 SongSortMode = Helpers.GetNextValue(_availableSortModes, SongSortMode, 1, true);
                 PlaySfxForPlayer(SoundEvent.SelectionShifted, inputEvent.Player);
@@ -245,6 +251,42 @@ public class SongSelectManager : ScreenManager
                 break;
 
         }
+    }
+
+    private void ToggleSongFavourite(int slot)
+    {
+        if (slot == 0) 
+        {
+            return;
+        }
+
+        var player = CoreManager.PlayerManager.GetLocalPlayer(slot);
+
+        if (player == null)
+        {
+            return;
+        }
+
+        if (player.IsFavouriteSong(SelectedSong.ID))
+        {
+            player.RemoveFavouriteSong(SelectedSong.ID);
+            PlaySfx(SoundEvent.FavouriteRemoved);
+        }
+        else if (!player.CanAddFavourite)
+        {
+            PlaySfx(SoundEvent.Mistake);
+            return;
+        }
+        else
+        {
+            player.AddFavouriteSong(SelectedSong.ID);
+            PlaySfx(SoundEvent.FavouriteAdded);
+        }
+
+        CoreManager.ProfileManager.Save(player.ProfileData);
+        CoreManager.SongFavouriteManager.RefreshEntry(SelectedSong.ID);
+        SongList.RefreshFavouritesDisplay();
+
     }
 
     private void MoveSelection(int delta)

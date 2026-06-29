@@ -9,6 +9,7 @@ public class SongListItem : MonoBehaviour
     public Text TxtArtist;
     public Text TxtStarCount;
     public GameObject StarCountDisplay;
+    public SongListItemFavouriteDisplay FavouriteDisplay;
 
     public SpriteResolver FrameSpriteResolver;
     public SpriteResolver StarIconSpriteResolver;
@@ -23,6 +24,11 @@ public class SongListItem : MonoBehaviour
 
         TxtStarCount.text = starsText;
         StarIconSpriteResolver.SetCategoryAndLabel("StarIcons", label);
+    }
+
+    public void DisplayFavorites(SongFavouritesEntry favouritesEntry)
+    {
+        FavouriteDisplay.Display(favouritesEntry);
     }
 
     [SerializeField]
@@ -82,5 +88,6 @@ public class SongListItem : MonoBehaviour
         TxtArtist.text = SongData.Artist;
         ResolveSprite();
     }
+
 }
 

@@ -7,8 +7,8 @@ using UnityEngine;
 public class EvaluationManager : ScreenManager
 {
     public float DelayBeforeContinueAllowed = 2f;
-    public PlayerResultFrame[] PlayerResultFrames = new PlayerResultFrame[4];
-    public PlayerResultFrame[] WidePlayerResultFrames = new PlayerResultFrame[4];
+    public PlayerResultFrame[] PlayerResultFrames = new PlayerResultFrame[8];
+    public PlayerResultFrame[] WidePlayerResultFrames = new PlayerResultFrame[8];
     public SongResultFrame SongResultFrame;
     public SongJacketDisplay SongJacketDisplay;
     public GameObject PbContinue;

@@ -4,7 +4,7 @@ using Unity.Collections;
 
 public class PlayerJoinManager : ScreenManager
 {
-    public PlayerJoinFrame[] PlayerJoinFrames = new PlayerJoinFrame[4];
+    public PlayerJoinFrame[] PlayerJoinFrames = new PlayerJoinFrame[8];
     public NetworkPlayerList NetworkPlayerList;
 
     private PlayerManager _playerManager;
@@ -127,6 +127,7 @@ public class PlayerJoinManager : ScreenManager
             CoreManager.PlayerManager.AllowPlayerJoining = false;
             CoreManager.SaveAllActiveProfiles();
             CoreManager.PlayerManager.SortPlayers();
+            CoreManager.SongFavouriteManager.BuildFavouritesList();
             SceneTransition(GameScene.SongSelect);
         }
     }

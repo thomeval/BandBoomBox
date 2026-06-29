@@ -105,6 +105,11 @@ public class PlayerManager : MonoBehaviour
         return Players.Where(e => e.IsLocalPlayer).ToList();
     }
 
+    public List<Player> GetRemotePlayers()
+    {
+        return Players.Where(e => !e.IsLocalPlayer).ToList();
+    }
+
     public void ApplyHitResult(HitResult hitResult, int playerNum)
     {
         var player = GetLocalPlayer(playerNum);

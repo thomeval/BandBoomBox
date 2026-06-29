@@ -155,7 +155,7 @@ public class Player : MonoBehaviour
     public int Slot;
 
     /// <summary>
-    /// For local players, gets this player's slot (1 to 6, with 1 being P1). For remote players, always returns 0.
+    /// For local players, gets this player's slot (1 to 8, with 1 being P1). For remote players, always returns 0.
     /// </summary>
     public int LocalSlot
     {
@@ -526,6 +526,9 @@ public class Player : MonoBehaviour
             return ChartGroup + ": " + Helpers.GetDisplayName(this.Difficulty);
         }
     }
+
+
+
     #endregion
 
     public void ApplyHitResult(HitResult result)
@@ -834,4 +837,36 @@ public class Player : MonoBehaviour
     {
         _inputManager.TriggerRumble(0.65f, 0.2f);
     }
+
+    #region Favourites
+
+    public bool CanAddFavourite
+    {
+        get
+        {
+            return ProfileData.FavouriteSongs.Count < ProfileData.MAX_FAVOURITES;
+        }
+    }
+
+    public bool IsFavouriteSong(string songId)
+    {
+        return ProfileData.FavouriteSongs.Contains(songId);
+    }
+
+    public void AddFavouriteSong(string songId)
+    {
+        if (CanAddFavourite && !ProfileData.FavouriteSongs.Contains(songId))
+        {
+            ProfileData.FavouriteSongs.Add(songId);
+        }
+    }
+    public void RemoveFavouriteSong(string songId)
+    {
+        if (ProfileData.FavouriteSongs.Contains(songId))
+        {
+            ProfileData.FavouriteSongs.Remove(songId);
+        }
+    }
+
+    #endregion
 }

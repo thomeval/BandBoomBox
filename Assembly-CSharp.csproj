@@ -188,6 +188,7 @@
     <Compile Include="Assets\Scripts\SongEditor\Pages\EditorMainMenuPage.cs" />
     <Compile Include="Assets\Scripts\Options\CustomBindingDisplayItem.cs" />
     <Compile Include="Assets\Scripts\Misc\CompressedFileHelper.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\SongFavouritesEntry.cs" />
     <Compile Include="Assets\Scripts\Common\MenuItem.cs" />
     <Compile Include="Assets\Scripts\SongSelect\DifficultyDisplay.cs" />
     <Compile Include="Assets\Scripts\Input\ControlsChangedArgs.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Assets\Scripts\Managers\HudManager.cs" />
     <Compile Include="Assets\Scripts\Options\RebindManager.cs" />
     <Compile Include="Assets\Scripts\Gameplay\BeatFractionProvider.cs" />
+    <Compile Include="Assets\Scripts\SongSelect\SongListItemFavouriteDisplay.cs" />
     <Compile Include="Assets\Scripts\Gameplay\FullComboResultDto.cs" />
     <Compile Include="Assets\Scripts\NetPlay\NetSongSelectTurnManager.cs" />
     <Compile Include="Assets\GameplayStateRecorder.cs" />
@@ -300,6 +302,7 @@
     <Compile Include="Assets\Scripts\DifficultySelect\PlayerHighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\NetPlay\ClientNetApi.cs" />
     <Compile Include="Assets\Scripts\Common\ExpLevelUtils.cs" />
+    <Compile Include="Assets\SongFavouriteManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\StreamingAssets\Songs\Readme.txt" />

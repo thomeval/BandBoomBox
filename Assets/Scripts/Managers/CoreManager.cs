@@ -25,6 +25,7 @@ public class CoreManager : MonoBehaviour
     public NetSongSelectTurnManager NetSongSelectTurnManager;
     public GameplayStateRecorder GameplayStateRecorder;
     public SoundEventProvider SoundEventProvider;
+    public SongFavouriteManager SongFavouriteManager;
 
     public string SelectedSong;
 

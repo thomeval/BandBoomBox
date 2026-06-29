@@ -37,6 +37,8 @@ public class SoundEventHandler : MenuSoundEventHandler
     public AudioSource[] SfxEvaluationGrades = new AudioSource[3];
     public AudioSource SfxTitleScreenStartPressed;
     public AudioSource SfxSecretUnlocked;
+    public AudioSource SfxFavouriteAdded;
+    public AudioSource SfxFavouriteRemoved;
 
     protected override void SetupSfxEntries()
     {
@@ -67,6 +69,8 @@ public class SoundEventHandler : MenuSoundEventHandler
 
         _sfxEntries.Add(SoundEvent.TitleScreen_StartPressed, SfxTitleScreenStartPressed);
         _sfxEntries.Add(SoundEvent.SecretUnlocked, SfxSecretUnlocked);
+        _sfxEntries.Add(SoundEvent.FavouriteAdded, SfxFavouriteAdded);
+        _sfxEntries.Add(SoundEvent.FavouriteRemoved, SfxFavouriteRemoved);
     }
 
     void Awake()

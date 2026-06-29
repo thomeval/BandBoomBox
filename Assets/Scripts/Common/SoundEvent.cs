@@ -27,5 +27,8 @@ public enum SoundEvent
     Options_KeyBindingStart,
     Options_KeyBindingEnd,
     Options_KeyBindingCancelled,
-    Options_KeyBindingReset
+    Options_KeyBindingReset,
+
+    FavouriteAdded,
+    FavouriteRemoved,
 }

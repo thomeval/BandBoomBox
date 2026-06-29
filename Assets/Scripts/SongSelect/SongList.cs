@@ -7,6 +7,7 @@ public class SongList : MonoBehaviour
 {
 
     private SongSelectManager _songSelectManager;
+    private SongFavouriteManager _songFavouriteManager;
     private readonly List<SongListItem> _songListItems = new();
 
     [SerializeField]
@@ -23,7 +24,8 @@ public class SongList : MonoBehaviour
 
     void Awake()
     {
-        _songSelectManager = FindObjectOfType<SongSelectManager>();
+        Helpers.AutoAssign(ref _songSelectManager);
+        Helpers.AutoAssign(ref _songFavouriteManager);
         GenerateSongListItems();
     }
 
@@ -81,7 +83,9 @@ public class SongList : MonoBehaviour
             {
                 var listItem = _songListItems[listIdx];
                 _songListItems[listIdx].SongData = _songSelectManager.OrderedSongs[songIdx];
+                var songId = _songListItems[listIdx].SongData.ID;
                 listItem.IsSelectable = listItem.SongData.IsAvailable;
+                listItem.DisplayFavorites(_songFavouriteManager.GetFavouritesEntryForSong(songId));
                 listIdx++;
                 songIdx = Helpers.Wrap(songIdx + 1, songCount - 1);
             }
@@ -93,6 +97,12 @@ public class SongList : MonoBehaviour
         {
             Debug.LogError(e);
         }
+    }
+
+    public void RefreshFavouritesDisplay()
+    {
+        var listItem = _songListItems[DisplayedAdjacentSongs];
+        listItem.DisplayFavorites(_songFavouriteManager.GetFavouritesEntryForSong(listItem.SongData.ID));
     }
 
     public void DisplayTeamScores()

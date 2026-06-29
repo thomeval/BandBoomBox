@@ -2619,6 +2619,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2029704625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2029704627}
+  - component: {fileID: 2029704626}
+  m_Layer: 0
+  m_Name: SongFavouriteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2029704626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029704625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a1d48ed2c68aa545935bb216ac51c90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SongLibrary: {fileID: 1910463115166675696}
+  PlayerManager: {fileID: 1910463113991913801}
+--- !u!4 &2029704627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029704625}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1910463115700770861}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2056930745 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5028737456429115077, guid: 4e7f30dca0349d146b12cdf28006373d, type: 3}
@@ -2854,6 +2900,7 @@ MonoBehaviour:
   NetSongSelectTurnManager: {fileID: 1887147678}
   GameplayStateRecorder: {fileID: 1620616868}
   SoundEventProvider: {fileID: 743999107}
+  SongFavouriteManager: {fileID: 2029704626}
   SelectedSong: 
   AudioMixer: {fileID: 24100000, guid: 6dfb45b200e18cb40ac79e7a256945a7, type: 2}
   Settings: {fileID: 0}
@@ -2907,6 +2954,7 @@ Transform:
   - {fileID: 843435794}
   - {fileID: 743999106}
   - {fileID: 435670558}
+  - {fileID: 2029704627}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1910463115700770862
@@ -2959,6 +3007,7 @@ MonoBehaviour:
   NetGameHostPort: 3334
   NetGameJoinIpAddress: 127.0.0.1
   NetGameJoinPort: 3334
+  ShowEndingInOptions: 1
 --- !u!4 &2171638095752426403
 Transform:
   m_ObjectHideFlags: 0

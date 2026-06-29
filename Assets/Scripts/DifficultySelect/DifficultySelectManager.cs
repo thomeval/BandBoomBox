@@ -61,6 +61,8 @@ public class DifficultySelectManager : ScreenManager
         SelectedSongDisplay.SongData = _currentSong;
         var teamScore = CoreManager.HighScoreManager.GetTeamScore(_currentSong.ID, _currentSong.Version, CoreManager.PlayerManager.Players.Count);
         SelectedSongDisplay.DisplayTeamScore(teamScore);
+        var favouritesEntry = CoreManager.SongFavouriteManager.GetFavouritesEntryForSong(_currentSong.ID);
+        SelectedSongDisplay.DisplayFavorites(favouritesEntry);
         SelectedSongDisplay.IsSelected = true;
     }
 
