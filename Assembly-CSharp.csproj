@@ -301,8 +301,8 @@
     <Compile Include="Assets\Scripts\Input\HitResult.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\PlayerHighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\NetPlay\ClientNetApi.cs" />
-    <Compile Include="Assets\Scripts\Common\ExpLevelUtils.cs" />
     <Compile Include="Assets\SongFavouriteManager.cs" />
+    <Compile Include="Assets\Scripts\Common\ExpLevelUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\StreamingAssets\Songs\Readme.txt" />
