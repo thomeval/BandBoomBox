@@ -1115,7 +1115,8 @@ MonoBehaviour:
   FavouriteDisplay: {fileID: 2977669358579254583}
   FrameSpriteResolver: {fileID: 3518868134191339612}
   StarIconSpriteResolver: {fileID: 985008210989979606}
-  SelectableColor: {r: 1, g: 1, b: 1, a: 1}
+  DefaultColor: {r: 1, g: 1, b: 1, a: 1}
+  HasIssuesColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
   NotSelectableColor: {r: 1, g: 0.5882353, b: 0.5919258, a: 1}
   _isSelected: 0
   _isSelectable: 1

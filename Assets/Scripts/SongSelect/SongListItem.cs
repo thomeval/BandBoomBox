@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
@@ -14,7 +15,8 @@ public class SongListItem : MonoBehaviour
     public SpriteResolver FrameSpriteResolver;
     public SpriteResolver StarIconSpriteResolver;
 
-    public Color SelectableColor = Color.white;
+    public Color DefaultColor = Color.white;
+    public Color HasIssuesColor = Color.red;
     public Color NotSelectableColor = Color.gray;
 
     public void DisplayTeamScore(TeamScore teamScore)
@@ -65,8 +67,22 @@ public class SongListItem : MonoBehaviour
     {
         var label = _isSelected ? "Selected" : "NotSelected";
         FrameSpriteResolver.SetCategoryAndLabel("SongListItem", label);
-        TxtArtist.color = _isSelectable ? SelectableColor : NotSelectableColor;
-        TxtTitle.color = _isSelectable ? SelectableColor : NotSelectableColor;
+        var color = GetTextColor();
+        TxtArtist.color = color;
+        TxtTitle.color = color;
+    }
+
+    private Color GetTextColor()
+    {
+        if (!IsSelectable)
+        {
+            return NotSelectableColor;
+        }
+        if (!string.IsNullOrEmpty(SongData.Issues))
+        {
+            return HasIssuesColor;
+        }
+        return DefaultColor;
     }
 
     [SerializeField]

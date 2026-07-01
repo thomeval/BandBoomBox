@@ -3409,6 +3409,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: DifficultySelectChosenSong
       objectReference: {fileID: 0}
+    - target: {fileID: 6471165404992419478, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
+      propertyPath: HasIssuesColor.b
+      value: 0.65882355
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471165404992419478, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
+      propertyPath: HasIssuesColor.g
+      value: 0.65882355
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471165404992419478, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
+      propertyPath: HasIssuesColor.r
+      value: 0.65882355
+      objectReference: {fileID: 0}
     - target: {fileID: 6943607282562464193, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
