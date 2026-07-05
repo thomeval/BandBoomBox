@@ -8,6 +8,7 @@ public class ChartEditorOptions : MonoBehaviour
     public string LabelSkin = "WASD";
     public bool AllowAllNotes = false;
     public bool AutoStepForward = false;
+    public bool BeatClapEnabled = false;
     public int AutoSaveIntervalMinutes = 10;
     
     private int[] _autoSaveIntervalOptions = new int[] { 0, 5, 10, 15, 20 };
@@ -16,6 +17,7 @@ public class ChartEditorOptions : MonoBehaviour
     public Text TxtAllowAllNotes;
     public Text TxtAutoStepForward;
     public Text TxtAutoSaveIntervalMinutes;
+    public Text TxtBeatClapEnabled;
 
     private ChartEditorManager _parent;
     private void Awake()
@@ -28,6 +30,7 @@ public class ChartEditorOptions : MonoBehaviour
         TxtLabelSkin.text = LabelSkin;
         TxtAllowAllNotes.text = AllowAllNotes ? "On" : "Off";
         TxtAutoStepForward.text = AutoStepForward ? "On" : "Off";
+        TxtBeatClapEnabled.text = BeatClapEnabled ? "On" : "Off";
         TxtAutoSaveIntervalMinutes.text = AutoSaveIntervalMinutes == 0 ? "Off" : AutoSaveIntervalMinutes + " minutes";
     }
 
@@ -49,6 +52,7 @@ public class ChartEditorOptions : MonoBehaviour
     {
         this.AllowAllNotes = manager.EditorAllowAllNotes;
         this.AutoStepForward = manager.EditorAutoStepForward;
+        this.BeatClapEnabled = manager.EditorBeatClapEnabled;
         this.LabelSkin = manager.EditorLastUsedNoteLabels;
         this.AutoSaveIntervalMinutes = manager.EditorAutoSaveIntervalMinutes;
         _parent.NoteManager.ScrollSpeed = manager.EditorScrollSpeed;
@@ -58,6 +62,7 @@ public class ChartEditorOptions : MonoBehaviour
     {
         manager.EditorAllowAllNotes = this.AllowAllNotes;
         manager.EditorAutoStepForward = this.AutoStepForward;
+        manager.EditorBeatClapEnabled = this.BeatClapEnabled;
         manager.EditorLastUsedNoteLabels = this.LabelSkin;
         manager.EditorAutoSaveIntervalMinutes = this.AutoSaveIntervalMinutes;
         manager.EditorScrollSpeed = _parent.NoteManager.ScrollSpeed;

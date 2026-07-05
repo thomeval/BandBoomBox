@@ -239,7 +239,7 @@ public class ServerNetApi : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         // Prevent the server from syncronizing the current scene when a client joins. This is not needed since clients will load the scene themselves,
-        // and must transition to PlayerJoinScene first to iniailize the player Prefab properly.
+        // and must transition to PlayerJoinScene first to initialize the player Prefab properly.
         if (IsServer)
         {
             _networkManager.SceneManager.VerifySceneBeforeLoading += (sceneIndex, scenePath, loadSceneMode) => { return false; };

@@ -22,6 +22,7 @@ public class SoundEventHandler : MenuSoundEventHandler
     public AudioSource SfxEditorPaste;
     public AudioSource SfxEditorSelectRegionStart;
     public AudioSource SfxEditorSelectRegionEnd;
+    public AudioSource SfxEditorBeatClap;
 
     [Header("Options")]
     public AudioSource SfxOptionsKeyBindingStart;
@@ -53,6 +54,7 @@ public class SoundEventHandler : MenuSoundEventHandler
         _sfxEntries.Add(SoundEvent.Editor_Paste, SfxEditorPaste);
         _sfxEntries.Add(SoundEvent.Editor_SelectRegionStart, SfxEditorSelectRegionStart);
         _sfxEntries.Add(SoundEvent.Editor_SelectRegionEnd, SfxEditorSelectRegionEnd);
+        _sfxEntries.Add(SoundEvent.Editor_BeatClap, SfxEditorBeatClap);
 
         _sfxEntries.Add(SoundEvent.Gameplay_TurboOff, SfxGameplayTurboOff);
         _sfxEntries.Add(SoundEvent.Gameplay_TurboOn, SfxGameplayTurboOn);

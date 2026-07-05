@@ -89,9 +89,10 @@ public class SongManager : MonoBehaviour
     /// Returns the current song position in beats, with 0 being the first playable beat (after offset).
     /// </summary>
     /// <returns>The current song position in beats.</returns>
-    public float GetSongPositionInBeats()
+    public float GetSongPositionInBeats(float msOffset = 0.0f)
     {
         var msTime = GetSongPosition();
+        msTime += msOffset;
         return msTime * CurrentSong.Bpm / 60;
     }
     public float GetSongEndInBeats()
