@@ -3009,7 +3009,7 @@ MonoBehaviour:
   EditorAutoSaveIntervalMinutes: 10
   EditorAutoStepForward: 0
   EditorAllowAllNotes: 0
-  EditorBeatClapEnabled: 0
+  EditorNoteClapEnabled: 0
   EditorScrollSpeed: 500
   NetGameHostMaxPlayers: 8
   NetGameHostSongSelectRules: 0
