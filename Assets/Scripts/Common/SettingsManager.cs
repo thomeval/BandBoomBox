@@ -51,7 +51,7 @@ public class SettingsManager : MonoBehaviour
     public int EditorAutoSaveIntervalMinutes = 10;
     public bool EditorAutoStepForward = false;
     public bool EditorAllowAllNotes = false;
-    public bool EditorBeatClapEnabled = false;
+    public bool EditorNoteClapEnabled = false;
     public int EditorScrollSpeed = 500;
 
     [Header("Network Settings")]

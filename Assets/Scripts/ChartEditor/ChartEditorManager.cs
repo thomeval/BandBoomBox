@@ -41,6 +41,7 @@ public class ChartEditorManager : ScreenManager
     public SongChartNoteCountDisplay NoteCountDisplay;
     public ChartEditorAutoSaver AutoSaver;
     public LrrDisplay LrrDisplay;
+    public ChartEditorNoteClapper NoteClapper;
 
     [SerializeField]
     private ChartEditorState _chartEditorState;
@@ -256,9 +257,10 @@ public class ChartEditorManager : ScreenManager
         if (ChartEditorState == ChartEditorState.Playback)
         {
             CursorPosition = SongManager.GetSongPositionInBeats();
-            if (Options.BeatClapEnabled)
+            var noteClapPosition = SongManager.GetSongPositionInBeats(SongManager.UserAudioLatency + SongManager.EngineOffset);
+            if (Options.NoteClapEnabled)
             {
-                BeatClap();
+                NoteClapper.Tick(noteClapPosition);
             }
         }
 
@@ -274,24 +276,6 @@ public class ChartEditorManager : ScreenManager
         LrrDisplay.SetCurrentTime((float) CursorPosition);
     }
 
-    private void BeatClap()
-    {
-
-        // Get Current position in beats, but revert any offset adjustments. Needed to ensure that the beat clap is played in sync with the music.
-        var currentBeat = (int)Math.Floor(SongManager.GetSongPositionInBeats(SongManager.UserAudioLatency + SongManager.EngineOffset));
-        if (currentBeat != _lastBeatClap)
-        {
-            PlaySfx(SoundEvent.Editor_BeatClap);
-            _lastBeatClap = currentBeat;
-        }
-    }
-    
-    public void ResetBeatClap()
-    {
-        // Avoid playing a beat clap as soon as playback starts.
-        var currentBeat = (int)Math.Floor(SongManager.GetSongPositionInBeats(SongManager.UserAudioLatency + SongManager.EngineOffset));
-        _lastBeatClap = currentBeat;
-    }
 
     public void ChangeStepSize(int delta)
     {

@@ -169,8 +169,8 @@ public class ChartEditorMenuManager : MonoBehaviour
                 opt.AllowAllNotes = !opt.AllowAllNotes;
                 _parent.ShowNotePalette();
                 break;
-            case "Beat Clap":
-                opt.BeatClapEnabled = !opt.BeatClapEnabled;
+            case "Note Clap":
+                opt.NoteClapEnabled = !opt.NoteClapEnabled;
                 break;
                 case "Auto-save Interval":
                 opt.ChangeAutoSaveInterval(args.ShiftAmount);

@@ -173,6 +173,7 @@
     <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlaySubmenuBase.cs" />
     <Compile Include="Assets\Scripts\Songs\SongStarScoreValues.cs" />
     <Compile Include="Assets\Scripts\Common\MenuEventArgs.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNoteClapper.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\NetPlayMenuManager.cs" />
     <Compile Include="Assets\LrrContainer.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayHostConfirmSubmenu.cs" />

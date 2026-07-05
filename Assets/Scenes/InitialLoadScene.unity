@@ -955,6 +955,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 743999106}
     m_Modifications:
+    - target: {fileID: 2544794944957911024, guid: 4e7f30dca0349d146b12cdf28006373d, type: 3}
+      propertyPath: m_Name
+      value: SfxEditor_NoteClap
+      objectReference: {fileID: 0}
     - target: {fileID: 5028737456429115076, guid: 4e7f30dca0349d146b12cdf28006373d, type: 3}
       propertyPath: m_RootOrder
       value: 9

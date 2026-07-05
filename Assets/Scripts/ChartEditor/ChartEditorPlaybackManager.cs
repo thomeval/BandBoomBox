@@ -122,7 +122,7 @@ public class ChartEditorPlaybackManager : MonoBehaviour
         var songPosition = Math.Max(0, _parent.CursorPositionInSeconds + _parent.CurrentSongData.Offset);
         _parent.SongManager.PlayFromPosition(songPosition);
         _parent.ChartEditorState = ChartEditorState.Playback;
-        _parent.ResetBeatClap();
+        _parent.NoteClapper.ResetIndex();
         _parent.SetActionMap(ActionMapType.Gameplay);
         _parent.DisplayMessage("Press Esc to stop playback, or Space to pause.");
     }

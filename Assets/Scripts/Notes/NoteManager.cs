@@ -488,6 +488,12 @@ public class NoteManager : MonoBehaviour
         return result;
     }
 
+    public Note FindNoteAfter(float position)
+    {
+        var result = Notes.FirstOrDefault(e => e.Position > position);
+        return result;
+    }
+
     public Note FindNearestRelease(int lane, bool enforceCutoffs = true)
     {
         var result = Notes.OrderBy(e => e.DistanceTo(SongPosition))
