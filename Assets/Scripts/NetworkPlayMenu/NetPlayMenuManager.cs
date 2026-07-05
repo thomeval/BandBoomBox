@@ -77,6 +77,7 @@ public class NetPlayMenuManager : ScreenManager
     private string _publicIpServiceUrl = "https://api.ipify.org";
 
     private bool _waitingForCommonSongs = false;
+    private bool _waitingForFavouriteSongs = false;
 
     private void Awake()
     {
@@ -209,7 +210,9 @@ public class NetPlayMenuManager : ScreenManager
             Songs = CoreManager.SongLibrary.AsSongEntryCollection()
         };
 
-        CoreManager.ServerNetApi.RegisterMySongLibraryServerRpc(mySongLibrary);       
+        CoreManager.ServerNetApi.RegisterMySongLibraryServerRpc(mySongLibrary); 
+        
+
     }
 
 
@@ -240,8 +243,27 @@ public class NetPlayMenuManager : ScreenManager
             return;
         }
         JoinConfirmMenu.JoinProgressMessage = "(Client) Song library synced.";
-        this.SceneTransition(GameScene.PlayerJoin);
+
+        _waitingForCommonSongs = false;
+        _waitingForFavouriteSongs = true;
+
+        var myFavourites = CoreManager.PlayerManager.GetNetworkMachineFavouriteSongSet();
+        CoreManager.ServerNetApi.RequestAllPlayerFavouriteSongsServerRpc(myFavourites);
     }
+
+    public override void OnNetReceiveAllPlayerFavouriteSongs(NetworkSessionFavouriteSongSet favouriteSongs)
+    {
+        base.OnNetReceiveAllPlayerFavouriteSongs(favouriteSongs);
+        if (!_waitingForFavouriteSongs)
+        {
+            return;
+        }
+        JoinConfirmMenu.JoinProgressMessage = "(Client) Favourite songs synced.";
+        _waitingForFavouriteSongs = false;
+        SceneTransition(GameScene.SongSelect);
+
+    }
+
     public override void OnPlayerInput(InputEvent inputEvent)
     {
         if (inputEvent.Action == InputAction.X && inputEvent.IsPressed && CurrentSubmenu.MenuInputActive())

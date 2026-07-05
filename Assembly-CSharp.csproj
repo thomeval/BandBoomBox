@@ -295,6 +295,7 @@
     <Compile Include="Assets\Scripts\Common\HighwayNameDisplay.cs" />
     <Compile Include="Assets\Scripts\Songs\NetworkPlayerSongLibrary.cs" />
     <Compile Include="Assets\Scripts\Gameplay\LrrData.cs" />
+    <Compile Include="Assets\Scripts\NetPlay\NetworkSessionFavouriteSongSet.cs" />
     <Compile Include="Assets\Scripts\InitialLoad\InitialLoadManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorManager.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayMainSubmenu.cs" />
