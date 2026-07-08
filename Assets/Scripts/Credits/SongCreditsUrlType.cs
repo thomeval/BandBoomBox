@@ -3,5 +3,6 @@
     None,
     SoundCloud,
     Github,
-    Discord
+    Discord,
+    Other = 20
 }
