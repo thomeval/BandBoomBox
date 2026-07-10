@@ -25,7 +25,7 @@ public static class NoteCounter
 
         foreach (var note in notes)
         {
-            if (note.Position >= nextPhrase)
+            while (note.Position >= nextPhrase)
             {
                 nextPhrase += intervalSize;
                 var currentNps = notesInPhrase / intervalSize * songBpm / 60;
@@ -97,11 +97,12 @@ public static class NoteCounter
 
         for (int x = 0; x < notes.Length; x++)
         {
-            if (x >= nextPhrase)
+            while (x >= nextPhrase)
             {
                 nextPhrase += intervalSize;
                 var currentNps = notesInPhrase / intervalSize * songBpm / 60;
                 result.LrrData.Intervals.Add(currentNps);
+  
 
                 notesInPhrase = 0;
                 currentInterval++;
@@ -119,6 +120,7 @@ public static class NoteCounter
         {
             var currentNps = notesInPhrase / intervalSize * songBpm / 60;
             result.LrrData.Intervals.Add(currentNps);
+
         }
 
         if (songLength > 0.0f)

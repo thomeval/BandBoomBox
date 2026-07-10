@@ -71,9 +71,9 @@
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinProfileCreateFrame.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\DifficultySelectNetworkPlayerListItem.cs" />
     <Compile Include="Assets\Scripts\Misc\UIExtensions.cs" />
+    <Compile Include="Assets\Scripts\SongEditor\SongChartSuggestedDifficulty.cs" />
     <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicManager.cs" />
     <Compile Include="Assets\Scripts\Input\HitJudge.cs" />
-    <Compile Include="Assets\Scripts\SongEditor\SongChartSuggestedDifficulty.cs" />
     <Compile Include="Assets\Scripts\Gameplay\TimingDisplay.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorState.cs" />
     <Compile Include="Assets\Scripts\Evaluation\Grade.cs" />
