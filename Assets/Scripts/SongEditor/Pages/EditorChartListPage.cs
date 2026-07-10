@@ -45,7 +45,6 @@ public class EditorChartListPage : EditorPageManager
     {
         BtnBack.onClick.AddListener(BtnBack_OnClick);
         BtnNext.onClick.AddListener(BtnNext_OnClick);
-        BtnAdd.onClick.AddListener(BtnAdd_OnClick);
     }
 
     private void OnEnable()
@@ -124,7 +123,7 @@ public class EditorChartListPage : EditorPageManager
         return error == "";
     }
 
-    private void BtnAdd_OnClick()
+    public void BtnAddChart_Click()
     {
         Parent.CurrentSong.SongCharts.Add(DefaultNewChart);
         PopulateList();
@@ -205,7 +204,21 @@ public class EditorChartListPage : EditorPageManager
         PopulateSectionList();
     }
 
+    public void BtnAutoDifficulty_Click()
+    {
+        foreach (var chart in DisplayedCharts)
+        {
+            var nps = chart.DisplayedChart.NoteCounts.TrimmedAverageNps;
+            var suggestedDifficulty = SongChartSuggestedDifficulty.GetSuggestedDifficulty(chart.DisplayedChart.Difficulty, nps);
+            if (suggestedDifficulty.HasValue)
+            {
+                chart.DisplayedChart.DifficultyLevel = suggestedDifficulty.Value;
+            }
+        }
+        PopulateList();
+    }
     #endregion
+
     public void PopulateList()
     {
         ListItemContainer.gameObject.ClearChildren();
