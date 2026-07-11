@@ -6,6 +6,7 @@ public class DifficultySelectManager : ScreenManager
     public DifficultySelectFrame[] DifficultySelectFrames;
     public NetworkPlayerList NetworkPlayerList;
     public SongListItem SelectedSongDisplay;
+    public SongIssuesDisplay SongIssuesDisplay;
     private PlayerManager _playerManager;
     private ProfileManager _profileManager;
 
@@ -64,6 +65,7 @@ public class DifficultySelectManager : ScreenManager
         var favouritesEntry = CoreManager.SongFavouriteManager.GetFavouritesEntryForSong(_currentSong.ID);
         SelectedSongDisplay.DisplayFavorites(favouritesEntry);
         SelectedSongDisplay.IsSelected = true;
+        SongIssuesDisplay.SongData = _currentSong;
     }
 
     public override void OnPlayerInput(InputEvent inputEvent)
