@@ -70,6 +70,8 @@ public class ScreenManager : MonoBehaviour
         {
             PlaySfx(SoundEvent.Net_PlayerJoined);
         }
+
+        CoreManager.SongFavouriteManager.BuildFavouritesList();
     }
 
     public virtual void OnNetRequestSongResponse(NetSongChoiceResponse response)
@@ -228,6 +230,7 @@ public class ScreenManager : MonoBehaviour
             return;
         }
         CoreManager.PlayerManager.UpdateNetPlayerFavouriteSongs(dto);
+        CoreManager.SongFavouriteManager.BuildFavouritesList();
     }
 
     public virtual void OnNetReceiveAllPlayerFavouriteSongs(NetworkSessionFavouriteSongSet dto)

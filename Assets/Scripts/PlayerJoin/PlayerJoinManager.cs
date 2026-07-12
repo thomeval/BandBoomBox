@@ -128,6 +128,14 @@ public class PlayerJoinManager : ScreenManager
             CoreManager.SaveAllActiveProfiles();
             CoreManager.PlayerManager.SortPlayers();
             CoreManager.SongFavouriteManager.BuildFavouritesList();
+
+            if (CoreManager.IsNetGame)
+            {
+                // Send the favourite songs for the local player(s) to the server, and request the favourite songs for all other players from the server.
+                var myFavourites = CoreManager.PlayerManager.GetNetworkMachineFavouriteSongSet();
+                CoreManager.ServerNetApi.RequestAllPlayerFavouriteSongsServerRpc(myFavourites);
+            }
+
             SceneTransition(GameScene.SongSelect);
         }
     }

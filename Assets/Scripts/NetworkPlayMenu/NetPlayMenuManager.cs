@@ -243,26 +243,9 @@ public class NetPlayMenuManager : ScreenManager
             return;
         }
         JoinConfirmMenu.JoinProgressMessage = "(Client) Song library synced.";
-
-        _waitingForCommonSongs = false;
-        _waitingForFavouriteSongs = true;
-
-        var myFavourites = CoreManager.PlayerManager.GetNetworkMachineFavouriteSongSet();
-        CoreManager.ServerNetApi.RequestAllPlayerFavouriteSongsServerRpc(myFavourites);
-    }
-
-    public override void OnNetReceiveAllPlayerFavouriteSongs(NetworkSessionFavouriteSongSet favouriteSongs)
-    {
-        base.OnNetReceiveAllPlayerFavouriteSongs(favouriteSongs);
-        if (!_waitingForFavouriteSongs)
-        {
-            return;
-        }
-        JoinConfirmMenu.JoinProgressMessage = "(Client) Favourite songs synced.";
-        _waitingForFavouriteSongs = false;
         SceneTransition(GameScene.SongSelect);
-
     }
+
 
     public override void OnPlayerInput(InputEvent inputEvent)
     {

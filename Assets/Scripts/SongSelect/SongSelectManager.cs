@@ -436,4 +436,11 @@ public class SongSelectManager : ScreenManager
         SongList.PopulateSongListItems();
         ShowSelectedSong();
     }
+
+    public override void OnNetReceiveAllPlayerFavouriteSongs(NetworkSessionFavouriteSongSet dto)
+    {
+        base.OnNetReceiveAllPlayerFavouriteSongs(dto);
+        SongList.PopulateSongListItems();
+        ShowSelectedSong();
+    }
 }
