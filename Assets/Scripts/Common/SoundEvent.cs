@@ -18,6 +18,8 @@ public enum SoundEvent
     Editor_Paste,
     Editor_SelectRegionStart,
     Editor_SelectRegionEnd,
+    Editor_NoteClap,
+    Editor_NoteReleaseClap,
     Net_PlayerJoined,
     Net_PlayerLeft,
     SecretUnlocked,

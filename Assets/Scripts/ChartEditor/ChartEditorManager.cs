@@ -41,6 +41,7 @@ public class ChartEditorManager : ScreenManager
     public SongChartNoteCountDisplay NoteCountDisplay;
     public ChartEditorAutoSaver AutoSaver;
     public LrrDisplay LrrDisplay;
+    public ChartEditorNoteClapper NoteClapper;
 
     [SerializeField]
     private ChartEditorState _chartEditorState;
@@ -60,6 +61,8 @@ public class ChartEditorManager : ScreenManager
     public const Difficulty DEFAULT_PALETTE = Difficulty.Expert;
 
     private readonly float[] _stepSizes = new[] { 0.25f, 0.5f, 1, 2, 3, 4, 6, 8 };
+
+    private int _lastBeatClap = -1;
 
     #region Properties
 
@@ -254,9 +257,16 @@ public class ChartEditorManager : ScreenManager
         if (ChartEditorState == ChartEditorState.Playback)
         {
             CursorPosition = SongManager.GetSongPositionInBeats();
+            var noteClapPosition = SongManager.GetSongPositionInBeats(SongManager.UserAudioLatency + SongManager.EngineOffset);
+            if (Options.NoteClapEnabled)
+            {
+                NoteClapper.Tick(noteClapPosition);
+            }
         }
+
         UpdateNoteHighway();
     }
+
 
     private void UpdateNoteHighway()
     {
@@ -265,6 +275,7 @@ public class ChartEditorManager : ScreenManager
         NoteManager.UpdateNotes();
         LrrDisplay.SetCurrentTime((float) CursorPosition);
     }
+
 
     public void ChangeStepSize(int delta)
     {

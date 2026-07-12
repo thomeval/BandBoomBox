@@ -1,0 +1,65 @@
+{
+	"Version" : 1,
+	"Artists" :	[
+	{
+		"Name" : "Thomeval",
+		"WebsiteUrl" : "https://github.com/thomeval",
+		"ExtraUrl": null,
+		"ExtraUrlType" : 0,
+		"Songs" : [
+		"Future Greatness",
+		"Lightseeker",
+		"Medium Stakes Battle"
+		]	
+	},
+		{
+		"Name" : "Daison",
+		"WebsiteUrl" : "https://soundcloud.com/daisonn",
+		"ExtraUrl": null,
+		"ExtraUrlType" : 0,
+		"Songs" : [
+		"Funk Emotions",
+		"Luminescent (2022 Rework)",
+		"R3TROSP3CT",
+		"Risen"
+		]	
+	},
+		{
+		"Name" : "Qloudpatch",
+		"WebsiteUrl" : "https://qloudpatch.carrd.co",
+		"ExtraUrl": null,
+		"ExtraUrlType" : 0,
+		"Songs" : [
+		"Extraterrestrial Kobold from the Moon"
+		]	
+	},
+		{
+		"Name" : "Sanxion7",
+		"WebsiteUrl" : "https://saxxon.carrd.co",
+		"ExtraUrl": null,
+		"ExtraUrlType" : 0,
+		"Songs" : [
+		"Concerto",
+		"EternuS",
+		"Gargoyle",
+		"Last Day Alive",
+		"Rainspark",
+		"Terminal"
+		]	
+	},
+		{
+		"Name" : "Vospi",
+		"WebsiteUrl" : "https://vospi.com",
+		"ExtraUrl": null,
+		"ExtraUrlType" : 0,
+		"Songs" : [
+		"Discover",
+		"Nervous",
+		"Reverence",
+		"Rise",
+		"Trek",
+		"Video Out E"
+		]	
+	}
+	]
+}
