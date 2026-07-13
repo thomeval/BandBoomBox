@@ -236,11 +236,11 @@ public class ServerNetApi : NetworkBehaviour
         Debug.Log(msg);
 
         // Sync with all players
-        _clientNetApi.ReceivePlayerFavouriteSongsClientRpc(songSet);
+        _clientNetApi.ReceiveMachineFavouriteSongsClientRpc(songSet);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void RequestAllPlayerFavouriteSongsServerRpc(ServerRpcParams serverParams = default)
+    public void RequestSessionFavouriteSongsServerRpc(ServerRpcParams serverParams = default)
     {
         var netId = serverParams.Receive.SenderClientId;
         var param = GetSingleClientParams(netId);
@@ -249,7 +249,7 @@ public class ServerNetApi : NetworkBehaviour
         var sessionFavourites = _coreManager.PlayerManager.GetNetworkSessionFavouriteSongSet();
 
         // Sync only with the requesting client
-        _clientNetApi.ReceiveAllPlayerFavouriteSongsClientRpc(sessionFavourites, param);
+        _clientNetApi.ReceiveSessionFavouriteSongsClientRpc(sessionFavourites, param);
     }
 
     [ServerRpc(RequireOwnership = false)]

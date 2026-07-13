@@ -242,7 +242,7 @@ public class NetPlayMenuManager : ScreenManager
         JoinConfirmMenu.JoinProgressMessage = "(Client) Song library synced.";
 
         // Fire and forget - no need to wait for this to complete before proceeding.
-        CoreManager.ServerNetApi.RequestAllPlayerFavouriteSongsServerRpc();
+        CoreManager.ServerNetApi.RequestSessionFavouriteSongsServerRpc();
         SceneTransition(GameScene.PlayerJoin);
     }
 

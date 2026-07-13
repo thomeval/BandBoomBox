@@ -172,13 +172,13 @@ public class ClientNetApi : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void ReceivePlayerFavouriteSongsClientRpc(NetworkMachineFavouriteSongSet dto)
+    public void ReceiveMachineFavouriteSongsClientRpc(NetworkMachineFavouriteSongSet dto)
     {
         _coreManager.ActiveMainManager.OnNetReceivePlayerFavouriteSongs(dto);
     }
 
     [ClientRpc]
-    public void ReceiveAllPlayerFavouriteSongsClientRpc(NetworkSessionFavouriteSongSet dto, ClientRpcParams param = default)
+    public void ReceiveSessionFavouriteSongsClientRpc(NetworkSessionFavouriteSongSet dto, ClientRpcParams param = default)
     {
         _coreManager.ActiveMainManager.OnNetReceiveAllPlayerFavouriteSongs(dto);
     }
