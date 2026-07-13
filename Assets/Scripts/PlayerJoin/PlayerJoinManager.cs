@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Unity.Collections;
 
 public class PlayerJoinManager : ScreenManager
 {
@@ -131,9 +130,10 @@ public class PlayerJoinManager : ScreenManager
 
             if (CoreManager.IsNetGame)
             {
-                // Send the favourite songs for the local player(s) to the server, and request the favourite songs for all other players from the server.
+                // Send the favourite songs for the local player(s) to the server
+                // TODO: Currently fire and forget. Consider waiting for a response before transitioning.
                 var myFavourites = CoreManager.PlayerManager.GetNetworkMachineFavouriteSongSet();
-                CoreManager.ServerNetApi.RequestAllPlayerFavouriteSongsServerRpc(myFavourites);
+                CoreManager.ServerNetApi.RegisterMyFavouriteSongsServerRpc(myFavourites);
             }
 
             SceneTransition(GameScene.SongSelect);

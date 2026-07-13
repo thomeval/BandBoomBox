@@ -14,6 +14,7 @@ public class SongListItemFavouriteDisplay : MonoBehaviour
         }
 
         RemoteFavouriteContainer.SetActive(entry.RemoteFavoriteCount > 0);
-        TxtRemoteFavouriteCount.text = entry.RemoteFavoriteCount.ToString();
+        var count = Mathf.Min(9, entry.RemoteFavoriteCount);
+        TxtRemoteFavouriteCount.text = count.ToString();
     }
 }

@@ -225,21 +225,30 @@ public class ServerNetApi : NetworkBehaviour
     {
         var netId = serverParams.Receive.SenderClientId;
         Debug.Log($"(Server) Received favourite song set for client ID {netId} with {songSet.Players.Length} players.");
-        if (songSet.Players.Length > 0)
+        var msg = "";
+
+        for (int x = 0;x < songSet.Players.Length; x++)
         {
-            Debug.Log($"(Server) Remote Player 1 submitted {songSet.Players[0].FavouriteSongs.Length} favourite songs.");
+            var player = songSet.Players[x];
+            msg += $" - P{x+1} -> {player.FavouriteSongs.Length} favourite songs\n";
         }
+
+        Debug.Log(msg);
+
+        // Sync with all players
         _clientNetApi.ReceivePlayerFavouriteSongsClientRpc(songSet);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void RequestAllPlayerFavouriteSongsServerRpc(NetworkMachineFavouriteSongSet myFavourites, ServerRpcParams serverParams = default)
+    public void RequestAllPlayerFavouriteSongsServerRpc(ServerRpcParams serverParams = default)
     {
         var netId = serverParams.Receive.SenderClientId;
         var param = GetSingleClientParams(netId);
         Debug.Log($"(Server) Sending Session Favourite Song Set to client ID {netId}");
 
         var sessionFavourites = _coreManager.PlayerManager.GetNetworkSessionFavouriteSongSet();
+
+        // Sync only with the requesting client
         _clientNetApi.ReceiveAllPlayerFavouriteSongsClientRpc(sessionFavourites, param);
     }
 

@@ -211,14 +211,11 @@ public class NetPlayMenuManager : ScreenManager
         };
 
         CoreManager.ServerNetApi.RegisterMySongLibraryServerRpc(mySongLibrary); 
-        
-
     }
 
 
     public override void OnNetClientDisconnected(ulong id)
     {
-
         base.OnNetClientDisconnected(id);
 
         var reason = CoreManager.NetworkManager.DisconnectReason;
@@ -243,7 +240,10 @@ public class NetPlayMenuManager : ScreenManager
             return;
         }
         JoinConfirmMenu.JoinProgressMessage = "(Client) Song library synced.";
-        SceneTransition(GameScene.SongSelect);
+
+        // Fire and forget - no need to wait for this to complete before proceeding.
+        CoreManager.ServerNetApi.RequestAllPlayerFavouriteSongsServerRpc();
+        SceneTransition(GameScene.PlayerJoin);
     }
 
 

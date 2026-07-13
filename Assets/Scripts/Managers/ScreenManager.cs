@@ -235,6 +235,7 @@ public class ScreenManager : MonoBehaviour
 
     public virtual void OnNetReceiveAllPlayerFavouriteSongs(NetworkSessionFavouriteSongSet dto)
     {
+        Debug.Log($"(Client) Received Session Favourite Songs list from server with {dto.Machines.Length} machines.");
         foreach (var machine in dto.Machines)
         {
             OnNetReceivePlayerFavouriteSongs(machine);

@@ -861,7 +861,8 @@ MonoBehaviour:
   FavouriteDisplay: {fileID: 6538709086202948604}
   FrameSpriteResolver: {fileID: 3518868134191339612}
   StarIconSpriteResolver: {fileID: 985008210989979606}
-  SelectableColor: {r: 1, g: 1, b: 1, a: 1}
+  DefaultColor: {r: 1, g: 1, b: 1, a: 1}
+  HasIssuesColor: {r: 1, g: 0, b: 0, a: 1}
   NotSelectableColor: {r: 1, g: 0.5882353, b: 0.5919258, a: 1}
   _isSelected: 1
   _isSelectable: 1
@@ -1478,7 +1479,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 15, y: 0}
-  m_SizeDelta: {x: 40, y: 30}
+  m_SizeDelta: {x: 20, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &952556076816149598
 CanvasRenderer:
@@ -1515,13 +1516,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 00
+  m_Text: 9
 --- !u!1 &8836650466821707321
 GameObject:
   m_ObjectHideFlags: 0
