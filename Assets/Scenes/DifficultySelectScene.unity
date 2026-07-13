@@ -3171,6 +3171,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2494895636644555533, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494895636644555533, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3213,6 +3217,10 @@ PrefabInstance:
     - target: {fileID: 3701708230809508543, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
       propertyPath: m_SortingLayer
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940204640689026577, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000113659592578461, guid: 45e46175a8dcd9644b144b058b17621b, type: 3}
       propertyPath: m_AnchorMax.y

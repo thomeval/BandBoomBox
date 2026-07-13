@@ -584,4 +584,33 @@ public class PlayerManager : MonoBehaviour
     {
         return Players.Where(e => e.IsLocalPlayer && e.IsMaxLevel && !e.ProfileData.SeenEnding).ToArray();
     }
+
+    /// <summary>
+    /// Updates the favourite songs for all remote players (for a single remote machine) in the specified NetworkFavouriteSongSet DTO. If a player is not found, it will be skipped.
+    /// </summary>
+    /// <param name="dto">A DTO containing the favourite songs for one or more remote players.</param>
+    public void UpdateNetPlayerFavouriteSongs(NetworkMachineFavouriteSongSet dto)
+    {
+        foreach (var player in dto.Players)
+        {
+            var myPlayer = Players.FirstOrDefault(e => e.NetId == dto.NetId && e.Slot == player.PlayerSlot);
+            if (myPlayer == null)
+            {
+                continue;
+            }
+
+            myPlayer.ProfileData.FavouriteSongs = player.FavouriteSongs.Select(e => e.ID).ToList();
+        }
+    }
+
+    public NetworkSessionFavouriteSongSet GetNetworkSessionFavouriteSongSet()
+    {      
+        return NetworkSessionFavouriteSongSet.FromPlayers(this.Players.ToArray());
+    }
+
+    public NetworkMachineFavouriteSongSet GetNetworkMachineFavouriteSongSet()
+    {
+        var players = this.GetLocalPlayers().ToArray();
+        return NetworkMachineFavouriteSongSet.FromPlayers(_coreManager.NetId, players);
+    }
 }

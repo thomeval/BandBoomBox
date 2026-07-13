@@ -1,4 +1,5 @@
 using Assets;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -85,5 +86,5 @@ public class SongFavouriteManager : MonoBehaviour
         var entry = GetFavouritesEntryForSong(songId);
         return entry.TotalCount;
     }
-
 }
+

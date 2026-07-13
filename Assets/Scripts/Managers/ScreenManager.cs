@@ -70,6 +70,8 @@ public class ScreenManager : MonoBehaviour
         {
             PlaySfx(SoundEvent.Net_PlayerJoined);
         }
+
+        CoreManager.SongFavouriteManager.BuildFavouritesList();
     }
 
     public virtual void OnNetRequestSongResponse(NetSongChoiceResponse response)
@@ -217,6 +219,27 @@ public class ScreenManager : MonoBehaviour
         Debug.Log($"(Client) Received Common Songs list with {commonSongs.Songs.Length} songs.");
         CoreManager.SongLibrary.CommonAvailableSongs = commonSongs;
         CoreManager.SongLibrary.UpdateAvailableSongs();
+    }
+
+    public virtual void OnNetReceivePlayerFavouriteSongs(NetworkMachineFavouriteSongSet dto)
+    {
+        Debug.Log($"(Client) Received Favourite Songs list for NetId {dto.NetId} with {dto.Players.Length} players.");
+        if (dto.NetId == CoreManager.NetId)
+        {
+            // Don't update the local player's favourite songs from the host. We already know what they are.
+            return;
+        }
+        CoreManager.PlayerManager.UpdateNetPlayerFavouriteSongs(dto);
+        CoreManager.SongFavouriteManager.BuildFavouritesList();
+    }
+
+    public virtual void OnNetReceiveAllPlayerFavouriteSongs(NetworkSessionFavouriteSongSet dto)
+    {
+        Debug.Log($"(Client) Received Session Favourite Songs list from server with {dto.Machines.Length} machines.");
+        foreach (var machine in dto.Machines)
+        {
+            OnNetReceivePlayerFavouriteSongs(machine);
+        }
     }
 
     public void SendNetPlayerUpdate(Player player)

@@ -221,6 +221,38 @@ public class ServerNetApi : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
+    public void RegisterMyFavouriteSongsServerRpc(NetworkMachineFavouriteSongSet songSet, ServerRpcParams serverParams = default)
+    {
+        var netId = serverParams.Receive.SenderClientId;
+        Debug.Log($"(Server) Received favourite song set for client ID {netId} with {songSet.Players.Length} players.");
+        var msg = "";
+
+        for (int x = 0;x < songSet.Players.Length; x++)
+        {
+            var player = songSet.Players[x];
+            msg += $" - P{x+1} -> {player.FavouriteSongs.Length} favourite songs\n";
+        }
+
+        Debug.Log(msg);
+
+        // Sync with all players
+        _clientNetApi.ReceiveMachineFavouriteSongsClientRpc(songSet);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RequestSessionFavouriteSongsServerRpc(ServerRpcParams serverParams = default)
+    {
+        var netId = serverParams.Receive.SenderClientId;
+        var param = GetSingleClientParams(netId);
+        Debug.Log($"(Server) Sending Session Favourite Song Set to client ID {netId}");
+
+        var sessionFavourites = _coreManager.PlayerManager.GetNetworkSessionFavouriteSongSet();
+
+        // Sync only with the requesting client
+        _clientNetApi.ReceiveSessionFavouriteSongsClientRpc(sessionFavourites, param);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
     public void SendNetFullComboResultServerRpc(FullComboResultSetDto result, ServerRpcParams serverParams = default)
     {
         var netId = serverParams.Receive.SenderClientId;

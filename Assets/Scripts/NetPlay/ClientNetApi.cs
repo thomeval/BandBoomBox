@@ -170,4 +170,16 @@ public class ClientNetApi : NetworkBehaviour
     {
         _coreManager.ActiveMainManager.OnNetAllyBoostPlayerStateChanged(dto);
     }
+
+    [ClientRpc]
+    public void ReceiveMachineFavouriteSongsClientRpc(NetworkMachineFavouriteSongSet dto)
+    {
+        _coreManager.ActiveMainManager.OnNetReceivePlayerFavouriteSongs(dto);
+    }
+
+    [ClientRpc]
+    public void ReceiveSessionFavouriteSongsClientRpc(NetworkSessionFavouriteSongSet dto, ClientRpcParams param = default)
+    {
+        _coreManager.ActiveMainManager.OnNetReceiveAllPlayerFavouriteSongs(dto);
+    }
 }
