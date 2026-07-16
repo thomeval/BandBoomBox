@@ -172,7 +172,10 @@ public class ChartEditorMenuManager : MonoBehaviour
             case "Note Clap":
                 opt.NoteClapEnabled = !opt.NoteClapEnabled;
                 break;
-                case "Auto-save Interval":
+                case "Note Clap Latency":
+                opt.ChangeNoteClapLatency(args.ShiftAmount);
+                break;
+            case "Auto-save Interval":
                 opt.ChangeAutoSaveInterval(args.ShiftAmount);
                 _parent.AutoSaver.AutoSaveIntervalMinutes = opt.AutoSaveIntervalMinutes;
                 break;

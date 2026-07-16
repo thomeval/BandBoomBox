@@ -52,6 +52,7 @@ public class SettingsManager : MonoBehaviour
     public bool EditorAutoStepForward = false;
     public bool EditorAllowAllNotes = false;
     public bool EditorNoteClapEnabled = false;
+    public float EditorNoteClapLatency = 0.0f;
     public int EditorScrollSpeed = 500;
 
     [Header("Network Settings")]
@@ -64,7 +65,7 @@ public class SettingsManager : MonoBehaviour
     public const ushort DEFAULT_PORT = 3334;
 
     [Header("Other Settings")]
-    public bool ShowEndingInOptions = true;
+    public bool ShowEndingInOptions = false;
 
     // Start is called before the first frame update
     void Awake()

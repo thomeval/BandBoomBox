@@ -11,8 +11,6 @@ public class InitialLoadManager : ScreenManager
     {
         FindCoreManager();
     }
-
-    // Start is called before the first frame update
     void Start()
     {
         TxtLoading.text = "Loading. Please wait...";
@@ -24,6 +22,7 @@ public class InitialLoadManager : ScreenManager
         CoreManager.ProfileManager.ProfilesPath = CoreManager.Settings.ProfilesPath;
         CoreManager.ProfileManager.Load();
         CoreManager.ProfileManager.InitPlayerHighScoreCache(CoreManager.SongLibrary.Songs);
+        CoreManager.Settings.ShowEndingInOptions = CoreManager.ProfileManager.AnyPlayerSeenEnding();
     }
 
     private void SongLibrary_LoadSongsCompleted(object sender, System.EventArgs e)
@@ -33,7 +32,6 @@ public class InitialLoadManager : ScreenManager
         SceneTransition(GameScene.MainMenu);
     }
 
-    // Update is called once per frame
     void Update()
     {
         TxtSongCount.text = CoreManager.SongLibrary.Songs.Count + " Songs Loaded";

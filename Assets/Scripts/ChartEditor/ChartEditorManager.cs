@@ -62,8 +62,6 @@ public class ChartEditorManager : ScreenManager
 
     private readonly float[] _stepSizes = new[] { 0.25f, 0.5f, 1, 2, 3, 4, 6, 8 };
 
-    private int _lastBeatClap = -1;
-
     #region Properties
 
     [SerializeField] private float _cursorStepSize = 1;
@@ -257,7 +255,7 @@ public class ChartEditorManager : ScreenManager
         if (ChartEditorState == ChartEditorState.Playback)
         {
             CursorPosition = SongManager.GetSongPositionInBeats();
-            var noteClapPosition = SongManager.GetSongPositionInBeats(SongManager.UserAudioLatency + SongManager.EngineOffset);
+            var noteClapPosition = SongManager.GetSongPositionInBeats(Options.NoteClapLatency + SongManager.EngineOffset);
             if (Options.NoteClapEnabled)
             {
                 NoteClapper.Tick(noteClapPosition);

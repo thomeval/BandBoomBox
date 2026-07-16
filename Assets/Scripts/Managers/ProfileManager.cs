@@ -243,5 +243,9 @@ public class ProfileManager : MonoBehaviour
         return result;
     }
 
+    public bool AnyPlayerSeenEnding()
+    {
+        return Profiles.Any(e => e.SeenEnding);
+    }
 }
 

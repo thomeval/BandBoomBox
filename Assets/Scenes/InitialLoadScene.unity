@@ -3010,13 +3010,14 @@ MonoBehaviour:
   EditorAutoStepForward: 0
   EditorAllowAllNotes: 0
   EditorNoteClapEnabled: 0
+  EditorNoteClapLatency: 0
   EditorScrollSpeed: 500
   NetGameHostMaxPlayers: 8
   NetGameHostSongSelectRules: 0
   NetGameHostPort: 3334
   NetGameJoinIpAddress: 127.0.0.1
   NetGameJoinPort: 3334
-  ShowEndingInOptions: 1
+  ShowEndingInOptions: 0
 --- !u!4 &2171638095752426403
 Transform:
   m_ObjectHideFlags: 0

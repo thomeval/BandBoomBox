@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ChartEditorOptions : MonoBehaviour
@@ -9,6 +8,7 @@ public class ChartEditorOptions : MonoBehaviour
     public bool AllowAllNotes = false;
     public bool AutoStepForward = false;
     public bool NoteClapEnabled = false;
+    public float NoteClapLatency = 0.0f;
     public int AutoSaveIntervalMinutes = 10;
     
     private int[] _autoSaveIntervalOptions = new int[] { 0, 5, 10, 15, 20 };
@@ -18,6 +18,7 @@ public class ChartEditorOptions : MonoBehaviour
     public Text TxtAutoStepForward;
     public Text TxtAutoSaveIntervalMinutes;
     public Text TxtNoteClapEnabled;
+    public Text TxtNoteClapLatency;
 
     private ChartEditorManager _parent;
     private void Awake()
@@ -31,7 +32,9 @@ public class ChartEditorOptions : MonoBehaviour
         TxtAllowAllNotes.text = AllowAllNotes ? "On" : "Off";
         TxtAutoStepForward.text = AutoStepForward ? "On" : "Off";
         TxtNoteClapEnabled.text = NoteClapEnabled ? "On" : "Off";
+        TxtNoteClapLatency.text = $"{NoteClapLatency*1000:F0}" + " ms";
         TxtAutoSaveIntervalMinutes.text = AutoSaveIntervalMinutes == 0 ? "Off" : AutoSaveIntervalMinutes + " minutes";
+        
     }
 
     public void ChangeLabelSkin(int delta)
@@ -48,11 +51,19 @@ public class ChartEditorOptions : MonoBehaviour
         SetOptionsItemText();
     }
 
+    public void ChangeNoteClapLatency(int delta)
+    {
+        NoteClapLatency += delta * 0.005f;
+        NoteClapLatency = Mathf.Clamp(NoteClapLatency, -0.25f, 0.25f);
+        SetOptionsItemText();
+    }
+
     public void Load(SettingsManager manager)
     {
         this.AllowAllNotes = manager.EditorAllowAllNotes;
         this.AutoStepForward = manager.EditorAutoStepForward;
         this.NoteClapEnabled = manager.EditorNoteClapEnabled;
+        this.NoteClapLatency = manager.EditorNoteClapLatency;
         this.LabelSkin = manager.EditorLastUsedNoteLabels;
         this.AutoSaveIntervalMinutes = manager.EditorAutoSaveIntervalMinutes;
         _parent.NoteManager.ScrollSpeed = manager.EditorScrollSpeed;
@@ -63,9 +74,11 @@ public class ChartEditorOptions : MonoBehaviour
         manager.EditorAllowAllNotes = this.AllowAllNotes;
         manager.EditorAutoStepForward = this.AutoStepForward;
         manager.EditorNoteClapEnabled = this.NoteClapEnabled;
+        manager.EditorNoteClapLatency = this.NoteClapLatency;
         manager.EditorLastUsedNoteLabels = this.LabelSkin;
         manager.EditorAutoSaveIntervalMinutes = this.AutoSaveIntervalMinutes;
         manager.EditorScrollSpeed = _parent.NoteManager.ScrollSpeed;
+
         manager.Save();
     }
 }
