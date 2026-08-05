@@ -51,7 +51,7 @@ public class ProfileData
             PlayerScores.Add(playerScore);
             return true;
         }
-        if (existing.PerfPercent >= playerScore.PerfPercent)
+        if (existing.PerfPoints >= playerScore.PerfPoints)
         {
             return false;
         }
