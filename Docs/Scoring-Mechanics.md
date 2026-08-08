@@ -9,37 +9,26 @@ Band BoomBox uses two different scoring systems at the same time:
 
 ## Player Scoring
 
-Each player's personal score is based on their performance on the notes they hit. The game tracks one main value for each player:
+Each player's individual score shown as a percentage above the Note Highway. This is calculated based on *Performance Points*, which are awarded for every note hit based on the following table:
 
-- Performance Points (used to calculate the player's percentage)
-
-### How Performance Points Are Awarded
-
-When a player hits a note, the game assigns a judgment based on timing. The better the judgment, the more performance points the player receives.
 
 | Judgment | Performance Points |
 |---------|--------------------:|
 | Crit | 3 |
 | Perfect | 3 |
-| Cool | 2 |
+| Cool | 2* |
 | Ok | 1 |
 | Bad | 0 |
 | Wrong | 0 |
 | Miss | 0 |
 
-> Cool hits are counted as Perfect hits whenever Ally Boosts are applied. For more details, see [Ally-Boost.md](Ally-Boost.md).
+> NOTE: Cool hits are counted as Perfect hits whenever Ally Boosts are applied. For more details, see [Ally-Boost.md](Ally-Boost.md).
 
-A player's current percentage is calculated as:
+A player's current score percentage is simply their current Performance Points, divided by the maximum possible Performance Points for the current song. This grade is then used to calculate the player's Performance Grade, which is displayed on the Song Results Screen. 
 
-- Performance Points earned / Maximum possible performance points for the chart
-
-This means your visible score percentage is a measure of how much of the chart's maximum possible performance you achieved, not just how many notes you hit.
+The individual score also tracks each player's current combo, defined as the number of notes this player has successfully hit without making a mistake. This combo is incremented whenever the player hits a note successfully, and resets when they make a mistake. At the end of the song, each player's *Max Combo* will be displayed on the Song Results Screen.
 
 > NOTE: Turbo has no effect on individual scores, since Crit hits award the same number of Performance Points as Perfect hits.
-
-### Combo
-
-The individual score also tracks each player's current combo, defined as the number of notes successfully hit without making a mistake. This combo is incremented whenever the player hits a note successfully, and resets when they make a mistake. 
 
 ---
 
@@ -49,7 +38,7 @@ In addition to individual scores, the whole team also shares a combined score, d
 
 ### How Team Score Is Earned
 
-Each successful note contributes a base team score value based on the judgment:
+Each note hit contributes a base team score value based on how accurately it was hit:
 
 | Judgment | Team Score Points |
 |---------|------------------:|
@@ -67,7 +56,7 @@ These points are then multiplied by the current score multiplier.
 
 ### Score Multiplier
 
-The score multiplier, also known as Momentum, is shown on the right side on the screen. It starts at 1.0x and can increase or decrease depending on how well the team is doing. Accurate hits raise it, whereas mistakes will lower it. It will also naturally decay over time, back to its initial value of 1.0x. The higher the multiplier, the faster it will decay, and the more difficult it will be to maintain it.
+The score multiplier, also known as Momentum, is shown on the right side on the screen. It starts at 1.0x and will increase or decrease depending on how well the team is doing. Accurate hits raise it, whereas mistakes will lower it. It will also naturally decay over time, back to its initial value of 1.0x. The higher the multiplier, the faster it will decay, and the more difficult it will be to maintain its current value.
 
 ### Multiplier Gain and Loss
 
@@ -89,7 +78,13 @@ Any increase to the multiplier is _itself_ boosted by the Multiplier Gain Rate, 
 
 ### Team Combo
 
-Similar to individual combos, the team score also tracks a shared combo across the whole team. This combo is incremented whenever _any_ player hits a note successfully, and resets when _any_ player makes a mistake. A higher team combo slightly increases the Multiplier Gain Rate, making it easier to build a larger team score during a strong run.
+Similar to individual combos, the team score also tracks a shared combo across the whole team. This combo is incremented whenever _any_ player hits a note successfully, and resets when _any_ player makes a mistake. A higher team combo slightly increases the Multiplier Gain Rate, making it easier to build a larger team score during a strong run. At the end of the song, the team's *Max Combo* will be displayed on the Song Results Screen.
+
+### Stars
+
+The team's overall performance is primarily tracked using Stars. During gameplay, the current number of stars earned, as well as progress to the next one, will be shown next to the Team Score, on the bottom of the screen. The better the team performs, the more Stars awarded. Note that the amount of Team Score required for each star is dynamically adjusted based on the number of players present, and the total number of notes each player needs to hit. Therefore, a star rating of five stars is _always_ attainable, regardless of the number of players present, or their selected difficulties. The maximum possible stars is determined by the number of players present, as indicated in the next section.
+
+> NOTE: Although it is possible to earn more than 5 stars, only 5 stars will actually be drawn in this case. The game will indicate more than 5 stars by changing their colour instead.
 
 ### High Score Categories
 

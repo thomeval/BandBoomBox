@@ -3,6 +3,15 @@ using System.Collections.Generic;
 
 public static class NoteUtils
 {
+    /// <summary>
+    /// Returns the lane number for a given note type. Lane numbers are as follows: 
+    /// 0 - Triggers (LB, LT, RB, RT)(Expert / N.E.R.F difficulty Only)
+    /// 1 - Directions (Left, Up, Right, Down)
+    /// 2 - Buttons (A, B, X, Y)
+    /// </summary>
+    /// <param name="noteType">The note type to determine lane number for.</param>
+    /// <returns>The lane number for the given note type</returns>
+    /// <exception cref="ArgumentException"></exception>
     public static int GetNoteLane(NoteType noteType)
     {
         switch (noteType)
@@ -27,6 +36,29 @@ public static class NoteUtils
                 return 2;
             default:
                 throw new ArgumentException("Unrecognised note type: " + noteType);
+        }
+    }
+
+    /// <summary>
+    /// Returns the lane number for a given note type, similar to GetNoteLane, but with top lane notes clamped to one of the remaining two lanes. Used for the Clamp Notes To Current Difficulty option in the Chart Editor. Lane numbers are as follows:
+    /// 1 - Directions (Left, Up, Right, Down) and Left Triggers (LB, LT)
+    /// 2 - Buttons (A, B, X, Y) and Right Triggers (RB, RT)
+    /// </summary>
+    /// <param name="noteType">The note type to determine lane number for.</param>
+    /// <returns>The lane number for the given note type</returns>
+    public static int GetNoteLaneInTwoLanes(NoteType noteType)
+    {
+        switch (noteType)
+        {
+            case NoteType.LB:
+            case NoteType.LT:
+                return 1;
+            case NoteType.RB:
+            case NoteType.RT:
+            case NoteType.AnyT:
+                return 2;
+            default:
+                return GetNoteLane(noteType);            
         }
     }
 
@@ -196,6 +228,7 @@ public static class NoteUtils
             CalculateAbsoluteTimes(marker, bpm);
         }
     }
+
 }
 
 public enum NoteType

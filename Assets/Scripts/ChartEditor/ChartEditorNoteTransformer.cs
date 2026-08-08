@@ -16,7 +16,7 @@ public partial class ChartEditorNoteTransformer : MonoBehaviour
         _noteManager = _parent.NoteManager;
     }
 
-     private void TransformNotesInCurrentRegion(Dictionary<NoteType, NoteType> lookup)
+    private void TransformNotesInCurrentRegion(Dictionary<NoteType, NoteType> lookup)
     {
         if (!HasValidRegionSet())
         {
@@ -256,7 +256,21 @@ public partial class ChartEditorNoteTransformer : MonoBehaviour
     public void ClampToDifficulty(Difficulty difficulty)
     {
         var lookup = GetClampLookup(difficulty);
-        TransformNotesInCurrentRegion(lookup);
+        var notesAffected = GetNotesInCurrentRegion();
+        foreach (var note in notesAffected)
+        {
+            var salt = GetNoteSaltIndex(note);
+            var options = GetNoteOptions(note.NoteType, difficulty);
+
+            if (options == null)
+            {
+                TransformNote(note, lookup, false);
+            }
+            else
+            {
+                TransformNoteSalted(note, options, salt, false);
+            }
+        }
     }
 
     public void RemoveNotesInsideHolds()
@@ -292,23 +306,111 @@ public partial class ChartEditorNoteTransformer : MonoBehaviour
         return result;
     }
 
-    private void TransformNotes(List<Note> notesAffected, Dictionary<NoteType, NoteType> lookup)
+
+    private NoteType[] GetNoteOptions(NoteType noteType, Difficulty targetDifficulty)
     {
-        foreach (var note in notesAffected)
+        var lane = NoteUtils.GetNoteLane(noteType);
+        var altLane = NoteUtils.GetNoteLaneInTwoLanes(noteType);
+        switch (targetDifficulty)
         {
-            TransformNote(note, lookup);
+            case Difficulty.Beginner:
+                return null;
+            case Difficulty.Mild:
+                switch (noteType)
+                {
+                    case NoteType.Y:
+                        return new NoteType[] { NoteType.A, NoteType.B, NoteType.X };
+                        case NoteType.Up:
+                        return new NoteType[] { NoteType.Down, NoteType.Right, NoteType.Left };
+                    case NoteType.LB:
+                    case NoteType.LT:
+                        return new NoteType[] { NoteType.A, NoteType.B, NoteType.X };
+                    case NoteType.RB:
+                    case NoteType.RT:
+                        return new NoteType[] { NoteType.Down, NoteType.Right, NoteType.Left };
+                    default: return null;
+
+                }
+            case Difficulty.Medium:
+                switch (noteType)
+                {
+                    case NoteType.LB:
+                    case NoteType.LT:
+                        return new NoteType[] { NoteType.A, NoteType.B };
+                    case NoteType.RB:
+                    case NoteType.RT:
+                        return new NoteType[] { NoteType.Down, NoteType.Right };
+                    default: return null;
+                }
+            case Difficulty.Hard:
+                switch (noteType)
+                {
+                    case NoteType.LB:
+                    case NoteType.LT:
+                        return new NoteType[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y };
+                    case NoteType.RB:
+                    case NoteType.RT:
+                        return new NoteType[] { NoteType.Down, NoteType.Right, NoteType.Left, NoteType.Up };
+                    default: return null;
+                }
+            default:
+                return null;
         }
     }
 
-    private void TransformNote(Note note, Dictionary<NoteType, NoteType> lookup)
+    private int GetNoteSaltIndex(Note note)
+    {
+        var result = (int)(note.Position / 4);
+        result += (int)(note.Position / 16);
+        return result;
+    }
+
+    private void TransformNotes(List<Note> notesAffected, Dictionary<NoteType, NoteType> lookup, bool allowCollisions = true)
+    {
+        foreach (var note in notesAffected)
+        {
+            TransformNote(note, lookup, allowCollisions);
+        }
+    }
+
+    private void TransformNote(Note note, Dictionary<NoteType, NoteType> lookup, bool allowCollisions = true)
     {
         if (!lookup.ContainsKey(note.NoteType))
         {
             return;
         }
 
-        note.NoteType = lookup[note.NoteType];
+        if (!allowCollisions)
+        {
+            var newType = lookup[note.NoteType];
+            var existing = _noteManager.GetNoteAtPosition(note.Position, NoteUtils.GetNoteLane(newType));
+            if (existing != null && existing != note)
+            {
+                return;
+            }
+        }
+        SetNoteType(note, lookup[note.NoteType]);
+    }
 
+    private void TransformNoteSalted(Note note, NoteType[] options, int salt, bool allowCollisions = true)
+    {
+        var newType = options[salt % options.Length];
+
+        if (!allowCollisions)
+        {
+
+            var existing = _noteManager.GetNoteAtPosition(note.Position, NoteUtils.GetNoteLane(newType));
+            if (existing != null && existing != note)
+            {
+                return;
+            }
+        }
+        SetNoteType(note, newType);
+    }
+
+    private void SetNoteType(Note note, NoteType newType)
+    {
+        note.NoteType = newType;
         note.Refresh();
 
         var yPos = _noteManager.TopLanePos - (note.Lane * _noteManager.LaneHeight);
