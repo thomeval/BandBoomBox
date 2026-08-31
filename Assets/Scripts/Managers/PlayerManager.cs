@@ -50,6 +50,14 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public bool AnyPlayerAutoPlayEnabled
+    {
+        get
+        {
+            return Players.Any(e => e.ProfileData.AutoPlayEnabled);
+        }
+    }
+
     private PlayerInputManager _playerInputManager;
     private CoreManager _coreManager;
     private ControlsManager _controlsManager;
@@ -604,7 +612,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     public NetworkSessionFavouriteSongSet GetNetworkSessionFavouriteSongSet()
-    {      
+    {
         return NetworkSessionFavouriteSongSet.FromPlayers(this.Players.ToArray());
     }
 
@@ -612,5 +620,51 @@ public class PlayerManager : MonoBehaviour
     {
         var players = this.GetLocalPlayers().ToArray();
         return NetworkMachineFavouriteSongSet.FromPlayers(_coreManager.NetId, players);
+    }
+
+    public bool IsValidHighScoreIndividual(Player player)
+    {
+        bool cheatsEnabled = false;
+
+#if ENABLE_CHEATS
+        cheatsEnabled = true;
+#endif
+
+        if (cheatsEnabled)
+        {
+            return false;
+        }
+        if (player == null)
+        {
+            return false;
+        }
+        if (!player.IsParticipating)
+        {
+            return false;
+        }
+        if (AnyPlayerAutoPlayEnabled)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public bool IsValidHighScoreTeam()
+    {
+        bool cheatsEnabled = false;
+#if ENABLE_CHEATS
+        cheatsEnabled = true;
+#endif
+        if (cheatsEnabled)
+        {
+            return false;
+        }
+
+        if (AnyPlayerAutoPlayEnabled)
+        {
+            return false;
+        }
+        return true;
+
     }
 }

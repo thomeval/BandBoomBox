@@ -28,6 +28,7 @@ public class ProfileData
     public AllyBoostMode AllyBoostMode { get; set; }
     public LaneOrderType LaneOrderType { get; set; } = LaneOrderType.Standard;
     public bool AutoTurboEnabled { get; set; } = false;
+    public bool AutoPlayEnabled { get; set; } = false;
     public bool SeenEnding { get; set; } = false;
     public List<string> FavouriteSongs { get; set; } = new();
 
@@ -39,11 +40,6 @@ public class ProfileData
 
     public bool AddPlayerScore(PlayerScore playerScore)
     {
-        #if ENABLE_CHEATS
-        Debug.LogWarning($"Cheats enabled, ignoring player high score for song {playerScore.SongId}, version {playerScore.SongVersion}, difficulty {playerScore.Difficulty}, chart group {playerScore.ChartGroup}");
-        return false;
-        #endif
-
         var existing = GetPlayerHighScore(playerScore.SongId, playerScore.SongVersion, playerScore.Difficulty, playerScore.ChartGroup);
 
         if (existing == null)

@@ -387,6 +387,12 @@ public class Player : MonoBehaviour
         set { ProfileData.AutoTurboEnabled = value; }
     }
 
+    public bool AutoPlayEnabled
+    {
+        get { return ProfileData.AutoPlayEnabled; }
+        set { ProfileData.AutoPlayEnabled = value; }
+    }
+
     #endregion
 
 

@@ -53,15 +53,17 @@ public class EvaluationManager : ScreenManager
 
         foreach (var player in CoreManager.PlayerManager.GetLocalPlayers())
         {
-            var isPersonalBest = CoreManager.ProfileManager.SavePlayerScore(player, CoreManager.LastTeamScore.SongId, CoreManager.LastTeamScore.SongVersion);
+            var invalid = !CoreManager.PlayerManager.IsValidHighScoreIndividual(player);
+            var isPersonalBest = CoreManager.ProfileManager.SavePlayerScore(player, CoreManager.LastTeamScore.SongId, CoreManager.LastTeamScore.SongVersion, invalid);
 
-            DisplayPlayerResultFrame(player, isPersonalBest);
+            DisplayPlayerResultFrame(player, isPersonalBest, invalid);
             player.ProfileData.SongsPlayed++;
         }
 
         var isTeamBest = CoreManager.HighScoreManager.AddTeamScore(CoreManager.LastTeamScore);
+        var invalidTeamScore = !CoreManager.PlayerManager.IsValidHighScoreTeam();
 
-        SongResultFrame.DisplayResult(CoreManager.LastTeamScore, isTeamBest);
+        SongResultFrame.DisplayResult(CoreManager.LastTeamScore, isTeamBest, invalidTeamScore);
         DisplayMxHistoryBarChart(CoreManager.GameplayStateRecorder.GetMultipliers());
         SongJacketDisplay.DisplayJacket(CoreManager.CurrentSongData);
         CoreManager.SaveAllActiveProfiles();
@@ -79,7 +81,7 @@ public class EvaluationManager : ScreenManager
         MxBarChart.DisplayValues(mxHistoryValues);
     }
 
-    private void DisplayPlayerResultFrame(Player player, bool isPersonalBest)
+    private void DisplayPlayerResultFrame(Player player, bool isPersonalBest, bool invalid)
     {
         var frame = GetFrameForPlayer(player.Slot);
 
@@ -89,7 +91,7 @@ public class EvaluationManager : ScreenManager
 
         (double? rivalPercent, bool isPlayingWithRival) = CoreManager.PlayerManager.GetRivalPerfPercent(player);
         frame.DisplayedPage = 0;
-        frame.DisplayResult(player, isPersonalBest, stars, numPlayers, sectionNames, rivalPercent, isPlayingWithRival);
+        frame.DisplayResult(player, isPersonalBest, stars, numPlayers, sectionNames, rivalPercent, isPlayingWithRival, invalid);
 
         var totalModifier = frame.ExpModifierList.TotalExpModifier;
         player.ApplyExpGain(totalModifier);

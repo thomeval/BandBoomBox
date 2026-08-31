@@ -77,7 +77,6 @@ public class NetPlayMenuManager : ScreenManager
     private string _publicIpServiceUrl = "https://api.ipify.org";
 
     private bool _waitingForCommonSongs = false;
-    private bool _waitingForFavouriteSongs = false;
 
     private void Awake()
     {

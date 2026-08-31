@@ -19,6 +19,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
     public Text TxtMomentum;
     public Text TxtLaneOrderType;
     public Text TxtAutoTurboEnabled;
+    public Text TxtAutoPlayEnabled;
 
     public GameObject MomentumMenuItem;
     public GameObject AllyBoostMenuItem;
@@ -86,6 +87,9 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
             case "Auto Turbo":
                 Parent.Player.AutoTurboEnabled = !Parent.Player.AutoTurboEnabled;
                 break;
+            case "Autoplay":
+                Parent.Player.AutoPlayEnabled = !Parent.Player.AutoPlayEnabled;
+                break;
         }
     }
 
@@ -136,6 +140,7 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         TxtSectionDifficulty.text = player.ProfileData.SectionDifficulty.ToString();
         TxtLaneOrderType.text = player.LaneOrderType.ToString();
         TxtAutoTurboEnabled.text = BoolToOnOff(player.AutoTurboEnabled);
+        TxtAutoPlayEnabled.text = BoolToOnOff(player.AutoPlayEnabled);
     }
 
     private string BoolToOnOff(bool value)

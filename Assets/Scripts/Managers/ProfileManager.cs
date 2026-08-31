@@ -224,10 +224,16 @@ public class ProfileManager : MonoBehaviour
         }
     }
 
-    public bool SavePlayerScore(Player player, string songId, int songVersion)
+    public bool SavePlayerScore(Player player, string songId, int songVersion, bool invalid)
     {
         if (player.ProfileId == null)
         {
+            return false;
+        }
+
+        if (invalid)
+        {
+            Debug.Log($"Not saving invalid player score for player {player.Name}, song {songId}, version {songVersion}");
             return false;
         }
         var profile = this[player.ProfileId];

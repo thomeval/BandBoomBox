@@ -18,6 +18,8 @@ public class PlayerResultFrame : MonoBehaviour
     public Text TxtIsLevelUp;
     public Text TxtIsNewPb;
     public ExpModifierList ExpModifierList;
+    public Color ValidTextColor = Color.white;
+    public Color InvalidTextColor = new Color(1.0f, 0.5f, 0.5f);
 
     [Header("Page 2")]
     public Text TxtCrit;
@@ -103,14 +105,25 @@ public class PlayerResultFrame : MonoBehaviour
         Pages[pageNum].SetActive(true);
     }
 
-    public void DisplayResult(Player player, bool isNewPb, double stars, int numPlayers, string[] sectionNames, double? rivalPercent, bool isPlayingWithRival)
+    public void DisplayResult(Player player, bool isNewPb, double stars, int numPlayers, string[] sectionNames, double? rivalPercent, bool isPlayingWithRival, bool invalid)
     {
         this.gameObject.SetActive(true);
         this.PlayerSlot = player.Slot;
         TxtPlayerName.text = player.Name;
         TxtDifficulty.text = $"{player.GroupAndDifficulty} ({player.ChartDifficultyLevel})";
 
-        TxtIsNewPb.gameObject.SetActive(isNewPb);
+        TxtIsNewPb.text = "";
+        TxtIsNewPb.color = ValidTextColor;
+
+        if (invalid)
+        {
+            TxtIsNewPb.text = "(Invalid)";
+            TxtIsNewPb.color = InvalidTextColor;
+        }
+        else if (isNewPb) 
+        {
+            TxtIsNewPb.text = "New Best!";      
+        }
         var grade = player.GetCurrentGrade().ToString();
         GradeSprite.SetCategoryAndLabel("Grades", grade);
 
@@ -124,6 +137,7 @@ public class PlayerResultFrame : MonoBehaviour
         TxtMaxCombo.text = string.Format("{0:000}", player.MaxCombo);
 
         TxtPercentage.text = Helpers.FormatPercent(player.PerfPercent);
+        TxtPercentage.color = invalid ? InvalidTextColor : ValidTextColor;
         TxtRanking.text = Helpers.FormatRanking(player.Ranking);
         PlayerIdentifier.SetCategoryAndLabel("PlayerIdentifiers", player.GetPlayerIdSprite());
 

@@ -782,7 +782,8 @@ public class GameplayManager : ScreenManager
             NumPlayers = _playerManager.Players.Count(e => e.IsParticipating),
             Category = StateValues.TeamScoreCategory,
             Score = StateValues.Score,
-            Stars = StateValues.Stars
+            Stars = StateValues.Stars,
+            Invalid = CoreManager.PlayerManager.IsValidHighScoreTeam()
         };
     }
 

@@ -16,6 +16,7 @@ public class TeamScore
     public double MaxMultiplier { get; set; }
 
     public int NumPlayers { get; set; }
+    public bool Invalid { get; set; }
 
     public TeamScoreCategory Category { get; set; }
     public double Stars { get; set; }

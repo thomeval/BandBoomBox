@@ -56,6 +56,7 @@ public class ExpModifierList : MonoBehaviour
         AddNumPlayersResult(numPlayers);
         AddRivalScoreResult(player, rivalPerfPercent, isPlayingWithRival);
         AddCheatingPenalty();
+        AddAutoPlayPenalty(player);
     }
 
     private void AddCheatingPenalty()
@@ -63,6 +64,14 @@ public class ExpModifierList : MonoBehaviour
         #if (ENABLE_CHEATS)
         Add("CHEATING!", 0.0f);
         #endif
+    }
+
+    private void AddAutoPlayPenalty(Player player)
+    {
+        if (player.AutoPlayEnabled)
+        {
+            Add("Autoplay Enabled", 0.0f);
+        }
     }
 
     private void AddRivalScoreResult(Player player, double? rivalPerfPercent, bool isPlayingWithRival)

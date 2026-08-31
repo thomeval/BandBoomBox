@@ -1657,6 +1657,8 @@ MonoBehaviour:
   TxtIsLevelUp: {fileID: 5822729880110474750}
   TxtIsNewPb: {fileID: 5822729878852853050}
   ExpModifierList: {fileID: 7309841035957611218}
+  ValidTextColor: {r: 1, g: 1, b: 1, a: 1}
+  InvalidTextColor: {r: 1, g: 0.5, b: 0.5, a: 1}
   TxtCrit: {fileID: 6010764201677349948}
   TxtCritPerc: {fileID: 7994338939319187737}
   TxtPerfect: {fileID: 3527335619459447725}

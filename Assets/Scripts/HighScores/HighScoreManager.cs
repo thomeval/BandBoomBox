@@ -108,12 +108,11 @@ public class HighScoreManager : MonoBehaviour
             return false;
         }
 
-#if ENABLE_CHEATS
+        if (!teamScore.Invalid)
         {
-            Debug.LogWarning($"Cheats enabled, ignoring team score for song {teamScore.SongId}, version {teamScore.SongVersion}, category {teamScore.Category}");
+            Debug.Log($"Not adding invalid team score: {teamScore.SongId}, {teamScore.Category}, v{teamScore.SongVersion} : {teamScore.Score}");
             return false;
         }
-#endif
 
         var existing = GetTeamScore(teamScore.SongId, teamScore.SongVersion, teamScore.NumPlayers);
 

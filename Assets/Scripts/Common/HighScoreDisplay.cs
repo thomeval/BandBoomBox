@@ -11,12 +11,17 @@ public class HighScoreDisplay : MonoBehaviour
     public Text TxtScore;
     public SpriteResolver ScoreCategorySprite;
     public StarMeter StarMeter;
+
+    public Color InvalidScoreColor = new Color(1.0f, 0.5f, 0.5f);
+    public Color ValidScoreColor = Color.white;
+
     public void Display(TeamScore teamScore, int numPlayers)
     {
         var defaultCategory = HighScoreManager.GetScoreCategory(numPlayers);
         if (teamScore == null)
         {
             TxtScore.text = "NONE";
+            TxtScore.color = ValidScoreColor;
             TxtMaxMultiplier.text = "0.00X";
             TxtMaxCombo.text = "000";
             StarMeter.Value = 0.0;
@@ -27,6 +32,7 @@ public class HighScoreDisplay : MonoBehaviour
         }
 
         TxtScore.text = $"{teamScore.Score:00000000}";
+        TxtScore.color = teamScore.Invalid ? InvalidScoreColor : ValidScoreColor;
         TxtMaxMultiplier.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}X", teamScore.MaxMultiplier);
         LblMaxCombo.text = ComboUtils.GetFcCode(teamScore.FullComboType);
         LblMaxCombo.color = ComboUtils.GetFcColor(teamScore.FullComboType);
