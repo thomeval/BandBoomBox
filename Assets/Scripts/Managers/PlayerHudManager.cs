@@ -13,6 +13,7 @@ public class PlayerHudManager : MonoBehaviour
 
     public Text TxtCombo;
     public Text TxtRanking;
+    public GameObject AutoPlayIndicator;
     public Text TxtPerfPercent;
     public Text TxtDifficulty;
     public TimingDisplay TimingDisplay;
@@ -49,6 +50,11 @@ public class PlayerHudManager : MonoBehaviour
         var ranking = Helpers.FormatRanking(Player.Ranking);
 
         TxtRanking.text = ranking;
+
+        if (AutoPlayIndicator != null)
+        {
+            AutoPlayIndicator.SetActive(Player.AutoPlayEnabled);
+        }
 
         TimingDisplay.gameObject.SetActive(Player.TimingDisplayType != TimingDisplayType.Off);
         TimingDisplay.SpriteCategory = "Timing" + Player.TimingDisplayType;

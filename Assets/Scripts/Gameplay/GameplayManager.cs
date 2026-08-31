@@ -419,10 +419,18 @@ public class GameplayManager : ScreenManager
             return;
         }
 
+        var player = _playerManager.GetLocalPlayer(inputEvent.Player);
+        var isPauseEvent = inputEvent.Action == InputAction.Pause || inputEvent.Action == InputAction.Back;
+
+        // Ignore input events from players who have AutoPlay enabled, unless it's a pause event. These players should still be allowed to pause the game.
+        if (player.AutoPlayEnabled && !isPauseEvent)
+        {
+            return;
+        }
+
         if (inputEvent.IsPressed)
         {
-            var player = _playerManager.GetLocalPlayer(inputEvent.Player);
-            if (inputEvent.Action == InputAction.Pause || inputEvent.Action == InputAction.Back)
+            if (isPauseEvent)
             {
                 PauseGame(inputEvent.Player, true);
                 return;
