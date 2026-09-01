@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class NoteUtils
 {
@@ -189,6 +190,15 @@ public static class NoteUtils
             return result;
         }
         return null;
+    }
+
+    public static InputAction GetInputActionForNoteType(NoteType noteType)
+    {
+        if (Enum.TryParse(noteType.ToString(), true, out InputAction result))
+        {
+            return result;
+        }
+        throw new ArgumentException("Unrecognised note type: " + noteType);
     }
 
     public static void CalculateAbsoluteTimes(IEnumerable<NoteBase> notes, float bpm)

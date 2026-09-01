@@ -159,6 +159,7 @@
     <Compile Include="Assets\Scripts\Common\ExpMeter.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorAutoSaver.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorNoteTransformer.Lookups.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\AutoPlayManager.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayHostSubmenu.cs" />
     <Compile Include="Assets\Scripts\Common\PlayerSongSelectFrame.cs" />
     <Compile Include="Assets\Scripts\Credits\SongCreditsArtist.cs" />

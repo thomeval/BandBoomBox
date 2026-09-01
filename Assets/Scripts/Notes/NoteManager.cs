@@ -113,6 +113,9 @@ public class NoteManager : MonoBehaviour
     [field: SerializeField]
     public bool TurboActive { get; set; }
 
+    [field: SerializeField]
+    public bool AutoPlayEnabled { get; set; }
+
     public void CalculateAbsoluteTimes(float bpm)
     {
         NoteUtils.CalculateAbsoluteTimes(this.Notes, bpm);
@@ -401,7 +404,19 @@ public class NoteManager : MonoBehaviour
     /// <returns>The earliest note that exists in the Note Highway.</returns>
     public Note FindNextNote(bool enforceCutoffs)
     {
-        IEnumerable<Note> notes = Notes.Where(e => e.NoteClass == NoteClass.Tap || e.NoteClass == NoteClass.Hold).OrderBy(e => e.AbsoluteTime);
+        return FindNextNote(enforceCutoffs, false);
+    }
+
+    public Note FindNextNote(bool enforceCutoffs, bool includeReleases)
+    {
+        IEnumerable<Note> notes = Notes;
+
+        if (!includeReleases)
+        {
+            notes = notes.Where(e => e.NoteClass == NoteClass.Tap || e.NoteClass == NoteClass.Hold);
+        }
+
+        notes = notes.OrderBy(e => e.AbsoluteTime);
 
         if (enforceCutoffs)
         {

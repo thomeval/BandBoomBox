@@ -132,6 +132,7 @@ public class GameplayManager : ScreenManager
             pHudManager.Player = player;
             player.HudManager = HudManager.PlayerHudManagers[num];
             NoteManagers[num].Slot = player.Slot;
+            NoteManagers[num].AutoPlayEnabled = player.AutoPlayEnabled;
             NoteManagers[num].ParentEnabled = true;
 
             num++;
@@ -428,6 +429,12 @@ public class GameplayManager : ScreenManager
             return;
         }
 
+        OnGameplayPlayerInput(inputEvent, isPauseEvent);
+    }
+
+    public void OnGameplayPlayerInput(InputEvent inputEvent, bool isPauseEvent = false)
+    {
+        var player = _playerManager.GetLocalPlayer(inputEvent.Player);
         if (inputEvent.IsPressed)
         {
             if (isPauseEvent)
