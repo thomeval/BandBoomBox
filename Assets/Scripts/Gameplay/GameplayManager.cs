@@ -476,7 +476,7 @@ public class GameplayManager : ScreenManager
                 var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
 
                 var deviation = SongPosition - note.AbsoluteTime;
-                var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass, allowCrit);
+                var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, note.NoteType, note.NoteClass, allowCrit, player.AutoPlayEnabled);
                 hitResult.NetId = CoreManager.NetId;
                 TryBoostHitResult(hitResult);
                 ApplyHitResult(hitResult);
@@ -610,7 +610,7 @@ public class GameplayManager : ScreenManager
             var allowCrit = _playerManager.GetLocalPlayer(inputEvent.Player).TurboActive;
 
             var deviation = SongPosition - releaseNote.AbsoluteTime;
-            var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, releaseNote.NoteType, releaseNote.NoteClass, allowCrit);
+            var hitResult = _hitJudge.GetHitResult(deviation, inputEvent.Player, player.Difficulty, lane, releaseNote.NoteType, releaseNote.NoteClass, allowCrit, player.AutoPlayEnabled);
             hitResult.NetId = CoreManager.NetId;
             TryBoostHitResult(hitResult);
             ApplyHitResult(hitResult);

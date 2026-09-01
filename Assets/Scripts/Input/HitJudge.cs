@@ -196,7 +196,12 @@ public class HitJudge
         { SectionJudgeResult.Empty, 0.0f }
     };
 
-    public HitResult GetHitResult(float deviation, int player, Difficulty difficulty, int lane, NoteType noteType, NoteClass noteClass, bool allowCrit)
+    public HitResult GetHitResult(float deviation, int player, Difficulty difficulty, int lane, NoteType noteType, NoteClass noteClass)
+    {
+        return GetHitResult(deviation, player, difficulty, lane, noteType, noteClass, false, false);
+    }
+
+    public HitResult GetHitResult(float deviation, int player, Difficulty difficulty, int lane, NoteType noteType, NoteClass noteClass, bool allowCrit, bool autoPlayEnabled)
     {
         var result = new HitResult();
         var value = NoteUtils.GetNoteValue(noteType, noteClass);
@@ -216,6 +221,8 @@ public class HitJudge
             result.DeviationResult = DeviationResult.NotHit;
         }
 
+        ForceAutoPlayJudgeResult(result, autoPlayEnabled);
+
         result.Lane = lane;
         result.PerfPoints = JudgePerfPointValues[judgeResult];
         result.ScorePoints = (int)(JudgeScoreValues[judgeResult] * value);
@@ -224,6 +231,18 @@ public class HitJudge
         result.PlayerSlot = player;
 
         return result;
+    }
+
+    private void ForceAutoPlayJudgeResult(HitResult result, bool autoPlayEnabled)
+    {
+        if (result.DeviationResult == DeviationResult.NotHit || !autoPlayEnabled)
+        {
+            return;
+        }
+        if (result.JudgeResult != JudgeResult.Crit && result.JudgeResult != JudgeResult.Perfect)
+        {
+            result.JudgeResult = JudgeResult.Perfect;
+        }
     }
 
     public HitResult GetMissResult(int lane, int player, Difficulty difficulty)
