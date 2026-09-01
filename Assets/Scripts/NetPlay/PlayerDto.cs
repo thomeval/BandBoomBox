@@ -22,6 +22,7 @@ public class PlayerDto : INetworkSerializable
     public int Momentum;
     public bool TurboActive;
     public bool IsParticipating;
+    public bool AutoPlayEnabled;
     public FullComboType NetFullComboType;
     public AllyBoostMode AllyBoostMode;
     public int SectionHits;
@@ -55,6 +56,7 @@ public class PlayerDto : INetworkSerializable
         serializer.SerializeValue(ref Momentum);
         serializer.SerializeValue(ref TurboActive);
         serializer.SerializeValue(ref IsParticipating);
+        serializer.SerializeValue(ref AutoPlayEnabled);
         serializer.SerializeValue(ref NetFullComboType);
         serializer.SerializeValue(ref AllyBoostMode);
         serializer.SerializeValue(ref SectionHits);
@@ -89,6 +91,7 @@ public class PlayerDto : INetworkSerializable
             Momentum = player.Momentum,
             TurboActive = player.TurboActive,
             IsParticipating = player.IsParticipating,
+            AutoPlayEnabled = player.AutoPlayEnabled,
             NetFullComboType = player.GetFullComboType(),   
             AllyBoostMode = player.ProfileData.AllyBoostMode,
             SectionHits = player.SectionHits,

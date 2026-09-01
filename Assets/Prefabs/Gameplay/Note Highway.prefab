@@ -2265,6 +2265,7 @@ MonoBehaviour:
   FixedBgScrollSpeed: 0
   _scrollingBackgroundOpacity: 0
   <TurboActive>k__BackingField: 0
+  <AutoPlayEnabled>k__BackingField: 0
 --- !u!114 &4621920213517093067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3271,7 +3272,7 @@ SpriteRenderer:
   m_SortingLayerID: 1443845655
   m_SortingLayer: 9
   m_SortingOrder: -1
-  m_Sprite: {fileID: -593418193, guid: 3561d42a901b11b4f9d4d8a6ba14b9e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b3a4648cb9e79a044b6a9441aa6686e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

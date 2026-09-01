@@ -108,7 +108,7 @@ public class HighScoreManager : MonoBehaviour
             return false;
         }
 
-        if (!teamScore.Invalid)
+        if (teamScore.Invalid)
         {
             Debug.Log($"Not adding invalid team score: {teamScore.SongId}, {teamScore.Category}, v{teamScore.SongVersion} : {teamScore.Score}");
             return false;

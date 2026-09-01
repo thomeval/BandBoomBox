@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class AutoPlayManager : MonoBehaviour
 {
     private GameplayManager _gameplayManager;
-    private List<InputEvent> _pendingReleases = new ();
+    private List<InputEvent> _pendingReleases = new();
 
     void Awake()
     {
         Helpers.AutoAssign(ref _gameplayManager);
     }
-  
+
     void Update()
     {
 
@@ -30,38 +30,36 @@ public class AutoPlayManager : MonoBehaviour
                 continue;
             }
 
-            var nextNote = noteManager.FindNextNote(false,true);
+            var nextNote = noteManager.FindNextNote(false, true);
 
-            if (nextNote == null || nextNote.Position > noteManager.SongPositionInBeats)
+            while (nextNote != null && nextNote.Position <= noteManager.SongPositionInBeats)
             {
-                continue;
-            }
+                // Should this input be pressed or released?
+                bool isPressed = false;
 
-            // Should this input be pressed or released?
-            bool isPressed = false;
+                // Should this input be released on the next frame?
+                bool isOnceOff = false;
 
-            // Should this input be released on the next frame?
-            bool isOnceOff = false;
-
-            switch (nextNote.NoteClass)
-            {
-                case NoteClass.Tap:
-                    isPressed = true;
-                    isOnceOff = true;
-                    break;
-                case NoteClass.Hold:
-                    isPressed = true;
-                    break;
-                case NoteClass.Release:
-                    isPressed = false;
-                    break;
+                switch (nextNote.NoteClass)
+                {
+                    case NoteClass.Tap:
+                        isPressed = true;
+                        isOnceOff = true;
+                        break;
+                    case NoteClass.Hold:
+                        isPressed = true;
+                        break;
+                    case NoteClass.Release:
+                        isPressed = false;
+                        break;
+                }
+                var inputEvent = AsInputEvent(noteManager.Slot, nextNote, isPressed);
+                if (isOnceOff)
+                {
+                    _pendingReleases.Add(inputEvent);
+                }
+                _gameplayManager.OnGameplayPlayerInput(inputEvent);
             }
-            var inputEvent = AsInputEvent(noteManager.Slot, nextNote, isPressed);
-            if (isOnceOff)
-            {
-                _pendingReleases.Add(inputEvent);
-            }
-            _gameplayManager.OnGameplayPlayerInput(inputEvent); 
         }
 
     }

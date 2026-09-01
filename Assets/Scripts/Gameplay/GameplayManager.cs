@@ -798,7 +798,7 @@ public class GameplayManager : ScreenManager
             Category = StateValues.TeamScoreCategory,
             Score = StateValues.Score,
             Stars = StateValues.Stars,
-            Invalid = CoreManager.PlayerManager.IsValidHighScoreTeam()
+            Invalid = !CoreManager.PlayerManager.IsValidHighScoreTeam()
         };
     }
 

@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
     {
         get
         {
-            return Players.Any(e => e.ProfileData.AutoPlayEnabled);
+            return Players.Any(e => e.IsParticipating && e.ProfileData.AutoPlayEnabled);
         }
     }
 
