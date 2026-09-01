@@ -59,6 +59,8 @@ public class AutoPlayManager : MonoBehaviour
                     _pendingReleases.Add(inputEvent);
                 }
                 _gameplayManager.OnGameplayPlayerInput(inputEvent);
+
+                nextNote = noteManager.FindNextNote(false, true);
             }
         }
 
