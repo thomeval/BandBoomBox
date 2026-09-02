@@ -17,6 +17,7 @@ public class PlayerJoinFrame : MonoBehaviour
 
     public Player Player;
     public ExpMeter ExpMeter;
+    public bool AllowAutoPlay;
 
     public PlayerState State
     {

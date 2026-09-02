@@ -7,6 +7,8 @@ public class PlayerJoinManager : ScreenManager
     public NetworkPlayerList NetworkPlayerList;
 
     private PlayerManager _playerManager;
+    private NetGameSettings _netGameSettings;
+
     public virtual int ReadyPlayerCount
     {
         get { return PlayerJoinFrames.Count(e => e.State == PlayerState.PlayerJoin_Ready); }
@@ -28,6 +30,8 @@ public class PlayerJoinManager : ScreenManager
         }
 
         Helpers.AutoAssign(ref _playerManager);
+        Helpers.AutoAssign(ref _netGameSettings);
+
         NetworkPlayerList.gameObject.SetActive(CoreManager.IsNetGame);
 
         foreach (var frame in PlayerJoinFrames)
@@ -94,6 +98,9 @@ public class PlayerJoinManager : ScreenManager
             var frame = PlayerJoinFrames[x - 1];
 
             frame.ToggleMenuOptions(CoreManager.Settings.EnableMomentumOption, true, CoreManager.Settings.EnableSectionDifficulty, true);
+
+            // Always allow AutoPlay in local play, but only allow it in netplay if the host has enabled it.
+            frame.AllowAutoPlay = !CoreManager.IsNetGame || _netGameSettings.AllowAutoPlay;
 
             if (player != null)
             {

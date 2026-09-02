@@ -59,6 +59,7 @@ public class SettingsManager : MonoBehaviour
     public int NetGameHostMaxPlayers = 8;
     public NetSongSelectRules NetGameHostSongSelectRules = NetSongSelectRules.AnyonePicks;
     public ushort NetGameHostPort = 3334;
+    public bool NetGameHostAllowAutoPlay = false;
     public string NetGameJoinIpAddress = "127.0.0.1";
     public ushort NetGameJoinPort = 3334;
 

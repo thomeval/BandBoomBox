@@ -28,6 +28,11 @@ public class ServerNetApi : NetworkBehaviour
         set => _netGameSettings.SongSelectRules = value;
     }
 
+    public bool AllowAutoPlay
+    {
+        get => _netGameSettings.AllowAutoPlay;
+        set => _netGameSettings.AllowAutoPlay = value;
+    }
     void Awake()
     {
         Helpers.AutoAssign(ref _playerManager);

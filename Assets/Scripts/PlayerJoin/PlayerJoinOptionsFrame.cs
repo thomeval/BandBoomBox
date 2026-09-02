@@ -98,6 +98,10 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
         switch (args.SelectedItem)
         {
             case "Ready":
+                if (!CheckForAutoPlay())
+                {
+                    return;
+                }
                 Parent.State = PlayerState.PlayerJoin_Ready;
                 break;
             case "Select Profile":
@@ -115,6 +119,21 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
                 Parent.RemovePlayer();
                 break;
         }
+    }
+
+    private bool CheckForAutoPlay()
+    {
+        if (!Parent.Player.AutoPlayEnabled)
+        {
+            return true;
+        }
+        if (Parent.AllowAutoPlay)
+        {
+            return true;
+        }
+
+        Parent.PlaySfx(SoundEvent.Mistake);
+        return false;
     }
 
     public void UpdateMenu()
@@ -179,11 +198,6 @@ public class PlayerJoinOptionsFrame : MonoBehaviour
             note.SetSpriteCategories(Parent.Player.NoteSkin, Parent.Player.LabelSkin);
             x++;
         }
-    }
-
-    public void ShowMomentumOption()
-    {
-        MomentumMenuItem.SetActive(true);
     }
 
     public void ToggleMenuOptions(bool showMomentum, bool showAllyBoost, bool showSectionDifficulty, bool showLaneOrder)

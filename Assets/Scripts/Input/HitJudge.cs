@@ -214,14 +214,14 @@ public class HitJudge
         {
             judgeResult = JudgeResult.Perfect;
         }
-
-        result.JudgeResult = judgeResult;
         if (judgeResult == JudgeResult.Wrong || judgeResult == JudgeResult.Miss)
         {
             result.DeviationResult = DeviationResult.NotHit;
         }
 
-        ForceAutoPlayJudgeResult(result, autoPlayEnabled);
+        judgeResult = ForceAutoPlayJudgeResult(judgeResult, autoPlayEnabled);
+
+        result.JudgeResult = judgeResult;
 
         result.Lane = lane;
         result.PerfPoints = JudgePerfPointValues[judgeResult];
@@ -233,16 +233,17 @@ public class HitJudge
         return result;
     }
 
-    private void ForceAutoPlayJudgeResult(HitResult result, bool autoPlayEnabled)
+    private JudgeResult ForceAutoPlayJudgeResult(JudgeResult result, bool autoPlayEnabled)
     {
-        if (result.DeviationResult == DeviationResult.NotHit || !autoPlayEnabled)
+        if (!autoPlayEnabled)
         {
-            return;
+            return result;
         }
-        if (result.JudgeResult != JudgeResult.Crit && result.JudgeResult != JudgeResult.Perfect)
+        if (result != JudgeResult.Crit && result != JudgeResult.Perfect)
         {
-            result.JudgeResult = JudgeResult.Perfect;
+            result = JudgeResult.Perfect;
         }
+        return result;
     }
 
     public HitResult GetMissResult(int lane, int player, Difficulty difficulty)

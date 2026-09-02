@@ -57,7 +57,7 @@ public class GameplayManager : ScreenManager
         HudManager.UpdateEnergyMeter(_playerManager.AnyTurboActive());
     }
 
-    public GameplayScreenState GameplayState = GameplayScreenState.Intro;
+    public GameplayScreenState GameplayState = GameplayScreenState.NotStarted;
     public GameObject NoteHighways;
 
     public const double OUTRO_TIME = 2.0;
@@ -180,8 +180,6 @@ public class GameplayManager : ScreenManager
         _outroTime = DateTime.Now.AddDays(1);
         _lastUpdate = DateTime.Now;
 
-        GameplayState = GameplayScreenState.Intro;
-
         Debug.Log($"GameplayManager Startup Complete");
     }
 
@@ -286,7 +284,7 @@ public class GameplayManager : ScreenManager
 
     private void UpdateGameplayScreenState()
     {
-        if (GameplayState == GameplayScreenState.Paused || GameplayState == GameplayScreenState.Outro)
+        if (GameplayState == GameplayScreenState.NotStarted || GameplayState == GameplayScreenState.Paused || GameplayState == GameplayScreenState.Outro)
         {
             return;
         }
@@ -391,6 +389,7 @@ public class GameplayManager : ScreenManager
             return;
         }
 
+        GameplayState = GameplayScreenState.Intro;
         _songManager.StartSong();
         UpdatePlayersState(PlayerState.Gameplay_Playing);
     }

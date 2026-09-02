@@ -10,6 +10,7 @@ public class NetPlayHostSubmenu : NetPlaySubmenuBase
     public Text LblHostMessage;
     public Text LblMaxPlayers;
     public Text LblSongSelectRules;
+    public Text LblAllowAutoPlay;
 
     public string Message
     {
@@ -32,6 +33,7 @@ public class NetPlayHostSubmenu : NetPlaySubmenuBase
     }
 
     public NetSongSelectRules SongSelectRules { get; set; }
+    public bool AllowAutoPlay {get;set;}
 
     public override void MenuItemSelected(MenuEventArgs args)
     {
@@ -70,7 +72,9 @@ public class NetPlayHostSubmenu : NetPlaySubmenuBase
             case "Song Selection":
                 SongSelectRules = Helpers.EnumAdd(SongSelectRules, delta, true);
                 break;
-
+                case "Allow AutoPlay":
+                AllowAutoPlay = !AllowAutoPlay;
+                break;
         }
 
         UpdateDisplayedValues();
@@ -81,6 +85,7 @@ public class NetPlayHostSubmenu : NetPlaySubmenuBase
     {
         LblMaxPlayers.text = MaxPlayers.ToString();
         LblSongSelectRules.text = SongSelectRules.ToString();
+        LblAllowAutoPlay.text = AllowAutoPlay ? "On" : "Off";
     }
 
     public override void LoadFromSettings(SettingsManager settingsManager)
@@ -88,6 +93,7 @@ public class NetPlayHostSubmenu : NetPlaySubmenuBase
         MaxPlayers = settingsManager.NetGameHostMaxPlayers;
         HostPort = settingsManager.NetGameHostPort;
         SongSelectRules = settingsManager.NetGameHostSongSelectRules;
+        AllowAutoPlay = settingsManager.NetGameHostAllowAutoPlay;
     }
 
     public override void SaveToSettings(SettingsManager settingsManager)
@@ -95,5 +101,6 @@ public class NetPlayHostSubmenu : NetPlaySubmenuBase
         settingsManager.NetGameHostMaxPlayers = MaxPlayers;
         settingsManager.NetGameHostPort = HostPort;
         settingsManager.NetGameHostSongSelectRules = SongSelectRules;
+        settingsManager.NetGameHostAllowAutoPlay = AllowAutoPlay;
     }
 }

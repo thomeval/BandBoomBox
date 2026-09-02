@@ -148,6 +148,7 @@ public class NetPlayMenuManager : ScreenManager
 
         CoreManager.ServerNetApi.MaxNetPlayers = HostMenu.MaxPlayers;
         CoreManager.ServerNetApi.SongSelectRules = HostMenu.SongSelectRules;
+        CoreManager.ServerNetApi.AllowAutoPlay = HostMenu.AllowAutoPlay;
         CoreManager.ServerNetApi.ServerPasswordHash = PasswordHash;
 
         CoreManager.NetworkManager.ConnectionApprovalCallback = CoreManager.ServerNetApi.ConnectionApprovalCallback;
