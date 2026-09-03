@@ -198,7 +198,7 @@ public class EvaluationManager : ScreenManager
 
     private void TryToContinue()
     {
-        if (CoreManager.PlayerManager.GetLocalPlayers().All(e => e.PlayerState == PlayerState.Evaluation_Ready))
+        if (CoreManager.PlayerManager.GetLocalPlayers().All(e => e.PlayerState == PlayerState.Evaluation_Ready || e.AutoPlayEnabled))
         {
             CoreManager.SongManager.StopSongFade();
             CoreManager.SongManager.StopSong();
