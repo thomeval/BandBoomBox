@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
 
     public ProfileData ProfileData = new() { Name = "Guest" };
 
+    public static Color AutoPlayTextColor = new Color (1.0f, 0.5f, 0.5f); 
+    public static Color NormalTextColor = Color.white;
+
     void Awake()
     {
         _inputManager = this.GetComponent<InputManager>();
@@ -470,6 +473,14 @@ public class Player : MonoBehaviour
         get { return _inputManager.ControllerConnected; }
     }
 
+
+    public Color PlayerTextColor
+    {
+        get
+        {
+            return AutoPlayEnabled ? AutoPlayTextColor : NormalTextColor;
+        }
+    }
     public const string DEFAULT_CHART_GROUP = "Main";
     public string ChartGroup = DEFAULT_CHART_GROUP;
 

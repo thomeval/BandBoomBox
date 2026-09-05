@@ -23,6 +23,7 @@ public class EvaluationNetworkPlayerListItem : NetworkPlayerListItem
         }
 
         SetTextSafe(TxtPerfPercent, Helpers.FormatPercent(Player.PerfPercent));
+        SetTextColorSafe(TxtPerfPercent, Player.PlayerTextColor);
 
         if (GradeSprite != null)
         {
@@ -39,6 +40,7 @@ public class EvaluationNetworkPlayerListItem : NetworkPlayerListItem
         }
 
         SetTextSafe(TxtPlayerLevel, $"{ExpLevelUtils.GetLevel(Player.Exp)}");
+        SetTextColorSafe(TxtPlayerLevel, Player.PlayerTextColor);
         SetTextSafe(TxtDifficulty, $"{Player.GroupAndDifficulty} ({Player.ChartDifficultyLevel})");
 
         var ranking = Player.IsParticipating ? Helpers.FormatRanking(Player.Ranking) : "-";

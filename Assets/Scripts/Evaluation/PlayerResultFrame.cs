@@ -110,6 +110,7 @@ public class PlayerResultFrame : MonoBehaviour
         this.gameObject.SetActive(true);
         this.PlayerSlot = player.Slot;
         TxtPlayerName.text = player.Name;
+        TxtPlayerName.color = player.PlayerTextColor;
         TxtDifficulty.text = $"{player.GroupAndDifficulty} ({player.ChartDifficultyLevel})";
 
         TxtIsNewPb.text = "";

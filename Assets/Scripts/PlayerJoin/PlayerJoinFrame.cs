@@ -72,7 +72,7 @@ public class PlayerJoinFrame : MonoBehaviour
             return;
         }
         TxtPlayerName.text = Player.Name;
-
+        TxtPlayerName.color = Player.PlayerTextColor;
         if (State == PlayerState.PlayerJoin_Options || State == PlayerState.PlayerJoin_Ready)
         {
             TxtPlayerName.Show();

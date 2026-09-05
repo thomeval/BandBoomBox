@@ -89,6 +89,7 @@ public class DifficultySelectFrame : MonoBehaviour
         {
             _player = value;
             TxtPlayerName.text = _player.Name;
+            TxtPlayerName.color = _player.PlayerTextColor;
             ExpMeter.Exp = _player.Exp;
         }
     }

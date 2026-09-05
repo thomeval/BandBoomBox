@@ -23,7 +23,9 @@ public class NetworkPlayerListItem : MonoBehaviour
         }
 
         SetTextSafe(TxtPlayerName, Player.Name);
+        SetTextColorSafe(TxtPlayerName, Player.PlayerTextColor);
         SetTextSafe(TxtPlayerStatus, GetStatusText(Player.PlayerState));
+        SetTextColorSafe(TxtPlayerStatus, Player.PlayerTextColor);
 
         if (PlayerIdentifier != null)
         {
@@ -31,6 +33,7 @@ public class NetworkPlayerListItem : MonoBehaviour
         }
 
         SetTextSafe(TxtPlayerLevel, $"{ExpLevelUtils.GetLevel(Player.Exp)}");
+        SetTextColorSafe(TxtPlayerLevel, Player.PlayerTextColor);
         SetTextSafe(TxtNetId, $"({Player.DisplayNetId})");
 
     }
@@ -43,6 +46,17 @@ public class NetworkPlayerListItem : MonoBehaviour
         }
 
         textBox.text = value;
+    }
+
+    protected void SetTextColorSafe(Text textBox, Color color)
+    {
+        if (textBox == null)
+        {
+
+            return;
+        }
+
+        textBox.color = color;
     }
 
     protected virtual string GetStatusText(PlayerState playerState)

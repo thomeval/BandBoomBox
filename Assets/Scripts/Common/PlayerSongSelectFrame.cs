@@ -23,6 +23,7 @@ public class PlayerSongSelectFrame : MonoBehaviour
 
         PlayerIdentifier.SetCategoryAndLabel("PlayerIdentifiers", Player.GetPlayerIdSprite());
         TxtPlayerName.text = Player.Name;
+        TxtPlayerName.color = Player.PlayerTextColor;
         ExpMeter.Exp = Player.Exp;
     }
 

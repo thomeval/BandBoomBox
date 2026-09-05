@@ -113,6 +113,11 @@ public class PlayerManager : MonoBehaviour
         return Players.Where(e => e.IsLocalPlayer).ToList();
     }
 
+    public List<Player> GetLocalHumanPlayers()
+    {
+        return Players.Where(e => e.IsLocalPlayer && !e.AutoPlayEnabled).ToList();
+    }
+
     public List<Player> GetRemotePlayers()
     {
         return Players.Where(e => !e.IsLocalPlayer).ToList();
@@ -441,6 +446,7 @@ public class PlayerManager : MonoBehaviour
         toPlayer.ScrollSpeed = fromPlayer.ScrollSpeed;
         toPlayer.TurboActive = fromPlayer.TurboActive;
         toPlayer.IsParticipating = fromPlayer.IsParticipating;
+        toPlayer.AutoPlayEnabled = fromPlayer.AutoPlayEnabled;
         toPlayer.NetFullComboType = fromPlayer.NetFullComboType;
         toPlayer.ProfileData.AllyBoostMode = fromPlayer.AllyBoostMode;
         toPlayer.SectionHits = fromPlayer.SectionHits;
@@ -667,4 +673,5 @@ public class PlayerManager : MonoBehaviour
         return true;
 
     }
+
 }

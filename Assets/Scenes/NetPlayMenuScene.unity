@@ -409,11 +409,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'NOTE: Network multiplayer is currently in beta and is significantly less
-    stable than local multiplayer.
-
-    Feel free to experiment and have fun, but
-    expect bugs and other unwanted behaviour.'
+  m_Text: 
 --- !u!222 &49894921
 CanvasRenderer:
   m_ObjectHideFlags: 0
