@@ -138,6 +138,8 @@ public class DifficultySelectFrame : MonoBehaviour
             ddi.DisplayGrade(grade);
             DifficultyMenu.AddItem(obj);
         }
+
+        DifficultyMenu.SelectedIndex = 0;
     }
 
     public void HandleInput(InputEvent inputEvent)

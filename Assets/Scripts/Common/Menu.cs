@@ -221,8 +221,8 @@ public class Menu : MonoBehaviour
             return 0;
         }
 
-        var containerMiddle = _itemsContainerRectTransform.position.y;
-        var itemMiddle = SelectedGameObject.GetComponent<RectTransform>().position.y;
+        var containerMiddle = 0;
+        var itemMiddle = SelectedGameObject.GetComponent<RectTransform>().localPosition.y;
 
         var result = containerMiddle - itemMiddle;
         result = Mathf.Clamp(result, 0, diff);
