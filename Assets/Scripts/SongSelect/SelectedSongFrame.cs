@@ -13,6 +13,9 @@ public class SelectedSongFrame : MonoBehaviour
     public Text TxtLength;
     public SongIssuesDisplay SongIssuesDisplay;
     public SongJacketDisplay SongJacketDisplay;
+    public GameObject NewSongIcon;
+    public GameObject MultiGroupIcon;
+    public GameObject UnavailableIcon;
 
     [SerializeField]
     private SongData _selectedSong;
@@ -40,6 +43,9 @@ public class SelectedSongFrame : MonoBehaviour
             TxtAuthor.text = SelectedSong.ChartAuthor;
             SongIssuesDisplay.SongData = SelectedSong;
             SongJacketDisplay.DisplayJacket(SelectedSong);
+            MultiGroupIcon.SetActive(SelectedSong.IsMultiGroup);
+            UnavailableIcon.SetActive(!SelectedSong.IsAvailable);
+            NewSongIcon.SetActive(SelectedSong.IsNew);
         }
 
     }

@@ -211,6 +211,15 @@ namespace Assets
             Songs.Add(songData);
         }
 
+        public void SetIsNewFlags(HighScoreManager highScoreManager)
+        {
+            foreach (var song in Songs)
+            {
+                var hasHighScore = highScoreManager.HasTeamScore(song.ID, song.Version);
+                song.IsNew = !hasHighScore;
+            }
+        }
+
         public SongLibraryEntry[] AsSongEntryCollection()
         {
             return Songs.Select(e => new SongLibraryEntry

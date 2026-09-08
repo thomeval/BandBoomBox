@@ -32,6 +32,10 @@ public class SongData
     [NonSerialized]
     public bool IsAvailable = true;
 
+    [JsonIgnore]
+    [NonSerialized]
+    public bool IsNew = false;
+
     [Header("Timing")]
     public float Bpm;
     public float AudioStart;
@@ -60,6 +64,16 @@ public class SongData
         {
             return Mathf.Max(0,0f, this.Length - this.Offset);
         }
+    }
+
+   public string[] ChartGroups
+    {
+        get { return SongCharts.Select(e => e.Group).Distinct().ToArray(); }
+    }
+
+   public bool IsMultiGroup
+    {
+        get { return this.ChartGroups.Length > 1; }
     }
 
     public SongChart GetChart(string group, Difficulty difficulty)

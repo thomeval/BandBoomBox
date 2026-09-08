@@ -63,6 +63,7 @@ public class EvaluationManager : ScreenManager
         var isTeamBest = CoreManager.HighScoreManager.AddTeamScore(CoreManager.LastTeamScore);
         var invalidTeamScore = !CoreManager.PlayerManager.IsValidHighScoreTeam();
 
+        UpdateIsNewFlag(invalidTeamScore);
         SongResultFrame.DisplayResult(CoreManager.LastTeamScore, isTeamBest, invalidTeamScore);
         DisplayMxHistoryBarChart(CoreManager.GameplayStateRecorder.GetMultipliers());
         SongJacketDisplay.DisplayJacket(CoreManager.CurrentSongData);
@@ -71,6 +72,15 @@ public class EvaluationManager : ScreenManager
         StartCoroutine(PlayGradeSfx());
         UpdatePlayersState(PlayerState.Evaluation_NotReady);
         RefreshPlayerList();
+    }
+
+    private void UpdateIsNewFlag(bool invalidTeamScore)
+    {
+        if (!invalidTeamScore)
+        {
+            CoreManager.CurrentSongData.IsNew = false;
+            return;
+        }
     }
 
     private void DisplayMxHistoryBarChart(float[] mxHistoryValues)

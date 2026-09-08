@@ -178,4 +178,9 @@ public class HighScoreManager : MonoBehaviour
             .Sum();
         return stars;
     }
+
+    public bool HasTeamScore(string songId, int songVersion)
+    {
+        return TeamScores.Any(e => e.SongId == songId && e.SongVersion == songVersion);
+    }
 }
