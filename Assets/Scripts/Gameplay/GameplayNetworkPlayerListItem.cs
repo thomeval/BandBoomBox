@@ -11,6 +11,8 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
     public GameObject TurboBackground;
     public SectionResultDisplay SectionResultDisplay;
     public AllyBoostStatusDisplay AllyBoostStatusDisplay;
+    public static Color AutoPlayTextColor = new Color (0.8f, 0.0f, 0.0f); 
+    public static Color NormalTextColor = Color.black;
 
     private AllyBoostManager _allyBoostManager;
 
@@ -22,6 +24,10 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
         {
             Helpers.AutoAssign(ref _allyBoostManager);
         }
+
+        var playerColor = Player.AutoPlayEnabled ? AutoPlayTextColor : NormalTextColor;
+        SetTextColorSafe(TxtPlayerName, playerColor);
+        SetTextColorSafe(TxtChartGroupDifficulty, playerColor);
 
         if (TxtChartGroupDifficulty != null)
         {
@@ -40,6 +46,7 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
         }
 
         SetTextSafe(TxtCombo, $"{Player.Combo:000}");
+        SetTextColorSafe (TxtCombo, playerColor);
 
         if (!Player.IsParticipating)
         {
@@ -54,6 +61,9 @@ public class GameplayNetworkPlayerListItem : NetworkPlayerListItem
             AllyBoostStatusDisplay.UpdateDisplay(_allyBoostManager.GetPlayer(Player.NetId, Player.Slot));
             AllyBoostStatusDisplay.gameObject.SetActive(true);
         }
+
+        SetTextColorSafe(TxtRanking, playerColor);
+        SetTextColorSafe(TxtPerfPercent, playerColor);
 
         if (TurboBackground != null)
         {

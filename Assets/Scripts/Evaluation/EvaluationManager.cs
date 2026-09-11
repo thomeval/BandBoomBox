@@ -96,7 +96,7 @@ public class EvaluationManager : ScreenManager
         var frame = GetFrameForPlayer(player.Slot);
 
         var stars = CoreManager.LastTeamScore.Stars;
-        var numPlayers = CoreManager.PlayerManager.GetLocalHumanPlayers().Count;
+        var numPlayers = CoreManager.PlayerManager.GetHumanPlayers().Count;
         var sectionNames = CoreManager.CurrentSongData.GetSectionNames();
 
         (double? rivalPercent, bool isPlayingWithRival) = CoreManager.PlayerManager.GetRivalPerfPercent(player);

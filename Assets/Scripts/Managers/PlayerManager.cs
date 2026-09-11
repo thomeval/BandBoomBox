@@ -118,6 +118,11 @@ public class PlayerManager : MonoBehaviour
         return Players.Where(e => e.IsLocalPlayer && !e.AutoPlayEnabled).ToList();
     }
 
+    public List<Player> GetHumanPlayers()
+    {
+        return Players.Where(e => !e.AutoPlayEnabled && e.IsParticipating).ToList();
+    }
+
     public List<Player> GetRemotePlayers()
     {
         return Players.Where(e => !e.IsLocalPlayer).ToList();

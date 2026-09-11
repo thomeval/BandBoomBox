@@ -39,7 +39,8 @@ public class InputManager : MonoBehaviour
         {"Keyboard", "#KEYBOARD#"},
         {"XInputController", "ABXY"},
         {"SwitchProControllerHID", "BAYX" },
-        {"PS4", "Symbols" },
+        {"DualShock4GamepadHID", "Symbols" },
+        {"DualShock5GamepadHID", "Symbols" },
         {"Gamepad", "ABXY"}
     };
 
