@@ -264,7 +264,7 @@ Step-by-step breakdown:
 8. **Beat 7 (`"0070 0D00"`)**:
    - Contains two 4-character blocks (half-beat division).
    - At beat 7.0 (`"0070"`): Lane 2 has character `'7'` (`A` Button Tap).
-   - At beat 7.5 (`"00D0"`): Lane 2 has character `'D'` (`B` Button Tap).
+   - At beat 7.5 (`"00D0"`): Lane 1 has character `'D'` (`Right` D-Pad Tap).
 9. **Beat 8 (`"0080"`)**:
    - Lane 2 (Action Buttons) has character `'8'` (`A` Button Hold Start).
    - An `A` button hold note begins at beat 8.0.
