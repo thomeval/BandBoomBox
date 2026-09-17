@@ -6,7 +6,7 @@ The **.sjson** (Song JSON) file format is used by Band BoomBox to store song met
 
 ## File Location and Naming
 
-Each song in Band BoomBox resides in its own folder within a supported `Songs` directory (such as `StreamingAssets/Songs/<author>/<song_name>/`). A typical song folder contains:
+Each song in Band BoomBox resides in a folder within a configured `Songs` directory (such as `StreamingAssets/Songs/<author>/<song_name>/`). A typical song folder contains the following files for each song:
 
 - **`<SongName>.sjson`**: The song data file containing chart and timing information.
 - **`<AudioFile>.ogg`** (or `.wav` / `.mp3` /`.flac`): The audio track.
@@ -49,7 +49,7 @@ At the root level, an `.sjson` file is a single JSON object with the following t
 
 | Field | Type | Description |
 |---|---|---|
-| `ID` | string | A unique identifier (UUID/GUID string) for the song. Automatically set the Song Editor when a song is first created. |
+| `ID` | string | A unique identifier (UUID/GUID string) for the song. Automatically set by the Song Editor when a song is first created. |
 | `Version` | integer | The version of the song. Increment this to reset individual and team high scores if the song receives significant changes later on.|
 | `Title` | string | The display title of the song (e.g., `"Lightseeker"`). |
 | `Subtitle` | string | Optional subtitle or remix detail (e.g., `"Band Version"` or `""`). |
