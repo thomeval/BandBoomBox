@@ -39,6 +39,7 @@ public class MxMeter : MonoBehaviour
     public int MeterWidth = 260;
 
     public float MultiplierChangeRate = 2.0f;
+    public float HighSpeedCutoff = 20.0f;
     private float _displayedMultiplier = 1.0f;
 
     [SerializeField]
@@ -63,7 +64,10 @@ public class MxMeter : MonoBehaviour
     {
         if (Math.Abs(_displayedMultiplier - _multiplier) > Mathf.Epsilon)
         {
-            _displayedMultiplier = Mathf.MoveTowards(_displayedMultiplier, _multiplier, MultiplierChangeRate * Time.deltaTime);
+            var highSpeed = _multiplier > HighSpeedCutoff || _displayedMultiplier > HighSpeedCutoff;
+            var changeRate = highSpeed ? 2.0f : 1.0f;
+            changeRate *= MultiplierChangeRate;
+            _displayedMultiplier = Mathf.MoveTowards(_displayedMultiplier, _multiplier, changeRate * Time.deltaTime);
             UpdateSprites();
         }
     }

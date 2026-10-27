@@ -66,11 +66,13 @@ public class SongData
         }
     }
 
+   [JsonIgnore]
    public string[] ChartGroups
     {
         get { return SongCharts.Select(e => e.Group).Distinct().ToArray(); }
     }
 
+   [JsonIgnore]
    public bool IsMultiGroup
     {
         get { return this.ChartGroups.Length > 1; }

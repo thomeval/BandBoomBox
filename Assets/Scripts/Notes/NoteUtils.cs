@@ -59,7 +59,7 @@ public static class NoteUtils
             case NoteType.AnyT:
                 return 2;
             default:
-                return GetNoteLane(noteType);            
+                return GetNoteLane(noteType);
         }
     }
 
@@ -161,7 +161,7 @@ public static class NoteUtils
                 return new[] { NoteType.AnyB, NoteType.AnyD };
             case Difficulty.Medium:
                 return new[] { NoteType.A, NoteType.B, NoteType.Left, NoteType.Down };
-                case Difficulty.Mild:
+            case Difficulty.Mild:
                 return new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Left, NoteType.Down, NoteType.Right };
             case Difficulty.Hard:
                 return new[] { NoteType.A, NoteType.B, NoteType.X, NoteType.Y, NoteType.Left, NoteType.Down, NoteType.Up, NoteType.Right };
@@ -194,11 +194,21 @@ public static class NoteUtils
 
     public static InputAction GetInputActionForNoteType(NoteType noteType)
     {
-        if (Enum.TryParse(noteType.ToString(), true, out InputAction result))
+        switch (noteType)
         {
-            return result;
+            case NoteType.AnyB:
+                return InputAction.A;
+            case NoteType.AnyD:
+                return InputAction.Down;
+            case NoteType.AnyT:
+                return InputAction.LB;
+            default:
+                if (Enum.TryParse(noteType.ToString(), true, out InputAction result))
+                {
+                    return result;
+                }
+                throw new ArgumentException("Unrecognised note type: " + noteType);
         }
-        throw new ArgumentException("Unrecognised note type: " + noteType);
     }
 
     public static void CalculateAbsoluteTimes(IEnumerable<NoteBase> notes, float bpm)
