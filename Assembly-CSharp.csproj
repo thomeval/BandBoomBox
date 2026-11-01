@@ -139,6 +139,7 @@
     <Compile Include="Assets\Scripts\Gameplay\AllyBoost\AllyBoostPlayerStateDto.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorClipboard.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteUtils.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\NoteAutoFill\BeginnerTwoBeatProvider.cs" />
     <Compile Include="Assets\Scripts\Gameplay\LrrDisplay.cs" />
     <Compile Include="Assets\Scripts\Common\SoundEvent.cs" />
     <Compile Include="Assets\Scripts\Misc\SecretCodeHandler.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Assets\Scripts\Gameplay\CountdownDisplay.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteGenerator.cs" />
     <Compile Include="Assets\BoostStatsDisplay.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\NoteAutoFill\NoteAutoFillProviderBase.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayMultiplierUtils.cs" />
     <Compile Include="Assets\Scripts\Common\StarMeter.cs" />
     <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicEntry.cs" />
@@ -291,6 +293,7 @@
     <Compile Include="Assets\SongJacketDisplay.cs" />
     <Compile Include="Assets\Scripts\Gameplay\AllyBoost\AllyBoostManager.cs" />
     <Compile Include="Assets\Scripts\Songs\SongValidator.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\NoteAutoFill\NoteAutoFiller.cs" />
     <Compile Include="Assets\Scripts\Notes\RegionMarker.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\ProfileListItem.cs" />
     <Compile Include="Assets\Scripts\PlayerJoin\PlayerJoinFrame.cs" />

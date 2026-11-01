@@ -21,6 +21,7 @@ public class ChartEditorMenuManager : MonoBehaviour
     public GameObject RootMenuContainer;
 
     public Text MivPasteMode;
+    public Text MivAutoFillProvider;
 
     [SerializeField]
     private Menu _activeMenu;
@@ -139,6 +140,9 @@ public class ChartEditorMenuManager : MonoBehaviour
                 case ChartEditorState.MainMenu:
                 MenuItemShiftedMain(args);
                 break;
+                case ChartEditorState.ModifyMenu:
+                MenuItemShiftedModify(args);
+                break;
         }
     }
 
@@ -149,6 +153,15 @@ public class ChartEditorMenuManager : MonoBehaviour
             case "Paste":
                 _pasteInverted = !_pasteInverted;
                 MivPasteMode.text = _pasteInverted ? "Inverted" : "Normal";
+                break;
+        }
+    }
+
+    private void MenuItemShiftedModify(MenuEventArgs args)
+    {
+        switch (args.SelectedItem)
+        {
+            case "AutoFill":
                 break;
         }
     }
@@ -317,6 +330,10 @@ public class ChartEditorMenuManager : MonoBehaviour
                 case "Clear Notes Outside Playable Area":
                     _parent.NoteTransformer.ClearNotesOutsidePlayableArea();
                     _parent.ChartEditorState = ChartEditorState.Edit;
+                break;
+                case "AutoFill":
+                _parent.NoteAutoFiller.AutoFill("Beginner Pattern");
+                 _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
             default:
                 throw new Exception("Unknown menu item selected: " + args.SelectedItem);

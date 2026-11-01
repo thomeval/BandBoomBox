@@ -158,7 +158,7 @@ public class NoteGenerator : MonoBehaviour
 
     }
 
-    private Note InstantiateNote(NoteBase noteBase)
+    public Note InstantiateNote(NoteBase noteBase)
     {
         var prefab = noteBase.NoteClass == NoteClass.Hold ? HoldNotePrefab : TapNotePrefab;
         var note = Instantiate(prefab);

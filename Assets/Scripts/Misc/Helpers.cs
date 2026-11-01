@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using static TreeEditor.TreeEditorHelper;
 using Debug = UnityEngine.Debug;
 
 public static class Helpers
@@ -580,6 +581,16 @@ public static class Helpers
             SectionJudgeResult.Poor => Color.red,
             _ => Color.gray,
         };
+    }
+
+    public static T PickRandom<T>(this T[] array)
+    {
+        if (array.Length == 0) 
+        {
+            throw new ArgumentException("Array cannot be empty", nameof(array));
+        }
+        var idx = UnityEngine.Random.Range(0, array.Length);
+        return array[idx];
     }
 }
 

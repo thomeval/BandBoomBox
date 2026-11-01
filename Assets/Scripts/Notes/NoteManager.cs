@@ -619,7 +619,6 @@ public class NoteManager : MonoBehaviour
         {
             Notes.Add(note);
         }
-
         note.transform.SetParent(this.transform, false);
         note.transform.localPosition = new Vector3(9999.0f, note.transform.localPosition.y);
         note.SetSpriteCategories(this.NoteSkin, this.LabelSkin);

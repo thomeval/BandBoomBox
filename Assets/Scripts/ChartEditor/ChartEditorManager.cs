@@ -42,6 +42,7 @@ public class ChartEditorManager : ScreenManager
     public ChartEditorAutoSaver AutoSaver;
     public LrrDisplay LrrDisplay;
     public ChartEditorNoteClapper NoteClapper;
+    public NoteAutoFiller NoteAutoFiller;
 
     [SerializeField]
     private ChartEditorState _chartEditorState;
