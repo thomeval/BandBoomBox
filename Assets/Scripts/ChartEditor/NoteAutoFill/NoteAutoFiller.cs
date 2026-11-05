@@ -15,19 +15,42 @@ public class NoteAutoFiller : MonoBehaviour
 
     public List<NoteAutoFillProviderBase> Providers = new()
     {
-        new BeginnerTwoBeatProvider()
+        new BeginnerTwoBeatProvider(),
+        new MediumPatternProvider()
     };
 
+    public string GetProviderName(int idx)
+    {
+        if (idx < 0 || idx >= Providers.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(idx));
+        }
+
+        return Providers[idx].DisplayName;
+    }
+
+    public void AutoFill(int providerIdx)
+    {
+        if (providerIdx < 0 || providerIdx >= Providers.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(providerIdx));
+        }
+
+        AutoFill(Providers[providerIdx]);
+    }
     public void AutoFill(string providerName)
     {
-
         var provider = Providers.SingleOrDefault(e => e.DisplayName == providerName);
-
         if (provider == null)
         {
             throw new ArgumentException("Unrecognised AutoFill Provider name: " + providerName);
         }
 
+        AutoFill(provider);
+    }
+
+    private void AutoFill(NoteAutoFillProviderBase provider)
+    {
         if (!_parent.RegionSelected)
         {
             return;

@@ -53,7 +53,7 @@ public class EditorDetailsPage : EditorPageManager
         TxtUrl.text = CurrentSong.Url;
 
         TxtAudioStart.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", CurrentSong.AudioStart);
-        TxtBpm.text = string.Format(CultureInfo.InvariantCulture, "{0:F1}", CurrentSong.Bpm);
+        TxtBpm.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", CurrentSong.Bpm);
         TxtOffset.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", CurrentSong.Offset);
         TxtLength.text = string.Format(CultureInfo.InvariantCulture, "{0:F2}", CurrentSong.Length);
         TxtBeatsInMeasure.text = string.Format(CultureInfo.InvariantCulture, "{0:F0}", CurrentSong.BeatsPerMeasure);

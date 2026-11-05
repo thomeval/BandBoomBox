@@ -5,7 +5,6 @@ using System.Globalization;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using static TreeEditor.TreeEditorHelper;
 using Debug = UnityEngine.Debug;
 
 public static class Helpers

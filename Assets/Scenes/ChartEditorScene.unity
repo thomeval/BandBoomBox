@@ -8483,7 +8483,7 @@ MonoBehaviour:
   MnuControllerControlsContainer: {fileID: 1485529268}
   RootMenuContainer: {fileID: 1812812612}
   MivPasteMode: {fileID: 1684662005}
-  MivAutoFillProvider: {fileID: 0}
+  MivAutoFillProvider: {fileID: 1394547630}
   _activeMenu: {fileID: 0}
 --- !u!1001 &1001548637
 PrefabInstance:
@@ -10412,7 +10412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5521492879070094478, guid: 1f472bb04073d7140952b6e25965e0b8, type: 3}
       propertyPath: IsShiftable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12242,7 +12242,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Provider
+  m_Text: Beginner Pattern
 --- !u!222 &1394547631
 CanvasRenderer:
   m_ObjectHideFlags: 0

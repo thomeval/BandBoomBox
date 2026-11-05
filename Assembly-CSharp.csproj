@@ -310,6 +310,7 @@
     <Compile Include="Assets\Scripts\SongEditor\EditorManager.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayMenu\Submenus\NetPlayMainSubmenu.cs" />
     <Compile Include="Assets\Scripts\Input\HitResult.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\NoteAutoFill\MediumPatternProvider.cs" />
     <Compile Include="Assets\Scripts\DifficultySelect\PlayerHighScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\NetPlay\ClientNetApi.cs" />
     <Compile Include="Assets\SongFavouriteManager.cs" />

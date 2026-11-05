@@ -19,5 +19,4 @@ public abstract class NoteAutoFillProviderBase
     {
         return noteTypes.PickRandom();
     }
-
 }

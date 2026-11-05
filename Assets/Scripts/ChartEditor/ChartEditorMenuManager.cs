@@ -32,6 +32,7 @@ public class ChartEditorMenuManager : MonoBehaviour
     }
 
     private bool _pasteInverted = false;
+    private int _selectedAutoFillProvider = 0;
 
     private readonly ChartEditorState[] _handledStates = new[]
     {
@@ -162,6 +163,9 @@ public class ChartEditorMenuManager : MonoBehaviour
         switch (args.SelectedItem)
         {
             case "AutoFill":
+                _selectedAutoFillProvider += args.ShiftAmount;
+                _selectedAutoFillProvider = Mathf.Clamp(_selectedAutoFillProvider, 0, _parent.NoteAutoFiller.Providers.Count - 1);
+                MivAutoFillProvider.text = _parent.NoteAutoFiller.GetProviderName(_selectedAutoFillProvider);
                 break;
         }
     }
@@ -332,8 +336,8 @@ public class ChartEditorMenuManager : MonoBehaviour
                     _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
                 case "AutoFill":
-                _parent.NoteAutoFiller.AutoFill("Beginner Pattern");
-                 _parent.ChartEditorState = ChartEditorState.Edit;
+                _parent.NoteAutoFiller.AutoFill(_selectedAutoFillProvider);
+                _parent.ChartEditorState = ChartEditorState.Edit;
                 break;
             default:
                 throw new Exception("Unknown menu item selected: " + args.SelectedItem);
