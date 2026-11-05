@@ -13,8 +13,16 @@ public static class SongChartSuggestedDifficulty
 	};
 
 
-	public static int? GetSuggestedDifficulty(Difficulty difficulty, double nps)
+	public static int? GetSuggestedDifficulty(SongChart chart)
 	{
+        var nps = chart.NoteCounts.TrimmedAverageNps;
+        var difficulty = chart.Difficulty;
+
+        if (difficulty == Difficulty.Extra)
+        {
+            difficulty = GetDifficultyFromLaneCounts(chart.NoteCounts);
+        }
+
         if (nps < 0.01)
         {
             return null;
@@ -34,4 +42,14 @@ public static class SongChartSuggestedDifficulty
 		}
 		return thresholds.Length;
 	}
+
+    private static Difficulty GetDifficultyFromLaneCounts(SongChartNoteCounts noteCounts)
+    {
+        if (noteCounts.LaneNotes[0] > 0)
+        {
+            return Difficulty.Expert;;
+        }
+
+        return Difficulty.Hard;
+    }
 }

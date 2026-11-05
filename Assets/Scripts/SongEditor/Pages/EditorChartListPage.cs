@@ -208,8 +208,8 @@ public class EditorChartListPage : EditorPageManager
     {
         foreach (var chart in DisplayedCharts)
         {
-            var nps = chart.DisplayedChart.NoteCounts.TrimmedAverageNps;
-            var suggestedDifficulty = SongChartSuggestedDifficulty.GetSuggestedDifficulty(chart.DisplayedChart.Difficulty, nps);
+            var suggestedDifficulty = SongChartSuggestedDifficulty.GetSuggestedDifficulty(chart.DisplayedChart);
+
             if (suggestedDifficulty.HasValue)
             {
                 chart.DisplayedChart.DifficultyLevel = suggestedDifficulty.Value;
