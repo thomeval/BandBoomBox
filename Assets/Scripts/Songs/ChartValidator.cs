@@ -31,7 +31,7 @@ public static class ChartValidator
     {
         var result = new List<Note>();
         var holdRegions = GetHoldRegions(notes);
-        result.AddRange(notes.Where(e => holdRegions.Any(r => r.IsInsideRegion(e))));
+        result.AddRange(notes.Where(e => holdRegions.Any(r => r.IsInsideRegionAndLane(e))));
         return result;
     }
 

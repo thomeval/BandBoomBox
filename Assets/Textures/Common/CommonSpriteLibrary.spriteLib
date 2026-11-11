@@ -344,6 +344,37 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 21300000, guid: 7d09821ce06a97b47b8c3f0431957d5d, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 4
+  - m_Name: UrlIcons
+    m_Hash: 833397903
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: None
+      m_Hash: 530755569
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    - m_Name: Other
+      m_Hash: 412686884
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    - m_Name: Discord
+      m_Hash: 24059996
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    - m_Name: SoundCloud
+      m_Hash: 730869893
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    - m_Name: Web
+      m_Hash: 763657905
+      m_Sprite: {fileID: 21300000, guid: 74722ed9291f6de4eb088322315db8b6, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 74722ed9291f6de4eb088322315db8b6, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 5
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639141731159558714
+  m_ModificationHash: 639296372879680645
   m_Version: 1

@@ -24,6 +24,26 @@
 		"Risen"
 		]	
 	},
+	{
+		"Name" : "Kyle Ward",
+		"WebsiteUrl" : "https://kyleaward.com",
+		"ExtraUrl": "AKA KaW, ☺, Inspector K, Oscillator X",
+		"ExtraUrlType" : 20,
+		"Songs" : [
+		"Clockwork Genesis",
+		"Dance All Night",
+		"Destiny",
+		"DJ Superstar",
+		"Dynamo",
+		"Esperanza",
+		"Euphoria",
+		"Incognito",
+		"Party People",
+		"Style On My Speed Dial",
+		"The Neon Underground",
+		"Xuxa",
+		]	
+	},
 		{
 		"Name" : "Qloudpatch",
 		"WebsiteUrl" : "https://qloudpatch.carrd.co",

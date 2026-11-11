@@ -111,12 +111,13 @@ public partial class ChartEditorNoteTransformer : MonoBehaviour
 
         if (notesAffected.Any(e => IsTopLaneNote(e)))
         {
-            _parent.DisplayMistake("Cannot expand the selected region to Expert difficulty. There are already notes that are not Expert or N.E.R.F. difficulty.");
+            _parent.DisplayMistake("Cannot expand the selected region to Expert difficulty. There are already notes that are on the top lane.");
             return;
         }
 
         int notesProcessed = 0;
 
+        var holdRegions = new List<HoldRegion>();
         foreach (var note in notesAffected)
         {
             if (note.IsEndNote)
@@ -133,10 +134,22 @@ public partial class ChartEditorNoteTransformer : MonoBehaviour
                     continue;
                 }
 
+                // Check if the destination is already occupied by a hold region. Destination is assumed to be top lane (since holdRegions only contains hold notes moved to top lane).
+                if (holdRegions.Any(e => e.IsInsideRegion(note)))
+                {
+                    continue;
+                }
+
                 TransformNote(note, _expandToExpertLookup);
                 if (note.EndNote != null)
                 {
                     TransformNote(note.EndNote, _expandToExpertLookup);
+                    holdRegions.Add(new HoldRegion
+                    {
+                        Start = note.Position,
+                        End = note.EndNote.Position,
+                        Lane = note.Lane
+                    });
                 }
             }
             notesProcessed++;
