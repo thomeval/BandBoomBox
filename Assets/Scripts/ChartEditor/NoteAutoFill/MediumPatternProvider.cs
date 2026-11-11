@@ -24,6 +24,9 @@ public class MediumPatternProvider : NoteAutoFillProviderBase
 
     public override List<NoteBase> Generate(double startPosition, double endPosition)
     {
+        _currentPatternIndex = 0;
+        _currentPattern = null;
+
         var result = new List<NoteBase>();
         CurrentPosition = startPosition;
         while (CurrentPosition < endPosition)
