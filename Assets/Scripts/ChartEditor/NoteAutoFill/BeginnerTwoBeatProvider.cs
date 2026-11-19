@@ -8,6 +8,7 @@ public class BeginnerTwoBeatProvider : NoteAutoFillProviderBase
 
     public override List<NoteBase> Generate(double startPosition, double endPosition)
     {
+        Reset();
         var result = new List<NoteBase>();
         CurrentPosition = startPosition;
 

@@ -15,8 +15,22 @@ public abstract class NoteAutoFillProviderBase
         }
     }
 
+    protected bool IsOneHandTapping(NoteType? leftNote, NoteType? rightNote)
+    {
+        if (!leftNote.HasValue || !rightNote.HasValue)
+        {
+            return false;
+        }
+
+        return NoteUtils.IsOneHandTapping(leftNote.Value, rightNote.Value);
+    }
+
     protected NoteType PickRandomType(NoteType[] noteTypes)
     {
         return noteTypes.PickRandom();
+    }
+
+    protected virtual void Reset()
+    {
     }
 }

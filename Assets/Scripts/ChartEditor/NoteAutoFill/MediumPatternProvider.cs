@@ -18,20 +18,25 @@ public class MediumPatternProvider : NoteAutoFillProviderBase
 
     private readonly float _stepSize = 1.0f;
     private string _currentPattern = null;
+    private NoteType? _lastSeenNote;
     private int _currentPatternIndex = 0;
 
-    public override string DisplayName => "Medium Pattern";
+    public override string DisplayName => "Medium 4ths Pattern";
 
     public override List<NoteBase> Generate(double startPosition, double endPosition)
     {
-        _currentPatternIndex = 0;
-        _currentPattern = null;
+        Reset();
 
         var result = new List<NoteBase>();
         CurrentPosition = startPosition;
         while (CurrentPosition < endPosition)
         {
             var nextNoteType = GetNextNoteType();
+
+            if (IsOneHandTapping(_lastSeenNote, nextNoteType))
+            {
+                nextNoteType = _lastSeenNote;
+            }
 
             if (nextNoteType.HasValue)
             {
@@ -42,6 +47,7 @@ public class MediumPatternProvider : NoteAutoFillProviderBase
                     Position = (float)CurrentPosition
                 };
                 result.Add(newNote);
+                _lastSeenNote = nextNoteType.Value;
             }
 
             CurrentPosition += _stepSize;
@@ -80,5 +86,12 @@ public class MediumPatternProvider : NoteAutoFillProviderBase
             { 'C', _noteLookups['C'].PickRandom() },
             { 'D', _noteLookups['D'].PickRandom() }
         };
+    }
+
+    protected override void Reset()
+    {
+        _currentPatternIndex = 0;
+        _currentPattern = null;
+        _lastSeenNote = null;
     }
 }

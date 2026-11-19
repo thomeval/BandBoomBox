@@ -169,6 +169,7 @@
     <Compile Include="Assets\Scripts\Notes\NoteGenerator.cs" />
     <Compile Include="Assets\BoostStatsDisplay.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\NoteAutoFill\NoteAutoFillProviderBase.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\NoteAutoFill\Mild4thsPatternProvider.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayMultiplierUtils.cs" />
     <Compile Include="Assets\Scripts\Common\StarMeter.cs" />
     <Compile Include="Assets\Scripts\Common\MenuMusic\MenuMusicEntry.cs" />
@@ -215,6 +216,7 @@
     <Compile Include="Assets\Scripts\NetPlay\NetSongChoiceRequest.cs" />
     <Compile Include="Assets\Scripts\ChartEditor\ChartEditorPlaybackManager.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayManager.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\NoteAutoFill\Hard4thsPatternProvider.cs" />
     <Compile Include="Assets\Scripts\NetPlay\NetSongSelectTurnResponse.cs" />
     <Compile Include="Assets\Scripts\Managers\ProfileManager.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorSectionListItem.cs" />

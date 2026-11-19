@@ -653,7 +653,8 @@ public class PlayerManager : MonoBehaviour
         {
             return false;
         }
-        if (AnyPlayerAutoPlayEnabled)
+        // Prevent players from boosting their high scores using Ally Boosts provided by Autoplay players.
+        if (player.ProfileData.AllyBoostMode != AllyBoostMode.Off && AnyPlayerAutoPlayEnabled)
         {
             return false;
         }

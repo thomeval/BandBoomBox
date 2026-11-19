@@ -16,7 +16,9 @@ public class NoteAutoFiller : MonoBehaviour
     public List<NoteAutoFillProviderBase> Providers = new()
     {
         new BeginnerTwoBeatProvider(),
-        new MediumPatternProvider()
+        new MediumPatternProvider(),
+        new Mild4thsPatternProvider(),
+        new Hard4thsPatternProvider()
     };
 
     public string GetProviderName(int idx)

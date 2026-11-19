@@ -41,6 +41,44 @@ public static class NoteUtils
     }
 
     /// <summary>
+    /// Returns the lane number for a given note type, according to One Hand Tapping rules. Note that according to these rules, LB and RB are considered as separate lanes. Lane numbers are as follows: 
+    /// -2 - Right side Triggers (RB, RT)
+    /// -1 - Left side Triggers (LB, LT)
+    /// 1 - Directions (Left, Up, Right, Down)
+    /// 2 - Buttons (A, B, X, Y)
+    /// </summary>
+    /// <param name="noteType">The note type to determine lane number for.</param>
+    /// <returns>The lane number for the given note type, specifically for One Hand Tapping rules.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    public static int GetNoteLaneForOHT(NoteType noteType)
+    {
+        switch (noteType)
+        {
+            case NoteType.LB:
+            case NoteType.LT:
+            case NoteType.AnyT:
+                return -1;
+            case NoteType.RB:
+            case NoteType.RT:
+                return -2;
+            case NoteType.Left:
+            case NoteType.Up:
+            case NoteType.Right:
+            case NoteType.Down:
+            case NoteType.AnyD:
+                return 1;
+            case NoteType.A:
+            case NoteType.B:
+            case NoteType.X:
+            case NoteType.Y:
+            case NoteType.AnyB:
+                return 2;
+            default:
+                throw new ArgumentException("Unrecognised note type: " + noteType);
+        }
+    }
+
+    /// <summary>
     /// Returns the lane number for a given note type, similar to GetNoteLane, but with top lane notes clamped to one of the remaining two lanes. Used for the Clamp Notes To Current Difficulty option in the Chart Editor. Lane numbers are as follows:
     /// 1 - Directions (Left, Up, Right, Down) and Left Triggers (LB, LT)
     /// 2 - Buttons (A, B, X, Y) and Right Triggers (RB, RT)
@@ -249,6 +287,15 @@ public static class NoteUtils
         }
     }
 
+    public static bool IsOneHandTapping(NoteType note1, NoteType note2)
+    {
+        if (note1 == note2)
+        {
+            // One Button Tapping - not the same as One Hand Tapping, and generally acceptable.
+            return false;
+        }
+        return GetNoteLaneForOHT(note1) == GetNoteLaneForOHT(note2);
+    }
 }
 
 public enum NoteType
