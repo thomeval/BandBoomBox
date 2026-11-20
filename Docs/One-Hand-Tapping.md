@@ -1,159 +1,129 @@
 # One Hand Tapping
 
-In Band BoomBox chart composition, **One Hand Tapping** refers to placing multiple consecutive notes within the same lane, forcing the player to hit a sequence of notes using only one hand while the other hand remains idle.
+In Band BoomBox chart composition, *One Hand Tapping* refers to placing multiple consecutive notes within the same lane, forcing the player to hit a sequence of notes using only one hand while the other hand remains idle. When composing custom charts, One Hand Tapping should generally be avoided. This page explains in detail what One Hand Tapping is, how to avoid it, as well as exceptions where it is considered acceptable.
+
+> Unless noted otherwise, everything written on this page is considered part of the Official Charting Standard (see [this page]() ), and should be followed when charting notes that use this standard. For custom charts not using this standard, feel free to experiment and treat the concepts here as suggestions instead.
 
 ---
 
 ## Overview
 
-Band BoomBox arranges notes across distinct input lanes on the note highway, corresponding to specific hands or button groups on a controller or keyboard:
+Band BoomBox arranges notes across three distinct input lanes on the note highway, corresponding to specific hands or button groups on a controller or keyboard:
 
-- **Top Lane (Trigger / Shoulder Lane):** Used on Expert, N.E.R.F., and optionally Extra difficulties for shoulder/trigger buttons (`LB`, `RB`, `LT`, `RT`).
-- **Middle Lane (Directional / D-Pad Lane):** Controlled with the left hand (`Left`, `Down`, `Up`, `Right`).
-- **Bottom Lane (Button / Face Button Lane):** Controlled with the right hand (`A`, `B`, `X`, `Y`).
+- 0: Top Lane (Trigger / Shoulder Lane)
+- 1: Middle Lane (Directional / D-Pad Lane)
+- 2: Bottom Lane (Button / Face Button Lane)
 
-When a chart places several notes in sequence on the same lane—such as `Left` &rarr; `Down` &rarr; `Right` on the middle lane, or `A` &rarr; `X` &rarr; `B` on the bottom lane—the player is forced to perform rapid single-handed inputs.
+![Note Lanes](Img/NoteLanes.jpg)
 
-```text
-Avoid (One Hand Tapping):
-  [Middle Lane]  (Left) ---> (Down) ---> (Right)
-  [Bottom Lane]  --------------------------------- (Idle)
+One Hand Tapping refers to a situation where a chart includes several notes in sequence on the same lane, for example:
 
-Recommended (Hand Alternation - 2-Lane):
-  [Middle Lane]  (Left) -------------> (Down)
-  [Bottom Lane]  ----------> (A) --------------> (B)
-```
+![Example 1](Img/OneHandTapping/OHT-Bad.jpg)
 
----
+This forces the player to make multiple quick movements with the same hand, which is uncomfortable to play, especially on controller and on higher difficulties. To alleviate this, the above note sequence should instead be adjusted so that it alternates between note lanes, like this:
 
-## Why One Hand Tapping Should Be Avoided
+![Example 2](Img/OneHandTapping/OHT-BadFixed.jpg)
 
-When composing charts, One Hand Tapping should generally be avoided for several important reasons:
-
-### 1. Ergonomics and Player Fatigue
-Standard game controllers rely on the player's thumbs to press the D-Pad and face buttons. Hitting consecutive notes on the same hand requires the thumb to quickly reposition and tap multiple distinct buttons in rapid succession. This leads to swift thumb fatigue, muscle strain, and physical awkwardness.
-
-### 2. Disrupted Rhythmic Flow
-Band BoomBox gameplay feels most dynamic and satisfying when players can alternate between hands (left-right-left-right) or engage both hands in a coordinated rhythm. Prolonged sequences on a single lane disrupt this natural cadence, leaving one hand completely passive while the other is overloaded.
-
-### 3. Readability and Execution Difficulty
-Fast single-lane sequences are harder for players to read and physically execute accurately on standard gamepads. Moving a single thumb across multiple directional buttons (for instance, jumping from `Left` across the D-Pad to `Right`) requires more travel time than alternating between hands.
-
-### 4. Artificial Difficulty
-Overusing consecutive same-lane notes introduces artificial, uncomfortable difficulty rooted in controller ergonomics rather than musical timing or rhythmic competence.
+**NOTE: There are several exceptions to this rule. See the Exceptions section below.**
 
 ---
 
-## Charting Best Practices: 2-Lane vs. 3-Lane Alternation
+## 2-Lanes vs. 3-Lanes
 
-When authoring charts, it is essential to keep in mind whether the chart uses **2 lanes** or **3 lanes**, as determined by the target difficulty:
+When authoring charts, it is essential to keep in mind whether the chart uses *2 lanes* or *3 lanes*, as determined by the target difficulty. One Hand Tapping should be avoided regardless, but the methods available to avoid it differ slightly between 2-Lane and 3-Lane charts.
 
 ### 2-Lane Difficulties (Beginner, Medium, Mild, Hard)
-- **Active Lanes:** Only the **Middle Lane** (Directions) and **Bottom Lane** (Buttons) are used.
-- **Alternation Pattern:** Notes should typically alternate back and forth between the middle and bottom lanes (e.g., Middle &rarr; Bottom &rarr; Middle &rarr; Bottom).
-- **Goal:** Keep both the left hand (D-pad) and right hand (face buttons) evenly engaged so that neither hand is overloaded with consecutive notes.
+On 2-Lane charts, only the Middle Lane (Directions) and Bottom Lane (Buttons) are used. Notes should typically alternate back and forth between the middle and bottom lanes. For example:
+
+![Example 5](Img/OneHandTapping/OHT-Good-2Lane.jpg)
+
 
 ### 3-Lane Difficulties (Expert, N.E.R.F.)
-- **Active Lanes:** All three lanes (**Top Lane**, **Middle Lane**, and **Bottom Lane**) are in use.
-- **Alternation Pattern:** Notes should alternate across all three lanes (e.g., Top &rarr; Middle &rarr; Bottom &rarr; Middle &rarr; Top).
-- **Goal:** Smoothly weave notes across triggers/shoulders, D-pad directions, and face buttons to create a balanced multi-finger/multi-hand flow without chaining multiple notes consecutively in any single lane.
+On 3-Lane charts, the Top Lane (Triggers), Middle Lane (Directions) and Bottom Lane (Buttons) are all used. Notes should be placed on all three of these lanes, avoiding placing more than one consecutive note on the same lane. That said, the amount of notes on each lane don't have to be equal. For example:
 
-```text
-Recommended (Hand / Lane Alternation - 3-Lane):
-  [Top Lane]     (LB) -----------------------------> (RB)
-  [Middle Lane]  ----------> (Left) -------------> (Down)
-  [Bottom Lane]  ---------------------> (A) -------------->
-```
+![Example 6](Img/OneHandTapping/OHT-Good-3Lane.jpg)
 
 ### Extra Difficulty
-- **Active Lanes:** Can be charted as **either 2-lane or 3-lane**, depending on the chart author's design.
-- **Alternation Pattern:** Follow the 2-lane or 3-lane alternation guidelines above based on which lane layout is chosen for the chart.
+When charting an Extra difficulty chart, following the Official Charting Standard (OCS) is **completely optional**, meaning that One Hand Tapping rules can be ignored entirely. However, chart authors can still opt in to these rules if they wish. In such cases, the chart should follow either the 2-Lane or 3-Lane ruleset, depending on how many lanes the chart ends up using.
 
 ---
 
-## General Charting Guidelines
+### Holds
 
-- **Promote Lane Alternation:** Always design note patterns that move between available lanes rather than clustering in one lane.
-- **Distribute Note Density Evenly:** Ensure that all active lanes share the workload over the duration of a song section.
-- **Support Natural Movement:** When designing rapid note patterns, prioritize patterns that feel intuitive and comfortable on standard controllers and keyboard layouts.
+[Todo]
+
+All three of these examples are correct:
+
+![Example 7](Img/OneHandTapping/OHT-Hold-Example1.jpg) <br/>
+
+![Example 8](Img/OneHandTapping/OHT-Hold-Example2.jpg) <br/>
+
+![Example 9](Img/OneHandTapping/OHT-Hold-Example3.jpg) <br/>
+*This last example uses One Hand Tapping. See the Exceptions section below.*
 
 ---
 
 ## Exceptions
 
-While One Hand Tapping (consecutive *different* notes in the same lane) should generally be avoided in standard chart composition, there are specific exceptions to this rule where single-lane patterns are acceptable or encouraged:
+While One Hand Tapping (consecutive *different* notes in the same lane) should generally be avoided when composing a standard chart, there are specific exceptions to this rule where single-lane patterns are acceptable or even encouraged:
 
 ### 1. One Button Tapping (Repeated Notes)
 
-**One Button Tapping** refers to patterns where the **exact same note** is repeated multiple times in succession (for example: `A` &rarr; `A` &rarr; `A`, or `Down` &rarr; `Down` &rarr; `Down`).
+**One Button Tapping** refers to patterns where the **exact same note** is repeated multiple times in succession. For example:
 
-```text
-Allowed (One Button Tapping):
-  [Bottom Lane]  (A) ---> (A) ---> (A)
-```
+![Example 10](Img/OneHandTapping/OHT-Basic.jpg)
 
-- **Why It Is Allowed:** Unlike One Hand Tapping across multiple different buttons, repeating the same note does not require the player's thumb to jump or reposition across the controller. The player can comfortably maintain their thumb on the exact same button and tap along with the rhythm.
-- **Encouraged on Lower Difficulties:** One Button Tapping is especially encouraged on lower difficulty levels (such as **Beginner** and **Medium**), which utilize a limited set of buttons. This enables newer players to develop rhythmic timing without being overwhelmed by rapid button transitions.
+Unlike One Hand Tapping across multiple different buttons, repeating the same note does not require the player's thumb to reposition across the controller. The player can comfortably maintain their thumb on the exact same button and tap along with the rhythm. One Button Tapping is especially useful on lower difficulty levels such as Medium, which utilize a limited set of buttons. This allows for a greater variety of note patterns, while also being relatively simple for novice players to play.
 
-### 2. Double Notes (Simultaneous Notes)
+![Example 11](Img/OneHandTapping/OHT-Medium.jpg)
 
-A **Double Note** occurs when two notes appear on different lanes at the exact same moment (e.g., hitting a Middle lane direction and a Bottom lane button simultaneously, such as `Down` + `A`, or a Top lane shoulder button and a Bottom lane button, such as `LB` + `A`).
+For higher difficulties, One Button Tapping works well and is recommended in cases where a song repeats the same musical note or percussion sound multiple times:
+
+![Example 12](Img/OneHandTapping/OHT-Expert.jpg)
+
+A good guideline is to have no more than four identical notes in a row. After the fourth note, switch to a different lane, regardless of how many times the same musical note is repeated:
+
+![Example 13](Img/OneHandTapping/OHT-4xNoteLimit.jpg)
+
+### 2. Double Notes
+
+A *Double Note* occurs when two notes appear on different lanes at the exact same moment:
+
+![Example 14](Img/OneHandTapping/OHT-Double-Basic.jpg)
 
 Handling the notes directly preceding and following a double note depends on whether the chart uses 2 lanes or 3 lanes:
 
-#### In 2-Lane Charts (Beginner, Medium, Mild, Hard):
-- **Unavoidable Single-Lane Overlap:** A double note occupies both available lanes simultaneously. Consequently, regardless of which lane is chosen for the note directly before or after the double note, it will inevitably share a lane with one of the notes in the double note pair, making a same-lane transition unavoidable.
-- **Rule Flexibility:** Because of this structural constraint in 2-lane charts, the note directly before and directly after a double note **can be placed on any lane**.
-- **Lower Difficulty Recommendation:** On lower difficulty levels, using **One Button Tapping** in conjunction with the double note (such as using the exact same button directly before or after the double hit) is recommended to keep the pattern intuitive and minimize physical difficulty.
+#### In 2-Lane Charts
 
-```text
-Double Note in a 2-Lane Chart:
-  [Middle Lane]  (Down) -----------------> (Down)
-  [Bottom Lane]  ------------> [A   ] ---> (A)
-                               [Down]
-                               (Double Note)
-```
+A double note occupies both available lanes simultaneously. Consequently, regardless of which lane is chosen for the note directly before or after the double note, it will inevitably share a lane with one of the notes in the double note pair, making a same-lane transition unavoidable. Because of this structural constraint in 2-lane charts, the note directly before and directly after a double note *can be placed on any lane*. On lower difficulty levels, using *One Button Tapping* in conjunction with the double note is recommended (though not required), to keep the pattern intuitive and minimize difficulty spikes.
 
-#### In 3-Lane Charts (Expert, N.E.R.F., 3-Lane Extra):
-- **Utilize the Free Lane:** Because three lanes are available and a double note only occupies two of them, a third lane is left free.
-- **Placement Guideline:** The note preceding or following the double note should ideally be in the **lane that is not part of the double note** (e.g., if the double note occupies the Top and Bottom lanes with `LB` + `A`, the adjacent notes should be placed in the Middle lane).
-- **Alleviation with One Button Tapping:** If an adjacent note must be placed on one of the lanes used by the double note, use **One Button Tapping** (matching the exact same note/button from the double note) to alleviate hand strain and avoid awkward same-lane button shifts.
+![Example 15](Img/OneHandTapping/OHT-Double-2Lane.jpg)
 
-```text
-Recommended (3-Lane with Free Lane):
-  [Top Lane]     ----------------> [LB  ] -----------------
-  [Middle Lane]  (Left) ---------> [    ] ---------> (Down)
-  [Bottom Lane]  ----------------> [A   ] -----------------
-                                   (Double Note)
+#### In 3-Lane Charts
+Because three lanes are available and a double note only occupies two of them, a third lane is left free. The note preceding or following the double note should ideally be in the *lane that is not part of the double note* the adjacent notes should be placed in the Middle lane. Alternatively, consider using *One Hand Tapping* to alleviate difficulty spikes where it makes sense.
 
-Acceptable (3-Lane with One Button Tapping):
-  [Top Lane]     ----------------> [LB  ] -----------------
-  [Middle Lane]  ----------------> [    ] -----------------
-  [Bottom Lane]  (A) ------------> [A   ] ---------> (A)
-                                   (Double Note)
-```
+![Example 16](Img/OneHandTapping/OHT-Double-3Lane.jpg) <br/>
+
 
 ### 3. Active Hold Notes (Held Lanes)
 
 When a chart requires the player to sustain a **Hold Note** in one lane, the corresponding hand/finger is occupied holding down that input. Note placement rules during active holds depend on the chart's lane count:
 
-#### In 2-Lane Charts (Beginner, Medium, Mild, Hard):
-- **Acceptable One Hand Tapping:** When one lane is occupied by an active hold note, there is no room to place additional notes in that lane. Consequently, One Hand Tapping is **acceptable on the remaining free lane**.
-- **Lower Density Requirement:** Because one hand is pinned holding a button, notes charted on the free lane during the hold should have a **lower note density** (slower tempo / spaced further apart) to avoid excessive fatigue and strain on the tapping hand.
+#### In 2-Lane Charts:
+When one lane is occupied by an active hold note, there is no room to place additional notes in that lane. Consequently, One Hand Tapping is acceptable on the remaining free lane. However, because one hand is pinned holding a button, notes charted on the free lane during the hold should have a lower note density to compensate for this.
 
-```text
-Acceptable (2-Lane Hold Pattern - Lower Density):
-  [Middle Lane]  [Hold Start]==============================[Release]
-  [Bottom Lane]  ------------> (A) -----------> (B) ------->
-```
+![Example 17](Img/OneHandTapping/OHT-Hold-2Lane.jpg)
 
 #### In 3-Lane Charts (Expert, N.E.R.F., 3-Lane Extra):
-- **One Lane Held Down:** If only one lane is being held down, notes should **alternate between the other two free lanes** (e.g., if the Top Lane is held, notes should alternate between the Middle and Bottom lanes).
-- **Two Lanes Held Down:** If two lanes are held down simultaneously, One Hand Tapping is **acceptable on the single remaining free lane**, maintaining a lower, comfortable note density.
+If only one lane is being held down, notes should alternate between the other two free lanes:
 
-```text
-Recommended (3-Lane with 1 Lane Held):
-  [Top Lane]     [Hold Start]==============================[Release]
-  [Middle Lane]  -------------> (Left) ------------> (Down)
-  [Bottom Lane]  (A) --------------------> (B) ------------>
-```
+![Example 18](Img/OneHandTapping/OHT-Hold-3Lane.jpg)
+
+If two lanes are held down simultaneously, One Hand Tapping is acceptable on the single remaining free lane, while maintaining a lower, comfortable note density.
+
+![Example 19](Img/OneHandTapping/OHT-Hold-3Lane2.jpg)
+
+
+### 4. LB/LT/RB/RT notes
+
+TODO
