@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 namespace Assets.Scripts.Editor.Pages
 {
@@ -13,9 +10,8 @@ namespace Assets.Scripts.Editor.Pages
         }
 
         public Button DefaultButton;
-        void Awake()
-        {
-        }
+
+        public string WikiUrl = "https://github.com/thomeval/BandBoomBox/wiki";
 
         void OnEnable()
         {
@@ -42,6 +38,11 @@ namespace Assets.Scripts.Editor.Pages
         public void BtnOpenMainSongsFolder_OnClick()
         {
             Helpers.OpenFolderWindow(Parent.SongsHomePath);
+        }
+
+        public void BtnOpenWiki_OnClick()
+        {
+            System.Diagnostics.Process.Start(WikiUrl);
         }
 
         public override void HandleInput (InputEvent inputEvent)
