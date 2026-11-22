@@ -33,44 +33,44 @@ To download the game, simply head to the Releases list, displayed on the right o
 
 ## Controls
 ### Keyboard
-![Keyboard-Layout-Bg](https://github.com/thomeval/BandBoomBox/assets/11618454/0586b62a-4efe-4a85-a3bc-97dea9e24aab)
+![Keyboard-Layout-Bg](Docs/Img/Keyboard-Layout.png)
 
 <table>
 <tr>
-    <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-A.png" height="50"/> </td>
+    <td><img src="Docs/Img/Notes/NoteIcon-A.png" height="50"/> </td>
   <td>S</td>
-      <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Down.png" height="50"/> </td>
+      <td><img src="Docs/Img/Notes/NoteIcon-Down.png" height="50"/> </td>
     <td>Down / Numpad 2</td>
   <td colspan="2">(Expert Difficulty Only)</td>
 </tr>
   <tr>
-    <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-B.png" height="50"/> </td>
+    <td><img src="Docs/Img/Notes/NoteIcon-B.png" height="50"/> </td>
       <td>D</td>
-        <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Right.png" height="50"/> </td>
+        <td><img src="Docs/Img/Notes/NoteIcon-Right.png" height="50"/> </td>
            <td>Right / Numpad 6</td>
-          <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-LB.png" height="50"/> </td>
+          <td><img src="Docs/Img/Notes/NoteIcon-LB.png" height="50"/> </td>
     <td>Q</td>
 
   </tr>
   <tr>
-    <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-X.png" height="50"/> </td>
+    <td><img src="Docs/Img/Notes/NoteIcon-X.png" height="50"/> </td>
       <td>A</td>
-        <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Left.png" height="50"/> </td>
+        <td><img src="Docs/Img/Notes/NoteIcon-Left.png" height="50"/> </td>
       <td>Left / Numpad 4</td>
-            <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-RB.png" height="50"/> </td>
+            <td><img src="Docs/Img/Notes/NoteIcon-RB.png" height="50"/> </td>
       <td>Numpad 7</td>
   </tr>
   <tr>
-        <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Y.png" height="50"/> </td>
+        <td><img src="Docs/Img/Notes/NoteIcon-Y.png" height="50"/> </td>
       <td>W</td>
-        <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-Up.png" height="50"/> </td>
+        <td><img src="Docs/Img/Notes/NoteIcon-Up.png" height="50"/> </td>
       <td>Up / Numpad 8</td>
   </tr>
 
 <tr>
-      <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-AnyB.png" height="50"/> </td>
+      <td><img src="Docs/Img/Notes/NoteIcon-AnyB.png" height="50"/> </td>
     <td>Any of the above</td>
-      <td><img src="https://github.com/thomeval/BandBoomBox/blob/master/Wiki/NoteIcon-AnyD.png" height="50"/> </td>
+      <td><img src="Docs/Img/Notes/NoteIcon-AnyD.png" height="50"/> </td>
     <td>Any of the above</td>
 </tr>
 <tr>
@@ -82,7 +82,7 @@ To download the game, simply head to the Releases list, displayed on the right o
 </table>
 
 ### Controller
-![Controller-LayoutDiagram-Bg](https://github.com/thomeval/BandBoomBox/assets/11618454/ca4d5b13-bbf6-475e-a504-61fef24b1aae)
+![Controller Layout Diagram](Docs/Img/Controller-LayoutDiagram.png)
 
 ## Contributing
 Contributions to fix bugs or add features are welcome! If you are interested in contributing to the game itself, please fork the project's git repository, and submit your contributions as a Pull Request on Github. For details on how to set up a development environment that can compile the game, please see [this page](https://github.com/thomeval/BandBoomBox/wiki/Development).
