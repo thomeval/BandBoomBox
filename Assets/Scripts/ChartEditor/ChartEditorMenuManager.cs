@@ -31,7 +31,7 @@ public class ChartEditorMenuManager : MonoBehaviour
         private set { _activeMenu = value; }
     }
 
-    private bool _pasteInverted = false;
+    private EditorPasteMode _editorPasteMode = EditorPasteMode.Normal;
     private int _selectedAutoFillProvider = 0;
 
     private readonly ChartEditorState[] _handledStates = new[]
@@ -152,8 +152,8 @@ public class ChartEditorMenuManager : MonoBehaviour
         switch (args.SelectedItem)
         {
             case "Paste":
-                _pasteInverted = !_pasteInverted;
-                MivPasteMode.text = _pasteInverted ? "Inverted" : "Normal";
+                _editorPasteMode = Helpers.EnumAdd(_editorPasteMode, args.ShiftAmount, true);
+                MivPasteMode.text = _editorPasteMode.ToString();
                 break;
         }
     }
@@ -262,14 +262,7 @@ public class ChartEditorMenuManager : MonoBehaviour
                 break;
             case "Paste":
                 _parent.ChartEditorState = ChartEditorState.Edit;
-                if (_pasteInverted)
-                {
-                    _parent.Clipboard.OnPlayerInput(InputAction.Editor_PasteInverted);
-                }
-                else
-                {
-                    _parent.Clipboard.OnPlayerInput(InputAction.Editor_Paste);
-                }
+                _parent.Clipboard.Paste(_parent.CursorPosition, _editorPasteMode);
                 _parent.RefreshNoteCounts();
                 break;
             case "Save":
@@ -370,3 +363,4 @@ public class ChartEditorMenuManager : MonoBehaviour
         _parent.PlaySfx(SoundEvent.SelectionConfirmed);
     }
 }
+

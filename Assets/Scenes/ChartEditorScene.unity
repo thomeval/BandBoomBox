@@ -8859,7 +8859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1023008116
 Transform:
   m_ObjectHideFlags: 0
@@ -15023,7 +15023,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5f11aeaafe80331429f90cce368c9efd, type: 3}
-    m_FontSize: 32
+    m_FontSize: 30
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
@@ -15059,8 +15059,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 225, y: 0}
-  m_SizeDelta: {x: 150, y: 0}
+  m_AnchoredPosition: {x: 205, y: 0}
+  m_SizeDelta: {x: 220, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1688903212
 GameObject:
@@ -18166,12 +18166,32 @@ PrefabInstance:
     m_TransformParent: {fileID: 1023008116}
     m_Modifications:
     - target: {fileID: 806329157485359590, guid: 512378adc8e68f540b09378e9117109b, type: 3}
+      propertyPath: m_Size.x
+      value: 750
+      objectReference: {fileID: 0}
+    - target: {fileID: 806329157485359590, guid: 512378adc8e68f540b09378e9117109b, type: 3}
       propertyPath: m_SortingLayer
-      value: 13
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 806329157485359590, guid: 512378adc8e68f540b09378e9117109b, type: 3}
       propertyPath: m_SortingLayerID
       value: 1505279245
+      objectReference: {fileID: 0}
+    - target: {fileID: 806329157485359591, guid: 512378adc8e68f540b09378e9117109b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 806329157485359591, guid: 512378adc8e68f540b09378e9117109b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 806329157485359591, guid: 512378adc8e68f540b09378e9117109b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 806329157485359591, guid: 512378adc8e68f540b09378e9117109b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 295
       objectReference: {fileID: 0}
     - target: {fileID: 1923562749500750276, guid: 512378adc8e68f540b09378e9117109b, type: 3}
       propertyPath: m_Pivot.x

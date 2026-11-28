@@ -39,10 +39,22 @@ public partial class ChartEditorNoteTransformer : MonoBehaviour
         TransformNotesInCurrentRegion(lookup);
     }
 
+    public NoteType SwapHands(NoteType noteType)
+    {
+        var lookup = GetSwapHandsLookup(_parent.CurrentChart.Difficulty);
+        return lookup[noteType];
+    }
+    
     public void SwapHands()
     {
         var lookup = GetSwapHandsLookup(_parent.CurrentChart.Difficulty);
         TransformNotesInCurrentRegion(lookup);
+    }
+
+    public NoteType Rotate90(NoteType noteType)
+    {
+        var lookup = GetRotate90Lookup(_parent.CurrentChart.Difficulty);
+        return lookup[noteType];
     }
 
     public void Rotate90()

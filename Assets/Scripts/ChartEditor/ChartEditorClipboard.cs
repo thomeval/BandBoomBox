@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -58,7 +59,7 @@ public class ChartEditorClipboard : MonoBehaviour
         _parent.PlaySfx(SoundEvent.Editor_Copy);
     }
 
-    public void Paste(double position, bool invert)
+    public void Paste(double position, EditorPasteMode pasteMode)
     {
         if (!ClipboardNotes.Any())
         {
@@ -78,7 +79,7 @@ public class ChartEditorClipboard : MonoBehaviour
                 continue;
             }
 
-            var noteType = invert ? _parent.NoteTransformer.Invert(note.NoteType) : note.NoteType;
+            var noteType = GetTransformedNote(note, pasteMode);
             var newNote = _parent.NoteGenerator.InstantiateNote((float)destPosition, noteType, note.NoteClass);
 
             newNote.name = newNote.Description + " (Pasted)";
@@ -90,10 +91,27 @@ public class ChartEditorClipboard : MonoBehaviour
         _parent.ResolveHoldsWithReleases();
         _parent.NoteManager.CalculateAbsoluteTimes(_parent.CurrentSongData.Bpm);
 
-        var invertStr = invert ? "(inverted)" : "";
-        _parent.DisplayMessage($"Pasted {notesPasted} notes {invertStr}.");
+        _parent.DisplayMessage($"Pasted {notesPasted} notes ({pasteMode}).");
         _parent.PlaySfx(SoundEvent.Editor_Paste);
         _parent.RefreshNoteCounts();
+    }
+
+    private NoteType GetTransformedNote(NoteBase note, EditorPasteMode pasteMode)
+    {
+
+        switch (pasteMode)
+        {
+            case EditorPasteMode.Normal:
+                return note.NoteType;
+            case EditorPasteMode.Inverted:
+                return _parent.NoteTransformer.Invert(note.NoteType);
+            case EditorPasteMode.SwappedHands:
+                return _parent.NoteTransformer.SwapHands(note.NoteType);
+                case EditorPasteMode.Rotated:
+                return _parent.NoteTransformer.Rotate90(note.NoteType);
+            default:
+                return note.NoteType;
+        }
     }
 
     public void Clear()
@@ -135,10 +153,10 @@ public class ChartEditorClipboard : MonoBehaviour
                 Copy(_parent.SelectedRegionStart!.Value, _parent.SelectedRegionEnd!.Value);
                 break;
             case InputAction.Editor_Paste:
-                Paste(_parent.CursorPosition, false);
+                Paste(_parent.CursorPosition, EditorPasteMode.Normal);
                 break;
             case InputAction.Editor_PasteInverted:
-                Paste(_parent.CursorPosition, true);
+                Paste(_parent.CursorPosition, EditorPasteMode.Inverted);
                 break;
         }
     }

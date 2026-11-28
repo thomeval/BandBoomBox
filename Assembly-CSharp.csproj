@@ -256,6 +256,7 @@
     <Compile Include="Assets\PlayerHighScoreListDisplay.cs" />
     <Compile Include="Assets\Scripts\Ending\SecretCodeListEntry.cs" />
     <Compile Include="Assets\Scripts\SongEditor\EditorPage.cs" />
+    <Compile Include="Assets\Scripts\ChartEditor\EditorPasteMode.cs" />
     <Compile Include="Assets\Scripts\NetPlay\PlayerDto.cs" />
     <Compile Include="Assets\Scripts\Gameplay\TimingDisplayType.cs" />
     <Compile Include="Assets\Scripts\Evaluation\EvaluationNetworkPlayerListItem.cs" />
